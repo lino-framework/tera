@@ -1,0 +1,103 @@
+# -*- coding: UTF-8 -*-
+# Copyright 2014-2017 Luc Saffre
+# License: BSD (see file COPYING for details)
+"""
+Base Django settings for Lino Tera applications.
+
+"""
+
+from __future__ import print_function
+from __future__ import unicode_literals
+
+from lino.projects.std.settings import *
+from lino.api.ad import _
+from lino_tera import SETUP_INFO
+
+class Site(Site):
+
+    verbose_name = "Lino Tera"
+    version = SETUP_INFO['version']
+    url = "http://tera.lino-framework.org/"
+
+    demo_fixtures = ['std', 'demo', 'demo2']
+                     # 'linotickets',
+                     # 'tractickets', 'luc']
+
+    # project_model = 'tickets.Project'
+    # project_model = 'deploy.Milestone'
+    textfield_format = 'html'
+    user_types_module = 'lino_tera.lib.tera.user_types'
+    workflows_module = 'lino_tera.lib.tera.workflows'
+    obj2text_template = "**{0}**"
+
+    default_build_method = 'appyodt'
+    
+    # experimental use of rest_framework:
+    # root_urlconf = 'lino_book.projects.team.urls'
+    
+    # migration_class = 'lino_tera.lib.tera.migrate.Migrator'
+
+    auto_configure_logger_names = "atelier django lino lino_xl lino_noi"
+
+    def get_installed_apps(self):
+        yield super(Site, self).get_installed_apps()
+        yield 'lino.modlib.gfks'
+        # yield 'lino.modlib.users'
+        yield 'lino_tera.lib.users'
+        yield 'lino_xl.lib.countries'
+        yield 'lino_xl.lib.properties'
+        yield 'lino_tera.lib.contacts'
+        yield 'lino_xl.lib.households'
+        yield 'lino_tera.lib.lists'
+        yield 'lino_xl.lib.addresses'
+        yield 'lino_xl.lib.humanlinks',
+        # yield 'lino_xl.lib.products'
+        # yield 'lino_noi.lib.products'
+        # yield 'lino_xl.lib.accounts'
+        yield 'lino_xl.lib.sales'
+        # yield 'lino_xl.lib.vat'
+        yield 'lino_xl.lib.sepa'
+        yield 'lino_xl.lib.finan'
+        yield 'lino_xl.lib.invoicing'
+        # 'lino_xl.lib.projects',
+        yield 'lino_xl.lib.blogs'
+        yield 'lino_xl.lib.notes'
+        # yield 'lino_presto.lib.tickets'
+        yield 'lino_xl.lib.faculties'
+        # yield 'lino_xl.lib.votes'
+        yield 'lino_tera.lib.clocking'
+        # yield 'lino_xl.lib.deploy'
+        # yield 'lino_presto.lib.clocking'
+        # yield 'lino.modlib.uploads'
+        yield 'lino_xl.lib.extensible'
+        yield 'lino_xl.lib.cal'
+        # yield 'lino_xl.lib.outbox'
+        yield 'lino_xl.lib.excerpts'
+        yield 'lino_xl.lib.appypod'
+        # yield 'lino_xl.lib.postings'
+        # yield 'lino_xl.lib.pages'
+
+        yield 'lino.modlib.export_excel'
+        yield 'lino.modlib.plausibility'
+        yield 'lino.modlib.tinymce'
+        # yield 'lino.modlib.wkhtmltopdf'
+        yield 'lino.modlib.weasyprint'
+
+        yield 'lino_tera.lib.tera'
+        yield 'lino_tera.lib.teams'
+
+    def setup_plugins(self):
+        super(Site, self).setup_plugins()
+        self.plugins.countries.configure(country_code='BE')
+        self.plugins.clocking.configure(ticket_model='contacts.Partner')
+        self.plugins.faculties.configure(demander_model='contacts.Partner')
+
+
+# the following line should not be active in a checked-in version
+#~ DATABASES['default']['NAME'] = ':memory:'
+
+USE_TZ = True
+# TIME_ZONE = 'Europe/Brussels'
+# TIME_ZONE = 'Europe/Tallinn'
+TIME_ZONE = 'UTC'
+
