@@ -1,6 +1,6 @@
-==========================
+=========================
 The ``lino-tera`` package
-==========================
+=========================
 
 
 
@@ -8,19 +8,19 @@ The ``lino-tera`` package
     :alt: Documentation Status
     :target: http://lino.readthedocs.io/en/latest/?badge=latest
 
-.. image:: https://coveralls.io/repos/github/lino-framework/noi/badge.svg?branch=master
-    :target: https://coveralls.io/github/lino-framework/noi?branch=master
+.. image:: https://coveralls.io/repos/github/lino-framework/tera/badge.svg?branch=master
+    :target: https://coveralls.io/github/lino-framework/tera?branch=master
 
-.. image:: https://travis-ci.org/lino-framework/noi.svg?branch=stable
-    :target: https://travis-ci.org/lino-framework/noi?branch=stable
+.. image:: https://travis-ci.org/lino-framework/tera.svg?branch=stable
+    :target: https://travis-ci.org/lino-framework/tera?branch=stable
 
-.. image:: https://img.shields.io/pypi/v/lino-noi.svg
-    :target: https://pypi.python.org/pypi/lino-noi/
+.. image:: https://img.shields.io/pypi/v/lino-tera.svg
+    :target: https://pypi.python.org/pypi/lino-tera/
 
-.. image:: https://img.shields.io/pypi/l/lino-noi.svg
-    :target: https://pypi.python.org/pypi/lino-noi/
+.. image:: https://img.shields.io/pypi/l/lino-tera.svg
+    :target: https://pypi.python.org/pypi/lino-tera/
 
-Lino Tera is a customizable contact management system for villages.
+Lino Tera is a customizable management system for therapeutic centres.
 
 - The central project homepage is http://tera.lino-framework.org
 

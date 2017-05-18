@@ -24,7 +24,7 @@ class Site(Site):
                      # 'tractickets', 'luc']
 
     # project_model = 'tickets.Project'
-    # project_model = 'deploy.Milestone'
+    project_model = 'contacts.Partner'
     textfield_format = 'html'
     user_types_module = 'lino_tera.lib.tera.user_types'
     workflows_module = 'lino_tera.lib.tera.workflows'
@@ -89,8 +89,8 @@ class Site(Site):
     def setup_plugins(self):
         super(Site, self).setup_plugins()
         self.plugins.countries.configure(country_code='BE')
-        self.plugins.clocking.configure(ticket_model='contacts.Partner')
-        self.plugins.faculties.configure(demander_model='contacts.Partner')
+        self.plugins.clocking.configure(ticket_model='contacts.Person')
+        self.plugins.faculties.configure(demander_model='contacts.Person')
 
 
 # the following line should not be active in a checked-in version
