@@ -23,8 +23,8 @@ class Site(Site):
                      # 'linotickets',
                      # 'tractickets', 'luc']
 
-    # project_model = 'tickets.Project'
-    project_model = 'contacts.Partner'
+    project_model = 'tera.Client'
+    # project_model = 'contacts.Partner'
     textfield_format = 'html'
     user_types_module = 'lino_tera.lib.tera.user_types'
     workflows_module = 'lino_tera.lib.tera.workflows'
@@ -48,9 +48,13 @@ class Site(Site):
         yield 'lino_xl.lib.properties'
         yield 'lino_tera.lib.contacts'
         yield 'lino_xl.lib.households'
+        yield 'lino_xl.lib.coachings'
         yield 'lino_tera.lib.lists'
+        yield 'lino_xl.lib.beid'
         yield 'lino_xl.lib.addresses'
         yield 'lino_xl.lib.humanlinks',
+        # yield 'lino_xl.lib.products'
+        yield 'lino_xl.lib.courses'
         # yield 'lino_xl.lib.products'
         # yield 'lino_noi.lib.products'
         # yield 'lino_xl.lib.accounts'
@@ -62,10 +66,10 @@ class Site(Site):
         # 'lino_xl.lib.projects',
         yield 'lino_xl.lib.blogs'
         yield 'lino_xl.lib.notes'
-        # yield 'lino_presto.lib.tickets'
+        # yield 'lino_tera.lib.tickets'
         yield 'lino_xl.lib.faculties'
         # yield 'lino_xl.lib.votes'
-        yield 'lino_tera.lib.clocking'
+        # yield 'lino_tera.lib.clocking'
         # yield 'lino_xl.lib.deploy'
         # yield 'lino_presto.lib.clocking'
         # yield 'lino.modlib.uploads'
@@ -89,8 +93,14 @@ class Site(Site):
     def setup_plugins(self):
         super(Site, self).setup_plugins()
         self.plugins.countries.configure(country_code='BE')
-        self.plugins.clocking.configure(ticket_model='contacts.Person')
+        # self.plugins.clocking.configure(ticket_model='contacts.Person')
         self.plugins.faculties.configure(demander_model='contacts.Person')
+        self.plugins.coachings.configure(
+            client_model='tera.Client')
+        self.plugins.countries.configure(hide_region=True)
+        self.plugins.countries.configure(country_code='BE')
+        self.plugins.ledger.configure(start_year=2015)
+        self.plugins.ledger.configure(use_pcmn=True)
 
 
 # the following line should not be active in a checked-in version
