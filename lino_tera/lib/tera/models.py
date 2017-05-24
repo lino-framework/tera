@@ -210,7 +210,7 @@ dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
 class ClientDetail(dd.DetailLayout):
 
     main = "general person contact courses_tab family \
-    notes trends #polls #courses misc "
+    notes #trends #polls #courses misc "
 
     general = dd.Panel("""
     overview:30 general2:40 image:15
@@ -250,7 +250,7 @@ class ClientDetail(dd.DetailLayout):
     first_name middle_name last_name #declared_name
     nationality:15 birth_country birth_place 
     card_type #card_number card_issuer card_valid_from card_valid_until
-    coachings.ContactsByClient uploads.UploadsByClient
+    coachings.ContactsByClient #uploads.UploadsByClient
     """, label=_("Person"))
 
     courses_tab = dd.Panel("""
@@ -281,7 +281,7 @@ class ClientDetail(dd.DetailLayout):
 
     notes = dd.Panel("""
     #notes.NotesByProject
-    comments.CommentsByRFC cal.TasksByProject
+    #comments.CommentsByRFC cal.TasksByProject
     #coachings.CoachingsByClient 
     """, label = _("Notes"))
 
@@ -289,9 +289,9 @@ class ClientDetail(dd.DetailLayout):
     # courses.EnrolmentsByPupil
     # """, label = _("Courses"))
 
-    trends = dd.Panel("""
-    trends.EventsBySubject polls.ResponsesByPartner
-    """, label = _("Trends"))
+    # trends = dd.Panel("""
+    # trends.EventsBySubject polls.ResponsesByPartner
+    # """, label = _("Trends"))
 
     # polls = dd.Panel("""
     # polls.ResponsesByPartner
