@@ -51,7 +51,7 @@ class Site(Site):
         yield 'lino_xl.lib.coachings'
         yield 'lino_tera.lib.lists'
         yield 'lino_xl.lib.beid'
-        yield 'lino_xl.lib.addresses'
+        # yield 'lino_xl.lib.addresses'
         yield 'lino_xl.lib.humanlinks',
         # yield 'lino_xl.lib.products'
         yield 'lino_xl.lib.courses'

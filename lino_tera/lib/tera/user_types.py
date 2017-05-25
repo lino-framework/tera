@@ -22,7 +22,7 @@ This is used as the :attr:`user_types_module
 from lino.api import _
 from lino.modlib.users.choicelists import UserTypes
 from lino.core.roles import UserRole, SiteAdmin
-from lino_xl.lib.contacts.roles import ContactsUser
+from lino_xl.lib.contacts.roles import ContactsUser, ContactsStaff
 from lino_xl.lib.products.roles import ProductsUser, ProductsStaff
 from lino_xl.lib.excerpts.roles import ExcerptsUser, ExcerptsStaff
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
@@ -30,20 +30,22 @@ from lino_xl.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_xl.lib.sepa.roles import SepaUser, SepaStaff
 from lino_xl.lib.tickets.roles import Triager
 from lino_xl.lib.clocking.roles import Worker
+from .roles import ClientsNameUser, ClientsUser
 
 
-class Secretary(ContactsUser, OfficeUser, LedgerUser, SepaUser,
-                ExcerptsUser, ProductsStaff):
+class Secretary(ContactsUser, ClientsNameUser, OfficeUser, LedgerUser,
+                SepaUser, ExcerptsUser, ProductsStaff):
     pass
 
 
-class Consultant(ContactsUser, OfficeUser, LedgerUser, SepaUser,
-                 Worker, ExcerptsUser, ProductsUser):
+class Consultant(ContactsUser, ClientsUser, OfficeUser, LedgerUser,
+                 SepaUser, Worker, ExcerptsUser, ProductsUser):
     pass
 
 
-class SiteAdmin(SiteAdmin, OfficeStaff, LedgerStaff, SepaStaff,
-                Worker, Triager, ExcerptsStaff, ProductsStaff):
+class SiteAdmin(SiteAdmin, ClientsUser, ContactsStaff, OfficeStaff,
+                LedgerStaff, SepaStaff, Worker, Triager,
+                ExcerptsStaff, ProductsStaff):
     pass
 
 UserTypes.clear()

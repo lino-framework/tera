@@ -8,13 +8,3 @@
 from lino.api import dd, _
 
 
-class PartnerTariffs(dd.ChoiceList):
-    verbose_name = _("Partner tariff")
-    verbose_name_plural = _("Partner tariffs")
-
-add = PartnerTariffs.add_item
-
-add('10', _("Plain"), 'plain')
-add('20', _("Reduced"), 'reduced')
-
-

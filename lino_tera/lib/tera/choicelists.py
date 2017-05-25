@@ -56,3 +56,15 @@ add('300', _("Seeking"))
 add('400', _("Employed"))
 add('500', _("Independent"))
 
+
+
+class PartnerTariffs(dd.ChoiceList):
+    verbose_name = _("Client tariff")
+    verbose_name_plural = _("Client tariffs")
+
+add = PartnerTariffs.add_item
+
+add('10', _("Plain"), 'plain')
+add('20', _("Reduced"), 'reduced')
+
+

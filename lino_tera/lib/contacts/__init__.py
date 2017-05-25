@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2016 Luc Saffre
+# Copyright 2016-2017 Luc Saffre
 # License: BSD (see file COPYING for details)
 
 """
@@ -15,7 +15,7 @@ The `contacts` plugin specific to :ref:`psico`.
 
 """
 
-from lino_presto.lib.contacts import Plugin
+from lino_xl.lib.contacts import Plugin
 
 
 class Plugin(Plugin):

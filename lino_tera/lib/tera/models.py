@@ -36,6 +36,7 @@ from lino.mixins import ObservedPeriod
 from lino_xl.lib.coachings.choicelists import ClientEvents, ClientStates
 
 from .choicelists import TranslatorTypes, StartingReasons, EndingReasons, ProfessionalStates
+from .choicelists import PartnerTariffs
 
 from lino.core.roles import Explorer
 from .roles import ClientsNameUser, ClientsUser
@@ -61,7 +62,7 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     class Meta:
         app_label = 'tera'
         verbose_name = _("Client")
-        verbose_name_plural = _("Client")
+        verbose_name_plural = _("Clients")
         abstract = dd.is_abstract_model(__name__, 'Client')
         #~ ordering = ['last_name','first_name']
 
@@ -69,14 +70,18 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     manager_roles_required = dd.login_required(ClientsUser)
     validate_national_id = True
     # workflow_state_field = 'client_state'
-    _cef_levels = None
-    _mother_tongues = None
 
-    person = dd.ForeignKey("contacts.Person")
+    # person = dd.ForeignKey("contacts.Person")
 
     starting_reason = StartingReasons.field(blank=True)
     ending_reason = EndingReasons.field(blank=True)
     professional_state = ProfessionalStates.field(blank=True)
+    
+    obsoletes = dd.ForeignKey(
+        'self', blank=True, null=True, related_name='obsoleted_by')
+
+    tariff = PartnerTariffs.field(
+        default=PartnerTariffs.plain.as_callable())
     
     # translator_type = TranslatorTypes.field(blank=True)
     # translator_notes = dd.RichTextField(
@@ -442,7 +447,6 @@ class AllClients(Clients):
     city country zip_code nationality \
     birth_date age:10 gender \
     birth_country birth_place \
-    mother_tongues cef_level_de cef_level_fr cef_level_en \
     user event_policy"
     detail_layout = None
     required_roles = dd.login_required(Explorer)

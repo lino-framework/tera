@@ -7,23 +7,16 @@ from __future__ import unicode_literals
 
 from lino.api import _
 
-from lino_presto.lib.contacts.models import *
+from lino_xl.lib.contacts.models import *
 
-from .choicelists import PartnerTariffs
-from lino_xl.lib.clocking.mixins import Workable
+#from lino_xl.lib.clocking.mixins import Workable
 
 
-class Partner(Partner, Workable):
+class Partner(Partner):
 
     class Meta(Partner.Meta):
         app_label = 'contacts'
         abstract = dd.is_abstract_model(__name__, 'Partner')
-
-    obsoletes = dd.ForeignKey(
-        'self', blank=True, null=True, related_name='obsoleted_by')
-
-    tariff = PartnerTariffs.field(
-        default=PartnerTariffs.plain.as_callable())
 
 
 class Person(Partner, Person):
