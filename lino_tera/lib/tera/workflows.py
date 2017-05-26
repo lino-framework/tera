@@ -3,7 +3,7 @@
 #
 # License: BSD (see file COPYING for details)
 """The default :attr:`workflows_module
-<lino.core.site.Site.workflows_module>` for :ref:`noi` applications.
+<lino.core.site.Site.workflows_module>` for :ref:`tera` applications.
 
 This workflow requires that both :mod:`lino_xl.lib.tickets` and
 :mod:`lino_xl.lib.votes` are installed.
@@ -21,7 +21,7 @@ block, otherwise we use the more widely supported symbols from
 
 """
 
-from lino_noi.lib.tickets.workflows import *
+#from lino_noi.lib.tickets.workflows import *
 from lino_xl.lib.cal.workflows.voga import *
 # from lino_xl.lib.courses.workflows import *
 
