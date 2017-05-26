@@ -1,1 +1,1 @@
-from lino_presto.lib.contacts.fixtures.demo import *
+from lino_xl.lib.contacts.fixtures.demo import *
