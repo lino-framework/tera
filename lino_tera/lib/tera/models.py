@@ -230,7 +230,7 @@ class ClientDetail(dd.DetailLayout):
     birth_date age:10 gender:10
     #starting_reason professional_state
     client_state user #primary_coach
-    obsoletes tariff
+    obsoletes tariff team
     # event_policy ending_reason 
     # workflow_buttons 
     """
