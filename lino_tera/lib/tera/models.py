@@ -15,7 +15,7 @@ from django.conf import settings
 from lino.utils import join_elems
 from lino.utils.xmlgen.html import E
 # from lino.utils import ssin
-from lino.mixins import Referrable
+from lino.mixins import Referrable, CreatedModified
 from lino_xl.lib.beid.mixins import BeIdCardHolder
 from lino.modlib.comments.mixins import Commentable
 from lino.modlib.users.mixins import UserAuthored, My
@@ -23,10 +23,10 @@ from lino_xl.lib.courses.mixins import Enrollable
 
 # from lino.modlib.notify.mixins import ChangeObservable
 # from lino_xl.lib.notes.choicelists import SpecialTypes
-from lino_xl.lib.coachings.mixins import Coachable
+# from lino_xl.lib.coachings.mixins import Coachable
 from lino_xl.lib.notes.mixins import Notable
 from lino_xl.lib.cal.mixins import EventGenerator
-from lino_xl.lib.contacts.models import Person
+from lino_tera.lib.contacts.models import Person
 from lino_xl.lib.cal.workflows import TaskStates
 # from lino_xl.lib.cv.mixins import BiographyOwner
 # from lino.utils.mldbc.fields import BabelVirtualField
@@ -56,7 +56,8 @@ contacts = dd.resolve_app('contacts')
 
 @dd.python_2_unicode_compatible
 class Client(Person, BeIdCardHolder, UserAuthored,
-             Coachable, Referrable,
+             Referrable,
+             CreatedModified,
              # Notable,
              Commentable, EventGenerator, Enrollable):
     class Meta:
@@ -78,7 +79,8 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     professional_state = ProfessionalStates.field(blank=True)
     
     obsoletes = dd.ForeignKey(
-        'self', blank=True, null=True, related_name='obsoleted_by')
+        'self', verbose_name=_("Obsoletes"),
+        blank=True, null=True, related_name='obsoleted_by')
 
     tariff = PartnerTariffs.field(
         default=PartnerTariffs.plain.as_callable())
@@ -214,8 +216,8 @@ dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
 
 class ClientDetail(dd.DetailLayout):
 
-    main = "general person contact courses_tab family \
-    notes #trends #polls #courses misc "
+    main = "general person contact family courses_tab \
+    notes #trends #polls misc "
 
     general = dd.Panel("""
     overview:30 general2:40 image:15
@@ -226,9 +228,10 @@ class ClientDetail(dd.DetailLayout):
     general2 = """
     id:10 national_id:15 ref
     birth_date age:10 gender:10
-    starting_reason professional_state
+    #starting_reason professional_state
     client_state user #primary_coach
-    event_policy ending_reason 
+    obsoletes tariff
+    # event_policy ending_reason 
     # workflow_buttons 
     """
 
@@ -287,7 +290,7 @@ class ClientDetail(dd.DetailLayout):
     notes = dd.Panel("""
     #notes.NotesByProject
     #comments.CommentsByRFC cal.TasksByProject
-    #coachings.CoachingsByClient 
+    coachings.CoachingsByClient 
     """, label = _("Notes"))
 
     # courses = dd.Panel("""
@@ -304,7 +307,7 @@ class ClientDetail(dd.DetailLayout):
 
     misc = dd.Panel("""
     # unavailable_until:15 unavailable_why:30
-    financial_notes health_notes integration_notes
+    financial_notes health_notes #integration_notes
     plausibility.ProblemsByOwner excerpts.ExcerptsByProject
     """, label=_("Miscellaneous"))
 

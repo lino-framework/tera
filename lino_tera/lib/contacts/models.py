@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2016 Luc Saffre
+# Copyright 2017 Luc Saffre
 # License: BSD (see file COPYING for details)
 """Database models for this plugin."""
 
@@ -11,8 +11,9 @@ from lino_xl.lib.contacts.models import *
 
 #from lino_xl.lib.clocking.mixins import Workable
 
+from lino_xl.lib.coachings.mixins import Coachable
 
-class Partner(Partner):
+class Partner(Partner, Coachable):
 
     class Meta(Partner.Meta):
         app_label = 'contacts'

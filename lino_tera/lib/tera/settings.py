@@ -95,8 +95,8 @@ class Site(Site):
         self.plugins.countries.configure(country_code='BE')
         # self.plugins.clocking.configure(ticket_model='contacts.Person')
         self.plugins.faculties.configure(demander_model='contacts.Person')
-        self.plugins.coachings.configure(
-            client_model='tera.Client')
+        # self.plugins.coachings.configure(client_model='tera.Client')
+        self.plugins.coachings.configure(client_model='contacts.Partner')
         self.plugins.countries.configure(hide_region=True)
         self.plugins.countries.configure(country_code='BE')
         self.plugins.ledger.configure(start_year=2015)
