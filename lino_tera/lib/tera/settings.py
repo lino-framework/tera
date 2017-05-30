@@ -47,7 +47,7 @@ class Site(Site):
         yield 'lino_xl.lib.countries'
         yield 'lino_xl.lib.properties'
         yield 'lino_tera.lib.contacts'
-        yield 'lino_xl.lib.households'
+        yield 'lino_tera.lib.households'
         yield 'lino_xl.lib.coachings'
         yield 'lino_tera.lib.lists'
         yield 'lino_xl.lib.beid'

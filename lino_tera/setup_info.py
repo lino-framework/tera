@@ -66,6 +66,7 @@ lino_tera.lib.clocking
 lino_tera.lib.clocking.fixtures
 lino_tera.lib.contacts
 lino_tera.lib.contacts.fixtures
+lino_tera.lib.households
 lino_tera.lib.lists
 lino_tera.lib.lists.fixtures
 lino_tera.lib.teams

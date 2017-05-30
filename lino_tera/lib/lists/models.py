@@ -9,10 +9,10 @@ from lino.api import _
 
 from lino_xl.lib.lists.models import *
 # from lino_xl.lib.coachings.mixins import Coachable
-# from lino_xl.lib.contacts.models import Partner
+from lino_tera.lib.contacts.models import Partner
 
 
-class List(List):
+class List(List, Partner):
     
     class Meta(List.Meta):
         app_label = 'lists'

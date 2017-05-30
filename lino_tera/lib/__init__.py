@@ -9,9 +9,9 @@
 
     clocking
     contacts
+    households
     lists
     teams
     tera
-
 
 """
