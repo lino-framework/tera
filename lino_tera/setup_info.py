@@ -73,8 +73,8 @@ lino_tera.lib.teams
 lino_tera.lib.teams.fixtures
 lino_tera.lib.tera
 lino_tera.lib.tera.fixtures
-lino_tera.lib.users
-lino_tera.lib.users.fixtures
+lino_tera.lib.auth
+lino_tera.lib.auth.fixtures
 """.splitlines() if n])
 
 SETUP_INFO.update(message_extractors={

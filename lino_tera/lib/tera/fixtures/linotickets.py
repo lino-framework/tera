@@ -44,7 +44,7 @@ TICKETS = """
 #28 [closed] : Automated data migrations
 #29 : How to document several Django apps in one Sphinx tree
 #30 [closed] : Developing a Qooxdoo application for a Django server
-#31 : The lino.modlib.users module
+#31 : The lino.modlib.auth module
 #32 [closed] : loaddata and processing order of fixtures
 #33 [closed] : Qooxdoo Table remains empty
 #34 : New Syntax for .dtl files
