@@ -20,7 +20,7 @@ from lino.api.ad import Plugin
 
 class Plugin(Plugin):
 
-    def setup_main_menu(self, site, profile, m):
+    def setup_main_menu(self, site, user_type, m):
         mg = site.plugins.contacts
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('tera.Clients')
