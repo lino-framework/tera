@@ -10,7 +10,6 @@ The `contacts` plugin specific to :ref:`psico`.
 
     models
     fixtures
-    choicelists
 
 
 """

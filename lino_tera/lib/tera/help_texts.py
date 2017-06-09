@@ -3,11 +3,6 @@
 from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
 help_texts = {
+    'lino_tera.lib.auth.desktop.UserDetail' : _("""Layout of User Detail in Lino Presto."""),
     'lino_tera.lib.tera.migrate.Migrator' : _("""The standard migrator for noi."""),
-    'lino_tera.lib.tera.user_types.EndUser' : _("""An end user is somebody who uses our database, but won't work
-on it."""),
-    'lino_tera.lib.tera.user_types.Collector' : _("""A collector is somebody who collects data into the database."""),
-    'lino_tera.lib.tera.user_types.ProjectManager' : _("""A project manager additionally sees tickets, projects, courses,
-meetings, calendar..."""),
-    'lino_tera.lib.tera.user_types.SiteAdmin' : _("""Can do everything."""),
 }
