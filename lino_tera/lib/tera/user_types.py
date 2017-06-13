@@ -28,23 +28,21 @@ from lino_xl.lib.excerpts.roles import ExcerptsUser, ExcerptsStaff
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
 from lino_xl.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_xl.lib.sepa.roles import SepaUser, SepaStaff
-from lino_xl.lib.tickets.roles import Triager
-from lino_xl.lib.clocking.roles import Worker
 from .roles import ClientsNameUser, ClientsUser
 
 
-class Secretary(ContactsUser, ClientsNameUser, OfficeUser, LedgerUser,
+class Secretary(ContactsUser, ClientsNameUser, OfficeUser, LedgerStaff,
                 SepaUser, ExcerptsUser, ProductsStaff):
     pass
 
 
-class Consultant(ContactsUser, ClientsUser, OfficeUser, LedgerUser,
-                 SepaUser, Worker, ExcerptsUser, ProductsUser):
+class Therapist(ContactsUser, ClientsUser, OfficeUser, LedgerUser,
+                 SepaUser, ExcerptsUser, ProductsUser):
     pass
 
 
 class SiteAdmin(SiteAdmin, ClientsUser, ContactsStaff, OfficeStaff,
-                LedgerStaff, SepaStaff, Worker, Triager,
+                LedgerStaff, SepaStaff, 
                 ExcerptsStaff, ProductsStaff):
     pass
 
@@ -53,7 +51,7 @@ UserTypes.clear()
 add = UserTypes.add_item
 
 add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
-add('100', _("Secretary"), Secretary)
-add('200', _("Consultant"), Consultant)
+add('100', _("Secretary"), Secretary, name="secretary")
+add('200', _("Therapist"), Therapist, name="therapist")
 add('900', _("Administrator"), SiteAdmin, name='admin')
 
