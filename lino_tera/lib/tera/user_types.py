@@ -10,7 +10,7 @@ This is used as the :attr:`user_types_module
 """
 
 """Defines a default set of user roles and fills
-:class:`lino.modlib.auth.choicelists.UserTypes`.
+:class:`lino.modlib.users.choicelists.UserTypes`.
 
 This is used as the :attr:`user_types_module
 <lino.core.site.Site.user_types_module>` for
@@ -20,7 +20,7 @@ This is used as the :attr:`user_types_module
 """
 
 from lino.api import _
-from lino.modlib.auth.choicelists import UserTypes
+from lino.modlib.users.choicelists import UserTypes
 from lino.core.roles import UserRole, SiteAdmin
 from lino_xl.lib.contacts.roles import ContactsUser, ContactsStaff
 from lino_xl.lib.products.roles import ProductsUser, ProductsStaff

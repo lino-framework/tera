@@ -5,7 +5,7 @@
 
 """
 
-from lino.modlib.auth.desktop import *
+from lino.modlib.users.desktop import *
 
 
 class UserDetail(UserDetail):

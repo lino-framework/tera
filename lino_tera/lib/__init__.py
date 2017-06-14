@@ -13,6 +13,6 @@
     lists
     teams
     tera
-    auth
+    users
 
 """

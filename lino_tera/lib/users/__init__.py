@@ -2,7 +2,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-Lino Presto extension of :mod:`lino.modlib.auth`.
+Lino Presto extension of :mod:`lino.modlib.users`.
 
 .. autosummary::
    :toctree:
@@ -14,7 +14,7 @@ Lino Presto extension of :mod:`lino.modlib.auth`.
 
 """
 
-from lino.modlib.auth import Plugin
+from lino.modlib.users import Plugin
 
 
 # class Plugin(Plugin):
