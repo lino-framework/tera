@@ -28,6 +28,7 @@ class Site(Site):
     textfield_format = 'html'
     user_types_module = 'lino_tera.lib.tera.user_types'
     workflows_module = 'lino_tera.lib.tera.workflows'
+    custom_layouts_module = 'lino_tera.lib.tera.layouts'
     obj2text_template = "**{0}**"
 
     default_build_method = 'appyodt'
