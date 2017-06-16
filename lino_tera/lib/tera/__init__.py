@@ -12,6 +12,7 @@ The main plugin for Lino Noi.
     migrate
     user_types
     workflows
+    layouts
 
 """
 
