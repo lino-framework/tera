@@ -21,3 +21,19 @@ class List(List, Partner):
         verbose_name = _("Therapeutical groups")
 
 
+    def full_clean(self, *args, **kw):
+        """Set the `name` field of this list.  This field is visible in the
+        Partner's detail but not in the Lists's detail where it is
+        filled automatically from the designation in the site's main
+        language. and serves for sorting when selecting a List as
+        Partner.
+
+        """
+        # self.name = dd.babelattr(self, 'designation', language=)
+        if self.designation:
+            self.name = self.designation
+        else:
+            self.designation = self.name
+        super(List, self).full_clean(*args, **kw)
+
+        
