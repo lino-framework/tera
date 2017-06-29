@@ -19,6 +19,8 @@ class Site(Site):
     version = SETUP_INFO['version']
     url = "http://tera.lino-framework.org/"
 
+    demo_fixtures = 'std demo minimal_ledger euvatrates demo2'.split()
+
     demo_fixtures = ['std', 'demo', 'demo2']
                      # 'linotickets',
                      # 'tractickets', 'luc']
@@ -64,6 +66,7 @@ class Site(Site):
         yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.finan'
         yield 'lino_xl.lib.invoicing'
+        yield 'lino_xl.lib.declarations'
         # 'lino_xl.lib.projects',
         yield 'lino_xl.lib.blogs'
         yield 'lino_xl.lib.notes'
