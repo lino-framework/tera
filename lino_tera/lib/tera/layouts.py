@@ -17,3 +17,6 @@ group type id default_amount:10
 needs_partner:30 clearable:30 purchases_allowed 
 ledger.MovementsByAccount
 """
+
+# select Belgian VAT declaration layout
+from lino_xl.lib.declarations import be
