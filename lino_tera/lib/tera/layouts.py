@@ -19,4 +19,4 @@ ledger.MovementsByAccount
 """
 
 # select Belgian VAT declaration layout
-from lino_xl.lib.declarations import be
+# from lino_xl.lib.declarations import be
