@@ -8,15 +8,17 @@
 """
 
 from lino.api import rt
-rt.actors.accounts.Accounts.column_names = "\
+rt.models.accounts.Accounts.column_names = "\
 ref name purchases_allowed group *"
 
-rt.actors.accounts.Accounts.detail_layout = """
+rt.models.accounts.Accounts.detail_layout = """
 ref:10 name
 group type id default_amount:10
-needs_partner:30 clearable:30 purchases_allowed 
+needs_partner clearable purchases_allowed  needs_ana ana_account
 ledger.MovementsByAccount
 """
+
+# rt.models.vat.ItemsByInvoice.column_names = "account title ana_account vat_class total_base total_vat total_incl"
 
 # select Belgian VAT declaration layout
 # from lino_xl.lib.declarations import be
