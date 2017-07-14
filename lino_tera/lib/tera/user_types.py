@@ -25,6 +25,7 @@ from lino.core.roles import UserRole, SiteAdmin
 from lino_xl.lib.contacts.roles import ContactsUser, ContactsStaff
 from lino_xl.lib.products.roles import ProductsUser, ProductsStaff
 from lino_xl.lib.excerpts.roles import ExcerptsUser, ExcerptsStaff
+from lino_xl.lib.courses.roles import CoursesUser
 from lino.modlib.office.roles import OfficeStaff, OfficeUser
 from lino_xl.lib.ledger.roles import LedgerUser, LedgerStaff
 from lino_xl.lib.sepa.roles import SepaUser, SepaStaff
@@ -32,17 +33,17 @@ from .roles import ClientsNameUser, ClientsUser
 
 
 class Secretary(ContactsUser, ClientsNameUser, OfficeUser, LedgerStaff,
-                SepaUser, ExcerptsUser, ProductsStaff):
+                SepaUser, CoursesUser, ExcerptsUser, ProductsStaff):
     pass
 
 
 class Therapist(ContactsUser, ClientsUser, OfficeUser, LedgerUser,
-                 SepaUser, ExcerptsUser, ProductsUser):
+                 SepaUser, CoursesUser, ExcerptsUser, ProductsUser):
     pass
 
 
 class SiteAdmin(SiteAdmin, ClientsUser, ContactsStaff, OfficeStaff,
-                LedgerStaff, SepaStaff, 
+                LedgerStaff, SepaStaff, CoursesUser,
                 ExcerptsStaff, ProductsStaff):
     pass
 

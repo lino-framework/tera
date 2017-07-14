@@ -523,11 +523,11 @@ add('40', _("Abandoned"), 'refused')
 # ClientStates.coached = ClientStates.newcomer
 
 
-@dd.receiver(dd.post_analyze)
-def my_details(sender, **kw):
-    sender.modules.system.SiteConfigs.set_detail_layout("""
-    site_company next_partner_id:10 default_build_method
-    # site_calendar simulate_today hide_events_before
-    # default_event_type max_auto_events 
-    """)
+# @dd.receiver(dd.post_analyze)
+# def my_details(sender, **kw):
+#     sender.modules.system.SiteConfigs.set_detail_layout("""
+#     site_company next_partner_id:10 default_build_method
+#     # site_calendar simulate_today hide_events_before
+#     # default_event_type max_auto_events 
+#     """)
 

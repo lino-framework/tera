@@ -7,7 +7,7 @@
 
 """
 
-from lino.api import rt
+from lino.api import dd, rt, _
 rt.models.accounts.Accounts.column_names = "\
 ref name purchases_allowed group *"
 
@@ -27,6 +27,10 @@ suppliers_account purchases_account tax_offices_account
 site_calendar default_event_type #pupil_guestrole
 max_auto_events hide_events_before
 """
+
+# dd.plugins.courses.verbose_name = _("Therapies")
+# rt.models.courses.Course.verbose_name = _("Therapy")
+# rt.models.courses.Course.verbose_name_plural = _("Therapies")
 
 
 # rt.models.vat.ItemsByInvoice.column_names = "account title ana_account vat_class total_base total_vat total_incl"
