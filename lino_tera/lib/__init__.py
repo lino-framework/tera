@@ -9,6 +9,7 @@
 
     clocking
     contacts
+    coachings
     households
     lists
     teams

@@ -19,13 +19,11 @@ from lino.mixins import Referrable, CreatedModified
 from lino_xl.lib.beid.mixins import BeIdCardHolder
 from lino.modlib.comments.mixins import Commentable
 from lino.modlib.users.mixins import UserAuthored, My
-from lino_xl.lib.courses.mixins import Enrollable
 
 # from lino.modlib.notify.mixins import ChangeObservable
 # from lino_xl.lib.notes.choicelists import SpecialTypes
 # from lino_xl.lib.coachings.mixins import Coachable
 from lino_xl.lib.notes.mixins import Notable
-from lino_xl.lib.cal.mixins import EventGenerator
 from lino_tera.lib.contacts.models import Person
 from lino_xl.lib.cal.workflows import TaskStates
 # from lino_xl.lib.cv.mixins import BiographyOwner
@@ -36,7 +34,6 @@ from lino.mixins import ObservedPeriod
 from lino_xl.lib.coachings.choicelists import ClientEvents, ClientStates
 
 from .choicelists import TranslatorTypes, StartingReasons, EndingReasons, ProfessionalStates
-from .choicelists import PartnerTariffs
 
 from lino.core.roles import Explorer
 from .roles import ClientsNameUser, ClientsUser
@@ -59,7 +56,7 @@ class Client(Person, BeIdCardHolder, UserAuthored,
              Referrable,
              CreatedModified,
              # Notable,
-             Commentable, EventGenerator, Enrollable):
+             Commentable):
     class Meta:
         app_label = 'tera'
         verbose_name = _("Client")
@@ -82,9 +79,6 @@ class Client(Person, BeIdCardHolder, UserAuthored,
         'self', verbose_name=_("Obsoletes"),
         blank=True, null=True, related_name='obsoleted_by')
 
-    tariff = PartnerTariffs.field(
-        default=PartnerTariffs.plain.as_callable())
-    
     # translator_type = TranslatorTypes.field(blank=True)
     # translator_notes = dd.RichTextField(
     #     _("Translator"), blank=True, format='plain')
@@ -145,9 +139,6 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     # client_state = ClientStates.field(
     #     default=ClientStates.newcomer.as_callable)
 
-    event_policy = dd.ForeignKey(
-        'cal.EventPolicy', blank=True, null=True)
-    
     language_notes = dd.RichTextField(
         _("Language notes"), blank=True, format='plain')
     
@@ -188,27 +179,6 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     #     if self.national_id:
     #         ssin.ssin_validator(self.national_id)
     #     super(Client, self).full_clean(*args, **kw)
-
-    def get_events_user(self):
-        return self.get_primary_coach()
-        
-    def update_cal_rset(self):
-        return self.event_policy
-    
-    def update_cal_event_type(self):
-        return self.event_policy.event_type
-        
-    def update_cal_from(self, ar):
-        return dd.today()
-        # pc = self.get_primary_coaching()
-        # if pc:
-        #     return pc.start_date
-    
-    def update_cal_until(self):
-        return dd.today(365)
-        # pc = self.get_primary_coaching()
-        # if pc:
-        #     return pc.end_date
 
 dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
@@ -351,7 +321,7 @@ class Clients(contacts.Persons):
         client_state=ClientStates.field(blank=True, default=''))
     params_layout = """
     #aged_from #aged_to #gender nationality client_state
-    start_date end_date observed_event course enrolment_state
+    start_date end_date observed_event
     """
 
     @classmethod
