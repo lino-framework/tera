@@ -50,9 +50,9 @@ a bus travel. One enrolment can mean several participants (seats).  A
 """
 CourseAreas.clear()
 add = CourseAreas.add_item
-add('C', _("Courses"), 'default')    # one place per enrolment
-add('H', _("Hikes"), 'hikes', 'courses.Hikes')
-add('J', _("Journeys"), 'journeys', 'courses.Journeys')
+add('10', _("Individual therapies"), 'therapies', 'courses.Therapies')
+add('20', _("Life groups"), 'life_groups', 'courses.LifeGroups')
+add('30', _("Other groups"), 'default')  # one place per enrolment
 
 
 class CourseType(Referrable, mixins.BabelNamed):
@@ -70,7 +70,8 @@ class Line(Line):
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Line')
 
-    course_type = dd.ForeignKey('courses.CourseType', blank=True, null=True)
+    course_type = dd.ForeignKey(
+        'courses.CourseType', blank=True, null=True)
 
 
 @dd.python_2_unicode_compatible
@@ -142,6 +143,16 @@ class Course(Referrable, Course):
     payment_term = dd.ForeignKey(
         'ledger.PaymentTerm',
         related_name="%(app_label)s_%(class)s_set_by_payment_term",
+        blank=True, null=True)    
+
+    client = dd.ForeignKey(
+        'tera.Client',
+        related_name="%(app_label)s_%(class)s_set_by_client",
+        blank=True, null=True)    
+
+    household = dd.ForeignKey(
+        'households.Household',
+        related_name="%(app_label)s_%(class)s_set_by_household",
         blank=True, null=True)    
 
     paper_type = dd.ForeignKey(
@@ -408,7 +419,7 @@ class Enrolment(Enrolment, Invoiceable):
         if partner is None:
             partner = plan.partner
         if partner:
-            pupil = get_child(partner, rt.models.courses.Pupil)
+            pupil = get_child(partner, rt.models.tera.Client)
             # pupil = partner.get_mti_child('pupil')
             if pupil:  # isinstance(partner, rt.models.courses.Pupil):
                 q1 = models.Q(

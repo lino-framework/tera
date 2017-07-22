@@ -45,7 +45,7 @@ class PartnerDetail(PartnerDetail):
     # general = dd.Panel(PartnerDetail.main,label=_("General"))
 
     general = dd.Panel("""
-    overview:30 contact_box:30 lists.MembersByPartner:20
+    overview:30 contact_box:30 #lists.MembersByPartner:20
     bottom_box
     """, label=_("General"))
 
@@ -137,7 +137,7 @@ class PersonDetail(PersonDetail, PartnerDetail):
     main = 'general address ledger more'
 
     general = dd.Panel("""
-    overview:30 contact_box:30 lists.MembersByPartner:20
+    overview:30 contact_box:30 #lists.MembersByPartner:20
     bottom_box
     """, label=_("General"))
 

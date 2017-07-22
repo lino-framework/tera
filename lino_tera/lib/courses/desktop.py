@@ -125,7 +125,7 @@ class CourseDetail(CourseDetail):
     """
     main = "general events enrolments more"
     general = dd.Panel("""
-    ref line teacher workflow_buttons
+    ref line client household teacher workflow_buttons
     room start_date end_date start_time end_time
     name
     remark
@@ -284,7 +284,7 @@ class EnrolmentsAndPaymentsByCourse(Enrolments):
     column_names = "pupil_info start_date invoicing_info payment_info"
 
 
-class EnrolmentsByHike(EnrolmentsByCourse):
+class EnrolmentsByLifeGroup(EnrolmentsByCourse):
     column_names = 'request_date pupil '\
                    'places:8 remark fee option amount ' \
                    'workflow_buttons *'
@@ -296,35 +296,42 @@ class EnrolmentsByHike(EnrolmentsByCourse):
     """
 
 
-class EnrolmentsByJourney(EnrolmentsByHike):
+class EnrolmentsByTherapy(EnrolmentsByLifeGroup):
     pass
 
 
-class HikeDetail(CourseDetail):
+class LifeGroupDetail(CourseDetail):
     enrolments = dd.Panel("""
     enrolments_top
-    EnrolmentsByHike
+    EnrolmentsByLifeGroup
     """, label=_("Enrolments"))
 
 
-class JourneyDetail(CourseDetail):
+class TherapyDetail(CourseDetail):
     enrolments = dd.Panel("""
     enrolments_top
-    EnrolmentsByJourney
+    EnrolmentsByTherapy
     """, label=_("Enrolments"))
 
 
-class Hikes(Courses):
-    _course_area = CourseAreas.hikes
-    detail_layout = HikeDetail()
+class LifeGroups(Courses):
+    _course_area = CourseAreas.life_groups
     column_names = "ref name start_date enrolments_until line " \
                    "workflow_buttons *"
+    detail_layout = LifeGroupDetail()
+    insert_layout = """
+    line household #teacher
+    start_date
+    """
 
 
-class Journeys(Courses):
-    _course_area = CourseAreas.journeys
-    detail_layout = JourneyDetail()
+class Therapies(Courses):
+    _course_area = CourseAreas.therapies
     column_names = "ref name start_date end_date enrolments_until line " \
                    "workflow_buttons *"
-
+    detail_layout = TherapyDetail()
+    insert_layout = """
+    line client #teacher
+    start_date
+    """
 

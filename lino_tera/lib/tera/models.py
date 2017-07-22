@@ -33,8 +33,9 @@ from lino.mixins import ObservedPeriod
 
 from lino_xl.lib.coachings.choicelists import ClientEvents, ClientStates
 
-from .choicelists import TranslatorTypes, StartingReasons, EndingReasons, ProfessionalStates
+from .choicelists import StartingReasons, EndingReasons, ProfessionalStates
 
+from .choicelists import PartnerTariffs
 from lino.core.roles import Explorer
 from .roles import ClientsNameUser, ClientsUser
 
@@ -74,6 +75,8 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     starting_reason = StartingReasons.field(blank=True)
     ending_reason = EndingReasons.field(blank=True)
     professional_state = ProfessionalStates.field(blank=True)
+    tariff = PartnerTariffs.field(
+        default=PartnerTariffs.plain.as_callable())
     
     obsoletes = dd.ForeignKey(
         'self', verbose_name=_("Obsoletes"),
@@ -258,9 +261,9 @@ class ClientDetail(dd.DetailLayout):
     """, label=_("Family"))
 
     notes = dd.Panel("""
-    #notes.NotesByProject
+    notes.NotesByProject
     #comments.CommentsByRFC cal.TasksByProject
-    coachings.CoachingsByClient 
+    # coachings.CoachingsByClient 
     """, label = _("Notes"))
 
     # courses = dd.Panel("""
@@ -318,7 +321,8 @@ class Clients(contacts.Persons):
             'countries.Country', blank=True, null=True,
             verbose_name=_("Nationality")),
         observed_event=ClientEvents.field(blank=True),
-        client_state=ClientStates.field(blank=True, default=''))
+        client_state=ClientStates.field(blank=True, default='')
+    )
     params_layout = """
     #aged_from #aged_to #gender nationality client_state
     start_date end_date observed_event
@@ -420,7 +424,7 @@ class AllClients(Clients):
     city country zip_code nationality \
     birth_date age:10 gender \
     birth_country birth_place \
-    user event_policy"
+    user #event_policy"
     detail_layout = None
     required_roles = dd.login_required(Explorer)
 
@@ -479,15 +483,16 @@ from lino_xl.lib.countries.mixins import CountryCity
     
 
 from lino.api import _, pgettext
-from lino_xl.lib.coachings.choicelists import ClientStates
-ClientStates.default_value = 'coached'
-ClientStates.clear()
-add = ClientStates.add_item
-add('10', _("Newcomer"), 'newcomer')
-# add('10', _("Testing"), 'testing')
-add('20', pgettext("client state", "Registered"), 'coached')
-add('30', _("Ended"), 'former')
-add('40', _("Abandoned"), 'refused')
+
+# from lino_xl.lib.coachings.choicelists import ClientStates
+# ClientStates.default_value = 'coached'
+# ClientStates.clear()
+# add = ClientStates.add_item
+# add('10', _("Newcomer"), 'newcomer')
+# # add('10', _("Testing"), 'testing')
+# add('20', pgettext("client state", "Registered"), 'coached')
+# add('30', _("Ended"), 'former')
+# add('40', _("Abandoned"), 'refused')
 
 # alias
 # ClientStates.coached = ClientStates.newcomer

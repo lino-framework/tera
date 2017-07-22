@@ -18,7 +18,7 @@ The `coachings` plugin specific to :ref:`tera`.
 from lino_xl.lib.coachings import Plugin
 
 
-class Plugin(Plugin):
+# class Plugin(Plugin):
 
-    extends_models = ['Coaching']
+#     extends_models = ['Coaching']
 
