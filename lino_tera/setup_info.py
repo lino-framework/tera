@@ -66,6 +66,10 @@ lino_tera.lib.clocking
 lino_tera.lib.clocking.fixtures
 lino_tera.lib.contacts
 lino_tera.lib.contacts.fixtures
+lino_tera.lib.coachings
+lino_tera.lib.coachings.fixtures
+lino_tera.lib.courses
+lino_tera.lib.courses.fixtures
 lino_tera.lib.households
 lino_tera.lib.households.fixtures
 lino_tera.lib.lists
