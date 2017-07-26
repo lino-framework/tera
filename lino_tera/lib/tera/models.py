@@ -236,7 +236,7 @@ class ClientDetail(dd.DetailLayout):
     """, label=_("Person"))
 
     courses_tab = dd.Panel("""
-    language_notes:20 courses.EnrolmentsByPupil:60 #courses_right:20
+    #language_notes:20 courses.EnrolmentsByPupil:60 courses_right:20
     """, label=_("Activities"))
 
     translator_left = """

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-05-09 08:49+0300\n"
+"POT-Creation-Date: 2017-07-26 11:28+0300\n"
 "PO-Revision-Date: 2017-03-21 15:58+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: et\n"
@@ -16,74 +16,458 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.4.0\n"
 
-#: lino_vilma/lib/contacts/models.py:22
-msgid "Address"
+#: lino_tera/lib/clocking/choicelists.py:15
+msgid "Payment mode"
 msgstr ""
 
-#: lino_vilma/lib/contacts/models.py:28 lino_vilma/lib/contacts/models.py:146
-#: lino_vilma/lib/contacts/models.py:151
-msgid "Contact"
+#: lino_tera/lib/clocking/choicelists.py:16
+msgid "Payment modes"
 msgstr ""
 
-#: lino_vilma/lib/contacts/models.py:110 lino_vilma/lib/contacts/models.py:141
+#: lino_tera/lib/clocking/choicelists.py:20
+msgid "Free"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:21
+msgid "Cash"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:22
+msgid "Invoice"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:23
+msgid "Later"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:28
+msgid "invoiceable"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:31
+msgid "Draft"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:32
+msgid "Closed"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:33
+msgid "Cancelled"
+msgstr ""
+
+#: lino_tera/lib/clocking/choicelists.py:34
+msgid "Missed"
+msgstr ""
+
+#: lino_tera/lib/clocking/models.py:29
+msgid "Amount received"
+msgstr ""
+
+#: lino_tera/lib/coachings/choicelists.py:13
+#: lino_tera/lib/tera/choicelists.py:62
+msgid "Client tariff"
+msgstr ""
+
+#: lino_tera/lib/coachings/choicelists.py:14
+#: lino_tera/lib/tera/choicelists.py:63
+msgid "Client tariffs"
+msgstr ""
+
+#: lino_tera/lib/coachings/choicelists.py:18
+#: lino_tera/lib/tera/choicelists.py:67
+msgid "Plain"
+msgstr ""
+
+#: lino_tera/lib/coachings/choicelists.py:19
+#: lino_tera/lib/tera/choicelists.py:68
+msgid "Reduced"
+msgstr ""
+
+#: lino_tera/lib/coachings/desktop.py:19 lino_tera/lib/contacts/models.py:51
+#: lino_tera/lib/contacts/models.py:143 lino_tera/lib/courses/desktop.py:132
+#: lino_tera/lib/tera/models.py:200
 msgid "General"
 msgstr ""
 
-#: lino_vilma/lib/contacts/models.py:128 lino_vilma/lib/contacts/models.py:156
+#: lino_tera/lib/coachings/desktop.py:24 lino_tera/lib/contacts/models.py:56
+#: lino_tera/lib/contacts/models.py:107 lino_tera/lib/contacts/models.py:148
+msgid "Address"
+msgstr ""
+
+#: lino_tera/lib/coachings/desktop.py:32 lino_tera/lib/contacts/models.py:64
+#: lino_tera/lib/contacts/models.py:114 lino_tera/lib/contacts/models.py:154
+#: lino_tera/lib/courses/desktop.py:147
 msgid "More"
 msgstr ""
 
-#: lino_vilma/lib/vilma/help_texts.py:6
+#: lino_tera/lib/coachings/fixtures/std.py:15
+msgid "Transfer to colleague"
+msgstr ""
+
+#: lino_tera/lib/coachings/fixtures/std.py:16
+msgid "Moved away"
+msgstr ""
+
+#: lino_tera/lib/coachings/fixtures/std.py:17
+msgid "Abandoned by client"
+msgstr ""
+
+#: lino_tera/lib/courses/__init__.py:22 lino_tera/lib/courses/models.py:136
+#: lino_tera/lib/tera/models.py:240
+msgid "Activities"
+msgstr ""
+
+#: lino_tera/lib/courses/desktop.py:107
+msgid "Enrolments using this fee"
+msgstr ""
+
+#: lino_tera/lib/courses/desktop.py:139
+msgid "Events"
+msgstr ""
+
+#: lino_tera/lib/courses/desktop.py:195
+#, python-format
+msgid "in %s"
+msgstr ""
+
+#: lino_tera/lib/courses/desktop.py:208
+msgid "Suggestions"
+msgstr ""
+
+#: lino_tera/lib/courses/desktop.py:307 lino_tera/lib/courses/desktop.py:314
+#: lino_tera/lib/courses/models.py:383
+msgid "Enrolments"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:53
+msgid "Individual therapies"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:54
+msgid "Life groups"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:55
+msgid "Other groups"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:63
+msgid "Activity type"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:64
+msgid "Activity types"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:135
+msgid "Activity"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:142
+msgid "Default participation fee"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:307
+msgid "Invoiced"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:317
+msgid "Not invoiced"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:382
+msgid "Enrolment"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:385
+msgid "Amount"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:393
+msgctxt "in an enrolment"
+msgid "Free events"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:395
+msgid "Number of events to add for first invoicing for this enrolment."
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:504
+msgid "{enrolment} to {course}"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:511
+msgid "[{number}] Renewal {title}"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:513
+msgid "[{number}] {title}"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:549
+msgid "Participant"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:567
+msgid "Phone: {0}"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:569
+msgid "GSM: {0}"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:572
+msgid "Invoicing info"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:577
+msgid "Payment info"
+msgstr ""
+
+#: lino_tera/lib/lists/models.py:20
+msgid "Therapeutical group"
+msgstr ""
+
+#: lino_tera/lib/lists/models.py:21
+msgid "Therapeutical groups"
+msgstr ""
+
+#: lino_tera/lib/lists/fixtures/demo.py:13
+msgid "Women's group {0}"
+msgstr ""
+
+#: lino_tera/lib/lists/fixtures/demo.py:14
+msgid "Men's group {0}"
+msgstr ""
+
+#: lino_tera/lib/lists/fixtures/demo.py:15
+msgid "Children's group {0}"
+msgstr ""
+
+#: lino_tera/lib/teams/__init__.py:24 lino_tera/lib/teams/models.py:20
+msgid "Departments"
+msgstr ""
+
+#: lino_tera/lib/teams/models.py:19
+msgid "Department"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:18
+msgid "Translator type"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:21
+msgid "SETIS"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:22 lino_tera/lib/tera/choicelists.py:45
+msgid "Other"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:23
+msgid "Private"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:29
+msgid "Starting reason"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:32
+msgid "Voluntarily"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:33
+msgid "Mandatory"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:37
+msgid "Ending reason"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:40
+msgid "Successfully ended"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:41
+msgid "Health problems"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:42
+msgid "Familiar reasons"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:43
+msgid "Missing motivation"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:44
+msgid "Return to home country"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:50
+msgid "Professional situation"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:53
+msgid "Student"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:54
+msgid "Workless"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:55
+msgid "Seeking"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:56
+msgid "Employed"
+msgstr ""
+
+#: lino_tera/lib/tera/choicelists.py:57
+msgid "Independent"
+msgstr ""
+
+#: lino_tera/lib/tera/help_texts.py:6
 msgid "The standard migrator for noi."
 msgstr ""
 
-#: lino_vilma/lib/vilma/help_texts.py:7
-msgid ""
-"An end user is somebody who uses our database, but won't work\n"
-"on it."
+#: lino_tera/lib/tera/help_texts.py:7
+msgid "Layout of User Detail in Lino Presto."
 msgstr ""
 
-#: lino_vilma/lib/vilma/help_texts.py:9
-msgid "A collector is somebody who collects data into the database."
+#: lino_tera/lib/tera/models.py:64
+msgid "Client"
 msgstr ""
 
-#: lino_vilma/lib/vilma/help_texts.py:10
-msgid ""
-"A project manager additionally sees tickets, projects, courses,\n"
-"meetings, calendar..."
+#: lino_tera/lib/tera/models.py:65
+msgid "Clients"
 msgstr ""
 
-#: lino_vilma/lib/vilma/help_texts.py:12
-msgid "Can do everything."
+#: lino_tera/lib/tera/models.py:83
+msgid "Obsoletes"
 msgstr ""
 
-#: lino_vilma/lib/vilma/settings.py:120
-msgid "My settings"
+#: lino_tera/lib/tera/models.py:96
+msgid "Unemployed since"
 msgstr ""
 
-#: lino_vilma/lib/vilma/user_types.py:68
+#: lino_tera/lib/tera/models.py:97
+msgid "Since when the client has not been employed in any regular job."
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:100
+msgid "Seeking work since"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:101
+msgid "Since when the client is seeking for a job."
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:103
+msgid "suspended until"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:105
+msgid "Declared name"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:111
+msgid "Unavailable until"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:113
+msgid "reason"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:117
+msgid "Family situation"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:120
+msgid "Residential situation"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:123
+msgid "Health situation"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:126
+msgid "Financial situation"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:129
+msgid "Integration notes"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:132
+msgid "Availability"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:135
+msgid "Needed activity"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:147
+msgid "Language notes"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:157
+msgid "{} ({}) from {}"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:161
+msgid "Name"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:187
+msgid "Primary coach"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:188
+msgid "Legacy file number"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:215
+msgid "Residence"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:236
+msgid "Person"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:262
+msgid "Family"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:268
+msgid "Notes"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:286
+msgid "Miscellaneous"
+msgstr ""
+
+#: lino_tera/lib/tera/models.py:323
+msgid "Nationality"
+msgstr ""
+
+#: lino_tera/lib/tera/user_types.py:54
 msgid "Anonymous"
 msgstr ""
 
-#: lino_vilma/lib/vilma/user_types.py:70
-msgid "User"
+#: lino_tera/lib/tera/user_types.py:55
+msgid "Secretary"
 msgstr ""
 
-#: lino_vilma/lib/vilma/user_types.py:71
-msgid "Collector"
+#: lino_tera/lib/tera/user_types.py:56
+msgid "Therapist"
 msgstr ""
 
-#: lino_vilma/lib/vilma/user_types.py:72
-msgid "Project manager"
-msgstr ""
-
-#: lino_vilma/lib/vilma/user_types.py:73
-msgid "Staff"
-msgstr ""
-
-#: lino_vilma/lib/vilma/user_types.py:74
+#: lino_tera/lib/tera/user_types.py:57
 msgid "Administrator"
 msgstr ""
 
@@ -641,5 +1025,39 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "About me"
+#~ msgstr ""
+
+#~ msgid "Contact"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "An end user is somebody who uses our database, but won't work\n"
+#~ "on it."
+#~ msgstr ""
+
+#~ msgid "A collector is somebody who collects data into the database."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "A project manager additionally sees tickets, projects, courses,\n"
+#~ "meetings, calendar..."
+#~ msgstr ""
+
+#~ msgid "Can do everything."
+#~ msgstr ""
+
+#~ msgid "My settings"
+#~ msgstr ""
+
+#~ msgid "User"
+#~ msgstr ""
+
+#~ msgid "Collector"
+#~ msgstr ""
+
+#~ msgid "Project manager"
+#~ msgstr ""
+
+#~ msgid "Staff"
 #~ msgstr ""
 

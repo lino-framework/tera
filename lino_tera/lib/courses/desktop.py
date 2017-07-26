@@ -123,7 +123,7 @@ class CourseDetail(CourseDetail):
     """The detail layout of a :class:`Course` (:ref:`voga` variant).
 
     """
-    main = "general events enrolments more"
+    main = "general enrolments events more"
     general = dd.Panel("""
     ref line client household teacher workflow_buttons
     room start_date end_date start_time end_time
