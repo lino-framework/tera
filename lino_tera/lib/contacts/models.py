@@ -11,27 +11,28 @@ from lino_xl.lib.contacts.models import *
 
 #from lino_xl.lib.clocking.mixins import Workable
 
-from lino_xl.lib.coachings.mixins import Coachable
+#from lino_xl.lib.coachings.mixins import Coachable
+from lino_xl.lib.courses.mixins import Enrollable
 
-class Partner(Partner, Coachable):
+# class Partner(Partner, Coachable):
 
-    class Meta(Partner.Meta):
-        app_label = 'contacts'
-        abstract = dd.is_abstract_model(__name__, 'Partner')
+#     class Meta(Partner.Meta):
+#         app_label = 'contacts'
+#         abstract = dd.is_abstract_model(__name__, 'Partner')
 
 
-class Person(Partner, Person):
+class Person(Person, Enrollable):
 
     class Meta(Person.Meta):
         app_label = 'contacts'
         abstract = dd.is_abstract_model(__name__, 'Person')
 
 
-class Company(Partner, Company):
+# class Company(Partner, Company):
 
-    class Meta(Company.Meta):
-        app_label = 'contacts'
-        abstract = dd.is_abstract_model(__name__, 'Company')
+#     class Meta(Company.Meta):
+#         app_label = 'contacts'
+#         abstract = dd.is_abstract_model(__name__, 'Company')
 
 
 dd.update_field(Person, 'first_name', blank=True)

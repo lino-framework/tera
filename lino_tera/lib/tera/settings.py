@@ -104,6 +104,8 @@ class Site(Site):
         self.plugins.countries.configure(country_code='BE')
         self.plugins.ledger.configure(start_year=2015)
         self.plugins.ledger.configure(use_pcmn=True)
+        self.plugins.courses.configure(teacher_model='users.User')
+        self.plugins.courses.configure(pupil_model='contacts.Person')
 
 
 # the following line should not be active in a checked-in version

@@ -22,7 +22,7 @@ from lino.modlib.users.mixins import UserAuthored, My
 
 # from lino.modlib.notify.mixins import ChangeObservable
 # from lino_xl.lib.notes.choicelists import SpecialTypes
-# from lino_xl.lib.coachings.mixins import Coachable
+from lino_xl.lib.coachings.mixins import Coachable
 from lino_xl.lib.notes.mixins import Notable
 from lino_tera.lib.contacts.models import Person
 from lino_xl.lib.cal.workflows import TaskStates
@@ -56,6 +56,7 @@ contacts = dd.resolve_app('contacts')
 class Client(Person, BeIdCardHolder, UserAuthored,
              Referrable,
              CreatedModified,
+             Coachable,
              # Notable,
              Commentable):
     class Meta:
@@ -131,7 +132,7 @@ class Client(Person, BeIdCardHolder, UserAuthored,
         _("Availability"), blank=True, null=True)
 
     needed_course = dd.ForeignKey(
-        'courses.Line', verbose_name=_("Needed course"),
+        'courses.Line', verbose_name=_("Needed activity"),
         blank=True, null=True)
     
     # obstacles = models.TextField(
@@ -236,7 +237,7 @@ class ClientDetail(dd.DetailLayout):
 
     courses_tab = dd.Panel("""
     language_notes:20 courses.EnrolmentsByPupil:60 #courses_right:20
-    """, label=_("Courses"))
+    """, label=_("Activities"))
 
     translator_left = """
     language 

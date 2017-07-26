@@ -135,6 +135,8 @@ class Course(Referrable, Course):
         verbose_name = _("Activity")
         verbose_name_plural = _('Activities')
 
+    allow_cascaded_delete = "client household"
+
     fee = dd.ForeignKey('products.Product',
                         blank=True, null=True,
                         verbose_name=_("Default participation fee"),
