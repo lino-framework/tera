@@ -6,14 +6,27 @@
 - Create a client MTI child for most persons.
 
 """
+from __future__ import unicode_literals
 
+import datetime
 from django.conf import settings
+
+from lino.utils import ONE_DAY
 from lino.utils.mti import mtichild
 from lino.utils.ssin import generate_ssin
-from lino.api import rt
-# from lino.utils import Cycler
+from lino.api import dd, rt
+from lino.utils import Cycler
 
-def objects():
+# from django.conf import settings
+
+# courses = dd.resolve_app('courses')
+# cal = dd.resolve_app('cal')
+# users = dd.resolve_app('users')
+
+
+
+
+def person2clients():
     Person = rt.models.contacts.Person
     Client = rt.models.tera.Client
     ClientStates = rt.actors.coachings.ClientStates
@@ -41,4 +54,60 @@ def objects():
             else:
                 client.client_state = ClientStates.former
             yield client
+
         
+
+def enrolments():
+    # Person = rt.models.contacts.Person
+    # Pupil = dd.plugins.courses.pupil_model
+    Client = rt.models.tera.Client
+    Teacher = dd.plugins.courses.teacher_model
+    Line = rt.models.courses.Line
+    Course = rt.models.courses.Course
+    Enrolment = rt.models.courses.Enrolment
+    DurationUnits = rt.models.cal.DurationUnits
+
+    for a in rt.models.courses.CourseAreas.get_list_items():
+        yield Line(name=a.text, course_area=a)
+        
+    invoice_recipient = None
+    for n, p in enumerate(Client.objects.all()):
+        if n % 10 == 0:
+            p.invoice_recipient = invoice_recipient
+            yield p
+        else:
+            invoice_recipient = p
+
+    LINES = Cycler(Line.objects.all())
+    USERS = Cycler(rt.models.users.User.objects.all())
+    PLACES = Cycler(rt.models.cal.Room.objects.all())
+    TEACHERS = Cycler(Teacher.objects.all())
+    SLOTS = Cycler(rt.models.courses.Slot.objects.all())
+
+    date = settings.SITE.demo_date(-200)
+    qs = Client.objects.all()
+    if qs.count() == 0:
+        raise Exception("Oops, no clients!")
+    for i, obj in enumerate(qs):
+        if True:
+            c = Course(
+                user=USERS.pop(),
+                client=obj,
+                teacher=TEACHERS.pop(),
+                line=LINES.pop(), room=PLACES.pop(),
+                start_date=date,
+                every=1,
+                every_unit=DurationUnits.weeks,
+                slot=SLOTS.pop(),
+            )
+            yield c
+            yield Enrolment(pupil=obj, course=c)
+
+            c.save()  # fill presences
+
+            date += ONE_DAY
+
+            
+def objects():
+    yield person2clients()
+    yield enrolments()

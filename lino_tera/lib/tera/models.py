@@ -29,7 +29,7 @@ from lino_xl.lib.cal.workflows import TaskStates
 # from lino_xl.lib.cv.mixins import BiographyOwner
 # from lino.utils.mldbc.fields import BabelVirtualField
 
-from lino.mixins import ObservedPeriod
+from lino.mixins import ObservedDateRange
 
 from lino_xl.lib.coachings.choicelists import ClientEvents, ClientStates
 
@@ -54,7 +54,7 @@ contacts = dd.resolve_app('contacts')
 
 @dd.python_2_unicode_compatible
 class Client(Person, BeIdCardHolder, UserAuthored,
-             Referrable,
+             # Referrable,
              CreatedModified,
              Coachable,
              # Notable,
@@ -185,7 +185,7 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     #     super(Client, self).full_clean(*args, **kw)
 
 dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
-dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
+#dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
     
 
 class ClientDetail(dd.DetailLayout):
@@ -200,7 +200,7 @@ class ClientDetail(dd.DetailLayout):
     """, label=_("General"))
 
     general2 = """
-    id:10 national_id:15 ref
+    id:10 national_id:15 #ref
     birth_date age:10 gender:10
     #starting_reason professional_state
     client_state user #primary_coach
@@ -317,7 +317,7 @@ class Clients(contacts.Persons):
 
     detail_layout = ClientDetail()
 
-    parameters = ObservedPeriod(
+    parameters = ObservedDateRange(
         nationality=dd.ForeignKey(
             'countries.Country', blank=True, null=True,
             verbose_name=_("Nationality")),

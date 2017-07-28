@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-tera 2017.5.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-07-26 11:28+0300\n"
+"POT-Creation-Date: 2017-07-28 15:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,7 +114,7 @@ msgstr ""
 msgid "Abandoned by client"
 msgstr ""
 
-#: lino_tera/lib/courses/__init__.py:22 lino_tera/lib/courses/models.py:136
+#: lino_tera/lib/courses/__init__.py:22 lino_tera/lib/courses/models.py:137
 #: lino_tera/lib/tera/models.py:240
 msgid "Activities"
 msgstr ""
@@ -137,7 +137,7 @@ msgid "Suggestions"
 msgstr ""
 
 #: lino_tera/lib/courses/desktop.py:307 lino_tera/lib/courses/desktop.py:314
-#: lino_tera/lib/courses/models.py:383
+#: lino_tera/lib/courses/models.py:390
 msgid "Enrolments"
 msgstr ""
 
@@ -161,68 +161,72 @@ msgstr ""
 msgid "Activity types"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:135
+#: lino_tera/lib/courses/models.py:136
 msgid "Activity"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:142
+#: lino_tera/lib/courses/models.py:143
 msgid "Default participation fee"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:307
+#: lino_tera/lib/courses/models.py:206
+msgid "Legacy file number"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:314
 msgid "Invoiced"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:317
+#: lino_tera/lib/courses/models.py:324
 msgid "Not invoiced"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:382
+#: lino_tera/lib/courses/models.py:389
 msgid "Enrolment"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:385
+#: lino_tera/lib/courses/models.py:392
 msgid "Amount"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:393
+#: lino_tera/lib/courses/models.py:400
 msgctxt "in an enrolment"
 msgid "Free events"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:395
+#: lino_tera/lib/courses/models.py:402
 msgid "Number of events to add for first invoicing for this enrolment."
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:504
+#: lino_tera/lib/courses/models.py:511
 msgid "{enrolment} to {course}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:511
+#: lino_tera/lib/courses/models.py:518
 msgid "[{number}] Renewal {title}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:513
+#: lino_tera/lib/courses/models.py:520
 msgid "[{number}] {title}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:549
+#: lino_tera/lib/courses/models.py:556
 msgid "Participant"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:567
+#: lino_tera/lib/courses/models.py:574
 msgid "Phone: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:569
+#: lino_tera/lib/courses/models.py:576
 msgid "GSM: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:572
+#: lino_tera/lib/courses/models.py:579
 msgid "Invoicing info"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:577
+#: lino_tera/lib/courses/models.py:584
 msgid "Payment info"
 msgstr ""
 
@@ -424,10 +428,6 @@ msgstr ""
 
 #: lino_tera/lib/tera/models.py:187
 msgid "Primary coach"
-msgstr ""
-
-#: lino_tera/lib/tera/models.py:188
-msgid "Legacy file number"
 msgstr ""
 
 #: lino_tera/lib/tera/models.py:215

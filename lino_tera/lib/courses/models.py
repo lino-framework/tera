@@ -76,6 +76,7 @@ class Line(Line):
 
 @dd.python_2_unicode_compatible
 class Course(Referrable, Course):
+# class Course(Course):
     """Extends the standard model by adding a field :attr:`fee`.
 
     Also adds a :attr:`ref` field and defines a custom :meth:`__str__`
@@ -177,6 +178,11 @@ class Course(Referrable, Course):
             return Product.objects.none()
         return Product.objects.filter(cat=line.fees_cat)
 
+    def full_clean(self):
+        if not self.name:
+            self.name = str(self.household or self.client)
+        return super(Course, self).full_clean()
+    
     def __str__(self):
         if self.name:
             if self.ref:
@@ -197,6 +203,7 @@ class Course(Referrable, Course):
         return "%s %d" % (label, i)
 
 Course.set_widget_options('ref', preferred_with=6)
+dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
 
 # class CreateInvoiceForEnrolment(CreateInvoice):
 
