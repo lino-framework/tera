@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2017-07-28 15:26+0300\n"
-"PO-Revision-Date: 2017-07-28 15:32+0300\n"
+"PO-Revision-Date: 2017-08-03 05:12+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -346,7 +346,7 @@ msgstr ""
 
 #: lino_tera/lib/tera/models.py:64
 msgid "Client"
-msgstr "\t"
+msgstr "Klient"
 
 #: lino_tera/lib/tera/models.py:65
 msgid "Clients"

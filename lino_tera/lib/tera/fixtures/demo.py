@@ -92,7 +92,8 @@ def enrolments():
         if True:
             c = Course(
                 user=USERS.pop(),
-                client=obj,
+                # client=obj,
+                partner=obj,
                 teacher=TEACHERS.pop(),
                 line=LINES.pop(), room=PLACES.pop(),
                 start_date=date,

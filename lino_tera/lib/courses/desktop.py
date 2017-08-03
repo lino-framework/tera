@@ -120,14 +120,11 @@ class EntriesByCourse(EntriesByController):
 
 
 class CourseDetail(CourseDetail):
-    """The detail layout of a :class:`Course` (:ref:`voga` variant).
-
-    """
     main = "general enrolments events more"
     general = dd.Panel("""
-    ref line client household teacher workflow_buttons
+    ref line teacher workflow_buttons
     room start_date end_date start_time end_time
-    name
+    partner #client #household name
     remark
     """, label=_("General"))
 
@@ -147,7 +144,7 @@ class CourseDetail(CourseDetail):
     """, label=_("More"))
 
 
-Courses.detail_layout = CourseDetail()
+# Course.detail_layout_class = CourseDetail
 # Courses._course_area = CourseAreas.default
 Courses.order_by = ['ref', '-start_date', '-start_time']
 Courses.column_names = "ref start_date enrolments_until line room teacher " \
@@ -318,9 +315,9 @@ class LifeGroups(Courses):
     _course_area = CourseAreas.life_groups
     column_names = "ref name start_date enrolments_until line " \
                    "workflow_buttons *"
-    detail_layout = LifeGroupDetail()
+    detail_layout = 'courses.LifeGroupDetail'
     insert_layout = """
-    line household #teacher
+    line partner #household #teacher
     start_date
     """
 
@@ -329,9 +326,17 @@ class Therapies(Courses):
     _course_area = CourseAreas.therapies
     column_names = "ref name start_date end_date enrolments_until line " \
                    "workflow_buttons *"
-    detail_layout = TherapyDetail()
+    detail_layout = 'courses.TherapyDetail'
     insert_layout = """
-    line client #teacher
+    line partner #client #teacher
     start_date
     """
 
+class ActivitiesByPartner(Activities):
+    master_key = 'partner'
+
+# class ActivitiesByClient(Activities):
+#     master_key = 'client'
+
+# class ActivitiesByHousehold(Activities):
+#     master_key = 'household'    

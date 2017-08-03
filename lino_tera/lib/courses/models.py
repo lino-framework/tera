@@ -136,7 +136,8 @@ class Course(Referrable, Course):
         verbose_name = _("Activity")
         verbose_name_plural = _('Activities')
 
-    allow_cascaded_delete = "client household"
+    # allow_cascaded_delete = "client household"
+    allow_cascaded_delete = "partner"
 
     fee = dd.ForeignKey('products.Product',
                         blank=True, null=True,
@@ -148,15 +149,20 @@ class Course(Referrable, Course):
         related_name="%(app_label)s_%(class)s_set_by_payment_term",
         blank=True, null=True)    
 
-    client = dd.ForeignKey(
-        'tera.Client',
-        related_name="%(app_label)s_%(class)s_set_by_client",
+    partner = dd.ForeignKey(
+        'contacts.Partner',
+        # related_name="%(app_label)s_%(class)s_set_by_client",
         blank=True, null=True)    
 
-    household = dd.ForeignKey(
-        'households.Household',
-        related_name="%(app_label)s_%(class)s_set_by_household",
-        blank=True, null=True)    
+    # client = dd.ForeignKey(
+    #     'tera.Client',
+    #     related_name="%(app_label)s_%(class)s_set_by_client",
+    #     blank=True, null=True)    
+
+    # household = dd.ForeignKey(
+    #     'households.Household',
+    #     related_name="%(app_label)s_%(class)s_set_by_household",
+    #     blank=True, null=True)    
 
     paper_type = dd.ForeignKey(
         'sales.PaperType',
@@ -180,7 +186,8 @@ class Course(Referrable, Course):
 
     def full_clean(self):
         if not self.name:
-            self.name = str(self.household or self.client)
+            # self.name = str(self.household or self.client)
+            self.name = str(self.partner)
         return super(Course, self).full_clean()
     
     def __str__(self):
@@ -405,7 +412,8 @@ class Enrolment(Enrolment, Invoiceable):
     # create_invoice = CreateInvoiceForEnrolment()
 
     def get_invoiceable_partner(self):
-        return self.pupil.invoice_recipient or self.pupil
+        p = self.course.partner or self.pupil
+        return p.invoice_recipient or p
 
     def get_invoiceable_payment_term(self):
         return self.course.payment_term

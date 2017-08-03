@@ -19,3 +19,43 @@ class Household(Household, Partner):
         abstract = dd.is_abstract_model(__name__, 'Household')
 
 
+class HouseholdDetail(dd.DetailLayout):
+
+    main = "general activities"
+
+    general = dd.Panel("""
+    type prefix name language:10 id
+    address_box
+    bottom_box
+    """, label=_("General"))
+
+    activities = dd.Panel("""
+    courses.ActivitiesByPartner
+    ledger.MovementsByPartner
+    """, label=_("Activities"))
+
+
+    # intro_box = """
+    # """
+
+    box3 = """
+    country region
+    city zip_code:10
+    street_prefix street:25 street_no street_box
+    addr2:40
+    """
+
+    box4 = """
+    phone
+    gsm
+    email:40
+    url
+    """
+
+    address_box = "box3 box4"
+
+    bottom_box = """
+    #remarks households.MembersByHousehold
+    """
+
+Households.detail_layout = HouseholdDetail()

@@ -191,7 +191,7 @@ dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 class ClientDetail(dd.DetailLayout):
 
     main = "general person contact family courses_tab \
-    notes #trends #polls misc "
+    activities notes #trends #polls misc "
 
     general = dd.Panel("""
     overview:30 general2:40 image:15
@@ -235,19 +235,19 @@ class ClientDetail(dd.DetailLayout):
     coachings.ContactsByClient #uploads.UploadsByClient
     """, label=_("Person"))
 
-    courses_tab = dd.Panel("""
-    #language_notes:20 courses.EnrolmentsByPupil:60 courses_right:20
+    activities = dd.Panel("""
+    courses.ActivitiesByPartner
+    ledger.MovementsByPartner
     """, label=_("Activities"))
 
-    translator_left = """
-    language 
-    # translator_type
-    # mother_tongues
-    """
-    courses_right = """
-    needed_course
-    availability:20
-    """
+    courses_tab = dd.Panel("""
+    courses.EnrolmentsByPupil:60 #courses_right:20
+    """, label=_("Enrolments"))
+
+    # courses_right = """
+    # needed_course
+    # availability:20
+    # """
     # translator_right = """
     # language_knowledge
     # # cef_level_de
