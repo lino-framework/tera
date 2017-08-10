@@ -25,7 +25,8 @@ class Site(Site):
                      # 'linotickets',
                      # 'tractickets', 'luc']
 
-    project_model = 'tera.Client'
+    # project_model = 'tera.Client'
+    project_model = 'courses.Course'
     # project_model = 'contacts.Partner'
     textfield_format = 'html'
     user_types_module = 'lino_tera.lib.tera.user_types'
