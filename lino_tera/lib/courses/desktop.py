@@ -120,7 +120,7 @@ class EntriesByCourse(EntriesByController):
 
 
 class CourseDetail(CourseDetail):
-    main = "general enrolments events more"
+    main = "general enrolments events notes more"
     general = dd.Panel("""
     ref line teacher workflow_buttons
     room start_date end_date start_time end_time
@@ -137,10 +137,15 @@ class CourseDetail(CourseDetail):
 
     enrolments_top = 'enrolments_until fee:15 max_places:10 confirmed free_places:10 print_actions:15'
 
+    notes = dd.Panel("""
+    notes.NotesByProject
+    #comments.CommentsByRFC cal.TasksByProject
+    """, label = _("Notes"))
+
     more = dd.Panel("""
     # company contact_person
     state user payment_term paper_type id
-    invoicing.InvoicingsByInvoiceable
+    invoicing.InvoicingsByInvoiceable excerpts.ExcerptsByProject
     """, label=_("More"))
 
 

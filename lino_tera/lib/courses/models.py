@@ -21,12 +21,14 @@ from django.utils.translation import pgettext_lazy as pgettext
 
 from lino.utils.mti import get_child
 from lino.api import dd, rt
+from lino.utils.xmlgen.html import E
 
 from lino.mixins import Referrable
 from lino.modlib.printing.mixins import Printable
 from lino_xl.lib.invoicing.mixins import Invoiceable
 from lino_xl.lib.courses.mixins import Enrollable
 from lino_xl.lib.accounts.utils import DEBIT
+from lino_xl.lib.cal.workflows import TaskStates
 from lino.utils import join_elems
 
 from lino_xl.lib.courses.models import *
@@ -208,6 +210,23 @@ class Course(Referrable, Course):
         if self.ref:
             label = self.ref + ' ' + label
         return "%s %d" % (label, i)
+
+    def get_overview_elems(self, ar):
+        elems = super(Course, self).get_overview_elems(ar)
+        # elems.append(E.br())
+        # elems.append(ar.get_data_value(self, 'eid_info'))
+        notes = []
+        for obj in rt.modules.cal.Task.objects.filter(
+                project=self, state=TaskStates.important):
+            notes.append(E.b(ar.obj2html(obj, obj.summary)))
+        if len(notes):
+            notes = join_elems(notes, " / ")
+            elems.append(E.p(*notes, class_="lino-info-yellow"))
+        return elems
+
+    def update_owned_instance(self, owned):
+        owned.project = self
+        super(Client, self).update_owned_instance(owned)
 
 Course.set_widget_options('ref', preferred_with=6)
 dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))

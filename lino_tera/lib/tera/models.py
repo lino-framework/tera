@@ -166,18 +166,18 @@ class Client(Person, BeIdCardHolder, UserAuthored,
         elems = super(Client, self).get_overview_elems(ar)
         # elems.append(E.br())
         elems.append(ar.get_data_value(self, 'eid_info'))
-        notes = []
-        for obj in rt.modules.cal.Task.objects.filter(
-                project=self, state=TaskStates.important):
-            notes.append(E.b(ar.obj2html(obj, obj.summary)))
-        if len(notes):
-            notes = join_elems(notes, " / ")
-            elems.append(E.p(*notes, class_="lino-info-yellow"))
+        # notes = []
+        # for obj in rt.modules.cal.Task.objects.filter(
+        #         project=self, state=TaskStates.important):
+        #     notes.append(E.b(ar.obj2html(obj, obj.summary)))
+        # if len(notes):
+        #     notes = join_elems(notes, " / ")
+        #     elems.append(E.p(*notes, class_="lino-info-yellow"))
         return elems
 
-    def update_owned_instance(self, owned):
-        owned.project = self
-        super(Client, self).update_owned_instance(owned)
+    # def update_owned_instance(self, owned):
+    #     owned.project = self
+    #     super(Client, self).update_owned_instance(owned)
 
     # def full_clean(self, *args, **kw):
     #     if self.national_id:
@@ -190,13 +190,13 @@ dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 
 class ClientDetail(dd.DetailLayout):
 
-    main = "general person contact family courses_tab \
-    activities notes #trends #polls misc "
+    main = "general person contact family \
+    activities #notes #trends #polls misc "
 
     general = dd.Panel("""
     overview:30 general2:40 image:15
     
-    #tickets.TicketsByEndUser cal.EntriesByProject
+    #tickets.TicketsByEndUser #cal.EntriesByProject cal.GuestsByPartner
     """, label=_("General"))
 
     general2 = """
@@ -237,23 +237,8 @@ class ClientDetail(dd.DetailLayout):
 
     activities = dd.Panel("""
     courses.ActivitiesByPartner
-    ledger.MovementsByPartner
+    courses.EnrolmentsByPupil:60
     """, label=_("Activities"))
-
-    courses_tab = dd.Panel("""
-    courses.EnrolmentsByPupil:60 #courses_right:20
-    """, label=_("Enrolments"))
-
-    # courses_right = """
-    # needed_course
-    # availability:20
-    # """
-    # translator_right = """
-    # language_knowledge
-    # # cef_level_de
-    # # cef_level_fr
-    # # cef_level_en 
-    # """
 
     family = dd.Panel("""
     family_notes:40 households.MembersByPerson:20
@@ -261,11 +246,11 @@ class ClientDetail(dd.DetailLayout):
     households.SiblingsByPerson
     """, label=_("Family"))
 
-    notes = dd.Panel("""
-    notes.NotesByProject
-    #comments.CommentsByRFC cal.TasksByProject
-    # coachings.CoachingsByClient 
-    """, label = _("Notes"))
+    # notes = dd.Panel("""
+    # notes.NotesByProject
+    # #comments.CommentsByRFC cal.TasksByProject
+    # # coachings.CoachingsByClient 
+    # """, label = _("Notes"))
 
     # courses = dd.Panel("""
     # courses.EnrolmentsByPupil
@@ -282,7 +267,8 @@ class ClientDetail(dd.DetailLayout):
     misc = dd.Panel("""
     # unavailable_until:15 unavailable_why:30
     financial_notes health_notes #integration_notes
-    plausibility.ProblemsByOwner excerpts.ExcerptsByProject
+    plausibility.ProblemsByOwner ledger.MovementsByPartner
+    #excerpts.ExcerptsByProject
     """, label=_("Miscellaneous"))
 
     # career = dd.Panel("""
