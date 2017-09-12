@@ -18,13 +18,17 @@ class Household(Household, Partner):
         app_label = 'households'
         abstract = dd.is_abstract_model(__name__, 'Household')
 
+    def __str__(self):
+        s = "{} {}".format(self.get_full_name(), self.type or '').strip()
+        s = "{} ({})".format(s, self.pk)
+        return s
 
 class HouseholdDetail(dd.DetailLayout):
 
     main = "general activities"
 
     general = dd.Panel("""
-    type prefix name language:10 id
+    type prefix name id
     address_box
     bottom_box
     """, label=_("General"))
@@ -39,7 +43,7 @@ class HouseholdDetail(dd.DetailLayout):
     # """
 
     box3 = """
-    country region
+    country region language:10
     city zip_code:10
     street_prefix street:25 street_no street_box
     addr2:40
