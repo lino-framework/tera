@@ -12,6 +12,7 @@ from lino_xl.lib.households.models import *
 # from lino_xl.lib.coachings.mixins import Coachable
 from lino_tera.lib.contacts.models import Partner
 
+@dd.python_2_unicode_compatible
 class Household(Household, Partner):
 
     class Meta(Household.Meta):
