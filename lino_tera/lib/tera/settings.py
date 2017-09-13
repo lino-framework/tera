@@ -113,6 +113,7 @@ class Site(Site):
         from lino.core.merge import MergeAction
         lib = self.models
         for m in (lib.contacts.Company, lib.tera.Client,
+                  lib.contacts.Person,
                   lib.households.Household,
                   lib.countries.Place):
             m.define_action(merge_row=MergeAction(m))

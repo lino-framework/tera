@@ -11,6 +11,11 @@ from lino.api import dd, rt, _
 rt.models.accounts.Accounts.column_names = "\
 ref name purchases_allowed group *"
 
+rt.models.countries.Places.detail_layout = """
+name country
+type parent zip_code id
+PlacesByPlace contacts.PartnersByCity
+"""
 rt.models.accounts.Accounts.detail_layout = """
 ref:10 name
 group type id default_amount:10 vat_column
