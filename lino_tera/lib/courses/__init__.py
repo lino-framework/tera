@@ -21,7 +21,7 @@ class Plugin(Plugin):
 
     verbose_name = _("Activities")
 
-    teacher_model = 'contacts.Person'
+    teacher_model = 'users.User'
     """The name of the model to be used for "teachers" (i.e. the person
     who is responsible for a course).
 
