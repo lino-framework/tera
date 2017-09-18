@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-09-05 22:35+0300\n"
+"POT-Creation-Date: 2017-09-18 05:42+0300\n"
 "PO-Revision-Date: 2017-03-20 07:46+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: fr\n"
@@ -88,7 +88,8 @@ msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:19 lino_tera/lib/contacts/models.py:51
 #: lino_tera/lib/contacts/models.py:143 lino_tera/lib/courses/desktop.py:129
-#: lino_tera/lib/households/models.py:30 lino_tera/lib/tera/models.py:200
+#: lino_tera/lib/households/models.py:35 lino_tera/lib/products/models.py:46
+#: lino_tera/lib/tera/models.py:200
 msgid "General"
 msgstr ""
 
@@ -116,7 +117,7 @@ msgid "Abandoned by client"
 msgstr ""
 
 #: lino_tera/lib/courses/__init__.py:22 lino_tera/lib/courses/models.py:139
-#: lino_tera/lib/households/models.py:35 lino_tera/lib/tera/models.py:241
+#: lino_tera/lib/households/models.py:40 lino_tera/lib/tera/models.py:241
 msgid "Activities"
 msgstr ""
 
@@ -142,7 +143,7 @@ msgid "Suggestions"
 msgstr ""
 
 #: lino_tera/lib/courses/desktop.py:309 lino_tera/lib/courses/desktop.py:316
-#: lino_tera/lib/courses/models.py:416
+#: lino_tera/lib/courses/models.py:416 lino_tera/lib/products/models.py:51
 msgid "Enrolments"
 msgstr ""
 
@@ -253,6 +254,38 @@ msgstr ""
 
 #: lino_tera/lib/lists/fixtures/demo.py:15
 msgid "Children's group {0}"
+msgstr ""
+
+#: lino_tera/lib/products/__init__.py:19 lino_tera/lib/products/models.py:26
+msgid "Tariffs"
+msgstr ""
+
+#: lino_tera/lib/products/models.py:16
+msgid "Tariff Category"
+msgstr ""
+
+#: lino_tera/lib/products/models.py:17
+msgid "Tariff Categories"
+msgstr ""
+
+#: lino_tera/lib/products/models.py:25
+msgid "Tariff"
+msgstr ""
+
+#: lino_tera/lib/products/models.py:29
+msgid "Number of events"
+msgstr ""
+
+#: lino_tera/lib/products/models.py:30
+msgid "Number of calendar events paid per invoicing."
+msgstr ""
+
+#: lino_tera/lib/products/models.py:33
+msgid "Invoice threshold"
+msgstr ""
+
+#: lino_tera/lib/products/models.py:34
+msgid "Minimum quantity to pay in advance."
 msgstr ""
 
 #: lino_tera/lib/teams/__init__.py:24 lino_tera/lib/teams/models.py:20
@@ -455,19 +488,19 @@ msgstr ""
 msgid "Nationality"
 msgstr ""
 
-#: lino_tera/lib/tera/user_types.py:54
+#: lino_tera/lib/tera/user_types.py:56
 msgid "Anonymous"
 msgstr ""
 
-#: lino_tera/lib/tera/user_types.py:55
+#: lino_tera/lib/tera/user_types.py:57
 msgid "Secretary"
 msgstr ""
 
-#: lino_tera/lib/tera/user_types.py:56
+#: lino_tera/lib/tera/user_types.py:58
 msgid "Therapist"
 msgstr ""
 
-#: lino_tera/lib/tera/user_types.py:57
+#: lino_tera/lib/tera/user_types.py:59
 msgid "Administrator"
 msgstr ""
 
