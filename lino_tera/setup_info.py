@@ -6,7 +6,7 @@
 
 SETUP_INFO = dict(
     name='lino-tera',
-    version='2017.5.0',
+    version='17.9.0',
     install_requires=['lino-xl'],
     # tests_require=['pytest', 'mock'],
     test_suite='tests',
@@ -74,6 +74,7 @@ lino_tera.lib.households
 lino_tera.lib.households.fixtures
 lino_tera.lib.lists
 lino_tera.lib.lists.fixtures
+lino_tera.lib.products
 lino_tera.lib.teams
 lino_tera.lib.teams.fixtures
 lino_tera.lib.tera
