@@ -77,7 +77,7 @@ class PartnerDetail(PartnerDetail):
 
     # A layout for use in Belgium
     address_box = """
-    name
+    prefix name
     street:25 #street_no street_box
     addr2
     country zip_code:10 city
