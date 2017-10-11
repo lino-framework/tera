@@ -15,5 +15,6 @@
     teams
     tera
     users
+    products
 
 """

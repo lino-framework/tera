@@ -9,6 +9,11 @@ In Lino Tera we don't call them "products" but "tariffs".
 And we make them less visible by moving them from the main menu to the
 configuration menu.
 
+.. autosummary::
+   :toctree:
+
+    models
+
 """
 
 from lino_xl.lib.products import Plugin, _

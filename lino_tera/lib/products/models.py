@@ -36,12 +36,12 @@ class Product(Product):
 
 class ProductDetail(dd.DetailLayout):
 
-    main = "general courses"
+    main = "general courses sales"
     
     general = dd.Panel("""
-    id cat sales_price number_of_events:10 min_asset:10
-    vat_class delivery_unit
-    name
+    name id
+    cat sales_price  number_of_events:10 min_asset:10
+    vat_class sales_account delivery_unit
     description
     """, _("General"))
 
@@ -50,5 +50,10 @@ class ProductDetail(dd.DetailLayout):
     courses.EnrolmentsByOption
     """, _("Enrolments"))
 
+    sales = dd.Panel("""
+    sales.InvoiceItemsByProduct
+    """, _("Sales"))
+
 
 Products.detail_layout = ProductDetail()
+Products.column_names = "id name sales_price sales_account cat *"
