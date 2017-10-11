@@ -18,7 +18,7 @@ PlacesByPlace contacts.PartnersByCity
 """
 rt.models.accounts.Accounts.detail_layout = """
 ref:10 name
-group type id default_amount:10 vat_column
+group type id default_amount:10 common_account vat_column
 needs_partner clearable purchases_allowed  needs_ana ana_account
 ledger.MovementsByAccount
 """
