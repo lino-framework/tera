@@ -22,7 +22,7 @@ from lino.modlib.users.mixins import UserAuthored, My
 
 # from lino.modlib.notify.mixins import ChangeObservable
 # from lino_xl.lib.notes.choicelists import SpecialTypes
-from lino_xl.lib.coachings.mixins import Coachable
+from lino_xl.lib.clients.mixins import ClientBase
 from lino_xl.lib.notes.mixins import Notable
 from lino_tera.lib.contacts.models import Person
 from lino_xl.lib.cal.workflows import TaskStates
@@ -31,7 +31,7 @@ from lino_xl.lib.cal.workflows import TaskStates
 
 from lino.mixins import ObservedDateRange
 
-from lino_xl.lib.coachings.choicelists import ClientEvents, ClientStates
+from lino_xl.lib.clients.choicelists import ClientEvents, ClientStates
 
 from .choicelists import StartingReasons, EndingReasons, ProfessionalStates
 
@@ -56,7 +56,7 @@ contacts = dd.resolve_app('contacts')
 class Client(Person, BeIdCardHolder, UserAuthored,
              # Referrable,
              CreatedModified,
-             Coachable,
+             ClientBase,
              # Notable,
              Commentable):
     class Meta:
@@ -232,7 +232,7 @@ class ClientDetail(dd.DetailLayout):
     first_name middle_name last_name #declared_name
     nationality:15 birth_country birth_place 
     card_type #card_number card_issuer card_valid_from card_valid_until
-    coachings.ContactsByClient #uploads.UploadsByClient
+    clients.ContactsByClient #uploads.UploadsByClient
     """, label=_("Person"))
 
     activities = dd.Panel("""

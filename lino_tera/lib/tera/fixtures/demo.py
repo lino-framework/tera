@@ -29,7 +29,7 @@ from lino.utils import Cycler
 def person2clients():
     Person = rt.models.contacts.Person
     Client = rt.models.tera.Client
-    ClientStates = rt.actors.coachings.ClientStates
+    ClientStates = rt.models.clients.ClientStates
 
     count = 0
     for person in Person.objects.all():
