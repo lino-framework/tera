@@ -40,7 +40,7 @@ class CoachingDetail(dd.DetailLayout):
     # """, label=dd.plugins.sales.verbose_name)
 
     bottom_box = """
-    remarks:50 plausibility.ProblemsByOwner:30
+    remarks:50 checkdata.ProblemsByOwner:30
     """
 
     # A layout for use in Belgium

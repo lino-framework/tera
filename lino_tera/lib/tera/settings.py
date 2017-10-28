@@ -88,7 +88,7 @@ class Site(Site):
         # yield 'lino_xl.lib.pages'
 
         yield 'lino.modlib.export_excel'
-        yield 'lino.modlib.plausibility'
+        yield 'lino.modlib.checkdata'
         yield 'lino.modlib.tinymce'
         # yield 'lino.modlib.wkhtmltopdf'
         yield 'lino.modlib.weasyprint'

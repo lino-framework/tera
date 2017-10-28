@@ -267,7 +267,7 @@ class ClientDetail(dd.DetailLayout):
     misc = dd.Panel("""
     # unavailable_until:15 unavailable_why:30
     financial_notes health_notes #integration_notes
-    plausibility.ProblemsByOwner ledger.MovementsByPartner
+    checkdata.ProblemsByOwner ledger.MovementsByPartner
     #excerpts.ExcerptsByProject
     """, label=_("Miscellaneous"))
 
