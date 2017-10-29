@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-tera 17.10.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-10-10 17:51+0300\n"
+"POT-Creation-Date: 2017-10-29 06:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -255,7 +255,7 @@ msgstr ""
 msgid "Children's group {0}"
 msgstr ""
 
-#: lino_tera/lib/products/__init__.py:19 lino_tera/lib/products/models.py:26
+#: lino_tera/lib/products/__init__.py:24 lino_tera/lib/products/models.py:26
 msgid "Tariffs"
 msgstr ""
 
@@ -285,6 +285,10 @@ msgstr ""
 
 #: lino_tera/lib/products/models.py:34
 msgid "Minimum quantity to pay in advance."
+msgstr ""
+
+#: lino_tera/lib/products/models.py:55
+msgid "Sales"
 msgstr ""
 
 #: lino_tera/lib/teams/__init__.py:24 lino_tera/lib/teams/models.py:20
