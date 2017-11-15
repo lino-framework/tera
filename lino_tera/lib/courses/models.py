@@ -45,11 +45,6 @@ MAX_SHOWN = 3  # maximum number of invoiced events shown in
 from lino.modlib.printing.utils import CustomBuildMethod
 
 
-"""The default activity are **courses**.  a **hike** usually includes
-a bus travel. One enrolment can mean several participants (seats).  A
-**journey** also includes a room in a hotel.
-
-"""
 CourseAreas.clear()
 add = CourseAreas.add_item
 add('10', _("Individual therapies"), 'therapies', 'courses.Therapies')
@@ -62,8 +57,8 @@ class CourseType(Referrable, mixins.BabelNamed):
     class Meta:
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'CourseType')
-        verbose_name = _("Activity type")
-        verbose_name_plural = _('Activity types')
+        verbose_name = _("Therapy type")
+        verbose_name_plural = _('Therapy types')
 
 
 class Line(Line):
@@ -135,8 +130,8 @@ class Course(Referrable, Course):
     class Meta(Course.Meta):
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Course')
-        verbose_name = _("Activity")
-        verbose_name_plural = _('Activities')
+        verbose_name = _("Therapy")
+        verbose_name_plural = _('Therapies')
 
     # allow_cascaded_delete = "client household"
     allow_cascaded_delete = "partner"
@@ -226,10 +221,27 @@ class Course(Referrable, Course):
 
     def update_owned_instance(self, owned):
         owned.project = self
-        super(Client, self).update_owned_instance(owned)
+        super(Course, self).update_owned_instance(owned)
+
+    @dd.displayfield(_("Patient"))
+    def client(self, ar):
+        if ar is None or self.partner_id is None:
+            return
+        obj = get_child(self.partner, rt.models.tera.Client)
+        if obj is not None:
+            return obj.obj2href(ar)
+
+    @dd.displayfield(_("Household"))
+    def household(self, ar):
+        if ar is None or self.partner_id is None:
+            return
+        obj = get_child(self.partner, rt.models.households.Household)
+        if obj is not None:
+            return obj.obj2href(ar)
 
 Course.set_widget_options('ref', preferred_with=6)
 dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
+dd.update_field(Course, 'user', verbose_name=_("Therapist"))
 
 # class CreateInvoiceForEnrolment(CreateInvoice):
 

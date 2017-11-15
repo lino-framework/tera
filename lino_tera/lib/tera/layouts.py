@@ -8,6 +8,7 @@
 """
 
 from lino.api import dd, rt, _
+
 rt.models.accounts.Accounts.column_names = "\
 ref name purchases_allowed group *"
 

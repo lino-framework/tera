@@ -61,8 +61,8 @@ class Client(Person, BeIdCardHolder, UserAuthored,
              Commentable):
     class Meta:
         app_label = 'tera'
-        verbose_name = _("Client")
-        verbose_name_plural = _("Clients")
+        verbose_name = _("Patient")
+        verbose_name_plural = _("Patients")
         abstract = dd.is_abstract_model(__name__, 'Client')
         #~ ordering = ['last_name','first_name']
 
@@ -236,9 +236,11 @@ class ClientDetail(dd.DetailLayout):
     """, label=_("Person"))
 
     activities = dd.Panel("""
-    courses.ActivitiesByPartner
-    courses.EnrolmentsByPupil:60
-    """, label=_("Activities"))
+    # courses.ActivitiesByPartner
+    courses.EnrolmentsByPupil
+    tera.NotesByPartner
+    cal.GuestsByPartner
+    """, label=_("Therapies"))
 
     family = dd.Panel("""
     family_notes:40 households.MembersByPerson:20
@@ -493,3 +495,9 @@ from lino.api import _, pgettext
 #     # default_event_type max_auto_events 
 #     """)
 
+class NotesByPartner(dd.Table):
+    # the project of a note is a course, and the partner of that
+    # course is the master.
+    model = 'notes.Note'
+    master_key = 'project__partner'
+    column_names = "date type subject project user *"
