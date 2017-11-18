@@ -32,6 +32,13 @@ site_calendar default_event_type #pupil_guestrole
 max_auto_events hide_events_before
 """
 
+dd.plugins.lists.verbose_name = _("Topics")
+rt.models.lists.List._meta.verbose_name = _("Topic")
+rt.models.lists.List._meta.verbose_name_plural = _("Topic")
+rt.models.lists.Member._meta.verbose_name = _("Interest")
+rt.models.lists.Member._meta.verbose_name_plural = _("Interests")
+rt.models.lists.Member._meta.get_field('list').verbose_name = _("Topic")
+
 # dd.plugins.courses.verbose_name = _("Therapies")
 # rt.models.courses.Course.verbose_name = _("Therapy")
 # rt.models.courses.Course.verbose_name_plural = _("Therapies")
@@ -41,3 +48,9 @@ max_auto_events hide_events_before
 
 # select Belgian VAT declaration layout
 # from lino_xl.lib.declarations import be
+
+from .roles import ClientsUser
+rt.models.tera.NotesByPartner.required_roles = dd.login_required(
+    ClientsUser)
+rt.models.lists.MembersByPartner.required_roles = dd.login_required(
+    ClientsUser)

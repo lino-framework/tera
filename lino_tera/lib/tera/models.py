@@ -196,7 +196,7 @@ class ClientDetail(dd.DetailLayout):
     general = dd.Panel("""
     overview:30 general2:40 image:15
     
-    #tickets.TicketsByEndUser #cal.EntriesByProject cal.GuestsByPartner
+    cal.GuestsByPartner
     """, label=_("General"))
 
     general2 = """
@@ -238,8 +238,8 @@ class ClientDetail(dd.DetailLayout):
     activities = dd.Panel("""
     # courses.ActivitiesByPartner
     courses.EnrolmentsByPupil
-    tera.NotesByPartner
-    cal.GuestsByPartner
+    tera.NotesByPartner lists.MembersByPartner
+    # cal.GuestsByPartner
     """, label=_("Therapies"))
 
     family = dd.Panel("""
@@ -292,7 +292,7 @@ class ClientDetail(dd.DetailLayout):
 class Clients(contacts.Persons):
     model = 'tera.Client'
     params_panel_hidden = True
-    required_roles = dd.login_required(ClientsUser)
+    required_roles = dd.login_required(ClientsNameUser)
 
     # insert_layout = dd.InsertLayout("""
     # first_name last_name

@@ -70,10 +70,12 @@ class Site(Site):
         yield 'lino_xl.lib.bevats'
         yield 'lino_xl.lib.ana'
         # 'lino_xl.lib.projects',
-        yield 'lino_xl.lib.blogs'
+        # yield 'lino_xl.lib.blogs'
+        # yield 'lino_xl.lib.topics'
         yield 'lino_xl.lib.notes'
         # yield 'lino_tera.lib.tickets'
-        yield 'lino_xl.lib.faculties'
+        # yield 'lino_xl.lib.faculties'
+        yield 'lino_xl.lib.lists'
         # yield 'lino_xl.lib.votes'
         # yield 'lino_tera.lib.clocking'
         # yield 'lino_xl.lib.deploy'
@@ -100,7 +102,8 @@ class Site(Site):
         super(Site, self).setup_plugins()
         self.plugins.countries.configure(country_code='BE')
         # self.plugins.clocking.configure(ticket_model='contacts.Person')
-        self.plugins.faculties.configure(demander_model='contacts.Person')
+        # self.plugins.faculties.configure(demander_model='contacts.Person')
+        # self.plugins.topics.configure(demander_model='contacts.Person')
         # self.plugins.coachings.configure(client_model='tera.Client')
         self.plugins.clients.configure(client_model='contacts.Partner')
         self.plugins.countries.configure(hide_region=True)
