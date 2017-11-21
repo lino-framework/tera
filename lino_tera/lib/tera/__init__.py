@@ -2,7 +2,7 @@
 # Copyright 2014-2017 Luc Saffre
 # License: BSD (see file COPYING for details)
 """
-The main plugin for Lino Noi.
+The main plugin for Lino Tera.
 
 .. autosummary::
    :toctree:
