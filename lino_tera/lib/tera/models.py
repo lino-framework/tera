@@ -195,8 +195,7 @@ class ClientDetail(dd.DetailLayout):
 
     general = dd.Panel("""
     overview:30 general2:40 image:15
-    
-    cal.GuestsByPartner
+    cal.GuestsByPartner lists.MembersByPartner
     """, label=_("General"))
 
     general2 = """
@@ -232,13 +231,13 @@ class ClientDetail(dd.DetailLayout):
     first_name middle_name last_name #declared_name
     nationality:15 birth_country birth_place 
     card_type #card_number card_issuer card_valid_from card_valid_until
-    clients.ContactsByClient #uploads.UploadsByClient
+    clients.ContactsByClient #uploads.UploadsByClient 
     """, label=_("Person"))
 
     activities = dd.Panel("""
     # courses.ActivitiesByPartner
     courses.EnrolmentsByPupil
-    tera.NotesByPartner lists.MembersByPartner
+    tera.NotesByPartner 
     # cal.GuestsByPartner
     """, label=_("Therapies"))
 

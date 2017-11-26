@@ -125,7 +125,7 @@ class CourseDetail(CourseDetail):
     ref line teacher workflow_buttons
     room start_date end_date start_time end_time
     partner client household name
-    remark
+    remark topics.InterestsByController
     """, label=_("General"))
 
     events = dd.Panel("""
