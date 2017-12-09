@@ -114,15 +114,15 @@ class Site(Site):
         self.plugins.courses.configure(pupil_model='contacts.Person')
 
 
-    def setup_actions(self):
-        from lino.core.merge import MergeAction
-        lib = self.models
-        for m in (lib.contacts.Company, lib.tera.Client,
-                  lib.contacts.Person,
-                  lib.households.Household,
-                  lib.countries.Place):
-            m.define_action(merge_row=MergeAction(m))
-        super(Site, self).setup_actions()
+    # def setup_actions(self):
+    #     from lino.core.merge import MergeAction
+    #     lib = self.models
+    #     for m in (lib.contacts.Company, lib.tera.Client,
+    #               lib.contacts.Person,
+    #               lib.households.Household,
+    #               lib.countries.Place):
+    #         m.define_action(merge_row=MergeAction(m))
+    #     super(Site, self).setup_actions()
 
 # the following line should not be active in a checked-in version
 #~ DATABASES['default']['NAME'] = ':memory:'
