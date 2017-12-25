@@ -124,8 +124,8 @@ class CourseDetail(CourseDetail):
     general = dd.Panel("""
     ref line teacher workflow_buttons
     room start_date end_date start_time end_time
-    partner #client #household name
-    remark
+    partner client household name
+    remark topics.InterestsByController
     """, label=_("General"))
 
     events = dd.Panel("""
@@ -345,3 +345,9 @@ class ActivitiesByPartner(Activities):
 
 # class ActivitiesByHousehold(Activities):
 #     master_key = 'household'    
+
+class MyActivities(MyActivities):
+    label = _("Therapies managed by me")
+    
+class MyCoursesGiven(MyCoursesGiven):
+    label = _("My therapies")

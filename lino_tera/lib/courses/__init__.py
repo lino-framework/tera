@@ -19,7 +19,7 @@ from lino.api import _
 
 class Plugin(Plugin):
 
-    verbose_name = _("Activities")
+    verbose_name = _("Therapies")
 
     teacher_model = 'users.User'
     """The name of the model to be used for "teachers" (i.e. the person

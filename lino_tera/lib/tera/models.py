@@ -61,8 +61,8 @@ class Client(Person, BeIdCardHolder, UserAuthored,
              Commentable):
     class Meta:
         app_label = 'tera'
-        verbose_name = _("Client")
-        verbose_name_plural = _("Clients")
+        verbose_name = _("Patient")
+        verbose_name_plural = _("Patients")
         abstract = dd.is_abstract_model(__name__, 'Client')
         #~ ordering = ['last_name','first_name']
 
@@ -195,8 +195,7 @@ class ClientDetail(dd.DetailLayout):
 
     general = dd.Panel("""
     overview:30 general2:40 image:15
-    
-    #tickets.TicketsByEndUser #cal.EntriesByProject cal.GuestsByPartner
+    cal.GuestsByPartner lists.MembersByPartner
     """, label=_("General"))
 
     general2 = """
@@ -232,13 +231,15 @@ class ClientDetail(dd.DetailLayout):
     first_name middle_name last_name #declared_name
     nationality:15 birth_country birth_place 
     card_type #card_number card_issuer card_valid_from card_valid_until
-    clients.ContactsByClient #uploads.UploadsByClient
+    clients.ContactsByClient #uploads.UploadsByClient 
     """, label=_("Person"))
 
     activities = dd.Panel("""
-    courses.ActivitiesByPartner
-    courses.EnrolmentsByPupil:60
-    """, label=_("Activities"))
+    # courses.ActivitiesByPartner
+    courses.EnrolmentsByPupil
+    tera.NotesByPartner 
+    # cal.GuestsByPartner
+    """, label=_("Therapies"))
 
     family = dd.Panel("""
     family_notes:40 households.MembersByPerson:20
@@ -290,7 +291,7 @@ class ClientDetail(dd.DetailLayout):
 class Clients(contacts.Persons):
     model = 'tera.Client'
     params_panel_hidden = True
-    required_roles = dd.login_required(ClientsUser)
+    required_roles = dd.login_required(ClientsNameUser)
 
     # insert_layout = dd.InsertLayout("""
     # first_name last_name
@@ -493,3 +494,9 @@ from lino.api import _, pgettext
 #     # default_event_type max_auto_events 
 #     """)
 
+class NotesByPartner(dd.Table):
+    # the project of a note is a course, and the partner of that
+    # course is the master.
+    model = 'notes.Note'
+    master_key = 'project__partner'
+    column_names = "date type subject project user *"
