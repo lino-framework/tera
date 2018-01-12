@@ -9,7 +9,7 @@ from lino.api import _, dd
 
 from lino_xl.lib.coachings.models import *
 
-#from lino_xl.lib.clocking.mixins import Workable
+#from lino_xl.lib.working.mixins import Workable
 
 # from lino_xl.lib.coachings.mixins import Coachable
 # from lino_xl.lib.cal.mixins import EventGenerator

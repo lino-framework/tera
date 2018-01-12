@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 from lino.api import _
 
-from lino_xl.lib.clocking.models import *
+from lino_xl.lib.working.models import *
 
 from lino_xl.lib.invoicing.mixins import Invoiceable
 
@@ -16,7 +16,7 @@ from .choicelists import PaymentModes, SessionStates
 class Session(Session, Invoiceable):
 
     class Meta(Session.Meta):
-        app_label = 'clocking'
+        app_label = 'working'
         abstract = dd.is_abstract_model(__name__, 'Session')
 
     invoiceable_date_field = 'end_date'
@@ -58,7 +58,7 @@ class Session(Session, Invoiceable):
 
     def setup_invoice_item(self, item):
         item.description = dd.plugins.jinja.render_from_request(
-            None, 'clocking/Session/item_description.html',
+            None, 'working/Session/item_description.html',
             obj=self, item=item)
 
     def get_invoiceable_product(self, plan):

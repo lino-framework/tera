@@ -25,7 +25,7 @@ dd.inject_field(
     dd.ForeignKey('teams.Team', blank=True, null=True))
 
 # dd.inject_field(
-#     'clocking.Session', 'team',
+#     'working.Session', 'team',
 #     dd.ForeignKey('teams.Team', blank=True, null=True))
 
 dd.inject_field(

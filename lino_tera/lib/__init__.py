@@ -7,7 +7,7 @@
 .. autosummary::
    :toctree:
 
-    clocking
+    working
     contacts
     coachings
     households

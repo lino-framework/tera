@@ -77,9 +77,9 @@ class Site(Site):
         # yield 'lino_xl.lib.faculties'
         yield 'lino_xl.lib.lists'
         # yield 'lino_xl.lib.votes'
-        # yield 'lino_tera.lib.clocking'
+        # yield 'lino_tera.lib.working'
         # yield 'lino_xl.lib.deploy'
-        # yield 'lino_presto.lib.clocking'
+        # yield 'lino_presto.lib.working'
         # yield 'lino.modlib.uploads'
         yield 'lino_xl.lib.extensible'
         yield 'lino_xl.lib.cal'
@@ -101,7 +101,7 @@ class Site(Site):
     def setup_plugins(self):
         super(Site, self).setup_plugins()
         self.plugins.countries.configure(country_code='BE')
-        # self.plugins.clocking.configure(ticket_model='contacts.Person')
+        # self.plugins.working.configure(ticket_model='contacts.Person')
         # self.plugins.faculties.configure(demander_model='contacts.Person')
         self.plugins.topics.configure(partner_model='courses.Course')
         # self.plugins.coachings.configure(client_model='tera.Client')

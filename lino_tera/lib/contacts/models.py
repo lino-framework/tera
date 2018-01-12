@@ -9,7 +9,7 @@ from lino.api import _
 
 from lino_xl.lib.contacts.models import *
 
-#from lino_xl.lib.clocking.mixins import Workable
+#from lino_xl.lib.working.mixins import Workable
 
 #from lino_xl.lib.coachings.mixins import Coachable
 from lino_xl.lib.courses.mixins import Enrollable
