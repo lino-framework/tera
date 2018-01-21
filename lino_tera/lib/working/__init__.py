@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 
 """
-The `clocking` plugins specific to :ref:`psico`.
+The `working` plugins specific to :ref:`psico`.
 
 .. autosummary::
    :toctree:
@@ -15,7 +15,7 @@ The `clocking` plugins specific to :ref:`psico`.
 
 """
 
-from lino_xl.lib.clocking import Plugin
+from lino_xl.lib.working import Plugin
 
 
 class Plugin(Plugin):
