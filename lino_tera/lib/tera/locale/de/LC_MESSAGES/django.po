@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-25 15:14+0200\n"
-"PO-Revision-Date: 2018-01-25 15:15+0200\n"
+"POT-Creation-Date: 2018-01-26 14:51+0200\n"
+"PO-Revision-Date: 2018-01-26 14:52+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -137,9 +137,8 @@ msgid "Default participation fee"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:226 lino_tera/lib/tera/models.py:64
-#, fuzzy
 msgid "Patient"
-msgstr "Klient"
+msgstr "Patient"
 
 #: lino_tera/lib/courses/models.py:234
 msgid "Household"
@@ -363,9 +362,8 @@ msgid "Layout of User Detail in Lino Presto."
 msgstr ""
 
 #: lino_tera/lib/tera/models.py:65
-#, fuzzy
 msgid "Patients"
-msgstr "Klienten"
+msgstr "Patienten"
 
 #: lino_tera/lib/tera/models.py:83
 msgid "Obsoletes"
