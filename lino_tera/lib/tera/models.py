@@ -403,7 +403,8 @@ class Clients(contacts.Persons):
     def get_row_classes(cls, obj, ar):
         # if obj.client_state == ClientStates.newcomer:
         #     yield 'green'
-        if obj.client_state in (ClientStates.refused, ClientStates.former):
+        if obj.client_state in (
+                ClientStates.abandoned, ClientStates.closed):
             yield 'yellow'
         #~ if not obj.has_valid_card_data():
             #~ return 'red'
@@ -475,18 +476,26 @@ from lino_xl.lib.countries.mixins import CountryCity
 
 from lino.api import _, pgettext
 
-# from lino_xl.lib.coachings.choicelists import ClientStates
-# ClientStates.default_value = 'coached'
-# ClientStates.clear()
-# add = ClientStates.add_item
-# add('10', _("Newcomer"), 'newcomer')
-# # add('10', _("Testing"), 'testing')
-# add('20', pgettext("client state", "Registered"), 'coached')
-# add('30', _("Ended"), 'former')
-# add('40', _("Abandoned"), 'refused')
 
-# alias
-# ClientStates.coached = ClientStates.newcomer
+# 01 dauert an
+# 03 abgeschlossen
+# 05 automatisch abgeschlossen
+# 06 Abbruch der Beratung
+# 09 Weitervermittlung
+# 12 nur Erstkontakt
+
+
+from lino_xl.lib.clients.choicelists import ClientStates
+ClientStates.default_value = 'active'
+ClientStates.clear()
+add = ClientStates.add_item
+# add('01', pgettext("client state", "Active"), 'active')
+add('01', _("Active"), 'active')
+add('03', _("Closed"), 'closed')
+add('05', _("Closed automatically"), 'auto_closed')
+add('06', _("Abandoned"), 'abandoned')
+add('09', _("Forwarded"), 'forwarded')
+add('12', _("Newcomer"), 'newcomer')
 
 
 # @dd.receiver(dd.post_analyze)
