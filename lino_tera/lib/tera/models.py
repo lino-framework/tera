@@ -497,6 +497,7 @@ add('06', _("Abandoned"), 'abandoned')
 add('09', _("Forwarded"), 'forwarded')
 add('12', _("Newcomer"), 'newcomer')
 add('00', _("00"))
+add('04', _("04"))
 
 
 # @dd.receiver(dd.post_analyze)
