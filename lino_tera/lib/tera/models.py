@@ -496,8 +496,15 @@ add('05', _("Closed automatically"), 'auto_closed')
 add('06', _("Abandoned"), 'abandoned')
 add('09', _("Forwarded"), 'forwarded')
 add('12', _("Newcomer"), 'newcomer')
+# obsolete values still used on old data
 add('00', _("00"))
+add('02', _("02"))
 add('04', _("04"))
+add('05', _("05"))
+add('08', _("08"))
+add('10', _("10"))
+add('11', _("11"))
+add('99', _("99"))
 
 
 # @dd.receiver(dd.post_analyze)
