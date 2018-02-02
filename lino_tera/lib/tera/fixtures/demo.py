@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017 Luc Saffre
+# Copyright 2017-2018 Luc Saffre
 # License: BSD (see file COPYING for details)
 """Demo data for Lino Tera.
 
@@ -48,11 +48,11 @@ def person2clients():
                 birth_date=birth_date)
 
             if count % 2:
-                client.client_state = ClientStates.coached
-            # elif count % 5:
-            #     client.client_state = ClientStates.newcomer
+                client.client_state = ClientStates.active
+            elif count % 5:
+                client.client_state = ClientStates.newcomer
             else:
-                client.client_state = ClientStates.former
+                client.client_state = ClientStates.closed
             yield client
 
         

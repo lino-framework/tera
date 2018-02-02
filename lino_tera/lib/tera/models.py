@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017 Luc Saffre
+# Copyright 2017-2018 Luc Saffre
 # License: BSD (see file COPYING for details)
 """Database models.
 
@@ -16,7 +16,7 @@ from lino.utils import join_elems
 from lino.utils.xmlgen.html import E
 # from lino.utils import ssin
 from lino.mixins import Referrable, CreatedModified
-from lino_xl.lib.beid.mixins import BeIdCardHolder
+# from lino_xl.lib.beid.mixins import BeIdCardHolder
 from lino.modlib.comments.mixins import Commentable
 from lino.modlib.users.mixins import UserAuthored, My
 
@@ -33,7 +33,7 @@ from lino.mixins import ObservedDateRange
 
 from lino_xl.lib.clients.choicelists import ClientEvents, ClientStates
 
-from .choicelists import StartingReasons, EndingReasons, ProfessionalStates
+from .choicelists import StartingReasons, EndingReasons, ProfessionalStates, TranslatorTypes
 
 from .choicelists import PartnerTariffs
 from lino.core.roles import Explorer
@@ -53,7 +53,8 @@ contacts = dd.resolve_app('contacts')
 
 
 @dd.python_2_unicode_compatible
-class Client(Person, BeIdCardHolder, UserAuthored,
+class Client(Person, #BeIdCardHolder,
+             UserAuthored,
              # Referrable,
              CreatedModified,
              ClientBase,
@@ -83,7 +84,8 @@ class Client(Person, BeIdCardHolder, UserAuthored,
         'self', verbose_name=_("Obsoletes"),
         blank=True, null=True, related_name='obsoleted_by')
 
-    # translator_type = TranslatorTypes.field(blank=True)
+    translator_type = TranslatorTypes.field(blank=True)
+    
     # translator_notes = dd.RichTextField(
     #     _("Translator"), blank=True, format='plain')
     # translator = dd.ForeignKey(
@@ -146,6 +148,11 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     language_notes = dd.RichTextField(
         _("Language notes"), blank=True, format='plain')
     
+    nationality = dd.ForeignKey('countries.Country',
+                                blank=True, null=True,
+                                related_name='by_nationality',
+                                verbose_name=_("Nationality"))
+    
     def __str__(self):
         return "%s %s (%s)" % (
             self.last_name.upper(), self.first_name, self.pk)
@@ -162,18 +169,18 @@ class Client(Person, BeIdCardHolder, UserAuthored,
     def name_column(self, ar):
         return str(self)
 
-    def get_overview_elems(self, ar):
-        elems = super(Client, self).get_overview_elems(ar)
-        # elems.append(E.br())
-        elems.append(ar.get_data_value(self, 'eid_info'))
-        # notes = []
-        # for obj in rt.modules.cal.Task.objects.filter(
-        #         project=self, state=TaskStates.important):
-        #     notes.append(E.b(ar.obj2html(obj, obj.summary)))
-        # if len(notes):
-        #     notes = join_elems(notes, " / ")
-        #     elems.append(E.p(*notes, class_="lino-info-yellow"))
-        return elems
+    # def get_overview_elems(self, ar):
+    #     elems = super(Client, self).get_overview_elems(ar)
+    #     # elems.append(E.br())
+    #     elems.append(ar.get_data_value(self, 'eid_info'))
+    #     # notes = []
+    #     # for obj in rt.modules.cal.Task.objects.filter(
+    #     #         project=self, state=TaskStates.important):
+    #     #     notes.append(E.b(ar.obj2html(obj, obj.summary)))
+    #     # if len(notes):
+    #     #     notes = join_elems(notes, " / ")
+    #     #     elems.append(E.p(*notes, class_="lino-info-yellow"))
+    #     return elems
 
     # def update_owned_instance(self, owned):
     #     owned.project = self
@@ -194,14 +201,13 @@ class ClientDetail(dd.DetailLayout):
     activities #notes #trends #polls misc "
 
     general = dd.Panel("""
-    overview:30 general2:40 image:15
+    overview:30 general2:40 #image:15
     cal.GuestsByPartner lists.MembersByPartner
     """, label=_("General"))
 
     general2 = """
-    id:10 national_id:15 #ref
-    birth_date age:10 gender:10
-    #starting_reason professional_state
+    id:10 birth_date age:10 gender:10
+    professional_state language translator_type
     client_state user #primary_coach
     obsoletes tariff team
     # event_policy ending_reason 
@@ -228,9 +234,7 @@ class ClientDetail(dd.DetailLayout):
     """
 
     person = dd.Panel("""
-    first_name middle_name last_name #declared_name
-    nationality:15 birth_country birth_place 
-    card_type #card_number card_issuer card_valid_from card_valid_until
+    first_name #middle_name last_name nationality:15
     clients.ContactsByClient #uploads.UploadsByClient 
     """, label=_("Person"))
 
@@ -290,7 +294,7 @@ class ClientDetail(dd.DetailLayout):
 
 class Clients(contacts.Persons):
     model = 'tera.Client'
-    params_panel_hidden = True
+    # params_panel_hidden = True
     required_roles = dd.login_required(ClientsNameUser)
 
     # insert_layout = dd.InsertLayout("""
@@ -299,7 +303,7 @@ class Clients(contacts.Persons):
     # gender language
     # """, window_size=(60, 'auto'))
 
-    column_names = "name_column:20 client_state national_id:10 \
+    column_names = "name_column:20 client_state \
     gsm:10 address_column age:10 email phone:10 id language:10 *"
 
     detail_layout = ClientDetail()
@@ -308,8 +312,8 @@ class Clients(contacts.Persons):
         nationality=dd.ForeignKey(
             'countries.Country', blank=True, null=True,
             verbose_name=_("Nationality")),
-        observed_event=ClientEvents.field(blank=True),
-        client_state=ClientStates.field(blank=True, default='')
+        # observed_event=ClientEvents.field(blank=True),
+        # client_state=ClientStates.field(blank=True, default='')
     )
     params_layout = """
     #aged_from #aged_to #gender nationality client_state
@@ -326,15 +330,15 @@ class Clients(contacts.Persons):
         qs = super(Clients, self).get_request_queryset(ar)
 
         pv = ar.param_values
-        period = [pv.start_date, pv.end_date]
-        if period[0] is None:
-            period[0] = period[1] or dd.today()
-        if period[1] is None:
-            period[1] = period[0]
+        # period = [pv.start_date, pv.end_date]
+        # if period[0] is None:
+        #     period[0] = period[1] or dd.today()
+        # if period[1] is None:
+        #     period[1] = period[0]
 
-        ce = pv.observed_event
-        if ce:
-            qs = ce.add_filter(qs, pv)
+        # ce = pv.observed_event
+        # if ce:
+        #     qs = ce.add_filter(qs, pv)
 
         # if ce is None:
         #     pass
@@ -362,8 +366,8 @@ class Clients(contacts.Persons):
         #     qs = qs.exclude(flt).distinct()
 
 
-        if pv.client_state:
-            qs = qs.filter(client_state=pv.client_state)
+        # if pv.client_state:
+        #     qs = qs.filter(client_state=pv.client_state)
 
         if pv.nationality:
             qs = qs.filter(nationality__exact=pv.nationality)
@@ -372,23 +376,23 @@ class Clients(contacts.Persons):
 
         return qs
 
-    @classmethod
-    def get_title_tags(self, ar):
-        for t in super(Clients, self).get_title_tags(ar):
-            yield t
-        pv = ar.param_values
+    # @classmethod
+    # def get_title_tags(self, ar):
+    #     for t in super(Clients, self).get_title_tags(ar):
+    #         yield t
+    #     pv = ar.param_values
 
-        if pv.observed_event:
-            yield unicode(pv.observed_event)
+        # if pv.observed_event:
+        #     yield str(pv.observed_event)
 
-        if pv.client_state:
-            yield unicode(pv.client_state)
+        # if pv.client_state:
+        #     yield str(pv.client_state)
 
-        if pv.start_date is None or pv.end_date is None:
-            period = None
-        else:
-            period = daterange_text(
-                pv.start_date, pv.end_date)
+        # if pv.start_date is None or pv.end_date is None:
+        #     period = None
+        # else:
+        #     period = daterange_text(
+        #         pv.start_date, pv.end_date)
 
     # @classmethod
     # def apply_cell_format(self, ar, row, col, recno, td):
@@ -399,7 +403,8 @@ class Clients(contacts.Persons):
     def get_row_classes(cls, obj, ar):
         # if obj.client_state == ClientStates.newcomer:
         #     yield 'green'
-        if obj.client_state in (ClientStates.refused, ClientStates.former):
+        if obj.client_state in (
+                ClientStates.abandoned, ClientStates.closed):
             yield 'yellow'
         #~ if not obj.has_valid_card_data():
             #~ return 'red'
@@ -411,7 +416,6 @@ class AllClients(Clients):
     starting_reason ending_reason \
     city country zip_code nationality \
     birth_date age:10 gender \
-    birth_country birth_place \
     user #event_policy"
     detail_layout = None
     required_roles = dd.login_required(Explorer)
@@ -472,18 +476,34 @@ from lino_xl.lib.countries.mixins import CountryCity
 
 from lino.api import _, pgettext
 
-# from lino_xl.lib.coachings.choicelists import ClientStates
-# ClientStates.default_value = 'coached'
-# ClientStates.clear()
-# add = ClientStates.add_item
-# add('10', _("Newcomer"), 'newcomer')
-# # add('10', _("Testing"), 'testing')
-# add('20', pgettext("client state", "Registered"), 'coached')
-# add('30', _("Ended"), 'former')
-# add('40', _("Abandoned"), 'refused')
 
-# alias
-# ClientStates.coached = ClientStates.newcomer
+# 01 dauert an
+# 03 abgeschlossen
+# 05 automatisch abgeschlossen
+# 06 Abbruch der Beratung
+# 09 Weitervermittlung
+# 12 nur Erstkontakt
+
+
+from lino_xl.lib.clients.choicelists import ClientStates
+ClientStates.default_value = 'active'
+ClientStates.clear()
+add = ClientStates.add_item
+# add('01', pgettext("client state", "Active"), 'active')
+add('01', _("Active"), 'active')
+add('03', _("Closed"), 'closed')
+add('05', _("Closed automatically"), 'auto_closed')
+add('06', _("Abandoned"), 'abandoned')
+add('09', _("Forwarded"), 'forwarded')
+add('12', _("Newcomer"), 'newcomer')
+# obsolete values still used on old data
+add('00', _("00"))
+add('02', _("02"))
+add('04', _("04"))
+add('08', _("08"))
+add('10', _("10"))
+add('11', _("11"))
+add('99', _("99"))
 
 
 # @dd.receiver(dd.post_analyze)
