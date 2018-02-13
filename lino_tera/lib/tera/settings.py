@@ -42,7 +42,7 @@ class Site(Site):
     
     # migration_class = 'lino_tera.lib.tera.migrate.Migrator'
 
-    auto_configure_logger_names = "atelier django lino lino_xl lino_noi"
+    auto_configure_logger_names = "atelier django lino lino_xl lino_tera"
 
     def get_installed_apps(self):
         yield super(Site, self).get_installed_apps()

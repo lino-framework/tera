@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2016 Luc Saffre
+# Copyright 2016-2018 Luc Saffre
 # License: BSD (see file COPYING for details)
 
 """Database models for this plugin."""
@@ -9,7 +9,6 @@ from __future__ import unicode_literals
 from lino.api import _
 
 from lino_xl.lib.teams.models import *
-
 
 class Team(Team):
     

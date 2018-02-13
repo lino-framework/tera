@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2017 Luc Saffre
+# Copyright 2013-2018 Luc Saffre
 # License: BSD (see file COPYING for details)
 
 """
@@ -184,7 +184,14 @@ class Course(Referrable, Course):
     def full_clean(self):
         if not self.name:
             # self.name = str(self.household or self.client)
-            self.name = str(self.partner)
+            # if self.partner.team and self.partner.team.ref:
+            #     s = self.partner.team.ref + "/"
+            # else:
+            #     s = ''
+            s = self.partner.name
+            if self.line_id and self.line.ref:
+                s = "{} ({})".format(s, self.line.ref)
+            self.name = s
         return super(Course, self).full_clean()
     
     def __str__(self):
@@ -207,7 +214,19 @@ class Course(Referrable, Course):
         return "%s %d" % (label, i)
 
     def get_overview_elems(self, ar):
-        elems = super(Course, self).get_overview_elems(ar)
+        # we don't want to see the teacher (therapist)
+        # here. Especially not in MyGivenCourses but probably nowhere
+        # else either.  when a table of therapies is shown in
+        # dashboard, then we want a way to open its detail with a
+        # single click.
+        
+        # elems = super(Course, self).get_overview_elems(ar)
+        elems = []
+        elems.append(self.obj2href(ar))
+        # if self.teacher_id:
+        #     elems.append(" / ")
+        #     # elems.append(ar.obj2html(self.teacher))
+        #     elems.append(self.teacher.obj2href(ar))
         # elems.append(E.br())
         # elems.append(ar.get_data_value(self, 'eid_info'))
         notes = []
@@ -241,7 +260,8 @@ class Course(Referrable, Course):
 
 Course.set_widget_options('ref', preferred_with=6)
 dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
-dd.update_field(Course, 'user', verbose_name=_("Therapist"))
+dd.update_field(Course, 'teacher', verbose_name=_("Therapist"))
+dd.update_field(Course, 'user', verbose_name=_("Manager"))
 
 # class CreateInvoiceForEnrolment(CreateInvoice):
 
