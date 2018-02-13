@@ -122,7 +122,7 @@ class EntriesByCourse(EntriesByController):
 class CourseDetail(CourseDetail):
     main = "general enrolments events notes more"
     general = dd.Panel("""
-    ref line teacher workflow_buttons
+    ref line user teacher workflow_buttons
     room start_date end_date start_time end_time
     partner client household name
     remark topics.InterestsByController
@@ -133,7 +133,12 @@ class CourseDetail(CourseDetail):
     monday tuesday wednesday thursday friday saturday sunday
     courses.EntriesByCourse
 
-    """, label=_("Events"))
+    """, label=_("Appointments"))
+
+    enrolments = dd.Panel("""
+    enrolments_top
+    EnrolmentsByCourse
+    """, label=_("Participants"))
 
     enrolments_top = 'enrolments_until fee:15 max_places:10 confirmed free_places:10 print_actions:15'
 
@@ -144,7 +149,7 @@ class CourseDetail(CourseDetail):
 
     more = dd.Panel("""
     # company contact_person
-    state user payment_term paper_type id
+    state payment_term paper_type id
     invoicing.InvoicingsByInvoiceable excerpts.ExcerptsByProject
     """, label=_("More"))
 
@@ -306,14 +311,14 @@ class LifeGroupDetail(CourseDetail):
     enrolments = dd.Panel("""
     enrolments_top
     EnrolmentsByLifeGroup
-    """, label=_("Enrolments"))
+    """, label=_("Participants"))
 
 
 class TherapyDetail(CourseDetail):
     enrolments = dd.Panel("""
     enrolments_top
     EnrolmentsByTherapy
-    """, label=_("Enrolments"))
+    """, label=_("Participants"))
 
 
 class LifeGroups(Courses):
@@ -348,6 +353,9 @@ class ActivitiesByPartner(Activities):
 
 class MyActivities(MyActivities):
     label = _("Therapies managed by me")
+    column_names = "overview line teacher workflow_buttons *"
     
 class MyCoursesGiven(MyCoursesGiven):
-    label = _("My therapies")
+    label = _("Therapies held by me")
+    # label = _("My therapies")
+    column_names = "overview line user workflow_buttons *"

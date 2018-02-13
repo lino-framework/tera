@@ -78,7 +78,7 @@ class Client(Person, #BeIdCardHolder,
     ending_reason = EndingReasons.field(blank=True)
     professional_state = ProfessionalStates.field(blank=True)
     tariff = PartnerTariffs.field(
-        default=PartnerTariffs.plain.as_callable())
+        default=PartnerTariffs.as_callable('plain'))
     
     obsoletes = dd.ForeignKey(
         'self', verbose_name=_("Obsoletes"),

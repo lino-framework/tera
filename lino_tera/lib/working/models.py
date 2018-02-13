@@ -30,7 +30,7 @@ class Session(Session, Invoiceable):
 
     payment_mode = PaymentModes.field(blank=True)
     state = SessionStates.field(
-        default=SessionStates.draft.as_callable())
+        default=SessionStates.as_callable('draft'))
 
     @classmethod
     def get_invoiceables_for_plan(cls, plan, partner=None):
