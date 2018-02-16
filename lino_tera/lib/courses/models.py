@@ -21,7 +21,7 @@ from django.utils.translation import pgettext_lazy as pgettext
 
 from lino.utils.mti import get_child
 from lino.api import dd, rt
-from lino.utils.xmlgen.html import E
+from etgen.html import E
 
 from lino.mixins import Referrable
 from lino.modlib.printing.mixins import Printable
