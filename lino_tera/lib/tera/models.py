@@ -20,7 +20,7 @@ from lino.mixins import Referrable, CreatedModified
 from lino.modlib.comments.mixins import Commentable
 from lino.modlib.users.mixins import UserAuthored, My
 
-# from lino.modlib.notify.mixins import ChangeObservable
+# from lino.modlib.notify.mixins import ChangeNotifier
 # from lino_xl.lib.notes.choicelists import SpecialTypes
 from lino_xl.lib.clients.mixins import ClientBase
 from lino_xl.lib.notes.mixins import Notable
