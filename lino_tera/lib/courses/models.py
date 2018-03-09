@@ -235,7 +235,7 @@ class Course(Referrable, Course):
             notes.append(E.b(ar.obj2html(obj, obj.summary)))
         if len(notes):
             notes = join_elems(notes, " / ")
-            elems.append(E.p(*notes, class_="lino-info-yellow"))
+            elems.append(E.p(*notes, **{'class':"lino-info-yellow"}))
         return elems
 
     def update_owned_instance(self, owned):

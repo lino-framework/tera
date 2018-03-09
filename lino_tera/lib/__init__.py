@@ -9,7 +9,6 @@
 
     working
     contacts
-    coachings
     households
     lists
     teams
