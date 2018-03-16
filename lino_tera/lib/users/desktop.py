@@ -19,7 +19,7 @@ class UserDetail(UserDetail):
     box1 = """
     username user_type:20 partner
     first_name last_name initials
-    email language timezone team
+    email language time_zone team
     id created modified
     """
 
