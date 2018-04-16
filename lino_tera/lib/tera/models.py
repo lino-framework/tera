@@ -67,7 +67,6 @@ class Client(Person, #BeIdCardHolder,
         abstract = dd.is_abstract_model(__name__, 'Client')
         #~ ordering = ['last_name','first_name']
 
-    beid_readonly_fields = set()
     manager_roles_required = dd.login_required(ClientsUser)
     validate_national_id = True
     # workflow_state_field = 'client_state'

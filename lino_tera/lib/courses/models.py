@@ -188,7 +188,10 @@ class Course(Referrable, Course):
             #     s = self.partner.team.ref + "/"
             # else:
             #     s = ''
-            s = self.partner.name
+            if self.partner:
+                s = self.partner.name
+            else:
+                s = 'ZZZ'
             if self.line_id and self.line.ref:
                 s = "{} ({})".format(s, self.line.ref)
             self.name = s

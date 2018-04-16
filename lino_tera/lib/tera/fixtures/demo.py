@@ -101,16 +101,17 @@ def enrolments():
             c = Course(
                 user=USERS.pop(),
                 # client=obj,
+                state='draft',
                 partner=obj,
                 teacher=TEACHERS.pop(),
                 line=LINES.pop(), room=PLACES.pop(),
                 start_date=date,
-                every=1,
+                every=2,
                 every_unit=DurationUnits.weeks,
                 slot=SLOTS.pop(),
             )
             yield c
-            yield Enrolment(pupil=obj, course=c)
+            yield Enrolment(pupil=obj, course=c, state='confirmed')
 
             c.save()  # fill presences
 
