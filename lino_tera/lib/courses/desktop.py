@@ -74,8 +74,8 @@ class PendingRequestedEnrolments(PendingRequestedEnrolments):
 
 
 class EnrolmentsByPupil(EnrolmentsByPupil):
-    column_names = 'request_date course start_date end_date '\
-                   'places remark amount workflow_buttons *'
+    column_names = 'course start_date #end_date '\
+                   'remark workflow_buttons *'
 
     # column_names = 'request_date course user:10 remark ' \
     #                'amount:10 workflow_buttons *'
@@ -122,9 +122,9 @@ class EntriesByCourse(EntriesByController):
 class CourseDetail(CourseDetail):
     main = "general enrolments events notes more"
     general = dd.Panel("""
-    ref line user teacher workflow_buttons
+    ref name client:20 household:20 #partner
+    line user teacher workflow_buttons
     room start_date end_date start_time end_time
-    partner client household name
     remark topics.InterestsByController
     """, label=_("General"))
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-tera 17.10.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-16 18:40+0200\n"
+"POT-Creation-Date: 2018-04-16 08:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 #: lino_tera/lib/coachings/desktop.py:19 lino_tera/lib/contacts/models.py:51
 #: lino_tera/lib/contacts/models.py:143 lino_tera/lib/courses/desktop.py:129
 #: lino_tera/lib/households/models.py:35 lino_tera/lib/products/models.py:46
-#: lino_tera/lib/tera/models.py:206
+#: lino_tera/lib/tera/models.py:205
 msgid "General"
 msgstr ""
 
@@ -66,7 +66,7 @@ msgid "Abandoned by client"
 msgstr ""
 
 #: lino_tera/lib/courses/__init__.py:22 lino_tera/lib/courses/models.py:134
-#: lino_tera/lib/tera/models.py:246
+#: lino_tera/lib/tera/models.py:243
 msgid "Therapies"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgid "Therapy"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:141
-msgid "Default participation fee"
+msgid "Default attendance fee"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:245 lino_tera/lib/tera/models.py:65
@@ -152,64 +152,64 @@ msgstr ""
 msgid "Manager"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:372
+#: lino_tera/lib/courses/models.py:370
 msgid "Invoiced"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:382
+#: lino_tera/lib/courses/models.py:380
 msgid "Not invoiced"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:447
-msgid "Enrolment"
+#: lino_tera/lib/courses/models.py:445
+msgid "Attendance"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:448 lino_tera/lib/products/models.py:51
-msgid "Enrolments"
+#: lino_tera/lib/courses/models.py:446
+msgid "Attendances"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:450
+#: lino_tera/lib/courses/models.py:448
 msgid "Amount"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:458
+#: lino_tera/lib/courses/models.py:456
 msgctxt "in an enrolment"
 msgid "Free events"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:460
+#: lino_tera/lib/courses/models.py:458
 msgid "Number of events to add for first invoicing for this enrolment."
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:570
+#: lino_tera/lib/courses/models.py:568
 msgid "{enrolment} to {course}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:577
+#: lino_tera/lib/courses/models.py:575
 msgid "[{number}] Renewal {title}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:579
+#: lino_tera/lib/courses/models.py:577
 msgid "[{number}] {title}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:615
+#: lino_tera/lib/courses/models.py:613
 msgid "Participant"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:633
+#: lino_tera/lib/courses/models.py:631
 msgid "Phone: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:635
+#: lino_tera/lib/courses/models.py:633
 msgid "GSM: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:638
+#: lino_tera/lib/courses/models.py:636
 msgid "Invoicing info"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:643
+#: lino_tera/lib/courses/models.py:641
 msgid "Payment info"
 msgstr ""
 
@@ -267,6 +267,10 @@ msgstr ""
 
 #: lino_tera/lib/products/models.py:34
 msgid "Minimum quantity to pay in advance."
+msgstr ""
+
+#: lino_tera/lib/products/models.py:51
+msgid "Enrolments"
 msgstr ""
 
 #: lino_tera/lib/products/models.py:55
@@ -482,7 +486,7 @@ msgstr ""
 msgid "Language notes"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:154 lino_tera/lib/tera/models.py:314
+#: lino_tera/lib/tera/models.py:154 lino_tera/lib/tera/models.py:306
 msgid "Nationality"
 msgstr ""
 
@@ -499,70 +503,62 @@ msgid "Primary coach"
 msgstr ""
 
 #: lino_tera/lib/tera/models.py:220
-msgid "Residence"
+msgid "Contact"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:239
-msgid "Person"
-msgstr ""
-
-#: lino_tera/lib/tera/models.py:252
-msgid "Family"
-msgstr ""
-
-#: lino_tera/lib/tera/models.py:277
+#: lino_tera/lib/tera/models.py:269
 msgid "Miscellaneous"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:493
+#: lino_tera/lib/tera/models.py:485
 msgid "Active"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:494 lino_tera/lib/working/choicelists.py:32
+#: lino_tera/lib/tera/models.py:486 lino_tera/lib/working/choicelists.py:32
 msgid "Closed"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:495
+#: lino_tera/lib/tera/models.py:487
 msgid "Closed automatically"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:496
+#: lino_tera/lib/tera/models.py:488
 msgid "Abandoned"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:497
+#: lino_tera/lib/tera/models.py:489
 msgid "Forwarded"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:498
+#: lino_tera/lib/tera/models.py:490
 msgid "Newcomer"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:500
+#: lino_tera/lib/tera/models.py:492
 msgid "00"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:501
+#: lino_tera/lib/tera/models.py:493
 msgid "02"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:502
+#: lino_tera/lib/tera/models.py:494
 msgid "04"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:503
+#: lino_tera/lib/tera/models.py:495
 msgid "08"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:504
+#: lino_tera/lib/tera/models.py:496
 msgid "10"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:505
+#: lino_tera/lib/tera/models.py:497
 msgid "11"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:506
+#: lino_tera/lib/tera/models.py:498
 msgid "99"
 msgstr ""
 

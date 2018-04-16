@@ -197,33 +197,34 @@ dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 
 class ClientDetail(dd.DetailLayout):
 
-    main = "general person contact family \
-    activities #notes #trends #polls misc "
+    main = "general contact misc "
 
     general = dd.Panel("""
-    overview:30 general2:40 #image:15
-    cal.GuestsByPartner lists.MembersByPartner
+    overview:30 general2:40
+    cal.GuestsByPartner:30 courses.EnrolmentsByPupil:40
     """, label=_("General"))
 
     general2 = """
-    id:10 birth_date age:10 gender:10
-    professional_state language translator_type
-    client_state user #primary_coach
-    obsoletes tariff team
+    id:10 first_name last_name 
     # event_policy ending_reason 
     # workflow_buttons 
-    """
-
-    contact = dd.Panel("""
-    address general3
-    residence_notes
-    """, label=_("Residence"))
-
-    address = """
     country city zip_code:10
     addr1
     street:25 street_no #street_box
-    addr2
+    # addr2
+    """
+
+    contact = dd.Panel("""
+    nationality:15 birth_date age:10 gender:10
+    professional_state language translator_type
+    team user client_state
+    tariff invoice_recipient
+
+    address #general3 #phones.ContactDetailsByPartner
+    clients.ContactsByClient #uploads.UploadsByClient 
+    """, label=_("Contact"))
+
+    address = """
     """
 
     general3 = """
@@ -233,23 +234,15 @@ class ClientDetail(dd.DetailLayout):
     gsm
     """
 
-    person = dd.Panel("""
-    first_name #middle_name last_name nationality:15
-    clients.ContactsByClient #uploads.UploadsByClient 
-    """, label=_("Person"))
+    # person = dd.Panel("""
+    # """, label=_("Relations"))
 
     activities = dd.Panel("""
     # courses.ActivitiesByPartner
-    courses.EnrolmentsByPupil
-    tera.NotesByPartner 
+    # tera.NotesByPartner 
     # cal.GuestsByPartner
     """, label=_("Therapies"))
 
-    family = dd.Panel("""
-    family_notes:40 households.MembersByPerson:20
-    #humanlinks.LinksByHuman:30
-    households.SiblingsByPerson
-    """, label=_("Family"))
 
     # notes = dd.Panel("""
     # notes.NotesByProject
@@ -270,8 +263,9 @@ class ClientDetail(dd.DetailLayout):
     # """, label = _("Polls"))
 
     misc = dd.Panel("""
-    # unavailable_until:15 unavailable_why:30
-    financial_notes health_notes #integration_notes
+    obsoletes
+    households.MembersByPerson:30 households.SiblingsByPerson
+    lists.MembersByPartner
     checkdata.ProblemsByOwner ledger.MovementsByPartner
     #excerpts.ExcerptsByProject
     """, label=_("Miscellaneous"))
