@@ -19,7 +19,7 @@ Content
    :maxdepth: 1
 
    guide/index
-   changes
+   changes/index
    
 
 
