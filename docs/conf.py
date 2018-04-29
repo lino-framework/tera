@@ -20,7 +20,7 @@ extlinks.update(ticket=('http://bugs.saffre-rumma.net/tickets/Ticket/%s', '#'))
 
 extensions += ['lino.sphinxcontrib.logo']
 
-from django.conf import settings
+# from django.conf import settings
 # settings.SITE.title = "Lino Tera"
 
 intersphinx_mapping = {}
