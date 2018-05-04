@@ -181,7 +181,7 @@ if False:
     class Courses(Courses):
 
         parameters = dict(Courses.parameters,
-            city=models.ForeignKey('countries.Place', blank=True, null=True))
+            city=dd.ForeignKey('countries.Place', blank=True, null=True))
 
         params_layout = """topic line city teacher user state active:10"""
 
