@@ -176,7 +176,7 @@ class Course(Referrable, Course):
 
     @dd.chooser()
     def fee_choices(cls, line):
-        Product = rt.modules.products.Product
+        Product = rt.models.products.Product
         if not line or not line.fees_cat:
             return Product.objects.none()
         return Product.objects.filter(cat=line.fees_cat)
@@ -240,7 +240,7 @@ class Course(Referrable, Course):
         # elems.append(E.br())
         # elems.append(ar.get_data_value(self, 'eid_info'))
         notes = []
-        for obj in rt.modules.cal.Task.objects.filter(
+        for obj in rt.models.cal.Task.objects.filter(
                 project=self, state=TaskStates.important):
             notes.append(E.b(ar.obj2html(obj, obj.summary)))
         if len(notes):
@@ -514,7 +514,7 @@ class Enrolment(Enrolment, Invoiceable):
 
     @dd.chooser()
     def fee_choices(cls, course):
-        Product = rt.modules.products.Product
+        Product = rt.models.products.Product
         if not course or not course.line or not course.line.fees_cat:
             return Product.objects.none()
         return Product.objects.filter(cat=course.line.fees_cat)
