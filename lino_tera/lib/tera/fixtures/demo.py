@@ -14,7 +14,7 @@ from django.conf import settings
 from lino.utils import ONE_DAY
 from lino.utils.mti import mtichild
 from lino.utils.ssin import generate_ssin
-from lino.api import dd, rt
+from lino.api import dd, rt, _
 from lino.utils import Cycler
 
 # from django.conf import settings
@@ -63,12 +63,20 @@ def enrolments():
     Client = rt.models.tera.Client
     Teacher = dd.plugins.courses.teacher_model
     Line = rt.models.courses.Line
+    EventType = rt.models.cal.EventType
+    GuestRole = rt.models.cal.GuestRole
     Course = rt.models.courses.Course
     Enrolment = rt.models.courses.Enrolment
     DurationUnits = rt.models.cal.DurationUnits
 
+    gr = GuestRole(**dd.str2kw('name', _("Attendee")))
+    yield gr
+    et = EventType(**dd.str2kw('name', _("Attendance")))
+    yield et
+    
     for a in rt.models.courses.CourseAreas.get_list_items():
-        yield Line(name=a.text, course_area=a)
+        yield Line(
+            name=a.text, course_area=a, event_type=et, guest_role=gr)
         
     invoice_recipient = None
     for n, p in enumerate(Client.objects.all()):
@@ -93,16 +101,17 @@ def enrolments():
             c = Course(
                 user=USERS.pop(),
                 # client=obj,
+                state='draft',
                 partner=obj,
                 teacher=TEACHERS.pop(),
                 line=LINES.pop(), room=PLACES.pop(),
                 start_date=date,
-                every=1,
+                every=2,
                 every_unit=DurationUnits.weeks,
                 slot=SLOTS.pop(),
             )
             yield c
-            yield Enrolment(pupil=obj, course=c)
+            yield Enrolment(pupil=obj, course=c, state='confirmed')
 
             c.save()  # fill presences
 

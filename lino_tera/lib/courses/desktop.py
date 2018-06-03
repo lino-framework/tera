@@ -74,8 +74,8 @@ class PendingRequestedEnrolments(PendingRequestedEnrolments):
 
 
 class EnrolmentsByPupil(EnrolmentsByPupil):
-    column_names = 'request_date course start_date end_date '\
-                   'places remark amount workflow_buttons *'
+    column_names = 'course start_date #end_date '\
+                   'remark workflow_buttons *'
 
     # column_names = 'request_date course user:10 remark ' \
     #                'amount:10 workflow_buttons *'
@@ -116,15 +116,15 @@ class EntriesByCourse(EntriesByController):
     column_names = "start_date auto_type workflow_buttons "\
                    "start_time end_time room summary *"
 
-    slave_grid_format = "summary"
+    display_mode = "summary"
 
 
 class CourseDetail(CourseDetail):
     main = "general enrolments events notes more"
     general = dd.Panel("""
-    ref line user teacher workflow_buttons
+    ref name client:20 household:20 #partner
+    line user teacher workflow_buttons
     room start_date end_date start_time end_time
-    partner client household name
     remark topics.InterestsByController
     """, label=_("General"))
 
@@ -181,7 +181,7 @@ if False:
     class Courses(Courses):
 
         parameters = dict(Courses.parameters,
-            city=models.ForeignKey('countries.Place', blank=True, null=True))
+            city=dd.ForeignKey('countries.Place', blank=True, null=True))
 
         params_layout = """topic line city teacher user state active:10"""
 
@@ -203,8 +203,8 @@ if False:
 
         @dd.chooser()
         def city_choices(cls):
-            Place = rt.modules.countries.Place
-            Room = rt.modules.cal.Room
+            Place = rt.models.countries.Place
+            Room = rt.models.cal.Room
             places = set([
                 obj.company.city.id
                 for obj in Room.objects.filter(company__isnull=False)])

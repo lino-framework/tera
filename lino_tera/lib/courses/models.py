@@ -114,7 +114,7 @@ class Course(Referrable, Course):
 
     .. attribute:: fee
 
-        The default participation fee to apply for new enrolments.
+        The default attendance fee to apply for new enrolments.
 
     .. attribute:: payment_term
 
@@ -138,7 +138,7 @@ class Course(Referrable, Course):
 
     fee = dd.ForeignKey('products.Product',
                         blank=True, null=True,
-                        verbose_name=_("Default participation fee"),
+                        verbose_name=_("Default attendance fee"),
                         related_name='courses_by_fee')
 
     payment_term = dd.ForeignKey(
@@ -176,7 +176,7 @@ class Course(Referrable, Course):
 
     @dd.chooser()
     def fee_choices(cls, line):
-        Product = rt.modules.products.Product
+        Product = rt.models.products.Product
         if not line or not line.fees_cat:
             return Product.objects.none()
         return Product.objects.filter(cat=line.fees_cat)
@@ -188,7 +188,10 @@ class Course(Referrable, Course):
             #     s = self.partner.team.ref + "/"
             # else:
             #     s = ''
-            s = self.partner.name
+            if self.partner:
+                s = self.partner.name
+            else:
+                s = 'ZZZ'
             if self.line_id and self.line.ref:
                 s = "{} ({})".format(s, self.line.ref)
             self.name = s
@@ -197,15 +200,22 @@ class Course(Referrable, Course):
     def __str__(self):
         if self.name:
             if self.ref:
-                return "{0} {1}".format(self.ref, self.name)
-            return self.name
-        if self.ref:
+                s = "{0} {1}".format(self.ref, self.name)
+            else:
+                s = self.name
+        elif self.ref:
             if self.line:
-                return "{0} {1}".format(self.ref, self.line)
-            return self.ref
-        # Note that we cannot use super() with
-        # python_2_unicode_compatible
-        return "{0} #{1}".format(self._meta.verbose_name, self.pk)
+                s = "{0} {1}".format(self.ref, self.line)
+            else:
+                s = self.ref
+        else:
+            # Note that we cannot use super() with
+            # python_2_unicode_compatible
+            s = "{0} #{1}".format(self._meta.verbose_name, self.pk)
+        if self.teacher:
+            s = "{} ({})".format(
+                s, self.teacher.initials or self.teacher)
+        return s
 
     def update_cal_summary(self, et, i):
         label = dd.babelattr(et, 'event_label')
@@ -230,7 +240,7 @@ class Course(Referrable, Course):
         # elems.append(E.br())
         # elems.append(ar.get_data_value(self, 'eid_info'))
         notes = []
-        for obj in rt.modules.cal.Task.objects.filter(
+        for obj in rt.models.cal.Task.objects.filter(
                 project=self, state=TaskStates.important):
             notes.append(E.b(ar.obj2html(obj, obj.summary)))
         if len(notes):
@@ -270,7 +280,8 @@ dd.update_field(Course, 'user', verbose_name=_("Manager"))
 
 
 class InvoicingInfo(object):
-    """A volatile object which holds invoicing information about a given
+    """
+    A volatile object which holds invoicing information about a given
     enrolment.
 
     .. attribute:: enrolment
@@ -286,9 +297,6 @@ class InvoicingInfo(object):
         Which fee to apply. If this is None, 
 
     .. attribute:: invoiced_qty
-
-        
-
     """
     invoiceable_fee = None
     invoiced_qty = ZERO
@@ -408,7 +416,7 @@ class Enrolment(Enrolment, Invoiceable):
 
     .. attribute:: fee
 
-        The participation fee to apply for this enrolment.
+        The attendance fee to apply for this enrolment.
 
     .. attribute:: free_events
 
@@ -444,14 +452,14 @@ class Enrolment(Enrolment, Invoiceable):
     class Meta:
         app_label = 'courses'
         abstract = False  # dd.is_abstract_model(__name__, 'Enrolment')
-        verbose_name = _("Enrolment")
-        verbose_name_plural = _("Enrolments")
+        verbose_name = _("Attendance")
+        verbose_name_plural = _("Attendances")
 
     amount = dd.PriceField(_("Amount"), blank=True, null=True)
 
     fee = dd.ForeignKey('products.Product',
                         blank=True, null=True,
-                        # verbose_name=_("Participation fee"),
+                        # verbose_name=_("Attendance fee"),
                         related_name='enrolments_by_fee')
 
     free_events = models.IntegerField(
@@ -506,7 +514,7 @@ class Enrolment(Enrolment, Invoiceable):
 
     @dd.chooser()
     def fee_choices(cls, course):
-        Product = rt.modules.products.Product
+        Product = rt.models.products.Product
         if not course or not course.line or not course.line.fees_cat:
             return Product.objects.none()
         return Product.objects.filter(cat=course.line.fees_cat)
