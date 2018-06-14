@@ -19,15 +19,22 @@ Allgemein:
   einloggen können.  Alle anderen Benutzer werden zwar erstellt, aber
   können sich nicht anmelden.
 
-- Buchhaltung liegt momentan brach, weil Lydia ausgefallen ist und sie
-  noch keinen Ersatz haben.
-
+- Buchhaltung wird von Vera übernommen : Alle Einkaufsrechnungen und
+  Kontoauszüge werden schon in Lino erfasst.  Verkaufsrechnungen
+  werden in 2018 noch mit den beiden TIMs erstellt und ausgedruckt,
+  aber daraufhin die jeweiligen Beträge manuell in Lino erfasst in
+  einem eigenen Journal (ähnlich wie OD), pro Serie von Rechnungen
+  wird dort ein einziges Dokument erstellt.
 
 TODO (Luc):
 
-- "Alte Daten löschen" in TIM vor dem nächsten Import.
+- Therapie E130280 : nicht Harry sondern Daniel müsste Therapeut
+  sein. Falsch importiert.
+  
+- Rechnungsempfänger und Krankenkasse importieren : pro Patient, nicht
+  pro Einschreibung.
 
-- nationality und birth_ate sind leer. Es fehlen viele Länder.
+- nationality ist leer. Es fehlen viele Länder.
   
 - Kindergruppe 2016 hat keine Therapie in Lino. Kindergruppe 2018
   fehlt komplett.  "Psychodrama Do 2018" hat Anwesenheiten pro
@@ -37,7 +44,7 @@ TODO (Luc):
 
 - Notizen sind nur bis November 2017 importiert worden
 
-- Übersetzung Clientstates : Statt "Zustand" eines Patienten "Stand
+- Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
   der Beratung".
 
 - Status der importierten Anwesenheiten.  Status "Verpasst" : fehlt in
@@ -76,13 +83,35 @@ TODO (Luc):
 
 - Therapeutische Gruppen : Kolonnenlayout
 
-DONE  
+- Termin erstellen von Therapie aus : geht nicht
+
+- Idee (zu besprechen): Von einem neuen Klienten aus könnte man eine
+  Aktion starten, die eine Notiz fürs Erstgespräch erstellt, wobei
+  Lino dann falls nötig automatisch eine Aktivität erstellt.
+
+- Notizen und Themen sind sehr vertraulich (nur für Therapeuten),
+  Termine werden auch vom Sekretariat gesehen.
+    
+  Notizen und Themen müssen importiert werden aus TIM. Themen sind pro
+  Familie und pro Klient, Notizen nur pro Klient.
+
+- MTI Navigator can be irritating. Possibility to hide certain links &
+  conversions. e.g. Person -> Houshold, Person -> Partner should be
+  hidden for normal users.
+
+DONE (to verify)
+
+- No de GSM, Date naissance, Geschlecht n'ont pas été importés
+- birth_date wird jetzt importiert
+  
+DONE and verified:
 
 - Übersetzung Enrolment = "Teilnahme" (nicht "Einschreibung")
 - NotesByPatient raus. Auch "Health situation" und zwei weitere
   Memofelder.
 - Modul humanlinks raus, phones rein.
-  
+- "Alte Daten löschen" in TIM
+
   
 
 Außerdem besprochen:
