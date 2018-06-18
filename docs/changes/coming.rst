@@ -33,9 +33,6 @@ TODO (Luc):
 - Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
   der Beratung".
 
-- Status der importierten Anwesenheiten.  Status "Verpasst" : fehlt in
-  Lino.
-
 - Kalendereintragsart ist leer.
 
 - DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
@@ -99,6 +96,10 @@ DONE (to verify):
 - Akten E180246 und E180247 fehlen in Lino.
 
 - Notizen sind nur bis November 2017 importiert worden
+
+- Status der importierten Anwesenheiten war immer leer.  Status
+  "Verpasst" heißt "abwesend" in Lino.
+
 
 DONE and verified:
 
