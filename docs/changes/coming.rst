@@ -28,21 +28,7 @@ Allgemein:
 
 TODO (Luc):
 
-- Therapie E130280 : nicht Harry sondern Daniel müsste Therapeut
-  sein. Falsch importiert.
-  
-- Rechnungsempfänger und Krankenkasse importieren : pro Patient, nicht
-  pro Einschreibung.
-
-- nationality ist leer. Es fehlen viele Länder.
-  
-- Kindergruppe 2016 hat keine Therapie in Lino. Kindergruppe 2018
-  fehlt komplett.  "Psychodrama Do 2018" hat Anwesenheiten pro
-  Teilnehmer in TIM korrekt.
-
-- Akten A180246 und A180247 fehlen in Lino.
-
-- Notizen sind nur bis November 2017 importiert worden
+- Teilnehmer der Gruppentherapien scheinen überall zu fehlen.
 
 - Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
   der Beratung".
@@ -57,7 +43,7 @@ TODO (Luc):
 
 - client_state un tariff : nicht pro Client sondern pro Course
   
-- Site.languages : auch EN und NL  
+- Site.languages : auch EN und NL
 
 - Alter : bei Kleinkindern auf z.B. "18 Monate"
 
@@ -66,10 +52,6 @@ TODO (Luc):
 
 - Doppelte Therapeuten in Auswahlfeld "Benutzer".
 - Kein Standardpasswort für die anderen Benutzer
-- Fakturationsadresse sichtbar machen in Ansicht Patient und Haushalt.
-- Import Fakturationsadresse (Zahler) aus TIM scheint nicht zu funktionieren.
-- Klientenkontaktarten : Liste füllen und auch Daten importieren aus
-  TIM (z.B. Krankenkasse)
   
 - Terminplanung : Wochen-Master (Stundenplan), Monatsplaner (Wo sind
   Lücken? Ausnahmen regeln), Wochenansicht mit diversen
@@ -99,13 +81,38 @@ TODO (Luc):
   conversions. e.g. Person -> Houshold, Person -> Partner should be
   hidden for normal users.
 
-DONE (to verify)
+TODO (Vera)
+
+- Partner, die seit Ende 2017 in TIM erstellt wurden, müssen auch in
+  Lino erstellt werden.
+
+DONE (to verify):
 
 - No de GSM, Date naissance, Geschlecht n'ont pas été importés
 - birth_date wird jetzt importiert
+- Therapie E130280 : nicht Harry sondern Daniel müsste Therapeut
+  sein. Falsch importiert. Lino nahm prioritär den T1 statt des T2.
   
+- Rechnungsempfänger und Krankenkasse importieren : pro Patient, nicht
+  pro Einschreibung.
+  
+- Akten E180246 und E180247 fehlen in Lino.
+
+- Notizen sind nur bis November 2017 importiert worden
+
 DONE and verified:
 
+- Kindergruppe 2016 hat keine Therapie in Lino. Kindergruppe 2018
+  fehlt komplett.  "Psychodrama Do 2018" hat Anwesenheiten pro
+  Teilnehmer in TIM korrekt.
+
+- Fakturationsadresse sichtbar machen in Ansicht Patient und Haushalt.
+- Import Fakturationsadresse (Zahler) aus TIM scheint nicht zu funktionieren.
+- Klientenkontaktarten : Liste füllen und auch Daten importieren aus
+  TIM (z.B. Krankenkasse)
+
+- nationality ist leer. Es fehlen viele Länder.
+  
 - Übersetzung Enrolment = "Teilnahme" (nicht "Einschreibung")
 - NotesByPatient raus. Auch "Health situation" und zwei weitere
   Memofelder.

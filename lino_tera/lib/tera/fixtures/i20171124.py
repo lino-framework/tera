@@ -1,3 +1,5 @@
+# no longer used. content copied to spzloader2
+
 from lino.api import dd, rt
 from lino_xl.lib.tim2lino.spzloader import TimLoader
 
