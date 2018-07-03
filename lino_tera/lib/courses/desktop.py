@@ -320,6 +320,8 @@ class TherapyDetail(CourseDetail):
     EnrolmentsByTherapy
     """, label=_("Participants"))
 
+    enrolments_top = 'enrolments_until fee:15 print_actions:15'
+
 
 class LifeGroups(Courses):
     _course_area = CourseAreas.life_groups
