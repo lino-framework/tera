@@ -30,9 +30,6 @@ TODO (Luc):
 
 - Teilnehmer der Gruppentherapien scheinen überall zu fehlen.
 
-- Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
-  der Beratung".
-
 - Kalendereintragsart ist leer.
 
 - DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
@@ -48,7 +45,7 @@ TODO (Luc):
   durch "Housewife"?
 
 - Doppelte Therapeuten in Auswahlfeld "Benutzer".
-- Kein Standardpasswort für die anderen Benutzer
+- Kein Standardpasswort für die anderen Benutzer.
   
 - Terminplanung : Wochen-Master (Stundenplan), Monatsplaner (Wo sind
   Lücken? Ausnahmen regeln), Wochenansicht mit diversen
@@ -77,6 +74,9 @@ TODO (Luc):
 - MTI Navigator can be irritating. Possibility to hide certain links &
   conversions. e.g. Person -> Houshold, Person -> Partner should be
   hidden for normal users.
+
+- Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
+  der Beratung".
 
 TODO (Vera)
 
