@@ -157,8 +157,9 @@ class CourseDetail(CourseDetail):
 # Course.detail_layout_class = CourseDetail
 # Courses._course_area = CourseAreas.default
 Courses.order_by = ['ref', '-start_date', '-start_time']
-Courses.column_names = "ref start_date enrolments_until line room teacher " \
+Courses.column_names = "ref name start_date enrolments_until line teacher " \
                        "workflow_buttons *"
+
 
 
 # class Courses(Courses):
@@ -321,7 +322,6 @@ class TherapyDetail(CourseDetail):
     """, label=_("Participants"))
 
     enrolments_top = 'enrolments_until fee:15 print_actions:15'
-
 
 class LifeGroups(Courses):
     _course_area = CourseAreas.life_groups

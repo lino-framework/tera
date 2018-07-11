@@ -49,7 +49,7 @@ CourseAreas.clear()
 add = CourseAreas.add_item
 add('10', _("Individual therapies"), 'therapies', 'courses.Therapies')
 add('20', _("Life groups"), 'life_groups', 'courses.LifeGroups')
-add('30', _("Other groups"), 'default')  # one place per enrolment
+add('30', _("Other groups"), 'default', 'courses.Courses')
 
 
 class CourseType(Referrable, mixins.BabelNamed):
