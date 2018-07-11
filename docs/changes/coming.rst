@@ -33,13 +33,10 @@ TODO (Luc):
 - Kalendereintragsart ist leer.
 
 - DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
-  "Kalendereintragsart" ersetzen durch "Dienstleistungsart".
 
-- client_state un tariff : nicht pro Client sondern pro Course
+- client_state und tariff : nicht pro Client sondern pro Course
   
 - Site.languages : auch EN und NL
-
-- Alter : bei Kleinkindern auf z.B. "18 Monate"
 
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
@@ -57,13 +54,7 @@ TODO (Luc):
   mehreren Tage pro Woche.  Im SPZ dagegen kommen manche nur 3x pro
   Jahr...
 
-- Therapeutische Gruppen : Kolonnenlayout
-
 - Termin erstellen von Therapie aus : geht nicht
-
-- Idee (zu besprechen): Von einem neuen Klienten aus könnte man eine
-  Aktion starten, die eine Notiz fürs Erstgespräch erstellt, wobei
-  Lino dann falls nötig automatisch eine Aktivität erstellt.
 
 - Notizen und Themen sind sehr vertraulich (nur für Therapeuten),
   Termine werden auch vom Sekretariat gesehen.
@@ -75,8 +66,16 @@ TODO (Luc):
   conversions. e.g. Person -> Houshold, Person -> Partner should be
   hidden for normal users.
 
+TALK  
+
+- Idee (zu besprechen): Von einem neuen Klienten aus könnte man eine
+  Aktion starten, die eine Notiz fürs Erstgespräch erstellt, wobei
+  Lino dann falls nötig automatisch eine Aktivität erstellt.
+
 - Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
   der Beratung".
+- Übersetzung cal.EntryType "Kalendereintragsart" ersetzen durch
+  "Dienstleistungsart".
 
 TODO (Vera)
 
@@ -102,6 +101,10 @@ DONE (to verify):
 
 
 DONE and verified:
+
+- Alter : bei Kleinkindern auf z.B. "18 Monate"
+
+- Therapeutische Gruppen : Kolonnenlayout
 
 - Kindergruppe 2016 hat keine Therapie in Lino. Kindergruppe 2018
   fehlt komplett.  "Psychodrama Do 2018" hat Anwesenheiten pro
