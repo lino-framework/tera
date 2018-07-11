@@ -467,38 +467,6 @@ from lino_xl.lib.countries.mixins import CountryCity
 #         return (**kwargs)
     
 
-from lino.api import _, pgettext
-
-
-# 01 dauert an
-# 03 abgeschlossen
-# 05 automatisch abgeschlossen
-# 06 Abbruch der Beratung
-# 09 Weitervermittlung
-# 12 nur Erstkontakt
-
-
-from lino_xl.lib.clients.choicelists import ClientStates
-ClientStates.default_value = 'active'
-ClientStates.clear()
-add = ClientStates.add_item
-# add('01', pgettext("client state", "Active"), 'active')
-add('01', _("Active"), 'active')
-add('03', _("Closed"), 'closed')
-add('05', _("Closed automatically"), 'auto_closed')
-add('06', _("Abandoned"), 'abandoned')
-add('09', _("Forwarded"), 'forwarded')
-add('12', _("Newcomer"), 'newcomer')
-# obsolete values still used on old data
-add('00', _("00"))
-add('02', _("02"))
-add('04', _("04"))
-add('08', _("08"))
-add('10', _("10"))
-add('11', _("11"))
-add('99', _("99"))
-
-
 # @dd.receiver(dd.post_analyze)
 # def my_details(sender, **kw):
 #     sender.modules.system.SiteConfigs.set_detail_layout("""

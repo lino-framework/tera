@@ -28,13 +28,18 @@ Allgemein:
 
 TODO (Luc):
 
-- Teilnehmer der Gruppentherapien scheinen überall zu fehlen.
+- tariff : bleibt pro Client und pro Household. ClientTariffs
+  umbenennen nach TariffGroups oder so. Der eigentliche Tarif steht
+  dann in Enrolment.fee.
 
-- Kalendereintragsart ist leer.
+  ClientStates: bleibt pro Client und pro Household
+  01 dauert an
+  03 abgeschlossen
+  05 automatisch abgeschlossen
+  06 Abbruch der Beratung
+  09 Weitervermittlung
+  12 nur Erstkontakt
 
-- DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
-
-- client_state und tariff : nicht pro Client sondern pro Course
   
 - Site.languages : auch EN und NL
 
@@ -84,6 +89,9 @@ TODO (Vera)
 
 DONE (to verify):
 
+- Kalendereintragsart ist leer.
+- DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
+
 - No de GSM, Date naissance, Geschlecht n'ont pas été importés
 - birth_date wird jetzt importiert
 - Therapie E130280 : nicht Harry sondern Daniel müsste Therapeut
@@ -102,7 +110,9 @@ DONE (to verify):
 
 DONE and verified:
 
-- Alter : bei Kleinkindern auf z.B. "18 Monate"
+- Teilnehmer der Gruppentherapien fehlten noch.
+
+- Das Alter wird bei Kleinkindern auf z.B. "18 Monate"
 
 - Therapeutische Gruppen : Kolonnenlayout
 
