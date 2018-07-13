@@ -28,11 +28,19 @@ Allgemein:
 
 TODO (Luc):
 
+- Wenn Enrolment.state leer, dann übernehmen aus pupil.client_state
+
 - tariff : bleibt pro Client und pro Household. ClientTariffs
   umbenennen nach TariffGroups oder so. Der eigentliche Tarif steht
   dann in Enrolment.fee.
 
-  ClientStates: bleibt pro Client und pro Household
+- ClientStates: das Feld bleibt pro Patient und pro Haushalt, aber
+  kriegt vielleicht neue Werte (Aktiv, Inaktiv)
+  
+- Was
+  in TIM unter "Stand der Beratung" stand, steht in Lino jetzt unter
+  EnrolmentStates::
+  
   01 dauert an
   03 abgeschlossen
   05 automatisch abgeschlossen
@@ -78,9 +86,18 @@ TALK
   Lino dann falls nötig automatisch eine Aktivität erstellt.
 
 - Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
-  der Beratung".
+  der Beratung". Aber wir haben in Lino ein Feld "Zustand" an vielen
+  Stellen: pro Therapie, pro Patient, pro Einschreibung, pro
+  Anwesenheit.  Ich zögere noch, die alle nach "Stand" umzubenennen.
+  
 - Übersetzung cal.EntryType "Kalendereintragsart" ersetzen durch
-  "Dienstleistungsart".
+  "Dienstleistungsart".  Problem: das stimmt nicht ganz, denn es
+  werden auch z.B. "Feiertage" oder "Teamversammlungen" kommen, die
+  dann eindeutig *keine* Dienstleistungen sind.
+
+- Dass eine Therapie auch für einen bestimmten Haushalt (nicht
+  Klienten) sein kann, macht die Sache etwas kompliziert.  so was wäre
+  mit einer Standardsoftware sicherl nicht machbar.
 
 TODO (Vera)
 
@@ -89,7 +106,8 @@ TODO (Vera)
 
 DONE (to verify):
 
-- Kalendereintragsart war leer.
+- Kalendereintragsart war leer. Jetzt sind alle DLA importiert und
+  jede DLS hat eine DLA.
 - DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
 
 - No de GSM, Date naissance, Geschlecht n'ont pas été importés

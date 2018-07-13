@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2018 Luc Saffre
+# Copyright 2013-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """
@@ -523,6 +523,9 @@ class Enrolment(Enrolment, Invoiceable):
         return Product.objects.filter(cat=course.line.fees_cat)
 
     def full_clean(self, *args, **kwargs):
+        if self.state == EnrolmentStates.requested:
+            self.state = EnrolmentStates.get_by_value(
+                self.pupil.client_state.value)
         if self.fee_id is None and self.course_id is not None:
             self.fee = self.course.fee
             if self.fee_id is None and self.course.line_id is not None:

@@ -117,3 +117,20 @@ add('10', _("10"))
 add('11', _("11"))
 add('99', _("99"))
 
+from lino_xl.lib.courses.choicelists import EnrolmentStates
+EnrolmentStates.default_value = 'active'
+EnrolmentStates.clear()
+add = EnrolmentStates.add_item
+add('01', _("Confirmed"), 'confirmed', invoiceable=True, uses_a_place=True)
+add('03', _("Closed"), 'closed', invoiceable=False, uses_a_place=False)
+add('05', _("Closed automatically"), 'cancelled', invoiceable=False, uses_a_place=False)
+add('06', _("Abandoned"), 'abandoned', invoiceable=False, uses_a_place=False)
+add('09', _("Forwarded"), 'forwarded', invoiceable=False, uses_a_place=False)
+add('12', _("Requested"), 'requested', invoiceable=False, uses_a_place=False)
+add('00', _("Trying"), 'trying', invoiceable=False, uses_a_place=False)
+add('02', _("Active"), 'active', invoiceable=True, uses_a_place=True)
+add('04', _("04"), invoiceable=False, uses_a_place=False)
+add('08', _("08"), invoiceable=False, uses_a_place=False)
+add('11', _("11"), invoiceable=False, uses_a_place=False)
+add('99', _("99"), invoiceable=False, uses_a_place=False)
+

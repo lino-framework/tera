@@ -68,7 +68,7 @@ def enrolments():
     Course = rt.models.courses.Course
     Enrolment = rt.models.courses.Enrolment
     DurationUnits = rt.models.cal.DurationUnits
-    SalesRule = rt.models.sales.SalesRule
+    SalesRule = rt.models.invoicing.SalesRule
 
     gr = GuestRole(**dd.str2kw('name', _("Attendee")))
     yield gr
