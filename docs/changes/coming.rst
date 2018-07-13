@@ -28,18 +28,19 @@ Allgemein:
 
 TODO (Luc):
 
-- Wenn Enrolment.state leer, dann übernehmen aus pupil.client_state
+- Wenn Enrolment.state leer, dann Wert übernehmen aus
+  `pupil.client_state`
 
 - tariff : bleibt pro Client und pro Household. ClientTariffs
-  umbenennen nach TariffGroups oder so. Der eigentliche Tarif steht
-  dann in Enrolment.fee.
+  umbenennen nach TariffGroups oder so. Der eigentliche Stückpreis
+  ("das Produkt") steht dann in Enrolment.fee.
 
 - ClientStates: das Feld bleibt pro Patient und pro Haushalt, aber
-  kriegt vielleicht neue Werte (Aktiv, Inaktiv)
+  kriegt nach Abschluss der tl2.py-Phase vielleicht neue Werte (Aktiv,
+  Inaktiv)
   
-- Was
-  in TIM unter "Stand der Beratung" stand, steht in Lino jetzt unter
-  EnrolmentStates::
+- Was in TIM unter "Stand der Beratung" stand, steht in Lino jetzt
+  unter EnrolmentStates::
   
   01 dauert an
   03 abgeschlossen
@@ -49,8 +50,6 @@ TODO (Luc):
   12 nur Erstkontakt
 
   
-- Site.languages : auch EN und NL
-
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
 
@@ -105,6 +104,8 @@ TODO (Vera)
   Lino erstellt werden.
 
 DONE (to verify):
+
+- Site.languages : auch EN und NL
 
 - Kalendereintragsart war leer. Jetzt sind alle DLA importiert und
   jede DLS hat eine DLA.

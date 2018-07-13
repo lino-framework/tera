@@ -525,7 +525,7 @@ class Enrolment(Enrolment, Invoiceable):
     def full_clean(self, *args, **kwargs):
         if self.state == EnrolmentStates.requested:
             self.state = EnrolmentStates.get_by_value(
-                self.pupil.client_state.value)
+                self.pupil.client_state.value) or EnrolmentStates.requested
         if self.fee_id is None and self.course_id is not None:
             self.fee = self.course.fee
             if self.fee_id is None and self.course.line_id is not None:
