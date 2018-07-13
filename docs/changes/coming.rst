@@ -89,7 +89,7 @@ TODO (Vera)
 
 DONE (to verify):
 
-- Kalendereintragsart ist leer.
+- Kalendereintragsart war leer.
 - DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
 
 - No de GSM, Date naissance, Geschlecht n'ont pas été importés

@@ -41,7 +41,7 @@ class HouseholdDetail(dd.DetailLayout):
     """, label=_("General"))
 
     activities = dd.Panel("""
-    language:10 type invoice_recipient tariff  client_state
+    language:10 type salesrule__invoice_recipient tariff client_state
     courses.ActivitiesByPartner
     """, label=_("Activities"))
 

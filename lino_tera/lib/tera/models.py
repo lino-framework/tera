@@ -156,8 +156,8 @@ class Client(Person, #BeIdCardHolder,
         return "%s %s (%s)" % (
             self.last_name.upper(), self.first_name, self.pk)
 
-    def get_choices_text(self, request, actor, field):
-        if request.user.user_type.has_required_roles(
+    def get_choices_text(self, ar, actor, field):
+        if ar is None or ar.user.user_type.has_required_roles(
                 [ClientsNameUser]):
             return str(self)
         return _("{} ({}) from {}").format(
@@ -217,7 +217,7 @@ class ClientDetail(dd.DetailLayout):
     nationality:15 birth_date age:10 gender:10
     professional_state language translator_type
     team user client_state
-    tariff invoice_recipient
+    tariff salesrule__invoice_recipient
 
     address #general3 #phones.ContactDetailsByPartner
     clients.ContactsByClient #uploads.UploadsByClient 

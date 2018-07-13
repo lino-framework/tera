@@ -68,6 +68,7 @@ def enrolments():
     Course = rt.models.courses.Course
     Enrolment = rt.models.courses.Enrolment
     DurationUnits = rt.models.cal.DurationUnits
+    SalesRule = rt.models.sales.SalesRule
 
     gr = GuestRole(**dd.str2kw('name', _("Attendee")))
     yield gr
@@ -81,8 +82,10 @@ def enrolments():
     invoice_recipient = None
     for n, p in enumerate(Client.objects.all()):
         if n % 10 == 0:
-            p.invoice_recipient = invoice_recipient
-            yield p
+            yield SalesRule(
+                partner=p, invoice_recipient=invoice_recipient)
+            # p.salesrule.invoice_recipient = invoice_recipient
+            # yield p
         else:
             invoice_recipient = p
 
