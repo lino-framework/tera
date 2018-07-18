@@ -118,7 +118,7 @@ add('11', _("11"))
 add('99', _("99"))
 
 from lino_xl.lib.courses.choicelists import EnrolmentStates
-EnrolmentStates.default_value = 'active'
+EnrolmentStates.default_value = 'confirmed'
 EnrolmentStates.clear()
 add = EnrolmentStates.add_item
 add('01', _("Confirmed"), 'confirmed', invoiceable=True, uses_a_place=True)
