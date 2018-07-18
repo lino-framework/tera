@@ -28,37 +28,11 @@ Allgemein:
 
 TODO (Luc):
 
-- in TIM hatten wir das Feld "Stand der Akte" pro "Partner". In Lino
-  werden aus den "Partnern" aber zwei verschiedene Dinge: "Therapien"
-  (genauer gesagt "Einschreibungen in einer Therapie") und "Patienten"
-  (einmaliger Datensatz pro physischer Person). Folglich gibt es
-  jetzt zwei verschiedene Felder: "Stand der Einschreibung" und "Stand
-  der Patientenakte". In beiden Feldern habe ich momentan die
-  Auswahlliste "Stand der Akte" aus TIM.
-
-- Wenn `Enrolment.state` leer ist, dann Wert übernehmen aus
-  `pupil.client_state`
-
 - tariff : bleibt pro Client und pro Household. ClientTariffs
   umbenennen nach TariffGroups oder so. Der eigentliche Stückpreis
   ("das Produkt") steht dann in Enrolment.fee. Dazu brauchen wir
   vielleicht noch eine Tabelle von default fees per ClientTariff.
 
-- ClientStates: das Feld bleibt pro Patient und pro Haushalt, aber
-  kriegt nach Abschluss der tl2.py-Phase vielleicht neue Werte (Aktiv,
-  Inaktiv)
-  
-- Was in TIM unter "Stand der Beratung" stand, steht in Lino jetzt
-  unter EnrolmentStates::
-  
-  01 dauert an
-  03 abgeschlossen
-  05 automatisch abgeschlossen
-  06 Abbruch der Beratung
-  09 Weitervermittlung
-  12 nur Erstkontakt
-
-  
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
 
@@ -77,10 +51,11 @@ TODO (Luc):
 
 - Termin erstellen von Therapie aus : geht nicht
 
-- Notizen und Themen sind sehr vertraulich (nur für Therapeuten),
+- Notizen und Themen werden jetzt importiert aus TIM.
+  Sind sehr vertraulich (nur für Therapeuten),
   Termine werden auch vom Sekretariat gesehen.
     
-  Notizen und Themen müssen importiert werden aus TIM. Themen sind pro
+  Notizen und Themen müssen . Themen sind pro
   Familie und pro Klient, Notizen nur pro Klient.
 
 - MTI Navigator can be irritating. Possibility to hide certain links &
@@ -106,6 +81,31 @@ TALK
 - Dass eine Therapie auch für einen bestimmten Haushalt (nicht
   Klienten) sein kann, macht die Sache etwas kompliziert.  so was wäre
   mit einer Standardsoftware sicherl nicht machbar.
+
+- Was in TIM unter "Stand der Beratung" stand, steht in Lino jetzt
+  unter EnrolmentStates::
+  
+  01 dauert an
+  03 abgeschlossen
+  05 automatisch abgeschlossen
+  06 Abbruch der Beratung
+  09 Weitervermittlung
+  12 nur Erstkontakt
+
+- in TIM hatten wir das Feld "Stand der Akte" pro "Partner". In Lino
+  werden aus den "Partnern" aber zwei verschiedene Dinge: "Therapien"
+  (genauer gesagt "Einschreibungen in einer Therapie") und "Patienten"
+  (einmaliger Datensatz pro physischer Person). Folglich gibt es
+  jetzt zwei verschiedene Felder: "Stand der Einschreibung" und "Stand
+  der Patientenakte". In beiden Feldern habe ich momentan die
+  Auswahlliste "Stand der Akte" aus TIM.
+
+- ClientStates: das Feld bleibt pro Patient und pro Haushalt, aber
+  kriegt nach Abschluss der tl2.py-Phase vielleicht neue Werte (Aktiv,
+  Inaktiv)
+  
+  
+  
 
 TODO (Vera)
 

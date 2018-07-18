@@ -98,7 +98,7 @@ add('16', _("Tariff 39,56"), 'plain')
 # add('12', _("First contact"), 'newcomer')  # Erstkontakt
 
 from lino_xl.lib.clients.choicelists import ClientStates
-ClientStates.default_value = 'active'
+ClientStates.default_value = None
 ClientStates.clear()
 add = ClientStates.add_item
 # add('01', pgettext("client state", "Active"), 'active')
