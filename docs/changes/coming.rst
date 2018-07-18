@@ -28,12 +28,21 @@ Allgemein:
 
 TODO (Luc):
 
-- Wenn Enrolment.state leer, dann Wert übernehmen aus
+- in TIM hatten wir das Feld "Stand der Akte" pro "Partner". In Lino
+  werden aus den "Partnern" aber zwei verschiedene Dinge: "Therapien"
+  (genauer gesagt "Einschreibungen in einer Therapie") und "Patienten"
+  (einmaliger Datensatz pro physischer Person). Folglich gibt es
+  jetzt zwei verschiedene Felder: "Stand der Einschreibung" und "Stand
+  der Patientenakte". In beiden Feldern habe ich momentan die
+  Auswahlliste "Stand der Akte" aus TIM.
+
+- Wenn `Enrolment.state` leer ist, dann Wert übernehmen aus
   `pupil.client_state`
 
 - tariff : bleibt pro Client und pro Household. ClientTariffs
   umbenennen nach TariffGroups oder so. Der eigentliche Stückpreis
-  ("das Produkt") steht dann in Enrolment.fee.
+  ("das Produkt") steht dann in Enrolment.fee. Dazu brauchen wir
+  vielleicht noch eine Tabelle von default fees per ClientTariff.
 
 - ClientStates: das Feld bleibt pro Patient und pro Haushalt, aber
   kriegt nach Abschluss der tl2.py-Phase vielleicht neue Werte (Aktiv,

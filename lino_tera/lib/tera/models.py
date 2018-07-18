@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017-2018 Luc Saffre
+# Copyright 2017-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """Database models.
 
@@ -29,7 +29,7 @@ from lino_xl.lib.cal.workflows import TaskStates
 # from lino_xl.lib.cv.mixins import BiographyOwner
 # from lino.utils.mldbc.fields import BabelVirtualField
 
-from lino.mixins import ObservedDateRange
+from lino.mixins.periods import ObservedDateRange
 
 from lino_xl.lib.clients.choicelists import ClientEvents, ClientStates
 
@@ -309,8 +309,8 @@ class Clients(contacts.Persons):
         # client_state=ClientStates.field(blank=True, default='')
     )
     params_layout = """
-    #aged_from #aged_to #gender nationality client_state
-    start_date end_date observed_event
+    #aged_from #aged_to #gender nationality client_state enrolment_state course
+    start_date end_date observed_event 
     """
 
     @classmethod
@@ -369,14 +369,14 @@ class Clients(contacts.Persons):
 
         return qs
 
-    # @classmethod
-    # def get_title_tags(self, ar):
-    #     for t in super(Clients, self).get_title_tags(ar):
-    #         yield t
-    #     pv = ar.param_values
+    @classmethod
+    def get_title_tags(self, ar):
+        for t in super(Clients, self).get_title_tags(ar):
+            yield t
+        pv = ar.param_values
 
-        # if pv.observed_event:
-        #     yield str(pv.observed_event)
+        if pv.nationality:
+            yield str(pv.nationality)
 
         # if pv.client_state:
         #     yield str(pv.client_state)
