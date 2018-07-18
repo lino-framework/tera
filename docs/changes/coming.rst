@@ -49,14 +49,12 @@ TODO (Luc):
   mehreren Tage pro Woche.  Im SPZ dagegen kommen manche nur 3x pro
   Jahr...
 
-- Termin erstellen von Therapie aus : geht nicht
+- Termin erstellen von Therapie aus: geht nicht.
 
-- Notizen und Themen werden jetzt importiert aus TIM.
-  Sind sehr vertraulich (nur für Therapeuten),
+- Notizen und Themen sind sehr vertraulich (nur für Therapeuten),
   Termine werden auch vom Sekretariat gesehen.
     
-  Notizen und Themen müssen . Themen sind pro
-  Familie und pro Klient, Notizen nur pro Klient.
+- Themen sind pro Familie und pro Klient, Notizen nur pro Klient.
 
 - MTI Navigator can be irritating. Possibility to hide certain links &
   conversions. e.g. Person -> Houshold, Person -> Partner should be
@@ -114,6 +112,8 @@ TODO (Vera)
 
 DONE (to verify):
 
+- Notizen und Themen werden jetzt importiert aus TIM.
+  
 - Site.languages : auch EN und NL
 
 - Kalendereintragsart war leer. Jetzt sind alle DLA importiert und
