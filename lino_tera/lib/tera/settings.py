@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2017 Luc Saffre
+# Copyright 2014-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """
 Base Django settings for Lino Tera applications.
@@ -60,9 +60,9 @@ class Site(Site):
         # yield 'lino_xl.lib.addresses'
         yield 'lino_xl.lib.humanlinks',
         yield 'lino_tera.lib.products'
+        yield 'lino_tera.lib.sales'
         yield 'lino_tera.lib.courses'
         # yield 'lino_xl.lib.accounts'
-        yield 'lino_xl.lib.sales'
         # yield 'lino_xl.lib.vat'
         yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.finan'

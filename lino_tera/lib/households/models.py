@@ -22,7 +22,7 @@ class Household(Household, Partner):
         abstract = dd.is_abstract_model(__name__, 'Household')
 
     # same fields as in tera.Client
-    client_state = ClientStates.field()
+    client_state = ClientStates.field(default='active')
     tariff = PartnerTariffs.field(
         default=PartnerTariffs.as_callable('plain'))
     

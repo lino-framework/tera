@@ -192,6 +192,7 @@ class Client(Person, #BeIdCardHolder,
 
 dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 #dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
+dd.update_field(Client, 'client_state', default='active')
     
 
 class ClientDetail(dd.DetailLayout):

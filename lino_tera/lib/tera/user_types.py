@@ -21,7 +21,7 @@ This is used as the :attr:`user_types_module
 
 from lino.api import _
 from lino.modlib.users.choicelists import UserTypes
-from lino.core.roles import UserRole, SiteAdmin, SiteUser
+from lino.core.roles import UserRole, SiteAdmin, SiteUser, SiteStaff
 from lino_xl.lib.contacts.roles import ContactsUser, ContactsStaff
 from lino_xl.lib.products.roles import ProductsUser, ProductsStaff
 from lino_xl.lib.excerpts.roles import ExcerptsUser, ExcerptsStaff
@@ -34,7 +34,7 @@ from lino_xl.lib.sepa.roles import SepaUser, SepaStaff
 from .roles import ClientsNameUser, ClientsUser
 
 
-class Secretary(SiteUser, ContactsUser, ClientsNameUser, OfficeUser,
+class Secretary(SiteStaff, ContactsUser, ClientsNameUser, OfficeUser,
                 GuestOperator,
                 LedgerStaff, SepaUser, CoursesUser, ExcerptsUser,
                 ProductsStaff):
