@@ -74,6 +74,8 @@ lino_tera.lib.households
 lino_tera.lib.households.fixtures
 lino_tera.lib.lists
 lino_tera.lib.lists.fixtures
+lino_tera.lib.sales
+lino_tera.lib.sales.fixtures
 lino_tera.lib.products
 lino_tera.lib.teams
 lino_tera.lib.teams.fixtures
