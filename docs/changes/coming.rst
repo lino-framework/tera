@@ -83,12 +83,12 @@ TALK
 - Was in TIM unter "Stand der Beratung" stand, steht in Lino jetzt
   unter EnrolmentStates::
   
-  01 dauert an
-  03 abgeschlossen
-  05 automatisch abgeschlossen
-  06 Abbruch der Beratung
-  09 Weitervermittlung
-  12 nur Erstkontakt
+      01 dauert an
+      03 abgeschlossen
+      05 automatisch abgeschlossen
+      06 Abbruch der Beratung
+      09 Weitervermittlung
+      12 nur Erstkontakt
 
 - in TIM hatten wir das Feld "Stand der Akte" pro "Partner". In Lino
   werden aus den "Partnern" aber zwei verschiedene Dinge: "Therapien"
