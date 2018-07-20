@@ -134,3 +134,8 @@ add('08', _("08"), invoiceable=False, uses_a_place=False)
 add('11', _("11"), invoiceable=False, uses_a_place=False)
 add('99', _("99"), invoiceable=False, uses_a_place=False)
 
+
+from lino_xl.lib.cal.workflows import EntryStates
+add = EntryStates.add_item
+add('60', _("Missed"), 'missed', fixed=True)
+
