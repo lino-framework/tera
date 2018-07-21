@@ -111,7 +111,8 @@ class Site(Site):
         self.plugins.ledger.configure(start_year=2015)
         self.plugins.ledger.configure(use_pcmn=True)
         # self.plugins.courses.configure(teacher_model='users.User')
-        self.plugins.courses.configure(pupil_model='contacts.Person')
+        # self.plugins.courses.configure(pupil_model='contacts.Person')
+        self.plugins.courses.configure(pupil_model='tera.Client')
 
 
     # def setup_actions(self):

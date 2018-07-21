@@ -22,16 +22,11 @@ Allgemein:
 - Buchhaltung wird von Vera übernommen : Alle Einkaufsrechnungen und
   Kontoauszüge werden schon in Lino erfasst.  Verkaufsrechnungen
   werden in 2018 noch mit den beiden TIMs erstellt und ausgedruckt,
-  aber daraufhin die jeweiligen Beträge manuell in Lino erfasst in
-  einem eigenen Journal (ähnlich wie OD), pro Serie von Rechnungen
-  wird dort ein einziges Dokument erstellt.
+  aber daraufhin die jeweiligen Beträge manuell in Lino erfasst,
+  evtl. in einem eigenen Journal (ähnlich wie OD), pro Serie von
+  Rechnungen wird dort ein einziges Dokument erstellt.
 
 TODO (Luc):
-
-- tariff : bleibt pro Client und pro Household. ClientTariffs
-  umbenennen nach TariffGroups oder so. Der eigentliche Stückpreis
-  ("das Produkt") steht dann in Enrolment.fee. Dazu brauchen wir
-  vielleicht noch eine Tabelle von default fees per ClientTariff.
 
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
@@ -51,9 +46,6 @@ TODO (Luc):
 
 - Termin erstellen von Therapie aus: geht nicht.
 
-- Notizen und Themen sind sehr vertraulich (nur für Therapeuten),
-  Termine werden auch vom Sekretariat gesehen.
-    
 - Themen sind pro Familie und pro Klient, Notizen nur pro Klient.
 
 - MTI Navigator can be irritating. Possibility to hide certain links &
@@ -61,6 +53,11 @@ TODO (Luc):
   hidden for normal users.
 
 TALK  
+
+- tariff : bleibt pro Client und pro Household. ClientTariffs
+  umbenennen nach TariffGroups oder so. Der eigentliche Stückpreis
+  ("das Produkt") steht dann in Enrolment.fee. Dazu brauchen wir
+  vielleicht noch eine Tabelle von default fees per ClientTariff.
 
 - Idee (zu besprechen): Von einem neuen Klienten aus könnte man eine
   Aktion starten, die eine Notiz fürs Erstgespräch erstellt, wobei
@@ -113,6 +110,9 @@ TODO (Vera)
 DONE (to verify):
 
 - Notizen und Themen werden jetzt importiert aus TIM.
+- Notizen und Themen sind sehr vertraulich (nur für Therapeuten),
+  Termine werden auch vom Sekretariat gesehen.
+    
   
 - Site.languages : auch EN und NL
 
