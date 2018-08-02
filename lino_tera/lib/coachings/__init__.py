@@ -15,6 +15,8 @@ The `coachings` plugin specific to :ref:`tera`.
 
 """
 
+raise Exception("Not used")
+
 from lino_xl.lib.coachings import Plugin
 
 

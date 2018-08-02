@@ -32,8 +32,8 @@ class CoachingDetail(dd.DetailLayout):
     """, label=_("More"))
 
     ledger_a = """
-    invoice_recipient vat_regime
-    payment_term paper_type
+    salesrule__invoice_recipient vat_regime
+    payment_term salesrule__paper_type
     """
 
     # sales = dd.Panel("""

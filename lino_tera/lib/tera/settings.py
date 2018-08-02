@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2017 Luc Saffre
+# Copyright 2014-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """
 Base Django settings for Lino Tera applications.
@@ -19,12 +19,8 @@ class Site(Site):
     version = SETUP_INFO['version']
     url = "http://tera.lino-framework.org/"
 
-    demo_fixtures = 'std demo minimal_ledger demo2'.split()
+    demo_fixtures = 'std minimal_ledger demo demo2'.split()
     # demo_fixtures = 'std demo minimal_ledger euvatrates demo2'.split()
-
-    demo_fixtures = ['std', 'demo', 'demo2']
-                     # 'linotickets',
-                     # 'tractickets', 'luc']
 
     # project_model = 'tera.Client'
     project_model = 'courses.Course'
@@ -60,9 +56,9 @@ class Site(Site):
         # yield 'lino_xl.lib.addresses'
         yield 'lino_xl.lib.humanlinks',
         yield 'lino_tera.lib.products'
+        yield 'lino_tera.lib.sales'
         yield 'lino_tera.lib.courses'
         # yield 'lino_xl.lib.accounts'
-        yield 'lino_xl.lib.sales'
         # yield 'lino_xl.lib.vat'
         yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.finan'
@@ -111,7 +107,8 @@ class Site(Site):
         self.plugins.ledger.configure(start_year=2015)
         self.plugins.ledger.configure(use_pcmn=True)
         # self.plugins.courses.configure(teacher_model='users.User')
-        self.plugins.courses.configure(pupil_model='contacts.Person')
+        # self.plugins.courses.configure(pupil_model='contacts.Person')
+        self.plugins.courses.configure(pupil_model='tera.Client')
 
 
     # def setup_actions(self):

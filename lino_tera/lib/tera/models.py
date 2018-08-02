@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017-2018 Luc Saffre
+# Copyright 2017-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """Database models.
 
@@ -28,8 +28,9 @@ from lino_tera.lib.contacts.models import Person
 from lino_xl.lib.cal.workflows import TaskStates
 # from lino_xl.lib.cv.mixins import BiographyOwner
 # from lino.utils.mldbc.fields import BabelVirtualField
+from lino_xl.lib.courses.mixins import Enrollable
 
-from lino.mixins import ObservedDateRange
+from lino.mixins.periods import ObservedDateRange
 
 from lino_xl.lib.clients.choicelists import ClientEvents, ClientStates
 
@@ -59,6 +60,7 @@ class Client(Person, #BeIdCardHolder,
              CreatedModified,
              ClientBase,
              # Notable,
+             Enrollable,
              Commentable):
     class Meta:
         app_label = 'tera'
@@ -156,8 +158,8 @@ class Client(Person, #BeIdCardHolder,
         return "%s %s (%s)" % (
             self.last_name.upper(), self.first_name, self.pk)
 
-    def get_choices_text(self, request, actor, field):
-        if request.user.user_type.has_required_roles(
+    def get_choices_text(self, ar, actor, field):
+        if ar is None or ar.user.user_type.has_required_roles(
                 [ClientsNameUser]):
             return str(self)
         return _("{} ({}) from {}").format(
@@ -192,6 +194,7 @@ class Client(Person, #BeIdCardHolder,
 
 dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 #dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
+dd.update_field(Client, 'client_state', default='active')
     
 
 class ClientDetail(dd.DetailLayout):
@@ -217,7 +220,7 @@ class ClientDetail(dd.DetailLayout):
     nationality:15 birth_date age:10 gender:10
     professional_state language translator_type
     team user client_state
-    tariff invoice_recipient
+    tariff salesrule__invoice_recipient
 
     address #general3 #phones.ContactDetailsByPartner
     clients.ContactsByClient #uploads.UploadsByClient 
@@ -309,8 +312,8 @@ class Clients(contacts.Persons):
         # client_state=ClientStates.field(blank=True, default='')
     )
     params_layout = """
-    #aged_from #aged_to #gender nationality client_state
-    start_date end_date observed_event
+    #aged_from #aged_to #gender nationality client_state enrolment_state course
+    start_date end_date observed_event 
     """
 
     @classmethod
@@ -369,14 +372,14 @@ class Clients(contacts.Persons):
 
         return qs
 
-    # @classmethod
-    # def get_title_tags(self, ar):
-    #     for t in super(Clients, self).get_title_tags(ar):
-    #         yield t
-    #     pv = ar.param_values
+    @classmethod
+    def get_title_tags(self, ar):
+        for t in super(Clients, self).get_title_tags(ar):
+            yield t
+        pv = ar.param_values
 
-        # if pv.observed_event:
-        #     yield str(pv.observed_event)
+        if pv.nationality:
+            yield str(pv.nationality)
 
         # if pv.client_state:
         #     yield str(pv.client_state)
@@ -466,38 +469,6 @@ from lino_xl.lib.countries.mixins import CountryCity
 #     def fc(**kwargs):
 #         return (**kwargs)
     
-
-from lino.api import _, pgettext
-
-
-# 01 dauert an
-# 03 abgeschlossen
-# 05 automatisch abgeschlossen
-# 06 Abbruch der Beratung
-# 09 Weitervermittlung
-# 12 nur Erstkontakt
-
-
-from lino_xl.lib.clients.choicelists import ClientStates
-ClientStates.default_value = 'active'
-ClientStates.clear()
-add = ClientStates.add_item
-# add('01', pgettext("client state", "Active"), 'active')
-add('01', _("Active"), 'active')
-add('03', _("Closed"), 'closed')
-add('05', _("Closed automatically"), 'auto_closed')
-add('06', _("Abandoned"), 'abandoned')
-add('09', _("Forwarded"), 'forwarded')
-add('12', _("Newcomer"), 'newcomer')
-# obsolete values still used on old data
-add('00', _("00"))
-add('02', _("02"))
-add('04', _("04"))
-add('08', _("08"))
-add('10', _("10"))
-add('11', _("11"))
-add('99', _("99"))
-
 
 # @dd.receiver(dd.post_analyze)
 # def my_details(sender, **kw):

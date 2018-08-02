@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2018 Luc Saffre
+# Copyright 2013-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """
@@ -49,7 +49,7 @@ CourseAreas.clear()
 add = CourseAreas.add_item
 add('10', _("Individual therapies"), 'therapies', 'courses.Therapies')
 add('20', _("Life groups"), 'life_groups', 'courses.LifeGroups')
-add('30', _("Other groups"), 'default')  # one place per enrolment
+add('30', _("Other groups"), 'default', 'courses.Courses')
 
 
 class CourseType(Referrable, mixins.BabelNamed):
@@ -472,7 +472,10 @@ class Enrolment(Enrolment, Invoiceable):
 
     def get_invoiceable_partner(self):
         p = self.course.partner or self.pupil
-        return p.invoice_recipient or p
+        salesrule = getattr(p, 'salesrule', None)
+        if salesrule is None:
+            return p
+        return salesrule.invoice_recipient or p
 
     def get_invoiceable_payment_term(self):
         return self.course.payment_term
@@ -499,13 +502,13 @@ class Enrolment(Enrolment, Invoiceable):
             # pupil = partner.get_mti_child('pupil')
             if pupil:  # isinstance(partner, rt.models.courses.Pupil):
                 q1 = models.Q(
-                    pupil__invoice_recipient__isnull=True, pupil=pupil)
-                q2 = models.Q(pupil__invoice_recipient=partner)
+                    pupil__salesrule__invoice_recipient__isnull=True, pupil=pupil)
+                q2 = models.Q(pupil__salesrule__invoice_recipient=partner)
                 qs = cls.objects.filter(models.Q(q1 | q2))
             else:
                 # if the partner is not a pupil, then it might still
                 # be an invoice_recipient
-                qs = cls.objects.filter(pupil__invoice_recipient=partner)
+                qs = cls.objects.filter(pupil__salesrule__invoice_recipient=partner)
                 
         # dd.logger.info("20160513 %s (%d rows)", qs.query, qs.count())
         for obj in qs.order_by(cls.invoiceable_date_field, 'id'):
@@ -520,6 +523,9 @@ class Enrolment(Enrolment, Invoiceable):
         return Product.objects.filter(cat=course.line.fees_cat)
 
     def full_clean(self, *args, **kwargs):
+        # if self.state == EnrolmentStates.requested:
+        #     self.state = EnrolmentStates.get_by_value(
+        #         self.pupil.client_state.value) or EnrolmentStates.requested
         if self.fee_id is None and self.course_id is not None:
             self.fee = self.course.fee
             if self.fee_id is None and self.course.line_id is not None:

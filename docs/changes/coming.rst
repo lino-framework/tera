@@ -19,50 +19,20 @@ Allgemein:
   einloggen können.  Alle anderen Benutzer werden zwar erstellt, aber
   können sich nicht anmelden.
 
-- Buchhaltung liegt momentan brach, weil Lydia ausgefallen ist und sie
-  noch keinen Ersatz haben.
-
+- Buchhaltung wird von Vera übernommen : Alle Einkaufsrechnungen und
+  Kontoauszüge werden schon in Lino erfasst.  Verkaufsrechnungen
+  werden in 2018 noch mit den beiden TIMs erstellt und ausgedruckt,
+  aber daraufhin die jeweiligen Beträge manuell in Lino erfasst,
+  evtl. in einem eigenen Journal (ähnlich wie OD), pro Serie von
+  Rechnungen wird dort ein einziges Dokument erstellt.
 
 TODO (Luc):
-
-- "Alte Daten löschen" in TIM vor dem nächsten Import.
-
-- nationality und birth_ate sind leer. Es fehlen viele Länder.
-  
-- Kindergruppe 2016 hat keine Therapie in Lino. Kindergruppe 2018
-  fehlt komplett.  "Psychodrama Do 2018" hat Anwesenheiten pro
-  Teilnehmer in TIM korrekt.
-
-- Akten A180246 und A180247 fehlen in Lino.
-
-- Notizen sind nur bis November 2017 importiert worden
-
-- Übersetzung Clientstates : Statt "Zustand" eines Patienten "Stand
-  der Beratung".
-
-- Status der importierten Anwesenheiten.  Status "Verpasst" : fehlt in
-  Lino.
-
-- Kalendereintragsart ist leer.
-
-- DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
-  "Kalendereintragsart" ersetzen durch "Dienstleistungsart".
-
-- client_state un tariff : nicht pro Client sondern pro Course
-  
-- Site.languages : auch EN und NL  
-
-- Alter : bei Kleinkindern auf z.B. "18 Monate"
 
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
 
 - Doppelte Therapeuten in Auswahlfeld "Benutzer".
-- Kein Standardpasswort für die anderen Benutzer
-- Fakturationsadresse sichtbar machen in Ansicht Patient und Haushalt.
-- Import Fakturationsadresse (Zahler) aus TIM scheint nicht zu funktionieren.
-- Klientenkontaktarten : Liste füllen und auch Daten importieren aus
-  TIM (z.B. Krankenkasse)
+- Kein Standardpasswort für die anderen Benutzer.
   
 - Terminplanung : Wochen-Master (Stundenplan), Monatsplaner (Wo sind
   Lücken? Ausnahmen regeln), Wochenansicht mit diversen
@@ -74,15 +44,123 @@ TODO (Luc):
   mehreren Tage pro Woche.  Im SPZ dagegen kommen manche nur 3x pro
   Jahr...
 
+- Termin erstellen von Therapie aus: geht nicht.
+
+- Themen sind pro Familie und pro Klient, Notizen nur pro Klient.
+
+- MTI Navigator can be irritating. Possibility to hide certain links &
+  conversions. e.g. Person -> Houshold, Person -> Partner should be
+  hidden for normal users.
+
+TALK  
+
+- tariff : bleibt pro Client und pro Household. ClientTariffs
+  umbenennen nach TariffGroups oder so. Der eigentliche Stückpreis
+  ("das Produkt") steht dann in Enrolment.fee. Dazu brauchen wir
+  vielleicht noch eine Tabelle von default fees per ClientTariff.
+
+- Idee (zu besprechen): Von einem neuen Klienten aus könnte man eine
+  Aktion starten, die eine Notiz fürs Erstgespräch erstellt, wobei
+  Lino dann falls nötig automatisch eine Aktivität erstellt.
+
+- Übersetzung ClientStates : Statt "Zustand" eines Patienten "Stand
+  der Beratung". Aber wir haben in Lino ein Feld "Zustand" an vielen
+  Stellen: pro Therapie, pro Patient, pro Einschreibung, pro
+  Anwesenheit.  Ich zögere noch, die alle nach "Stand" umzubenennen.
+  
+- Übersetzung cal.EntryType "Kalendereintragsart" ersetzen durch
+  "Dienstleistungsart".  Problem: das stimmt nicht ganz, denn es
+  werden auch z.B. "Feiertage" oder "Teamversammlungen" kommen, die
+  dann eindeutig *keine* Dienstleistungen sind.
+
+- Dass eine Therapie auch für einen bestimmten Haushalt (nicht
+  Klienten) sein kann, macht die Sache etwas kompliziert.  so was wäre
+  mit einer Standardsoftware sicherl nicht machbar.
+
+- Was in TIM unter "Stand der Beratung" stand, steht in Lino jetzt
+  unter EnrolmentStates::
+  
+      01 dauert an
+      03 abgeschlossen
+      05 automatisch abgeschlossen
+      06 Abbruch der Beratung
+      09 Weitervermittlung
+      12 nur Erstkontakt
+
+- in TIM hatten wir das Feld "Stand der Akte" pro "Partner". In Lino
+  werden aus den "Partnern" aber zwei verschiedene Dinge: "Therapien"
+  (genauer gesagt "Einschreibungen in einer Therapie") und "Patienten"
+  (einmaliger Datensatz pro physischer Person). Folglich gibt es
+  jetzt zwei verschiedene Felder: "Stand der Einschreibung" und "Stand
+  der Patientenakte". In beiden Feldern habe ich momentan die
+  Auswahlliste "Stand der Akte" aus TIM.
+
+- ClientStates: das Feld bleibt pro Patient und pro Haushalt, aber
+  kriegt nach Abschluss der tl2.py-Phase vielleicht neue Werte (Aktiv,
+  Inaktiv)
+  
+  
+  
+
+TODO (Vera)
+
+- Partner, die seit Ende 2017 in TIM erstellt wurden, müssen auch in
+  Lino erstellt werden.
+
+DONE (to verify):
+
+- Notizen und Themen werden jetzt importiert aus TIM.
+- Notizen und Themen sind sehr vertraulich (nur für Therapeuten),
+  Termine werden auch vom Sekretariat gesehen.
+    
+  
+- Site.languages : auch EN und NL
+
+- Kalendereintragsart war leer. Jetzt sind alle DLA importiert und
+  jede DLS hat eine DLA.
+- DLA aus TIM importieren nach cal.EventType (Kalendereintragsart).
+
+- No de GSM, Date naissance, Geschlecht n'ont pas été importés
+- birth_date wird jetzt importiert
+- Therapie E130280 : nicht Harry sondern Daniel müsste Therapeut
+  sein. Falsch importiert. Lino nahm prioritär den T1 statt des T2.
+  
+- Rechnungsempfänger und Krankenkasse importieren : pro Patient, nicht
+  pro Einschreibung.
+  
+- Akten E180246 und E180247 fehlen in Lino.
+
+- Notizen sind nur bis November 2017 importiert worden
+
+- Status der importierten Anwesenheiten war immer leer.  Status
+  "Verpasst" heißt "abwesend" in Lino.
+
+
+DONE and verified:
+
+- Teilnehmer der Gruppentherapien fehlten noch.
+
+- Das Alter wird bei Kleinkindern auf z.B. "18 Monate"
+
 - Therapeutische Gruppen : Kolonnenlayout
 
-DONE  
+- Kindergruppe 2016 hat keine Therapie in Lino. Kindergruppe 2018
+  fehlt komplett.  "Psychodrama Do 2018" hat Anwesenheiten pro
+  Teilnehmer in TIM korrekt.
 
+- Fakturationsadresse sichtbar machen in Ansicht Patient und Haushalt.
+- Import Fakturationsadresse (Zahler) aus TIM scheint nicht zu funktionieren.
+- Klientenkontaktarten : Liste füllen und auch Daten importieren aus
+  TIM (z.B. Krankenkasse)
+
+- nationality ist leer. Es fehlen viele Länder.
+  
 - Übersetzung Enrolment = "Teilnahme" (nicht "Einschreibung")
 - NotesByPatient raus. Auch "Health situation" und zwei weitere
   Memofelder.
 - Modul humanlinks raus, phones rein.
-  
+- "Alte Daten löschen" in TIM
+
   
 
 Außerdem besprochen:

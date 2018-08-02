@@ -22,7 +22,7 @@ class Household(Household, Partner):
         abstract = dd.is_abstract_model(__name__, 'Household')
 
     # same fields as in tera.Client
-    client_state = ClientStates.field()
+    client_state = ClientStates.field(default='active')
     tariff = PartnerTariffs.field(
         default=PartnerTariffs.as_callable('plain'))
     
@@ -41,7 +41,7 @@ class HouseholdDetail(dd.DetailLayout):
     """, label=_("General"))
 
     activities = dd.Panel("""
-    language:10 type invoice_recipient tariff  client_state
+    language:10 type salesrule__invoice_recipient tariff client_state
     courses.ActivitiesByPartner
     """, label=_("Activities"))
 

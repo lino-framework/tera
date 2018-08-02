@@ -41,9 +41,9 @@ class Session(Session, Invoiceable):
             partner = plan.partner
         if partner:
             q1 = models.Q(
-                partner__invoice_recipient__isnull=True,
+                partner__salesrule__invoice_recipient__isnull=True,
                 partner=partner)
-            q2 = models.Q(partner__invoice_recipient=partner)
+            q2 = models.Q(partner__salesrule__invoice_recipient=partner)
             qs = cls.objects.filter(models.Q(q1 | q2))
         else:
             return []
