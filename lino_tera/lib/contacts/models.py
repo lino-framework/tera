@@ -80,7 +80,7 @@ class PartnerDetail(PartnerDetail):
     """, label=_("More"))
 
     ledger_a = """
-    invoice_account salesrule__invoice_recipient vat_regime
+    purchase_account salesrule__invoice_recipient vat_regime
     payment_term salesrule__paper_type
     """
 
