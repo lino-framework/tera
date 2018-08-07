@@ -55,7 +55,7 @@ Lines.detail_layout = """
 
 Enrolments.detail_layout = """
 id course pupil request_date user
-start_date end_date places:8 fee free_events:8 #option amount
+start_date end_date #places:8 fee #free_events:8 #option amount
 remark workflow_buttons printed invoicing_info
 confirmation_details invoicing.InvoicingsByInvoiceable
 """
@@ -83,7 +83,7 @@ class EnrolmentsByPupil(EnrolmentsByPupil):
     insert_layout = """
     course_area
     course
-    places option
+    # places option
     remark
     request_date user
     """

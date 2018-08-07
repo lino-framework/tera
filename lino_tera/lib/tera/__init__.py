@@ -24,4 +24,3 @@ class Plugin(Plugin):
         mg = site.plugins.contacts
         m = m.add_menu(mg.app_label, mg.verbose_name)
         m.add_action('tera.Clients')
-        m.add_action('tera.MyClients')
