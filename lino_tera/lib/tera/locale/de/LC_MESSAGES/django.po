@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-07-20 08:46+0300\n"
-"PO-Revision-Date: 2018-07-20 08:46+0300\n"
+"PO-Revision-Date: 2018-08-07 08:32+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -104,7 +104,7 @@ msgstr "Von mir verwaltete Therapien"
 
 #: lino_tera/lib/courses/desktop.py:361
 msgid "Therapies held by me"
-msgstr "Meine Therapien"
+msgstr "Von mir geleitete Therapien"
 
 #: lino_tera/lib/courses/models.py:50
 msgid "Individual therapies"
@@ -457,7 +457,7 @@ msgstr ""
 
 #: lino_tera/lib/tera/choicelists.py:109 lino_tera/lib/tera/choicelists.py:128
 msgid "Forwarded"
-msgstr ""
+msgstr "Weitergeleitet"
 
 #: lino_tera/lib/tera/choicelists.py:110
 msgid "Newcomer"

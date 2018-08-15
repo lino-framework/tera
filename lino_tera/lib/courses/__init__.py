@@ -38,6 +38,7 @@ class Plugin(Plugin):
 
     def setup_main_menu(self, site, user_type, m):
         m = m.add_menu(self.app_label, self.verbose_name)
+        m.add_action('tera.MyClients')
         m.add_action('courses.MyActivities')
         m.add_action('courses.MyCoursesGiven')
         # m.add_action('courses.Pupils')
@@ -46,9 +47,6 @@ class Plugin(Plugin):
         for ca in site.models.courses.CourseAreas.objects():
             m.add_action(ca.courses_table)
         # m.add_action('courses.Courses')
-        m.add_separator()
-        m.add_action('courses.Topics')
-        m.add_action('courses.Lines')
         # m.add_separator()
         # m.add_action('courses.DraftCourses')
         # m.add_action('courses.InactiveCourses')
@@ -61,6 +59,9 @@ class Plugin(Plugin):
     def setup_config_menu(self, site, user_type, m):
         m = m.add_menu(self.app_label, self.verbose_name)
         m.add_action('courses.CourseTypes')
+        # m.add_separator()
+        m.add_action('courses.Topics')
+        m.add_action('courses.Lines')
         # m.add_action('courses.TeacherTypes')
         # m.add_action('courses.PupilTypes')
         # m.add_action('courses.Slots')

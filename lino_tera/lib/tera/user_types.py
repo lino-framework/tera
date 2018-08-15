@@ -41,9 +41,10 @@ class Secretary(SiteStaff, ContactsUser, ClientsNameUser, OfficeUser,
     pass
 
 
-class Therapist(SiteUser, ContactsUser, ClientsUser, OfficeUser, LedgerUser,
+class Therapist(SiteUser, ContactsUser, ClientsUser, OfficeUser,
+                # LedgerUser,
                 GuestOperator, NotesUser, 
-                SepaUser, CoursesUser, CoursesTeacher, ExcerptsUser,
+                SepaUser, CoursesTeacher, ExcerptsUser,
                 ProductsUser):
     pass
 

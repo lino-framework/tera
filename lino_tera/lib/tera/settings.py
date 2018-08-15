@@ -71,7 +71,6 @@ class Site(Site):
         yield 'lino_xl.lib.notes'
         # yield 'lino_tera.lib.tickets'
         # yield 'lino_xl.lib.skills'
-        yield 'lino_xl.lib.lists'
         # yield 'lino_xl.lib.votes'
         # yield 'lino_tera.lib.working'
         # yield 'lino_xl.lib.deploy'
@@ -93,6 +92,7 @@ class Site(Site):
 
         yield 'lino_tera.lib.tera'
         yield 'lino_tera.lib.teams'
+        yield 'lino_xl.lib.lists'
 
     def setup_plugins(self):
         super(Site, self).setup_plugins()

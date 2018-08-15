@@ -104,7 +104,7 @@ add = ClientStates.add_item
 # add('01', pgettext("client state", "Active"), 'active')
 add('01', _("Active"), 'active')
 add('03', _("Closed"), 'closed')
-add('05', _("Closed automatically"), 'auto_closed')
+add('05', _("Cancelled"), 'cancelled')  # auto_closed')
 add('06', _("Abandoned"), 'abandoned')
 add('09', _("Forwarded"), 'forwarded')
 add('12', _("Newcomer"), 'newcomer')
@@ -117,13 +117,17 @@ add('10', _("10"))
 add('11', _("11"))
 add('99', _("99"))
 
+CT = ClientStates.active.add_transition(required_states="cancelled abandoned newcomer")
+CT = ClientStates.closed.add_transition(required_states="cancelled active abandoned forwarded newcomer")
+CT = ClientStates.forwarded.add_transition(required_states="active newcomer")
+
 from lino_xl.lib.courses.choicelists import EnrolmentStates
 EnrolmentStates.default_value = 'confirmed'
 EnrolmentStates.clear()
 add = EnrolmentStates.add_item
 add('01', _("Confirmed"), 'confirmed', invoiceable=True, uses_a_place=True)
 add('03', _("Closed"), 'closed', invoiceable=False, uses_a_place=False)
-add('05', _("Closed automatically"), 'cancelled', invoiceable=False, uses_a_place=False)
+add('05', _("Cancelled"), 'cancelled', invoiceable=False, uses_a_place=False)
 add('06', _("Abandoned"), 'abandoned', invoiceable=False, uses_a_place=False)
 add('09', _("Forwarded"), 'forwarded', invoiceable=False, uses_a_place=False)
 add('12', _("Requested"), 'requested', invoiceable=False, uses_a_place=False)

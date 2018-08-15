@@ -202,39 +202,41 @@ class ClientDetail(dd.DetailLayout):
     main = "general contact misc "
 
     general = dd.Panel("""
-    overview:30 general2:40
+    general1:30 general2:40
     cal.GuestsByPartner:30 courses.EnrolmentsByPupil:40
     """, label=_("General"))
 
+    general1 = """
+    overview
+    workflow_buttons
+    """
+    
     general2 = """
-    id:10 first_name last_name 
+    id:10 team user  #client_state
+    nationality:15 birth_date age:10 gender:10
+    professional_state language translator_type
+    tariff salesrule__invoice_recipient
+    """
+
+    contact = dd.Panel("""
+    first_name last_name 
     # event_policy ending_reason 
     # workflow_buttons 
     country city zip_code:10
     addr1
     street:25 street_no #street_box
     # addr2
-    """
 
-    contact = dd.Panel("""
-    nationality:15 birth_date age:10 gender:10
-    professional_state language translator_type
-    team user client_state
-    tariff salesrule__invoice_recipient
-
-    address #general3 #phones.ContactDetailsByPartner
+    #general3 #phones.ContactDetailsByPartner
     clients.ContactsByClient #uploads.UploadsByClient 
     """, label=_("Contact"))
 
-    address = """
-    """
-
-    general3 = """
-    email
-    phone
-    fax
-    gsm
-    """
+    # general3 = """
+    # email
+    # phone
+    # fax
+    # gsm
+    # """
 
     # person = dd.Panel("""
     # """, label=_("Relations"))
@@ -265,7 +267,7 @@ class ClientDetail(dd.DetailLayout):
     # """, label = _("Polls"))
 
     misc = dd.Panel("""
-    obsoletes
+    obsoletes  client_state
     households.MembersByPerson:30 households.SiblingsByPerson
     lists.MembersByPartner
     checkdata.ProblemsByOwner ledger.MovementsByPartner
