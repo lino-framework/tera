@@ -4,7 +4,7 @@
 Changes in Lino Tera
 ========================
 
-See the author's `Developer Blog <http://luc.lino-framework.org/>`__
+See the author's `Developer blog <http://luc.lino-framework.org/>`__
 to get detailed news.  The final truth about what's going on is only
 `The Source Code <https://github.com/lino-framework/tera>`_.
 
@@ -12,4 +12,4 @@ to get detailed news.  The final truth about what's going on is only
    :maxdepth: 1
 
    coming
-
+   20180816
