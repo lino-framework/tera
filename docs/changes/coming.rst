@@ -21,7 +21,7 @@ Allgemein:
   einloggen können.  Alle anderen Benutzer werden zwar erstellt, aber
   können sich nicht anmelden.
 
-TODO (Luc):
+TODO:
 
 - Lebensgruppen haben keine Teilnehmer?
 - Problem Import Akte Melinda : Mitglieder in Familie sind doppelt. Es
