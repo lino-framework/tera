@@ -41,7 +41,7 @@ dd.update_field(Person, 'first_name', blank=True)
 class PartnerDetail(PartnerDetail):
 
     # main = 'general address more sales ledger'
-    main = 'general address more ledger'
+    main = 'general address sales purchases more'
 
     # general = dd.Panel(PartnerDetail.main,label=_("General"))
 
@@ -65,41 +65,36 @@ class PartnerDetail(PartnerDetail):
     """
 
     contact_box = """
-    language
     email
     phone
     gsm
     fax
+    url
     """
 
     more = dd.Panel("""
-    url
+    language
     #courses.CoursesByCompany
     # changes.ChangesByMaster
     excerpts.ExcerptsByOwner cal.GuestsByPartner
     """, label=_("More"))
 
-    ledger_a = """
-    purchase_account salesrule__invoice_recipient vat_regime
-    payment_term salesrule__paper_type
-    """
-
-    # sales = dd.Panel("""
-    # """, label=dd.plugins.sales.verbose_name)
+    sales = dd.Panel("""
+    salesrule__invoice_recipient payment_term salesrule__paper_type
+    sales.InvoicesByPartner 
+    """, label=_("Sales"))
 
     bottom_box = """
     remarks:50 checkdata.ProblemsByOwner:30
     """
 
-    ledger = dd.Panel("""
-    ledger_a 
-    sales.InvoicesByPartner
-    """, label=dd.plugins.ledger.verbose_name)
+    purchases = dd.Panel("""
+    purchase_account vat_regime vat_id
+    ana.InvoicesByPartner
+    """, label=_("Purchases"))
 
 
 class CompanyDetail(CompanyDetail, PartnerDetail):
-
-    # main = 'general more ledger'
 
     address = dd.Panel("""
     address_box contact_box
@@ -107,7 +102,7 @@ class CompanyDetail(CompanyDetail, PartnerDetail):
     """, label=_("Address"))
 
     more = dd.Panel("""
-    type vat_id url
+    type language salesrule__invoice_recipient
     # rooms.BookingsByCompany
     notes.NotesByCompany
     """, label=_("More"))
@@ -121,12 +116,11 @@ class CompanyDetail(CompanyDetail, PartnerDetail):
     """    
 
     contact_box = dd.Panel("""
-    #mti_navigator
-    language
     email:40
     phone
     gsm
     fax
+    url
     """)  # ,label = _("Contact"))
 
     bottom_box = """
@@ -136,7 +130,7 @@ class CompanyDetail(CompanyDetail, PartnerDetail):
 
 class PersonDetail(PersonDetail, PartnerDetail):
 
-    main = 'general address ledger'
+    main = 'general address sales purchases more'
 
     general = dd.Panel("""
     overview:30  ledger.MovementsByPartner #lists.MembersByPartner:20
@@ -157,11 +151,11 @@ class PersonDetail(PersonDetail, PartnerDetail):
     """
 
     contact_box = """
-    language
     email
     phone
     gsm
-    #fax birth_date age:10
+    url
+    birth_date age:10
     """
 
     # personal = 'national_id card_number'
@@ -169,22 +163,20 @@ class PersonDetail(PersonDetail, PartnerDetail):
     bottom_box = """
     remarks:50 checkdata.ProblemsByOwner:30
     """
-    ledger = dd.Panel("""
-    id url
+    more = dd.Panel("""
+    id language
     sales.InvoicesByPartner
-    """, label=dd.plugins.ledger.verbose_name)
+    """, label=_("More"))
 
 
-
-# Persons.detail_layout = PersonDetail()
-# Companies.detail_layout = CompanyDetail()
-# Partners.detail_layout = PartnerDetail()
-
-# Persons.set_detail_layout(PersonDetail())
-# Companies.set_detail_layout(CompanyDetail())
-# Partners.set_detail_layout(PartnerDetail())
+Companies.insert_layout = """
+name
+country city
+vat_regime
+"""
 
 from lino_xl.lib.clients.desktop import ClientContactsByCompany, ClientContactsByPerson
 
 Company.used_as_client_contact = dd.ShowSlaveTable(ClientContactsByCompany)
 Person.used_as_client_contact = dd.ShowSlaveTable(ClientContactsByPerson)
+

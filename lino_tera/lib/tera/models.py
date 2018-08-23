@@ -196,10 +196,11 @@ dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 #dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
 dd.update_field(Client, 'client_state', default='active')
     
+from lino_tera.lib.contacts.models import PersonDetail
 
-class ClientDetail(dd.DetailLayout):
+class ClientDetail(PersonDetail):
 
-    main = "general contact misc "
+    main = "general address activities sales purchases more "
 
     general = dd.Panel("""
     general1:30 general2:40
@@ -212,36 +213,15 @@ class ClientDetail(dd.DetailLayout):
     """
     
     general2 = """
-    id:10 team user  #client_state
-    nationality:15 birth_date age:10 gender:10
-    professional_state language translator_type
-    tariff salesrule__invoice_recipient
+    id:10 team user
+    birth_date age:10 gender:10
+    nationality:15 language translator_type
+    professional_state tariff 
     """
 
-    contact = dd.Panel("""
-    first_name last_name 
-    # event_policy ending_reason 
-    # workflow_buttons 
-    country city zip_code:10
-    addr1
-    street:25 street_no #street_box
-    # addr2
-
-    #general3 #phones.ContactDetailsByPartner
-    clients.ContactsByClient #uploads.UploadsByClient 
-    """, label=_("Contact"))
-
-    # general3 = """
-    # email
-    # phone
-    # fax
-    # gsm
-    # """
-
-    # person = dd.Panel("""
-    # """, label=_("Relations"))
-
     activities = dd.Panel("""
+    lists.MembersByPartner
+    clients.ContactsByClient 
     # courses.ActivitiesByPartner
     # tera.NotesByPartner 
     # cal.GuestsByPartner
@@ -266,13 +246,12 @@ class ClientDetail(dd.DetailLayout):
     # polls.ResponsesByPartner
     # """, label = _("Polls"))
 
-    misc = dd.Panel("""
+    more = dd.Panel("""
     obsoletes  client_state
     households.MembersByPerson:30 households.SiblingsByPerson
-    lists.MembersByPartner
     checkdata.ProblemsByOwner ledger.MovementsByPartner
     #excerpts.ExcerptsByProject
-    """, label=_("Miscellaneous"))
+    """, label=_("More"))
 
     # career = dd.Panel("""
     # # unemployed_since seeking_since work_permit_suspended_until
