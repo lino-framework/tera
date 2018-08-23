@@ -6,7 +6,7 @@
 
 SETUP_INFO = dict(
     name='lino-tera',
-    version='17.10.0',
+    version='18.8.0',
     install_requires=['lino-xl'],
     # tests_require=['pytest', 'mock'],
     test_suite='tests',
