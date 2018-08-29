@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017 Luc Saffre
+# Copyright 2017-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """The default :attr:`custom_layouts_module
@@ -14,7 +14,7 @@ if dd.is_installed('tera'):
     # with autosummary
 
     rt.models.accounts.Accounts.column_names = "\
-    ref name purchases_allowed group *"
+    ref name purchases_allowed sheet_item *"
 
     rt.models.countries.Places.detail_layout = """
     name country
@@ -23,11 +23,18 @@ if dd.is_installed('tera'):
     """
     rt.models.accounts.Accounts.detail_layout = """
     ref:10 name
-    group type id default_amount:10 common_account vat_column
+    sheet_item id default_amount:10 common_account vat_column
     needs_partner clearable purchases_allowed  needs_ana ana_account
     ledger.MovementsByAccount
     """
 
+
+    rt.models.ledger.FiscalYears.detail_layout = """
+    ref id start_date end_date printed
+    #sheets.EntriesByYear
+    sheets.BalanceByYear
+    sheets.ResultsByYear
+    """
 
     rt.models.system.SiteConfigs.detail_layout = """
     site_company next_partner_id:10
