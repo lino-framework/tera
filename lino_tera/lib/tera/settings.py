@@ -58,7 +58,6 @@ class Site(Site):
         yield 'lino_tera.lib.products'
         yield 'lino_tera.lib.sales'
         yield 'lino_tera.lib.courses'
-        # yield 'lino_xl.lib.accounts'
         # yield 'lino_xl.lib.vat'
         yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.finan'
