@@ -29,12 +29,12 @@ if dd.is_installed('tera'):
     """
 
 
-    rt.models.ledger.FiscalYears.detail_layout = """
-    ref id start_date end_date printed
-    #sheets.EntriesByYear
-    sheets.BalanceByYear
-    sheets.ResultsByYear
-    """
+    # rt.models.ledger.FiscalYears.detail_layout = """
+    # ref id start_date end_date printed
+    # #sheets.EntriesByYear
+    # sheets.BalanceByYear
+    # sheets.ResultsByYear
+    # """
 
     rt.models.system.SiteConfigs.detail_layout = """
     site_company next_partner_id:10

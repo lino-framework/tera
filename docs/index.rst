@@ -20,6 +20,5 @@ Content
 
    guide/index
    changes/index
-   
 
 

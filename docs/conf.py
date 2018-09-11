@@ -13,12 +13,12 @@ extlinks = {}
 
 from lino.sphinxcontrib import configure
 configure(globals())
-# configure(globals(), 'lino_tera.projects.team.settings.doctests')
-# configure(globals(), 'lino_book.projects.min1.settings.doctests')
+# configure(globals(), 'lino_book.projects.lydia.settings.demo')
 
 extlinks.update(ticket=('http://bugs.saffre-rumma.net/tickets/Ticket/%s', '#'))
 
 extensions += ['lino.sphinxcontrib.logo']
+# extensions += ['lino.sphinxcontrib.actordoc']
 
 # from django.conf import settings
 # settings.SITE.title = "Lino Tera"

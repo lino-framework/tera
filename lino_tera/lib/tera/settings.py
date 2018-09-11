@@ -19,7 +19,7 @@ class Site(Site):
     version = SETUP_INFO['version']
     url = "http://tera.lino-framework.org/"
 
-    demo_fixtures = 'std minimal_ledger demo demo2 checksummaries'.split()
+    demo_fixtures = 'std minimal_ledger demo demo2'.split()
     # demo_fixtures = 'std demo minimal_ledger euvatrates demo2'.split()
 
     # project_model = 'tera.Client'
