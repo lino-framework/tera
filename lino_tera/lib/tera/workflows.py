@@ -1,27 +1,24 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2016-2017 Luc Saffre
+# Copyright 2016-2018 Rumma & Ko Ltd
 #
 # License: BSD (see file COPYING for details)
-"""The default :attr:`workflows_module
+"""
+The default :attr:`workflows_module
 <lino.core.site.Site.workflows_module>` for :ref:`tera` applications.
 
-This workflow requires that both :mod:`lino_xl.lib.tickets` and
-:mod:`lino_xl.lib.votes` are installed.
-
-If :attr:`use_new_unicode_symbols
-<lino.core.site.Site.use_new_unicode_symbols>` is True, ticket states
-are represented using symbols from the `Miscellaneous Symbols and
-Pictographs
-<https://en.wikipedia.org/wiki/Miscellaneous_Symbols_and_Pictographs>`__
-block, otherwise we use the more widely supported symbols from
-`Miscellaneous Symbols
-<https://en.wikipedia.org/wiki/Miscellaneous_Symbols>`
-`fileformat.info
-<http://www.fileformat.info/info/unicode/block/miscellaneous_symbols/list.htm>`__.
+This workflow requires that both :mod:`lino_xl.lib.cal` and
+:mod:`lino_xl.lib.courses` are installed.
 
 """
+from __future__ import unicode_literals
 
 #from lino_noi.lib.tickets.workflows import *
 from lino_xl.lib.cal.workflows.voga import *
 from lino_xl.lib.courses.workflows import *
+from lino.api import _
 
+# EntryStates.override_transition(
+#     "cancel",
+#     required_states='missed suggested draft took_place')
+EntryStates.missed.add_transition(
+    required_states='cancelled suggested draft took_place')

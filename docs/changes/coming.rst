@@ -21,21 +21,27 @@ Allgemein:
   einloggen können.  Alle anderen Benutzer werden zwar erstellt, aber
   können sich nicht anmelden.
 
+DONE:
+
+- dashboard aktivieren
+- Überfällige Termine : nicht schon die von heute, erst ab gestern.
+- users.UserDetail hat keine Reiter (Dashboard, event_type, ...)
+- Terminzustand "Unentschuldigt ausgefallen" fehlt
+
+
 TODO:
 
 - Lebensgruppen haben keine Teilnehmer?
 - Problem Import Akte Melinda : Mitglieder in Familie sind doppelt. Es
   gibt nur eine Familientherapie, keine Einzeltherapie.
-- Überfällige Termine : nicht schon die von heute, erst ab gestern.
-- dashboard aktivieren
-- users.UserDetail hat keine Reiter (Dashboard, event_type, ...)
-- DLS->IdUser wird scheinbar nicht importiert. Therepeut ist nicht
+- DLS->IdUser wird scheinbar nicht importiert. Therapeut ist nicht
   immer der aus der Akte.
 - Wenn DLP->Status leer ist, dann soll in Lino Anwesend stehen.
-- Terminzustand "Unentschuldigt ausgefallen" fehlt
+  
 - Anwesenheiten der Teilnehmer werden nur in therapeutischen Gruppen
   erfasst, bei Einzeltherapien und Lebensgruppen gelten immer alle als
   anwesend (werden ansonsten gelöscht).
+  
 - Gekoppelte Termine KITZ : wie regeln wir das?
 - Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
   und wird als Teilnehmer mit Rolle "Assistent" erfasst.

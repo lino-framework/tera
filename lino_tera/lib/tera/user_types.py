@@ -7,17 +7,11 @@
 This is used as the :attr:`user_types_module
 <lino.core.site.Site.user_types_module>` for Tera sites.
 
-"""
-
-"""Defines a default set of user roles and fills
-:class:`lino.modlib.users.choicelists.UserTypes`.
-
-This is used as the :attr:`user_types_module
-<lino.core.site.Site.user_types_module>` for
-:mod:`lino_presto.projects.std`.
-
+Redefines the choices in :class:`lino.modlib.users.UserTypes`.
 
 """
+
+from __future__ import unicode_literals
 
 from lino.api import _
 from lino.modlib.users.choicelists import UserTypes
@@ -63,4 +57,18 @@ add('000', _("Anonymous"), UserRole, name='anonymous', readonly=True)
 add('100', _("Secretary"), Secretary, name="secretary")
 add('200', _("Therapist"), Therapist, name="therapist")
 add('900', _("Administrator"), SiteAdmin, name='admin')
+
+# we want to change the button_text of the Cancelled state. We must do
+# this in user_types_module (i.e. before workflows_module is loaded)
+# because otherwise transition actions will get the old button_text.
+
+from lino_xl.lib.cal.choicelists import EntryStates
+
+add = EntryStates.add_item
+add('60', _("Missed"), 'missed', fixed=True,
+    help_text=_("Guest missed the appointment."),
+    button_text="☉", noauto=True)  # \u2609 SUN
+
+EntryStates.cancelled.button_text = "⚕"
+
 
