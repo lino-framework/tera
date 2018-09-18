@@ -17,8 +17,14 @@ from lino_xl.lib.cal.workflows.voga import *
 from lino_xl.lib.courses.workflows import *
 from lino.api import _
 
+from lino_xl.lib.cal.choicelists import EntryStates, GuestStates
+
 # EntryStates.override_transition(
 #     "cancel",
 #     required_states='missed suggested draft took_place')
 EntryStates.missed.add_transition(
     required_states='cancelled suggested draft took_place')
+
+EntryStates.took_place.guest_state = GuestStates.present
+EntryStates.cancelled.guest_state = GuestStates.excused
+EntryStates.missed.guest_state = GuestStates.absent

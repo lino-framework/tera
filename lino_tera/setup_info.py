@@ -70,6 +70,8 @@ lino_tera.lib.working
 lino_tera.lib.working.fixtures
 lino_tera.lib.contacts
 lino_tera.lib.contacts.fixtures
+lino_tera.lib.cal
+lino_tera.lib.cal.fixtures
 lino_tera.lib.coachings
 lino_tera.lib.coachings.fixtures
 lino_tera.lib.courses

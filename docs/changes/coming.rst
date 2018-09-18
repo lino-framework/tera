@@ -18,7 +18,7 @@ Allgemein:
   Versionen aufspielen und alle Daten aus TIM nach Lino
   importieren. Wir haben uns mündlich auf ein Entwicklerpasswort
   geeinigt, mit dem DD, LS, GV und HS sich während der Testphase
-  einloggen können.  Alle anderen Benutzer werden zwar erstellt, aber
+  einloggen können.  Alle anderen Benutzer wurden zwar erstellt, aber
   können sich nicht anmelden.
 
 DONE:
@@ -27,24 +27,18 @@ DONE:
 - Überfällige Termine : nicht schon die von heute, erst ab gestern.
 - users.UserDetail hat keine Reiter (Dashboard, event_type, ...)
 - Terminzustand "Unentschuldigt ausgefallen" fehlt
+- Wenn DLP->Status leer ist, dann soll in Lino Anwesend stehen.
+- Anwesenheiten der Teilnehmer werden nur in therapeutischen Gruppen
+  erfasst, bei Einzeltherapien und Lebensgruppen gelten immer alle als
+  anwesend (werden ansonsten gelöscht).  Wenn so ein Termin auf
+  "Stattgefunden" gesetzt wird, werden alle Gäste ungefragt auf
+  "Anwesend" gesetzt.  Wenn Termin auf Verpasst gesetzt wird, werden
+  alle auf Unentschuldigt gesetzt.  Lino hat ein Mapping von
+  EntryStates nach GuestStates. (Details in den Spezifikationen).
 
 
 TODO:
 
-- Lebensgruppen haben keine Teilnehmer?
-- Problem Import Akte Melinda : Mitglieder in Familie sind doppelt. Es
-  gibt nur eine Familientherapie, keine Einzeltherapie.
-- DLS->IdUser wird scheinbar nicht importiert. Therapeut ist nicht
-  immer der aus der Akte.
-- Wenn DLP->Status leer ist, dann soll in Lino Anwesend stehen.
-  
-- Anwesenheiten der Teilnehmer werden nur in therapeutischen Gruppen
-  erfasst, bei Einzeltherapien und Lebensgruppen gelten immer alle als
-  anwesend (werden ansonsten gelöscht).
-  
-- Gekoppelte Termine KITZ : wie regeln wir das?
-- Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
-  und wird als Teilnehmer mit Rolle "Assistent" erfasst.
 - Preisliste :
   - course_line
   - entry_type
@@ -56,7 +50,18 @@ TODO:
 - Übersetzung "Life groups"
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
- 
+- Lebensgruppen haben keine Teilnehmer?
+- Problem Import Akte Melinda : Mitglieder in Familie sind doppelt. Es
+  gibt nur eine Familientherapie, keine Einzeltherapie.
+- DLS->IdUser wird scheinbar nicht importiert. Therapeut ist nicht
+  immer der aus der Akte.
+
+TALK  
+  
+- Gekoppelte Termine KITZ : wie regeln wir das?
+- Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
+  und wird als Teilnehmer mit Rolle "Assistent" erfasst.
+  
 TALK:
 
 - Die Kalenderfunktionen soll so gut werden, dass OpenExchange nicht

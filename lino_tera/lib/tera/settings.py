@@ -57,6 +57,7 @@ class Site(Site):
         yield 'lino_xl.lib.humanlinks',
         yield 'lino_tera.lib.products'
         yield 'lino_tera.lib.sales'
+        yield 'lino_tera.lib.cal'
         yield 'lino_tera.lib.courses'
         # yield 'lino_xl.lib.vat'
         yield 'lino_xl.lib.sepa'
@@ -77,7 +78,6 @@ class Site(Site):
         # yield 'lino_presto.lib.working'
         # yield 'lino.modlib.uploads'
         # yield 'lino_xl.lib.extensible'
-        yield 'lino_xl.lib.cal'
         # yield 'lino_xl.lib.outbox'
         yield 'lino_xl.lib.excerpts'
         yield 'lino_xl.lib.appypod'

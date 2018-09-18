@@ -71,4 +71,3 @@ add('60', _("Missed"), 'missed', fixed=True,
 
 EntryStates.cancelled.button_text = "⚕"
 
-

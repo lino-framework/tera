@@ -47,9 +47,11 @@ from lino.modlib.printing.utils import CustomBuildMethod
 
 CourseAreas.clear()
 add = CourseAreas.add_item
-add('10', _("Individual therapies"), 'therapies', 'courses.Therapies', False)
-add('20', _("Life groups"), 'life_groups', 'courses.LifeGroups', False)
-add('30', _("Other groups"), 'default', 'courses.Courses', True)
+add('10', _("Individual therapies"), 'therapies', 'courses.Therapies',
+    force_guest_states=True)
+add('20', _("Life groups"), 'life_groups', 'courses.LifeGroups',
+    force_guest_states=True)
+add('30', _("Other groups"), 'default', 'courses.Courses')
 
 
 class CourseType(Referrable, mixins.BabelNamed):
