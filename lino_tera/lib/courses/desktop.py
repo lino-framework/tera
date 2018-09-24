@@ -55,8 +55,8 @@ Lines.detail_layout = """
 
 Enrolments.detail_layout = """
 id course pupil request_date user
-start_date end_date #places:8 fee #free_events:8 #option amount
-remark workflow_buttons printed invoicing_info
+start_date end_date #places:8 fee
+remark workflow_buttons printed 
 confirmation_details invoicing.InvoicingsByInvoiceable
 """
 
@@ -96,18 +96,15 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
     """
     # variable_row_height = True
     column_names = 'request_date pupil start_date end_date '\
-                   'places:8 remark fee free_events:8 #option amount ' \
+                   'remark fee ' \
                    'workflow_buttons *'
-
-    # column_names = 'request_date pupil_info places ' \
-    #                'fee option remark amount:10 workflow_buttons *'
 
 
 class EnrolmentsByFee(EnrolmentsByCourse):
     label = _("Enrolments using this fee")
     master_key = "fee"
     column_names = 'course request_date pupil_info start_date end_date '\
-                   'places remark free_events #option amount *'
+                   'remark *'
 
 
 class EntriesByCourse(EntriesByController):
@@ -120,7 +117,7 @@ class EntriesByCourse(EntriesByController):
 
 
 class CourseDetail(CourseDetail):
-    main = "general enrolments events notes more"
+    main = "general enrolments calendar notes more"
     general = dd.Panel("""
     ref name client:20 household:20 #partner
     line user teacher workflow_buttons
@@ -128,11 +125,10 @@ class CourseDetail(CourseDetail):
     remark topics.InterestsByController
     """, label=_("General"))
 
-    events = dd.Panel("""
+    calendar = dd.Panel("""
     every_unit every max_date max_events
     monday tuesday wednesday thursday friday saturday sunday
     courses.EntriesByCourse
-
     """, label=_("Appointments"))
 
     enrolments = dd.Panel("""
@@ -140,7 +136,7 @@ class CourseDetail(CourseDetail):
     EnrolmentsByCourse
     """, label=_("Participants"))
 
-    enrolments_top = 'enrolments_until fee:15 max_places:10 confirmed free_places:10 print_actions:15'
+    enrolments_top = 'enrolments_until fee:15 print_actions:15'
 
     notes = dd.Panel("""
     notes.NotesByProject
@@ -234,9 +230,7 @@ class CoursesByTopic(CoursesByTopic):
 
     """
     order_by = ["ref"]
-    column_names = "overview weekdays_text:10 times_text:10 "\
-                   "max_places:8 confirmed "\
-                   "free_places requested trying *"
+    column_names = "overview weekdays_text:10 times_text:10 * "
 
     # detail_layout = Courses.detail_layout
 
@@ -281,7 +275,7 @@ class LinesByType(Lines):
 
 class EnrolmentsAndPaymentsByCourse(Enrolments):
     """Show enrolments of a course together with
-    :attr:`invoicing_info` and :attr:`payment_info`.
+    :attr:`payment_info`.
 
     This is used by `payment_list.body.html`.
 
@@ -289,7 +283,7 @@ class EnrolmentsAndPaymentsByCourse(Enrolments):
 
     """
     master_key = 'course'
-    column_names = "pupil_info start_date invoicing_info payment_info"
+    column_names = "pupil_info start_date payment_info"
 
 
 class EnrolmentsByLifeGroup(EnrolmentsByCourse):

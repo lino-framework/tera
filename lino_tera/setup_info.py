@@ -89,6 +89,8 @@ lino_tera.lib.tera
 lino_tera.lib.tera.fixtures
 lino_tera.lib.users
 lino_tera.lib.users.fixtures
+lino_tera.lib.invoicing
+lino_tera.lib.invoicing.fixtures
 """.splitlines() if n])
 
 SETUP_INFO.update(message_extractors={

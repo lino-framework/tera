@@ -34,7 +34,7 @@ DONE:
   "Stattgefunden" gesetzt wird, werden alle Gäste ungefragt auf
   "Anwesend" gesetzt.  Wenn Termin auf Verpasst gesetzt wird, werden
   alle auf Unentschuldigt gesetzt.  Lino hat ein Mapping von
-  EntryStates nach GuestStates. (Details in den Spezifikationen).
+  EntryStates nach GuestStates. (Details sh. Spezifikationen).
 
 
 TODO:
