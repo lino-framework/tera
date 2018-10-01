@@ -61,8 +61,8 @@ TALK
 - Gekoppelte Termine KITZ : wie regeln wir das?
 - Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
   und wird als Teilnehmer mit Rolle "Assistent" erfasst.
-  
-TALK:
+- Abrechnung an Krankenkassen
+- Klären, wie die Securex-Rechnungen verbucht werden sollen.
 
 - Die Kalenderfunktionen soll so gut werden, dass OpenExchange nicht
   mehr nötig ist.
