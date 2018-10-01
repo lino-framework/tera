@@ -70,7 +70,7 @@ InvoicingsByInvoiceable.column_names = (
 
 class PendingRequestedEnrolments(PendingRequestedEnrolments):
     column_names = 'request_date course pupil remark user ' \
-                   'amount workflow_buttons'
+                   'workflow_buttons'
 
 
 class EnrolmentsByPupil(EnrolmentsByPupil):
@@ -78,7 +78,7 @@ class EnrolmentsByPupil(EnrolmentsByPupil):
                    'remark workflow_buttons *'
 
     # column_names = 'request_date course user:10 remark ' \
-    #                'amount:10 workflow_buttons *'
+    #                'workflow_buttons *'
 
     insert_layout = """
     course_area
@@ -288,7 +288,7 @@ class EnrolmentsAndPaymentsByCourse(Enrolments):
 
 class EnrolmentsByLifeGroup(EnrolmentsByCourse):
     column_names = 'request_date pupil '\
-                   'places:8 remark fee option amount ' \
+                   'remark fee ' \
                    'workflow_buttons *'
     insert_layout = """
     pupil
