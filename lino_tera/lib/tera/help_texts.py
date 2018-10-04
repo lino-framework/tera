@@ -5,4 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 help_texts = {
     'lino_tera.lib.tera.migrate.Migrator' : _("""The standard migrator for noi."""),
+    'lino_tera.lib.tera.migrate.Migrator.migrate_from_1_0_1' : _("""Move Deployment and Milestone from 'tickets' to new plugin
+'deploy'."""),
 }
