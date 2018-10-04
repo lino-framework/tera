@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2016-2018 Rumma & Ko Ltd
-#
 # License: BSD (see file COPYING for details)
 """
 The default :attr:`workflows_module
@@ -27,4 +26,4 @@ EntryStates.missed.add_transition(
 
 EntryStates.took_place.guest_state = GuestStates.present
 EntryStates.cancelled.guest_state = GuestStates.excused
-EntryStates.missed.guest_state = GuestStates.absent
+EntryStates.missed.guest_state = GuestStates.missing

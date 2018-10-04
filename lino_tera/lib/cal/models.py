@@ -111,7 +111,7 @@ class Guest(Guest, Invoiceable):
             cls.invoiceable_date_field + '__lte':
             plan.max_date or plan.today})
         qs = qs.filter(event__project__isnull=False)
-        invoiceable_states = (GuestStates.present, GuestStates.absent)
+        invoiceable_states = (GuestStates.present, GuestStates.missing)
         qs = qs.filter(state__in=invoiceable_states)
         qs = qs.filter(event__event_type__force_guest_states=False)
         if plan.course is not None:
