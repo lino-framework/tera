@@ -12,4 +12,5 @@ to get detailed news.  The final truth about what's going on is only
    :maxdepth: 1
 
    coming
+   20181009
    20180816

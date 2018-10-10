@@ -1,35 +1,56 @@
-.. _tera.coming: 
+.. _tera.20181009: 
 
-================
-Kommende Version
-================
+=================================
+Baustellenbesichtigung 2018-10-09
+=================================
 
 Allgemein:
 
-- Alle Einkaufsrechnungen und Kontoauszüge werden schon in Lino
-  erfasst.  Verkaufsrechnungen werden noch mit den beiden TIMs
-  erstellt und ausgedruckt. Verkaufsrechnungen werden aus TIM nach
-  Lino importiert.
+- Vera übernimmt die Buchhaltung : Alle Einkaufsrechnungen und
+  Kontoauszüge werden schon in Lino erfasst.  Verkaufsrechnungen
+  werden in 2018 noch mit den beiden TIMs erstellt und ausgedruckt,
+  aber daraufhin die jeweiligen Beträge manuell in Lino erfasst,
+  evtl. in einem eigenen Journal (ähnlich wie OD), pro Serie von
+  Rechnungen wird dort ein einziges Dokument erstellt.
 
-- Dienstleistungen der Therapeuten (Termine und Anwesenheiten) werden
-  aus TIM nach Lino importiert.  Ich kann auf Knopfdruck über Nacht
-  neue Versionen aufspielen und alle Daten aus TIM nach Lino
-  importieren.  Wir haben uns mündlich auf ein Entwicklerpasswort
+- Auch die DLS und DLP aus TIM (Termine und Anwesenheiten) werden
+  jetzt nach Lino importiert.  Ich kann auf Knopfdruck über Nacht neue
+  Versionen aufspielen und alle Daten aus TIM nach Lino
+  importieren. Wir haben uns mündlich auf ein Entwicklerpasswort
   geeinigt, mit dem DD, LS, GV und HS sich während der Testphase
   einloggen können.  Alle anderen Benutzer wurden zwar erstellt, aber
   können sich nicht anmelden.
 
+DONE:
+
+- dashboard aktivieren
+- Überfällige Termine : nicht schon die von heute, erst ab gestern.
+- users.UserDetail hat keine Reiter (Dashboard, event_type, ...)
+- Terminzustand "Unentschuldigt ausgefallen" fehlt
+- Wenn DLP->Status leer ist, dann soll in Lino Anwesend stehen.
+- Anwesenheiten der Teilnehmer werden nur in therapeutischen Gruppen
+  erfasst, bei Einzeltherapien und Lebensgruppen gelten immer alle als
+  anwesend (werden ansonsten gelöscht).  Wenn so ein Termin auf
+  "Stattgefunden" gesetzt wird, werden alle Gäste ungefragt auf
+  "Anwesend" gesetzt.  Wenn Termin auf Verpasst gesetzt wird, werden
+  alle auf Unentschuldigt gesetzt.  Lino hat ein Mapping von
+  EntryStates nach GuestStates. (Details sh. Spezifikationen).
+
+
 TODO:
 
-- Lebensgruppen haben keine Teilnehmer
-
-- Fallbeispiele von falsch importieren  
-  
+- Preisliste :
+  - course_line
+  - entry_type
+  - client_tariff
+  - price
+  - new_price?
 - "Arbeiten als"  zeigt auch den aktuellen User an.
 
 - Übersetzung "Life groups"
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
+- Lebensgruppen haben keine Teilnehmer?
 - Problem Import Akte Melinda : Mitglieder in Familie sind doppelt. Es
   gibt nur eine Familientherapie, keine Einzeltherapie.
 - DLS->IdUser wird scheinbar nicht importiert. Therapeut ist nicht
@@ -37,13 +58,6 @@ TODO:
 
 TALK  
   
-- Preisliste :
-  - course_line
-  - entry_type
-  - client_tariff
-  - price
-  - new_price?
-    
 - Gekoppelte Termine KITZ : wie regeln wir das?
 - Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
   und wird als Teilnehmer mit Rolle "Assistent" erfasst.
