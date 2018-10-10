@@ -1,4 +1,4 @@
-# Copyright 2017 Luc Saffre
+# Copyright 2017-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """User roles for this plugin."""
 
@@ -10,12 +10,6 @@ class ClientsNameUser(UserRole):
     to client functionality.
 
     """
-
-# class StatisticsUser(UserRole):
-#     """A user who can see global lists of all clients, but without seeing
-#     their names and other confidential data.
-
-#     """
 
 class ClientsUser(ClientsNameUser):
     """A user who has access to clients functionality.
