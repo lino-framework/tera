@@ -173,7 +173,7 @@ class Guest(Guest, Invoiceable):
     #     price = getattr(self.fee, 'sales_price') or ZERO
     #     self.amount = price
 
-Guests.detail_layout = "cal.GuestDetail"    
+# Guests.detail_layout = "cal.GuestDetail"    
 
 class GuestDetail(dd.DetailLayout):
     window_size = (60, 'auto')

@@ -6,18 +6,16 @@ Kommende Version
 
 Allgemein:
 
-- Alle Einkaufsrechnungen und Kontoauszüge werden schon in Lino
-  erfasst.  Verkaufsrechnungen werden noch mit den beiden TIMs
-  erstellt und ausgedruckt. Verkaufsrechnungen werden aus TIM nach
-  Lino importiert.
+- Einkaufsrechnungen und Kontoauszüge werden direkt in Lino erfasst.
+- Verkaufsrechnungen werden noch mit TIM erstellt und ausgedruckt und
+  dann aus TIM nach Lino importiert.
 
-- Dienstleistungen der Therapeuten (Termine und Anwesenheiten) werden
-  aus TIM nach Lino importiert.  Ich kann auf Knopfdruck über Nacht
-  neue Versionen aufspielen und alle Daten aus TIM nach Lino
-  importieren.  Wir haben uns mündlich auf ein Entwicklerpasswort
-  geeinigt, mit dem DD, LS, GV und HS sich während der Testphase
-  einloggen können.  Alle anderen Benutzer wurden zwar erstellt, aber
-  können sich nicht anmelden.
+- Dienstleistungen (Termine und Anwesenheiten) werden aus TIM nach
+  Lino importiert.  Ich kann auf Knopfdruck über Nacht neue Versionen
+  aufspielen und alle Daten aus TIM nach Lino importieren.  Wir haben
+  uns mündlich auf ein Entwicklerpasswort geeinigt, mit dem DD, LS, GV
+  und HS sich während der Testphase einloggen können.  Alle anderen
+  Benutzer wurden zwar erstellt, aber können sich nicht anmelden.
 
 TODO:
 
