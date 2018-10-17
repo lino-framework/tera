@@ -32,13 +32,13 @@ class Plugin(Plugin):
     """
     # pupil_name_fields = "pupil__client__name"
     extends_models = ['Enrolment', 'Course', 'Line']
-    needs_plugins = [
-        'lino_xl.lib.cal', 'lino_xl.lib.invoicing', 'lino_xl.lib.sales']
-    # needs_plugins = ['lino_xl.lib.cal', 'lino_cosi.lib.auto.sales']
+    
+    # remove dependencies so that courses can come as the first item
+    # in main menu:
+    needs_plugins = []
 
     def setup_main_menu(self, site, user_type, m):
         m = m.add_menu(self.app_label, self.verbose_name)
-        m.add_action('tera.MyClients')
         m.add_action('courses.MyActivities')
         m.add_action('courses.MyCoursesGiven')
         # m.add_action('courses.Pupils')
@@ -55,6 +55,7 @@ class Plugin(Plugin):
         m.add_separator()
         m.add_action('courses.PendingRequestedEnrolments')
         m.add_action('courses.PendingConfirmedEnrolments')
+        m.add_action('tera.MyClients')
 
     def setup_config_menu(self, site, user_type, m):
         m = m.add_menu(self.app_label, self.verbose_name)

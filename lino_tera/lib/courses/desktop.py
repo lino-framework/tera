@@ -348,7 +348,7 @@ class ActivitiesByPartner(Activities):
 #     master_key = 'household'    
 
 class MyActivities(MyActivities):
-    label = _("Therapies managed by me")
+    label = _("My therapies")
     column_names = "overview line teacher workflow_buttons *"
     
 class MyCoursesGiven(MyCoursesGiven):

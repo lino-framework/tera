@@ -4,28 +4,47 @@
 Kommende Version
 ================
 
-Allgemein:
+BEsprechungsbeginn 2018-10-09.
+Release vorgesehen für 2018-11-05.
+
+Kontext:
 
 - Einkaufsrechnungen und Kontoauszüge werden direkt in Lino erfasst.
 - Verkaufsrechnungen werden noch mit TIM erstellt und ausgedruckt und
   dann aus TIM nach Lino importiert.
+- Buchhaltung 2018 wird parallel auch beim Steuerberater erfasst. Die
+  Daten in Lino sind da, um zu überprüfen.
 
 - Dienstleistungen (Termine und Anwesenheiten) werden aus TIM nach
-  Lino importiert.  Ich kann auf Knopfdruck über Nacht neue Versionen
-  aufspielen und alle Daten aus TIM nach Lino importieren.  Wir haben
-  uns mündlich auf ein Entwicklerpasswort geeinigt, mit dem DD, LS, GV
-  und HS sich während der Testphase einloggen können.  Alle anderen
-  Benutzer wurden zwar erstellt, aber können sich nicht anmelden.
+  Lino importiert.  Ich spiele häufig neue Versionen auf und
+  importiere dabei alle Daten aus TIM nach Lino.  Wir haben uns
+  mündlich auf ein Entwicklerpasswort geeinigt, mit dem die Tester
+  sich während der Testphase einloggen können.  Alle anderen Benutzer
+  wurden zwar erstellt, aber können sich nicht anmelden.
+
+DONE:
+
+- Reihenfolge im Menü : "Therapien" steht jetzt an erster Stelle und
+  erinnert schon so an die Akten aus TIM.  Ich möchte nachfragen, ob
+  ihr wirklich das Wort "Akte" beibehalten wollt.  Therapie fände ich
+  korrekter, weil es spezifischer ist.  Man könnte z.B. auch eine
+  Patientenakte haben, die wäre was anderes als eine Therapie.
 
 TODO:
 
 - Lebensgruppen haben keine Teilnehmer
 
+- Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
+  und wird als Teilnehmer mit Rolle "Cotherapeut" erfasst.  Für aus
+  TIM importiere Termine stehen zwei Kalendereinträge in Lino. Diese
+  könnten bei Bedarf automatisch gelöscht werden.
+  
 - Fallbeispiele von falsch importieren  
   
 - "Arbeiten als"  zeigt auch den aktuellen User an.
 
 - Übersetzung "Life groups"
+  
 - Professional situation : Liste übersetzen. "Homemaker" ersetzen
   durch "Housewife"?
 - Problem Import Akte Melinda : Mitglieder in Familie sind doppelt. Es
@@ -35,25 +54,18 @@ TODO:
 
 TALK  
   
-- Preisliste :
-  - course_line
-  - entry_type
-  - client_tariff
-  - price
-  - new_price?
-    
-- Gekoppelte Termine KITZ : wie regeln wir das?
-- Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
-  und wird als Teilnehmer mit Rolle "Assistent" erfasst.
+- Gekoppelte Termine : für bestimmte Therapien gilt, dass wenn ein
+  Patient mehrer Termine hintereinander am gleichen Tag hat, diese für
+  die Rechnung als ein einziger betrachtet werden.  Dieses Konzept
+  wird überflüssig, falls wir monatliche Abo-Fakturierung einführen.
+  
 - Abrechnung an Krankenkassen
 - Klären, wie die Securex-Rechnungen verbucht werden sollen.
 
-- Die Kalenderfunktionen soll so gut werden, dass OpenExchange nicht
-  mehr nötig ist.
+- Die Kalenderfunktionen soll entweder (1) so gut werden, dass
+  OpenExchange nicht mehr nötig ist oder (2) mit Kopano synchronisiert
+  sein.
   
-- Fakturierung testen: in Lino Rechnungen machen lassen und schauen,
-  ob sie mit der Wirklichkeit übereinstimmen.
-
 - "endet um" kann bis auf weiteres leer sein
 - Abonnements (eine Rechnung für alle Termine einer Therapie)
 - Tagesplaner

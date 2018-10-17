@@ -43,6 +43,7 @@ class Site(Site):
     def get_installed_apps(self):
         yield super(Site, self).get_installed_apps()
         yield 'lino.modlib.gfks'
+        yield 'lino_tera.lib.courses'
         yield 'lino_tera.lib.users'
         yield 'lino.modlib.dashboard'
         yield 'lino_xl.lib.countries'
@@ -59,7 +60,6 @@ class Site(Site):
         yield 'lino_tera.lib.sales'
         yield 'lino_tera.lib.cal'
         yield 'lino_tera.lib.invoicing'
-        yield 'lino_tera.lib.courses'
         # yield 'lino_xl.lib.vat'
         yield 'lino_xl.lib.sepa'
         yield 'lino_xl.lib.finan'
