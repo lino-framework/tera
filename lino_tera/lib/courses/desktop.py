@@ -27,19 +27,19 @@ contacts = dd.resolve_app('contacts')
 from lino_xl.lib.cal.ui import EntriesByController
 
 
-class CourseTypes(dd.Table):
-    model = 'courses.CourseType'
-    required_roles = dd.login_required(CoursesUser)
-    detail_layout = """
-    id name
-    courses.LinesByType
-    """
+# class CourseTypes(dd.Table):
+#     model = 'courses.CourseType'
+#     required_roles = dd.login_required(CoursesUser)
+#     detail_layout = """
+#     id name
+#     courses.LinesByType
+#     """
 
 
 Lines.detail_layout = """
     id name ref
-    course_area topic fees_cat fee options_cat body_template
-    course_type event_type guest_role every_unit every
+    course_area #topic fees_cat fee options_cat body_template
+    #course_type event_type guest_role every_unit every
     description
     excerpt_title
     courses.CoursesByLine
@@ -180,7 +180,7 @@ if False:
         parameters = dict(Courses.parameters,
             city=dd.ForeignKey('countries.Place', blank=True, null=True))
 
-        params_layout = """topic line city teacher user state active:10"""
+        params_layout = """line city teacher user state active:10"""
 
         @classmethod
         def get_request_queryset(self, ar):
@@ -210,7 +210,7 @@ if False:
 
     class SuggestedCoursesByPupil(SuggestedCoursesByPupil):
         button_text = _("Suggestions")
-        params_layout = 'topic line city teacher active'
+        params_layout = 'line city teacher active'
 
         @classmethod
         def param_defaults(self, ar, **kw):
@@ -222,24 +222,24 @@ if False:
             return kw
 
 
-class CoursesByTopic(CoursesByTopic):
-    """Shows the courses of a given topic.
+# class CoursesByTopic(CoursesByTopic):
+#     """Shows the courses of a given topic.
 
-    This is used both in the detail window of a topic and in
-    :class:`StatusReport`.
+#     This is used both in the detail window of a topic and in
+#     :class:`StatusReport`.
 
-    """
-    order_by = ["ref"]
-    column_names = "overview weekdays_text:10 times_text:10 * "
+#     """
+#     order_by = ["ref"]
+#     column_names = "overview weekdays_text:10 times_text:10 * "
 
-    # detail_layout = Courses.detail_layout
+#     # detail_layout = Courses.detail_layout
 
-    @classmethod
-    def param_defaults(self, ar, **kw):
-        kw = super(CoursesByTopic, self).param_defaults(ar, **kw)
-        kw.update(state=CourseStates.active)
-        kw.update(can_enroll=dd.YesNo.yes)
-        return kw
+#     @classmethod
+#     def param_defaults(self, ar, **kw):
+#         kw = super(CoursesByTopic, self).param_defaults(ar, **kw)
+#         kw.update(state=CourseStates.active)
+#         kw.update(can_enroll=dd.YesNo.yes)
+#         return kw
 
 
 class CoursesByLine(CoursesByLine):
@@ -249,7 +249,7 @@ class CoursesByLine(CoursesByLine):
     
     TODO: when Lino gets class-based user roles, move this back to the
     library table and show all courses only for users with user_type
-    `courses.CourseManager`.
+    `courses.CourseStaff`.
 
     """
     # detail_layout = Courses.detail_layout
@@ -262,8 +262,8 @@ class CoursesByLine(CoursesByLine):
         return kw
 
 
-class LinesByType(Lines):
-    master_key = 'course_type'
+# class LinesByType(Lines):
+#     master_key = 'course_type'
 
 
 # class ActiveCourses(ActiveCourses):
@@ -340,6 +340,8 @@ class Therapies(Courses):
 
 class ActivitiesByPartner(Activities):
     master_key = 'partner'
+    column_names = "start_date ref line workflow_buttons *"
+    order_by = ['-start_date']
 
 # class ActivitiesByClient(Activities):
 #     master_key = 'client'
@@ -347,11 +349,15 @@ class ActivitiesByPartner(Activities):
 # class ActivitiesByHousehold(Activities):
 #     master_key = 'household'    
 
-class MyActivities(MyActivities):
-    label = _("My therapies")
-    column_names = "overview line teacher workflow_buttons *"
+# class MyCourses(MyCourses):
+#     label = _("Therapies managed by me")
+#     column_names = "ref name line teacher workflow_buttons *"
+#     order_by = ['-ref']
+
+from django.utils.text import format_lazy
     
 class MyCoursesGiven(MyCoursesGiven):
-    label = _("Therapies held by me")
-    # label = _("My therapies")
-    column_names = "overview line user workflow_buttons *"
+    # label = _("Therapies held by me")
+    label = format_lazy(_("My {}"), _("Therapies"))
+    column_names = "ref name line workflow_buttons *"
+    order_by = ['-ref']

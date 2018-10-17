@@ -38,31 +38,34 @@ class Plugin(Plugin):
     needs_plugins = []
 
     def setup_main_menu(self, site, user_type, m):
-        m = m.add_menu(self.app_label, self.verbose_name)
-        m.add_action('courses.MyActivities')
-        m.add_action('courses.MyCoursesGiven')
-        # m.add_action('courses.Pupils')
-        # m.add_action('courses.Teachers')
-        m.add_separator()
+        sm = m.add_menu(self.app_label, self.verbose_name)
+        sm.add_action('courses.MyCoursesGiven')
+        # sm.add_action('courses.Pupils')
+        # sm.add_action('courses.Teachers')
+        sm.add_separator()
         for ca in site.models.courses.CourseAreas.objects():
-            m.add_action(ca.courses_table)
-        # m.add_action('courses.Courses')
-        # m.add_separator()
-        # m.add_action('courses.DraftCourses')
-        # m.add_action('courses.InactiveCourses')
-        # m.add_action('courses.ActiveCourses')
-        # m.add_action('courses.ClosedCourses')
-        m.add_separator()
-        m.add_action('courses.PendingRequestedEnrolments')
-        m.add_action('courses.PendingConfirmedEnrolments')
-        m.add_action('tera.MyClients')
+            sm.add_action(ca.courses_table)
+        # sm.add_action('courses.Courses')
+        # sm.add_separator()
+        # sm.add_action('courses.DraftCourses')
+        # sm.add_action('courses.InactiveCourses')
+        # sm.add_action('courses.ActiveCourses')
+        # sm.add_action('courses.ClosedCourses')
+        sm.add_separator()
+        # sm.add_action('courses.PendingRequestedEnrolments')
+        # sm.add_action('courses.PendingConfirmedEnrolments')
+        sm.add_action('tera.MyClients')
+
+        # o = site.plugins.office
+        # sm = m.add_menu(o.app_label, o.verbose_name)
+        # sm.add_action('courses.MyCourses')
 
     def setup_config_menu(self, site, user_type, m):
         m = m.add_menu(self.app_label, self.verbose_name)
-        m.add_action('courses.CourseTypes')
+        # m.add_action('courses.CourseTypes')
         # m.add_separator()
-        m.add_action('courses.Topics')
         m.add_action('courses.Lines')
+        m.add_action('courses.Topics')
         # m.add_action('courses.TeacherTypes')
         # m.add_action('courses.PupilTypes')
         # m.add_action('courses.Slots')
@@ -71,3 +74,6 @@ class Plugin(Plugin):
         m = m.add_menu(self.app_label, self.verbose_name)
         m.add_action('courses.StatusReport')
 
+    def get_dashboard_items(self, user):
+        # we don't want to see any therapies on the dashboard
+        return []

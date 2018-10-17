@@ -51,13 +51,13 @@ add('20', _("Life groups"), 'life_groups', 'courses.LifeGroups')
 add('30', _("Other groups"), 'default', 'courses.Courses')
 
 
-class CourseType(Referrable, mixins.BabelNamed):
+# class CourseType(Referrable, mixins.BabelNamed):
 
-    class Meta:
-        app_label = 'courses'
-        abstract = dd.is_abstract_model(__name__, 'CourseType')
-        verbose_name = _("Therapy type")
-        verbose_name_plural = _('Therapy types')
+#     class Meta:
+#         app_label = 'courses'
+#         abstract = dd.is_abstract_model(__name__, 'CourseType')
+#         verbose_name = _("Therapy type")
+#         verbose_name_plural = _('Therapy types')
 
 
 class Line(Line):
@@ -65,14 +65,15 @@ class Line(Line):
     class Meta(Line.Meta):
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Line')
+        verbose_name = _("Therapy type")
+        verbose_name_plural = _('Therapy types')
 
-    course_type = dd.ForeignKey(
-        'courses.CourseType', blank=True, null=True)
+    # course_type = dd.ForeignKey(
+    #     'courses.CourseType', blank=True, null=True)
 
 
 @dd.python_2_unicode_compatible
 class Course(Referrable, Course):
-# class Course(Course):
     """Extends the standard model by adding a field :attr:`fee`.
 
     Also adds a :attr:`ref` field and defines a custom :meth:`__str__`
@@ -132,6 +133,8 @@ class Course(Referrable, Course):
         verbose_name = _("Therapy")
         verbose_name_plural = _('Therapies')
 
+    ref_max_length = 8
+    
     # allow_cascaded_delete = "client household"
     allow_cascaded_delete = "partner"
 
@@ -267,8 +270,8 @@ class Course(Referrable, Course):
         if obj is not None:
             return obj.obj2href(ar)
 
-Course.set_widget_options('ref', preferred_with=6)
-dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
+# Course.set_widget_options('ref', preferred_with=6)
+# dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
 dd.update_field(Course, 'teacher', verbose_name=_("Therapist"))
 dd.update_field(Course, 'user', verbose_name=_("Manager"))
 
