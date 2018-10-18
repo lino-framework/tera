@@ -19,9 +19,9 @@ class TherapyDomains(dd.ChoiceList):
     verbose_name_plural = _("Therapy domain")
 
 add = TherapyDomains.add_item
-add('10', _("Adults"), "adults")
-add('20', _("Children M"))
-add('30', _("Children P"))
+add('E', _("Adults"), "adults")
+add('M', _("Children M"))
+add('P', _("Children P"))
 
 
 
