@@ -18,19 +18,11 @@ class TranslatorTypes(dd.ChoiceList):
     verbose_name = _("Translator type")
 
 add = TranslatorTypes.add_item
-add('10', _("SETIS"))
-add('20', _("Other"))
-add('30', _("Private"))
+add('10', _("Interpreter"), "interpreter")
+add('20', _("SETIS"))
+add('30', _("Other"))
 
 
-
-class StartingReasons(dd.ChoiceList):
-
-    verbose_name = _("Starting reason")
-
-add = StartingReasons.add_item
-add('100', _("Voluntarily"))
-add('200', _("Mandatory"))
 
 class EndingReasons(dd.ChoiceList):
 
@@ -46,7 +38,21 @@ add('900', _("Other"))
 
 
 class ProfessionalStates(dd.ChoiceList):
-
+    # 11 Selbstständig/Freiberufler  
+    # 31 Arbeiter/Angestellter       
+    # 51 in Ausbildung               
+    # 54 Hausfrau/Hausmann           
+    # 61 arbeitslos                  
+    # 63 berufsunfähig               
+    # 65 Sozialhilfeempfänger        
+    # 80 im Ruhestand                
+    # 90 andere Situation            
+    # 00 unbekannt                   
+    # 10 Freiberufler (alt -> 11)    
+    # 20 Selbstständiger (alt -> 11) 
+    # 30 Angestellter (alt -> 31)    
+    # 40 Arbeiter (alt -> 31)        
+    # 62 Laufbahnunterbrechung (alt)
     verbose_name = _("Professional situation")
 
 add = ProfessionalStates.add_item
@@ -60,6 +66,7 @@ add('65', _("Social aid recipient"))
 add('80', _("Retired"))
 add('90', _("Other"))
 add('00', _("Unknown"))
+add('62', _("Career interruption"))
 
 
 

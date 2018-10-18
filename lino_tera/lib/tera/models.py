@@ -15,7 +15,7 @@ from django.conf import settings
 from lino.utils import join_elems
 from etgen.html import E
 # from lino.utils import ssin
-from lino.mixins import Referrable, CreatedModified
+from lino.mixins import Referrable, CreatedModified, BabelDesignated
 # from lino_xl.lib.beid.mixins import BeIdCardHolder
 from lino.modlib.comments.mixins import Commentable
 from lino.modlib.users.mixins import UserAuthored, My
@@ -33,8 +33,9 @@ from lino_xl.lib.courses.mixins import Enrollable
 from lino.mixins.periods import ObservedDateRange
 
 from lino_xl.lib.clients.choicelists import ClientStates
+from lino_xl.lib.beid.choicelists import CivilStates
 
-from .choicelists import StartingReasons, EndingReasons, ProfessionalStates, TranslatorTypes
+from .choicelists import EndingReasons, ProfessionalStates, TranslatorTypes
 
 from .choicelists import PartnerTariffs
 from lino.core.roles import Explorer
@@ -51,6 +52,63 @@ contacts = dd.resolve_app('contacts')
 #                 obj._cef_levels[lk.language.iso2] = lk.obj._cef_levels
 #         return obj._cef_levels.get(lng.django_code)
 #     return f
+
+class Procurer(BabelDesignated):
+
+    # 10 persönlich                    
+    # 11 privates Umfeld               
+    # 12 SPZ                           
+    # 21 Opferbetreuung                
+    # 22 Arzt oder Klinik              
+    # 31 Jugendgericht                 
+    # 32 Gericht                       
+    # 33 Bewährungskommission          
+    # 34 Polizei                       
+    # 35 Staatsanwaltschaft            
+    # 36 Jugendhilfe                   
+    # 37 Commission Défense Sociale    
+    # 38 Schulbereich + Kaleido/PMS    
+    # 39 Ö.S.H.Z.                      
+    # 40 Asyl-Empfangszentrum          
+    # 41 Mobiles Team Ki-Ju            
+
+    class Meta:
+        app_label = 'tera'
+        abstract = dd.is_abstract_model(__name__, 'Procurer')
+        verbose_name = _("Procurer")
+        verbose_name_plural = _('Procurers')
+
+class Procurers(dd.Table):
+    model = "tera.Procurer"
+
+class LifeMode(BabelDesignated):
+
+    # 02 allein ohne Kinder
+    # 03 allein mit Kindern
+    # 21 in Partnerschaft mit Kindern
+    # 22 in Partnerschaft ohne Kinder
+    # 31 bei Eltern
+    # 32 alternierend bei Eltern
+    # 35 bei einem Elternteil
+    # 37 bei Pflegeeltern
+    # 60 Adoptivfamilie
+    # 81 in Einrichtung oder WG 
+    # 90 sonstige Möglichkeit
+    # 01 lebt allein (nur alte Akten!)
+    # 20 in Partnerschaft (nur alte Akten!)
+    # 30 in Familie (nur alte Akten!)
+    # 70 in Institution   (nur alte Akten!)
+    # 80 Wohngemeinschaft  (nur alte Akten!)
+    
+    class Meta:
+        app_label = 'tera'
+        abstract = dd.is_abstract_model(__name__, 'LifeMode')
+        verbose_name = _("Life mode")
+        verbose_name_plural = _('Life modes')
+
+class LifeModes(dd.Table):
+    model = "tera.LifeMode"
+
 
 
 @dd.python_2_unicode_compatible
@@ -75,7 +133,7 @@ class Client(Person, #BeIdCardHolder,
 
     # person = dd.ForeignKey("contacts.Person")
 
-    starting_reason = StartingReasons.field(blank=True)
+    mandatory = models.BooleanField(_("Mandatory"), default=False)
     ending_reason = EndingReasons.field(blank=True)
     professional_state = ProfessionalStates.field(blank=True)
     tariff = PartnerTariffs.field(
@@ -85,7 +143,17 @@ class Client(Person, #BeIdCardHolder,
         'self', verbose_name=_("Obsoletes"),
         blank=True, null=True, related_name='obsoleted_by')
 
+    nationality = dd.ForeignKey('countries.Country',
+                                blank=True, null=True,
+                                related_name='by_nationality',
+                                verbose_name=_("Nationality"))
+    
+    procurer = dd.ForeignKey('tera.Procurer', blank=True, null=True)
+    life_mode = dd.ForeignKey('tera.LifeMode', blank=True, null=True)
+    
     translator_type = TranslatorTypes.field(blank=True)
+    civil_state = CivilStates.field(blank=True)
+
     
     # translator_notes = dd.RichTextField(
     #     _("Translator"), blank=True, format='plain')
@@ -95,48 +163,48 @@ class Client(Person, #BeIdCardHolder,
 
     
 
-    unemployed_since = models.DateField(
-        _("Unemployed since"), blank=True, null=True,
-        help_text=_("Since when the client has not been employed "
-                    "in any regular job."))
-    seeking_since = models.DateField(
-        _("Seeking work since"), blank=True, null=True,
-        help_text=_("Since when the client is seeking for a job."))
-    work_permit_suspended_until = models.DateField(
-        blank=True, null=True, verbose_name=_("suspended until"))
+    # unemployed_since = models.DateField(
+    #     _("Unemployed since"), blank=True, null=True,
+    #     help_text=_("Since when the client has not been employed "
+    #                 "in any regular job."))
+    # seeking_since = models.DateField(
+    #     _("Seeking work since"), blank=True, null=True,
+    #     help_text=_("Since when the client is seeking for a job."))
+    # work_permit_suspended_until = models.DateField(
+    #     blank=True, null=True, verbose_name=_("suspended until"))
 
-    declared_name = models.BooleanField(_("Declared name"), default=False)
+    # declared_name = models.BooleanField(_("Declared name"), default=False)
 
     # is_seeking = models.BooleanField(_("is seeking work"), default=False)
     # removed in chatelet, maybe soon also in Eupen (replaced by seeking_since)
 
-    unavailable_until = models.DateField(
-        blank=True, null=True, verbose_name=_("Unavailable until"))
-    unavailable_why = models.CharField(
-        _("reason"), max_length=100,
-        blank=True)
+    # unavailable_until = models.DateField(
+    #     blank=True, null=True, verbose_name=_("Unavailable until"))
+    # unavailable_why = models.CharField(
+    #     _("reason"), max_length=100,
+    #     blank=True)
 
-    family_notes = models.TextField(
-        _("Family situation"), blank=True, null=True)
+    # family_notes = models.TextField(
+    #     _("Family situation"), blank=True, null=True)
     
-    residence_notes = models.TextField(
-        _("Residential situation"), blank=True, null=True)
+    # residence_notes = models.TextField(
+    #     _("Residential situation"), blank=True, null=True)
     
-    health_notes = models.TextField(
-        _("Health situation"), blank=True, null=True)
+    # health_notes = models.TextField(
+    #     _("Health situation"), blank=True, null=True)
     
-    financial_notes = models.TextField(
-        _("Financial situation"), blank=True, null=True)
+    # financial_notes = models.TextField(
+    #     _("Financial situation"), blank=True, null=True)
     
-    integration_notes = models.TextField(
-        _("Integration notes"), blank=True, null=True)
+    # integration_notes = models.TextField(
+    #     _("Integration notes"), blank=True, null=True)
     
-    availability = models.TextField(
-        _("Availability"), blank=True, null=True)
+    # availability = models.TextField(
+    #     _("Availability"), blank=True, null=True)
 
-    needed_course = dd.ForeignKey(
-        'courses.Line', verbose_name=_("Needed activity"),
-        blank=True, null=True)
+    # needed_course = dd.ForeignKey(
+    #     'courses.Line', verbose_name=_("Needed activity"),
+    #     blank=True, null=True)
     
     # obstacles = models.TextField(
     #     _("Other obstacles"), blank=True, null=True)
@@ -146,13 +214,9 @@ class Client(Person, #BeIdCardHolder,
     # client_state = ClientStates.field(
     #     default=ClientStates.newcomer.as_callable)
 
-    language_notes = dd.RichTextField(
-        _("Language notes"), blank=True, format='plain')
+    # language_notes = dd.RichTextField(
+    #     _("Language notes"), blank=True, format='plain')
     
-    nationality = dd.ForeignKey('countries.Country',
-                                blank=True, null=True,
-                                related_name='by_nationality',
-                                verbose_name=_("Nationality"))
     
     def __str__(self):
         return "%s %s (%s)" % (
@@ -214,7 +278,7 @@ class ClientDetail(PersonDetail):
     
     general2 = """
     id:10 team user
-    birth_date age:10 gender:10
+    #birth_date age:10 #gender:10 civil_state
     nationality:15 language translator_type
     professional_state tariff 
     """
@@ -294,7 +358,7 @@ class Clients(contacts.Persons):
     )
     params_layout = """
     #aged_from #aged_to #gender nationality client_state enrolment_state course
-    start_date end_date observed_event 
+    user start_date end_date observed_event 
     """
 
     @classmethod
@@ -389,11 +453,11 @@ class Clients(contacts.Persons):
 
 class AllClients(Clients):
     auto_fit_column_widths = False
-    column_names = "client_state \
-    starting_reason ending_reason \
+    column_names = "id client_state \
+    procurer life_mode \
     city country zip_code nationality \
     birth_date age:10 gender \
-    user #event_policy"
+    user"
     detail_layout = None
     required_roles = dd.login_required(Explorer)
 

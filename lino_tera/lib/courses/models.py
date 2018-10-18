@@ -44,11 +44,11 @@ from lino.modlib.printing.utils import CustomBuildMethod
 
 CourseAreas.clear()
 add = CourseAreas.add_item
-add('10', _("Individual therapies"), 'therapies', 'courses.Therapies')
+add('IT', _("Individual therapies"), 'therapies', 'courses.Therapies')
     # force_guest_states=True)
-add('20', _("Life groups"), 'life_groups', 'courses.LifeGroups')
+add('LG', _("Life groups"), 'life_groups', 'courses.LifeGroups')
     # force_guest_states=True)
-add('30', _("Other groups"), 'default', 'courses.Courses')
+add('OG', _("Other groups"), 'default', 'courses.Courses')
 
 
 # class CourseType(Referrable, mixins.BabelNamed):
@@ -206,14 +206,13 @@ class Course(Referrable, Course):
             else:
                 s = self.name
         elif self.ref:
-            if self.line:
-                s = "{0} {1}".format(self.ref, self.line)
-            else:
-                s = self.ref
+            s = self.ref
         else:
             # Note that we cannot use super() with
             # python_2_unicode_compatible
             s = "{0} #{1}".format(self._meta.verbose_name, self.pk)
+        if self.line and self.line.ref:
+            s += '.' + self.line.ref
         if self.teacher:
             s = "{} ({})".format(
                 s, self.teacher.initials or self.teacher)
@@ -223,6 +222,8 @@ class Course(Referrable, Course):
         label = dd.babelattr(et, 'event_label')
         if self.ref:
             label = self.ref + ' ' + label
+        if self.line and self.line.ref:
+            label = self.line.ref + '.' + label
         return "%s %d" % (label, i)
 
     def get_overview_elems(self, ar):
@@ -434,3 +435,24 @@ class Enrolment(Enrolment):
 #         _("Invoice threshold"), null=True, blank=True,
 #         help_text=_("Minimum number of events to pay in advance.")))
 
+# Stand der Beratung:
+# 01 dauert an                                
+# 03 abgeschlossen                            
+# 05 automatisch abgeschlossen                
+# 06 Abbruch der Beratung                     
+# 09 Weitervermittlung                        
+# 12 nur Erstkontakt
+CourseStates.clear()
+add = CourseStates.add_item
+add('01', _("Started"), 'active',
+    editable=False, invoiceable=True, active=True)
+add('03', _("Closed"), 'closed',
+    editable=False, invoiceable=False, active=False)
+add('05', _("Inactive"), 'inactive',
+    editable=False, invoiceable=False, active=False)
+add('06', _("Cancelled"), 'cancelled',
+    editable=False, invoiceable=False, active=False)
+add('09', _("Forwarded"), 'forwarded',
+    editable=False, invoiceable=False, active=False)
+add('12', _("First contact"), 'draft',
+    editable=True, invoiceable=False, active=True)
