@@ -51,7 +51,7 @@ class Site(Site):
         yield 'lino_tera.lib.contacts'
         yield 'lino_tera.lib.households'
         yield 'lino_xl.lib.clients'
-        yield 'lino_xl.lib.phones'
+        # yield 'lino_xl.lib.phones'
         # yield 'lino_tera.lib.lists'
         # yield 'lino_xl.lib.beid'
         # yield 'lino_xl.lib.addresses'
