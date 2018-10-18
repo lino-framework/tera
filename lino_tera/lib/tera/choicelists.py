@@ -85,21 +85,3 @@ CT = ClientStates.active.add_transition(required_states="cancelled abandoned new
 CT = ClientStates.closed.add_transition(required_states="cancelled active abandoned forwarded newcomer")
 CT = ClientStates.forwarded.add_transition(required_states="active newcomer")
 
-from lino_xl.lib.courses.choicelists import EnrolmentStates
-EnrolmentStates.default_value = 'confirmed'
-EnrolmentStates.clear()
-add = EnrolmentStates.add_item
-add('01', _("Confirmed"), 'confirmed', invoiceable=True, uses_a_place=True)
-add('03', _("Closed"), 'closed', invoiceable=False, uses_a_place=False)
-add('05', _("Cancelled"), 'cancelled', invoiceable=False, uses_a_place=False)
-add('06', _("Abandoned"), 'abandoned', invoiceable=False, uses_a_place=False)
-add('09', _("Forwarded"), 'forwarded', invoiceable=False, uses_a_place=False)
-add('12', _("Requested"), 'requested', invoiceable=False, uses_a_place=False)
-add('00', _("Trying"), 'trying', invoiceable=False, uses_a_place=False)
-add('02', _("Active"), 'active', invoiceable=True, uses_a_place=True)
-add('04', _("04"), invoiceable=False, uses_a_place=False)
-add('08', _("08"), invoiceable=False, uses_a_place=False)
-add('11', _("11"), invoiceable=False, uses_a_place=False)
-add('99', _("99"), invoiceable=False, uses_a_place=False)
-
-

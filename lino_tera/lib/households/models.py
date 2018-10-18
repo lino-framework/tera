@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017 Luc Saffre
+# Copyright 2017-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """Database models for this plugin."""
 
@@ -11,7 +11,7 @@ from lino_xl.lib.households.models import *
 
 # from lino_xl.lib.coachings.mixins import Coachable
 from lino_tera.lib.contacts.models import Partner
-from lino_tera.lib.tera.choicelists import PartnerTariffs
+# from lino_tera.lib.courses.choicelists import PartnerTariffs
 from lino_xl.lib.clients.choicelists import ClientStates
 
 @dd.python_2_unicode_compatible
@@ -23,8 +23,8 @@ class Household(Household, Partner):
 
     # same fields as in tera.Client
     client_state = ClientStates.field(default='active')
-    tariff = PartnerTariffs.field(
-        default=PartnerTariffs.as_callable('plain'))
+    # tariff = PartnerTariffs.field(
+    #     default=PartnerTariffs.as_callable('plain'))
     
     def __str__(self):
         s = "{} {}".format(self.get_full_name(), self.type or '').strip()
@@ -41,7 +41,7 @@ class HouseholdDetail(dd.DetailLayout):
     """, label=_("General"))
 
     activities = dd.Panel("""
-    language:10 type salesrule__invoice_recipient tariff client_state
+    language:10 type salesrule__invoice_recipient client_state
     courses.ActivitiesByPartner
     """, label=_("Activities"))
 

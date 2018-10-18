@@ -479,3 +479,21 @@ add('09', _("Forwarded"), 'forwarded',
     editable=False, invoiceable=False, active=False)
 add('12', _("First contact"), 'draft',
     editable=True, invoiceable=False, active=True)
+
+# EnrolmentStates.default_value = 'confirmed'
+EnrolmentStates.clear()
+add = EnrolmentStates.add_item
+add('01', _("Confirmed"), 'confirmed', invoiceable=True, uses_a_place=True)
+add('03', _("Closed"), 'closed', invoiceable=False, uses_a_place=False)
+add('05', _("Inactive"), 'inactive', invoiceable=False, uses_a_place=False)
+add('06', _("Cancelled"), 'cancelled', invoiceable=False, uses_a_place=False)
+add('09', _("Forwarded"), 'forwarded', invoiceable=False, uses_a_place=False)
+add('12', _("First contact"), 'requested', invoiceable=False, uses_a_place=False)
+add('00', _("Trying"), 'trying', invoiceable=False, uses_a_place=False)
+add('02', _("Active"), 'active', invoiceable=True, uses_a_place=True)
+# add('04', _("04"), invoiceable=False, uses_a_place=False)
+# add('08', _("08"), invoiceable=False, uses_a_place=False)
+# add('11', _("11"), invoiceable=False, uses_a_place=False)
+# add('99', _("99"), invoiceable=False, uses_a_place=False)
+
+
