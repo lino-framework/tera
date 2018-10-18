@@ -10,17 +10,23 @@ from lino.api import dd, rt, _
 
 
 class TranslatorTypes(dd.ChoiceList):
-
-    """
-    Types of registries for the Belgian residence.
-    
-    """
     verbose_name = _("Translator type")
+    verbose_name_plural = _("Translator types")
 
 add = TranslatorTypes.add_item
 add('10', _("Interpreter"), "interpreter")
 add('20', _("SETIS"))
 add('30', _("Other"))
+
+
+class TherapyDomains(dd.ChoiceList):
+    verbose_name = _("Therapy domain")
+    verbose_name_plural = _("Therapy domain")
+
+add = TherapyDomains.add_item
+add('10', _("Adults"), "adults")
+add('20', _("Children M"))
+add('30', _("Children P"))
 
 
 

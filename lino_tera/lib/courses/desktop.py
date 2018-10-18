@@ -119,14 +119,15 @@ class EntriesByCourse(EntriesByController):
 class CourseDetail(CourseDetail):
     main = "general enrolments calendar notes more"
     general = dd.Panel("""
-    ref name #client:20 #household:20 partner
+    ref name #household:20 partner client:20
+    procurer mandatory translator_type
     line user teacher workflow_buttons
-    room start_date end_date start_time end_time
     remark topics.InterestsByController
     """, label=_("General"))
 
     calendar = dd.Panel("""
     every_unit every max_date max_events
+    room start_date end_date start_time end_time
     monday tuesday wednesday thursday friday saturday sunday
     courses.EntriesByCourse
     """, label=_("Appointments"))
@@ -136,7 +137,7 @@ class CourseDetail(CourseDetail):
     EnrolmentsByCourse
     """, label=_("Participants"))
 
-    enrolments_top = 'enrolments_until fee:15 print_actions:15'
+    enrolments_top = 'enrolments_until print_actions:15'
 
     notes = dd.Panel("""
     notes.NotesByProject
@@ -145,7 +146,8 @@ class CourseDetail(CourseDetail):
 
     more = dd.Panel("""
     # company contact_person
-    state payment_term paper_type id
+    fee:15 tariff payment_term paper_type id
+    state ending_reason
     invoicing.InvoicingsByInvoiceable excerpts.ExcerptsByProject
     """, label=_("More"))
 

@@ -18,6 +18,7 @@ from builtins import str
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as pgettext
+from django.db import models
 
 from lino.utils.mti import get_child
 from lino.api import dd, rt
@@ -30,6 +31,8 @@ from lino_xl.lib.courses.mixins import Enrollable
 from lino_xl.lib.ledger.utils import DEBIT
 from lino_xl.lib.cal.workflows import TaskStates
 from lino.utils import join_elems
+
+from lino_tera.lib.tera.choicelists import EndingReasons, TranslatorTypes, PartnerTariffs
 
 from lino_xl.lib.courses.models import *
 
@@ -68,6 +71,8 @@ class Line(Line):
         verbose_name = _("Therapy type")
         verbose_name_plural = _('Therapy types')
 
+    ref_max_length = 4
+    
     # course_type = dd.ForeignKey(
     #     'courses.CourseType', blank=True, null=True)
 
@@ -148,6 +153,13 @@ class Course(Referrable, Course):
         related_name="%(app_label)s_%(class)s_set_by_payment_term",
         blank=True, null=True)    
 
+    procurer = dd.ForeignKey('tera.Procurer', blank=True, null=True)
+    mandatory = models.BooleanField(_("Mandatory"), default=False)
+    ending_reason = EndingReasons.field(blank=True)
+    tariff = PartnerTariffs.field(
+        default=PartnerTariffs.as_callable('plain'))
+    translator_type = TranslatorTypes.field(blank=True)
+    
     partner = dd.ForeignKey(
         'contacts.Partner',
         # related_name="%(app_label)s_%(class)s_set_by_client",
@@ -200,22 +212,20 @@ class Course(Referrable, Course):
         return super(Course, self).full_clean()
     
     def __str__(self):
+        if self.line and self.line.ref:
+            s = self.line.ref + ' '
+        else:
+            s = ''
+        if self.ref:
+            s += " " + self.ref
         if self.name:
-            if self.ref:
-                s = "{0} {1}".format(self.ref, self.name)
-            else:
-                s = self.name
-        elif self.ref:
-            s = self.ref
+            s += ' ' + self.name
         else:
             # Note that we cannot use super() with
             # python_2_unicode_compatible
-            s = "{0} #{1}".format(self._meta.verbose_name, self.pk)
-        if self.line and self.line.ref:
-            s += '.' + self.line.ref
-        if self.teacher:
-            s = "{} ({})".format(
-                s, self.teacher.initials or self.teacher)
+            s += "{0} #{1}".format(self._meta.verbose_name, self.pk)
+        if self.teacher and self.teacher.initials:
+            s = "{} ({})".format(s, self.teacher.initials)
         return s
 
     def update_cal_summary(self, et, i):
@@ -281,8 +291,8 @@ class Course(Referrable, Course):
 
 # Course.set_widget_options('ref', preferred_with=6)
 # dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
-dd.update_field(Course, 'partner', verbose_name=_("Invoice recipient"))
-dd.update_field(Course, 'teacher', verbose_name=_("Therapist"))
+dd.update_field(Course, 'partner', verbose_name=_("Invoicing address"))
+#  dd.update_field(Course, 'teacher', verbose_name=_("Therapist"))
 dd.update_field(Course, 'user', verbose_name=_("Manager"))
 
 # class CreateInvoiceForEnrolment(CreateInvoice):

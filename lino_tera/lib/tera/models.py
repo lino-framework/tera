@@ -35,8 +35,8 @@ from lino.mixins.periods import ObservedDateRange
 from lino_xl.lib.clients.choicelists import ClientStates
 from lino_xl.lib.beid.choicelists import CivilStates
 
-from .choicelists import EndingReasons, ProfessionalStates, TranslatorTypes
-
+from .choicelists import EndingReasons, ProfessionalStates
+from .choicelists import TranslatorTypes
 from .choicelists import PartnerTariffs
 from lino.core.roles import Explorer
 from .roles import ClientsNameUser, ClientsUser
@@ -133,11 +133,7 @@ class Client(Person, #BeIdCardHolder,
 
     # person = dd.ForeignKey("contacts.Person")
 
-    mandatory = models.BooleanField(_("Mandatory"), default=False)
-    ending_reason = EndingReasons.field(blank=True)
     professional_state = ProfessionalStates.field(blank=True)
-    tariff = PartnerTariffs.field(
-        default=PartnerTariffs.as_callable('plain'))
     
     obsoletes = dd.ForeignKey(
         'self', verbose_name=_("Obsoletes"),
@@ -148,10 +144,7 @@ class Client(Person, #BeIdCardHolder,
                                 related_name='by_nationality',
                                 verbose_name=_("Nationality"))
     
-    procurer = dd.ForeignKey('tera.Procurer', blank=True, null=True)
     life_mode = dd.ForeignKey('tera.LifeMode', blank=True, null=True)
-    
-    translator_type = TranslatorTypes.field(blank=True)
     civil_state = CivilStates.field(blank=True)
 
     
@@ -259,12 +252,13 @@ class Client(Person, #BeIdCardHolder,
 dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 #dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
 dd.update_field(Client, 'client_state', default='active')
+dd.update_field(Client, 'overview', verbose_name=None)    
     
 from lino_tera.lib.contacts.models import PersonDetail
 
 class ClientDetail(PersonDetail):
 
-    main = "general address activities sales purchases more "
+    main = "general address activities sales more "
 
     general = dd.Panel("""
     general1:30 general2:40
@@ -279,8 +273,8 @@ class ClientDetail(PersonDetail):
     general2 = """
     id:10 team user
     #birth_date age:10 #gender:10 civil_state
-    nationality:15 language translator_type
-    professional_state tariff 
+    nationality:15 language
+    professional_state
     """
 
     activities = dd.Panel("""
@@ -454,7 +448,7 @@ class Clients(contacts.Persons):
 class AllClients(Clients):
     auto_fit_column_widths = False
     column_names = "id client_state \
-    procurer life_mode \
+    life_mode \
     city country zip_code nationality \
     birth_date age:10 gender \
     user"
