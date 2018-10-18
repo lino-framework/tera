@@ -271,8 +271,17 @@ class Course(Referrable, Course):
         if obj is not None:
             return obj.obj2href(ar)
 
+    @dd.displayfield(_("Organization"))
+    def company(self, ar):
+        if ar is None or self.partner_id is None:
+            return
+        obj = get_child(self.partner, rt.models.contacts.Company)
+        if obj is not None:
+            return obj.obj2href(ar)
+
 # Course.set_widget_options('ref', preferred_with=6)
 # dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
+dd.update_field(Course, 'partner', verbose_name=_("Invoice recipient"))
 dd.update_field(Course, 'teacher', verbose_name=_("Therapist"))
 dd.update_field(Course, 'user', verbose_name=_("Manager"))
 

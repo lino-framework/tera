@@ -26,6 +26,8 @@ class Plugin(Plugin):
     who is responsible for a course).
 
     """
+    teacher_label = _("Therapist")
+    
     pupil_model = 'tera.Client'
     """The name of the model to be used for "pupils" (i.e. the persons who
     participate in a course).

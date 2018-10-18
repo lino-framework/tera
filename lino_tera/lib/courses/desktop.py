@@ -119,7 +119,7 @@ class EntriesByCourse(EntriesByController):
 class CourseDetail(CourseDetail):
     main = "general enrolments calendar notes more"
     general = dd.Panel("""
-    ref name client:20 household:20 #partner
+    ref name #client:20 #household:20 partner
     line user teacher workflow_buttons
     room start_date end_date start_time end_time
     remark topics.InterestsByController
