@@ -35,9 +35,7 @@ from lino.mixins.periods import ObservedDateRange
 from lino_xl.lib.clients.choicelists import ClientStates
 from lino_xl.lib.beid.choicelists import CivilStates
 
-from .choicelists import EndingReasons, ProfessionalStates
-from .choicelists import TranslatorTypes
-from .choicelists import PartnerTariffs
+from .choicelists import ProfessionalStates
 from lino.core.roles import Explorer
 from .roles import ClientsNameUser, ClientsUser
 

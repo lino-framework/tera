@@ -32,7 +32,8 @@ from lino_xl.lib.ledger.utils import DEBIT
 from lino_xl.lib.cal.workflows import TaskStates
 from lino.utils import join_elems
 
-from lino_tera.lib.tera.choicelists import EndingReasons, TranslatorTypes, PartnerTariffs
+from .choicelists import EndingReasons, TranslatorTypes
+from .choicelists import PartnerTariffs, TherapyDomains
 
 from lino_xl.lib.courses.models import *
 
@@ -43,6 +44,8 @@ from lino_xl.lib.cal.utils import day_and_month
 # from lino.utils.media import TmpMediaFile
 
 from lino.modlib.printing.utils import CustomBuildMethod
+
+
 
 
 CourseAreas.clear()
@@ -159,6 +162,7 @@ class Course(Referrable, Course):
     tariff = PartnerTariffs.field(
         default=PartnerTariffs.as_callable('plain'))
     translator_type = TranslatorTypes.field(blank=True)
+    # therapy_domain = TherapyDomains.field(blank=True)
     
     partner = dd.ForeignKey(
         'contacts.Partner',
