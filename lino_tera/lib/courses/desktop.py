@@ -120,7 +120,7 @@ class CourseDetail(CourseDetail):
     main = "general enrolments calendar notes more"
     general = dd.Panel("""
     ref name #household:20 partner client:20
-    procurer mandatory translator_type
+    therapy_domain procurer mandatory translator_type 
     line user teacher workflow_buttons
     remark topics.InterestsByController
     """, label=_("General"))
