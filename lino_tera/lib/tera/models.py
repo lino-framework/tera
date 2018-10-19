@@ -259,23 +259,24 @@ class ClientDetail(PersonDetail):
     main = "general address activities sales more "
 
     general = dd.Panel("""
-    general1:30 general2:20 courses.EnrolmentsByPupil:30
+    overview:30 general2:20 courses.EnrolmentsByPupil:30
     cal.GuestsByPartner
     """, label=_("General"))
 
-    general1 = """
-    overview
-    workflow_buttons
-    """
+    # general1 = """
+    # overview
+    # workflow_buttons
+    # """
     
     general2 = """
-    id:10 team user
-    #birth_date age:10 #gender:10 civil_state life_mode
-    nationality:15 language
-    professional_state 
+    id:10 team 
+    user
+    language #birth_date age:10 #gender:10
+    nationality:15 
     """
 
     activities = dd.Panel("""
+    professional_state civil_state life_mode
     lists.MembersByPartner
     clients.ContactsByClient 
     # courses.ActivitiesByPartner
@@ -303,7 +304,7 @@ class ClientDetail(PersonDetail):
     # """, label = _("Polls"))
 
     more = dd.Panel("""
-    obsoletes  client_state
+    obsoletes  #client_state
     households.MembersByPerson:30 households.SiblingsByPerson
     checkdata.ProblemsByOwner ledger.MovementsByPartner
     #excerpts.ExcerptsByProject
