@@ -33,7 +33,7 @@ from lino_xl.lib.courses.mixins import Enrollable
 from lino.mixins.periods import ObservedDateRange
 
 from lino_xl.lib.clients.choicelists import ClientStates
-from lino_xl.lib.beid.choicelists import CivilStates
+from lino_xl.lib.contacts.choicelists import CivilStates
 
 from .choicelists import ProfessionalStates
 from lino.core.roles import Explorer

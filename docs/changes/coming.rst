@@ -4,8 +4,40 @@
 Kommende Version
 ================
 
-BEsprechungsbeginn 2018-10-09.
+Besprechungsbeginn 2018-10-09.
 Release vorgesehen für 2018-11-05.
+
+Gedanken:
+
+- Wir hatten ein Problem "Kylie B hat ET in Lino, was nicht stimmt"
+  gesehen. Das kommt, weil in TIM für Kylie ein PAR mit IdPrt P steht,
+  weil sie ja als Kind in einer Lebensgruppe mitmacht. Aber woher soll
+  Lino wissen, dass Kylie keine Einzeltherapie hat sondern nur als
+  Kind einer anderen Therapie benutzt wird? Okay, normalerweise haben
+  Personen, die in einer LG oder TG mitmachen, nicht auch noch eine
+  Einzeltherapie... aber da gibt es bestimmt Ausnahmen. En attendant
+  haben Fälle wie Kylie in Lino zwei Therapien.
+
+- Therapien mit zwei Therapeuten : die haben zur Zeit noch alle
+  Termine doppelt nach dem Import, weil in TIM jeder Therapeut seine
+  DLS eingibt. Dubletten kann ich wahrscheinlich automatisch
+  rausklamüsern, aber bin noch nicht sicher, ob das schwer ist. Zu
+  klären, ob sich die Arbeit überhaupt lohnt.
+- Wir haben gesagt, dass bei Akten mit zwei Therapeuten der
+  Cotherapeut mit den Patienten in der Liste der Teilnehmer kommt.
+  Ich bin noch nicht sicher, ob euch das gefällt.
+
+- Momentan habt ihr nur eine Telefonnummer, GSM-Nr und E-Mail-Adresse
+  pro Partner. In Lino könnte man auch mehrere "Kontaktdaten" pro
+  Partner haben. Daniel und ich haben irgendwann im Juni mal
+  "beschlossen", dass eine reicht. Nachteil von mehreren ist, dass die
+  Bearbeitung dann anders funktioniert als aus TIM gewohnt. Man kann
+  auch später von single-contact nach multi-contact wechseln, falls
+  sich rausstellt, dass es Sinn macht.
+
+Could not import zahler 1025, 8, 15, 5, 22, 24
+
+Es gibt in TIM Akten mit ungültigem Tarif 0, 3, 33
 
 Kontext:
 
@@ -30,16 +62,14 @@ DONE:
   korrekter, weil es spezifischer ist.  Man könnte z.B. auch eine
   Patientenakte haben, die wäre was anderes als eine Therapie.
 
-TODO:
-
 - Lebensgruppen haben keine Teilnehmer
+
+TODO:
 
 - Termine mit zwei Therapeuten: einer der beiden ist nur "Assistent"
   und wird als Teilnehmer mit Rolle "Cotherapeut" erfasst.  Für aus
   TIM importiere Termine stehen zwei Kalendereinträge in Lino. Diese
   könnten bei Bedarf automatisch gelöscht werden.
-  
-- Fallbeispiele von falsch importieren  
   
 - "Arbeiten als"  zeigt auch den aktuellen User an.
 

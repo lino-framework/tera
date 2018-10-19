@@ -1,4 +1,4 @@
-# Copyright 2013-2017 Luc Saffre
+# Copyright 2013-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """Extends :mod:`lino_xl.lib.courses` for :ref:`tera`.

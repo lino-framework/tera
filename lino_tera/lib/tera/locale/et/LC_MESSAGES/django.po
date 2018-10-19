@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-10-19 06:14+0200\n"
+"POT-Creation-Date: 2018-10-19 10:04+0200\n"
 "PO-Revision-Date: 2017-03-21 15:58+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: et\n"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:32 lino_tera/lib/contacts/models.py:80
 #: lino_tera/lib/contacts/models.py:108 lino_tera/lib/contacts/models.py:169
-#: lino_tera/lib/courses/desktop.py:152 lino_tera/lib/tera/models.py:310
+#: lino_tera/lib/courses/desktop.py:152 lino_tera/lib/tera/models.py:311
 msgid "More"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgid "Purchases"
 msgstr ""
 
 #: lino_tera/lib/courses/__init__.py:22 lino_tera/lib/courses/desktop.py:363
-#: lino_tera/lib/courses/models.py:142 lino_tera/lib/tera/models.py:284
+#: lino_tera/lib/courses/models.py:142 lino_tera/lib/tera/models.py:285
 msgid "Therapies"
 msgstr ""
 
@@ -468,34 +468,6 @@ msgstr ""
 msgid "Newcomer"
 msgstr ""
 
-#: lino_tera/lib/tera/choicelists.py:76
-msgid "00"
-msgstr ""
-
-#: lino_tera/lib/tera/choicelists.py:77
-msgid "02"
-msgstr ""
-
-#: lino_tera/lib/tera/choicelists.py:78
-msgid "04"
-msgstr ""
-
-#: lino_tera/lib/tera/choicelists.py:79
-msgid "08"
-msgstr ""
-
-#: lino_tera/lib/tera/choicelists.py:80
-msgid "10"
-msgstr ""
-
-#: lino_tera/lib/tera/choicelists.py:81
-msgid "11"
-msgstr ""
-
-#: lino_tera/lib/tera/choicelists.py:82
-msgid "99"
-msgstr ""
-
 #: lino_tera/lib/tera/help_texts.py:7
 msgid "The standard migrator for noi."
 msgstr ""
@@ -530,7 +502,7 @@ msgstr ""
 msgid "Obsoletes"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:143 lino_tera/lib/tera/models.py:347
+#: lino_tera/lib/tera/models.py:143 lino_tera/lib/tera/models.py:348
 msgid "Nationality"
 msgstr ""
 
@@ -1372,5 +1344,35 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Language notes"
+#~ msgstr ""
+
+#~ msgid "00"
+#~ msgstr ""
+
+#~ msgid "02"
+#~ msgstr ""
+
+#~ msgid "04"
+#~ msgstr ""
+
+#~ msgid "08"
+#~ msgstr ""
+
+#~ msgid "10"
+#~ msgstr ""
+
+#~ msgid "11"
+#~ msgstr ""
+
+#~ msgid "99"
+#~ msgstr ""
+
+#~ msgid "Therapy"
+#~ msgstr ""
+
+#~ msgid "Dossier"
+#~ msgstr ""
+
+#~ msgid "Dossiers"
 #~ msgstr ""
 
