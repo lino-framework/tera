@@ -10,14 +10,14 @@ from lino.api import dd, rt, _
 
 
 class ProfessionalStates(dd.ChoiceList):
-    # 11 Selbstständig/Freiberufler  
-    # 31 Arbeiter/Angestellter       
-    # 51 in Ausbildung               
-    # 54 Hausfrau/Hausmann           
-    # 61 arbeitslos                  
-    # 63 berufsunfähig               
-    # 65 Sozialhilfeempfänger        
-    # 80 im Ruhestand                
+    # 11 Selbstständig/Freiberufler
+    # 31 Arbeiter/Angestellter
+    # 51 in Ausbildung
+    # 54 Hausfrau/Hausmann
+    # 61 arbeitslos
+    # 63 berufsunfähig
+    # 65 Sozialhilfeempfänger
+    # 80 im Ruhestand
     # 90 andere Situation            
     # 00 unbekannt                   
     # 10 Freiberufler (alt -> 11)    

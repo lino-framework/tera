@@ -259,8 +259,8 @@ class ClientDetail(PersonDetail):
     main = "general address activities sales more "
 
     general = dd.Panel("""
-    general1:30 general2:40
-    cal.GuestsByPartner:30 courses.EnrolmentsByPupil:40
+    general1:30 general2:20 courses.EnrolmentsByPupil:30
+    cal.GuestsByPartner
     """, label=_("General"))
 
     general1 = """
@@ -270,9 +270,9 @@ class ClientDetail(PersonDetail):
     
     general2 = """
     id:10 team user
-    #birth_date age:10 #gender:10 civil_state
+    #birth_date age:10 #gender:10 civil_state life_mode
     nationality:15 language
-    professional_state
+    professional_state 
     """
 
     activities = dd.Panel("""

@@ -146,7 +146,7 @@ class CourseDetail(CourseDetail):
 
     more = dd.Panel("""
     # company contact_person
-    fee:15 tariff payment_term paper_type id
+    tariff payment_term paper_type id
     state ending_reason
     invoicing.InvoicingsByInvoiceable excerpts.ExcerptsByProject
     """, label=_("More"))
