@@ -162,7 +162,7 @@ class Course(Referrable, Course):
     tariff = PartnerTariffs.field(
         default=PartnerTariffs.as_callable('plain'))
     translator_type = TranslatorTypes.field(blank=True)
-    # therapy_domain = TherapyDomains.field(blank=True)
+    therapy_domain = TherapyDomains.field(blank=True)
     
     partner = dd.ForeignKey(
         'contacts.Partner',
