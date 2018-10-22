@@ -19,6 +19,7 @@ from lino.mixins import Referrable, CreatedModified, BabelDesignated
 # from lino_xl.lib.beid.mixins import BeIdCardHolder
 from lino.modlib.comments.mixins import Commentable
 from lino.modlib.users.mixins import UserAuthored, My
+# from lino.modlib.system.mixins import Lockable
 
 # from lino.modlib.notify.mixins import ChangeNotifier
 # from lino_xl.lib.notes.choicelists import SpecialTypes
@@ -115,6 +116,7 @@ class Client(Person, #BeIdCardHolder,
              # Referrable,
              CreatedModified,
              ClientBase,
+             # Lockable,
              # Notable,
              Commentable):
     class Meta:
@@ -249,7 +251,7 @@ class Client(Person, #BeIdCardHolder,
 dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 #dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
 dd.update_field(Client, 'client_state', default='active')
-dd.update_field(Client, 'overview', verbose_name=None)    
+dd.update_field(Client, 'overview', verbose_name=None)
     
 from lino_tera.lib.contacts.models import PersonDetail
 
