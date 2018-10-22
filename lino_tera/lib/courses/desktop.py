@@ -109,8 +109,8 @@ class EnrolmentsAndPaymentsByCourse(Enrolments):
 
 
 class EnrolmentsByLifeGroup(EnrolmentsByCourse):
-    column_names = 'request_date pupil '\
-                   'remark fee ' \
+    column_names = 'request_date pupil guest_role '\
+                   'remark ' \
                    'workflow_buttons *'
     insert_layout = """
     pupil guest_role
