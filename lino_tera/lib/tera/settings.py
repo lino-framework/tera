@@ -47,7 +47,7 @@ class Site(Site):
         yield 'lino_tera.lib.users'
         yield 'lino.modlib.dashboard'
         yield 'lino_xl.lib.countries'
-        yield 'lino_xl.lib.properties'
+        # yield 'lino_xl.lib.properties'
         yield 'lino_tera.lib.contacts'
         yield 'lino_tera.lib.households'
         yield 'lino_xl.lib.clients'
@@ -55,7 +55,7 @@ class Site(Site):
         # yield 'lino_tera.lib.lists'
         # yield 'lino_xl.lib.beid'
         # yield 'lino_xl.lib.addresses'
-        yield 'lino_xl.lib.humanlinks',
+        # yield 'lino_xl.lib.humanlinks',
         yield 'lino_tera.lib.products'
         yield 'lino_tera.lib.sales'
         yield 'lino_tera.lib.cal'
