@@ -65,7 +65,7 @@ class PendingRequestedEnrolments(PendingRequestedEnrolments):
 
 
 class EnrolmentsByPupil(EnrolmentsByPupil):
-    column_names = 'overview start_date '\
+    column_names = 'overview course__state guest_role start_date '\
                    'workflow_buttons *'
 
     # column_names = 'request_date course user:10 remark ' \

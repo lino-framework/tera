@@ -48,11 +48,11 @@ class PartnerDetail(PartnerDetail):
     general = dd.Panel("""
     overview:30 ledger.MovementsByPartner #lists.MembersByPartner:20
     bottom_box
+    excerpts.ExcerptsByOwner cal.GuestsByPartner
     """, label=_("General"))
 
     address = dd.Panel("""
     address_box contact_box
-    sepa.AccountsByPartner
     """, label=_("Address"))
 
     # A layout for use in Belgium
@@ -76,13 +76,19 @@ class PartnerDetail(PartnerDetail):
     language
     #courses.CoursesByCompany
     # changes.ChangesByMaster
-    excerpts.ExcerptsByOwner cal.GuestsByPartner
     """, label=_("More"))
 
     sales = dd.Panel("""
-    salesrule__invoice_recipient payment_term salesrule__paper_type
-    sales.InvoicesByPartner 
-    """, label=_("Sales"))
+    sales1:30 sepa.AccountsByPartner:30
+    sales.InvoicesByPartner
+    """, label=_("Invoicing"))
+
+    sales1 = """
+    salesrule__invoice_recipient 
+    payment_term 
+    salesrule__paper_type
+    """
+    
 
     bottom_box = """
     remarks:50 checkdata.ProblemsByOwner:30
@@ -98,7 +104,7 @@ class CompanyDetail(CompanyDetail, PartnerDetail):
 
     address = dd.Panel("""
     address_box contact_box
-    contacts.RolesByCompany sepa.AccountsByPartner
+    contacts.RolesByCompany 
     """, label=_("Address"))
 
     more = dd.Panel("""
@@ -139,7 +145,7 @@ class PersonDetail(PersonDetail, PartnerDetail):
 
     address = dd.Panel("""
     address_box contact_box:30
-    contacts.RolesByPerson sepa.AccountsByPartner
+    contacts.RolesByPerson 
     """, label=_("Address"))
 
     address_box = """

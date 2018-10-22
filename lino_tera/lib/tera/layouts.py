@@ -67,3 +67,7 @@ if dd.is_installed('tera'):
     #     ClientsUser)
     rt.models.topics.InterestsByPartner.required_roles = dd.login_required(
         ClientsUser)
+    
+    rt.models.sales.VatProductInvoice._meta.verbose_name_plural = _("Sales invoices")
+
+    rt.models.ana.AnaAccountInvoice._meta.verbose_name_plural = _("Purchase invoices")    

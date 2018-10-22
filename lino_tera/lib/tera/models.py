@@ -258,15 +258,15 @@ class ClientDetail(PersonDetail):
     main = "general address activities sales more "
 
     general = dd.Panel("""
-    overview:30 general2:20 courses.EnrolmentsByPupil:30
+    overview:30 general2:20 #courses.EnrolmentsByPupil:30
     cal.GuestsByPartner
     """, label=_("General"))
 
-    # general1 = """
-    # overview
-    # workflow_buttons
-    # """
-    
+    address = dd.Panel("""
+    address_box contact_box:30
+    clients.ContactsByClient contacts.RolesByPerson 
+    """, label=_("Address"))
+
     general2 = """
     id:10 team 
     user
@@ -276,31 +276,12 @@ class ClientDetail(PersonDetail):
 
     activities = dd.Panel("""
     professional_state civil_state life_mode
-    lists.MembersByPartner
-    clients.ContactsByClient 
+    # lists.MembersByPartner
+    courses.EnrolmentsByPupil
     # courses.ActivitiesByPartner
     # tera.NotesByPartner 
     # cal.GuestsByPartner
     """, label=_("Therapies"))
-
-
-    # notes = dd.Panel("""
-    # notes.NotesByProject
-    # #comments.CommentsByRFC cal.TasksByProject
-    # # coachings.CoachingsByClient 
-    # """, label = _("Notes"))
-
-    # courses = dd.Panel("""
-    # courses.EnrolmentsByPupil
-    # """, label = _("Courses"))
-
-    # trends = dd.Panel("""
-    # trends.EventsBySubject polls.ResponsesByPartner
-    # """, label = _("Trends"))
-
-    # polls = dd.Panel("""
-    # polls.ResponsesByPartner
-    # """, label = _("Polls"))
 
     more = dd.Panel("""
     obsoletes  #client_state

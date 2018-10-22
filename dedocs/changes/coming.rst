@@ -7,11 +7,31 @@ Kommende Version
 Besprechungsbeginn 2018-10-09.
 Release vorgesehen für 2018-11-05.
 
-Offene Fragen:
+Offene Entscheidungen:
 
 - Wird die Bargeldkasse der Therapeuten abgeschafft?
 - Kommt eine monatliche Tarifordnung? Zählen die Anwesenheiten auch
   für Fakturierung?
+
+Aktuelle Fragen:
+
+- Werden die Notizen richtig importiert? Momentan kann man Notizen nur
+  pro Akte anzeigen/erfassen.
+  
+- Wir hatten ein Fallbeispiel "Kylie B hat ET in Lino, was nicht
+  stimmt" gesehen. Das kommt, weil in TIM für Kylie ein PAR mit IdPrt
+  P steht, weil sie ja als Kind in einer Lebensgruppe mitmacht. Aber
+  woher soll Lino wissen, dass Kylie keine Einzeltherapie hat sondern
+  nur als Kind einer anderen Therapie benutzt wird? Okay,
+  normalerweise haben Personen, die in einer LG oder TG mitmachen,
+  nicht auch noch eine Einzeltherapie... aber da gibt es bestimmt
+  Ausnahmen. En attendant haben Fälle wie Kylie in Lino zwei
+  Therapien.
+- Beispiel Patient 2070105.  Zustand der Akten wird importiert, aber
+  Lino zeigt in CoursesByClient den Teilnahmezustand, nicht den der
+  Akte.  Außerdem zeigt er sie immer alle an, auch die stornierten und
+  inaktiven.
+
 
 Zeitplan:
 
@@ -48,20 +68,10 @@ Tagesordnung:
 
 - Dienstleistungen (Termine und Anwesenheiten) werden regelmäßig aus
   TIM nach Lino importiert.  In Lino sind sie bisher nur zum Spielen.
-  Alle Änderungen in Lino gehen beim nächsten Import verloren.
+  Alle Änderungen in Lino gehen beim jeweils nächsten Import verloren.
 
 - Statt "Therapie" sagt Lino jetzt "Akte", um beim etablierten
   Wortschatz bleiben. "Akten" steht jetzt an erster Stelle im Menü.
-
-- Wir hatten ein Fallbeispiel "Kylie B hat ET in Lino, was nicht
-  stimmt" gesehen. Das kommt, weil in TIM für Kylie ein PAR mit IdPrt
-  P steht, weil sie ja als Kind in einer Lebensgruppe mitmacht. Aber
-  woher soll Lino wissen, dass Kylie keine Einzeltherapie hat sondern
-  nur als Kind einer anderen Therapie benutzt wird? Okay,
-  normalerweise haben Personen, die in einer LG oder TG mitmachen,
-  nicht auch noch eine Einzeltherapie... aber da gibt es bestimmt
-  Ausnahmen. En attendant haben Fälle wie Kylie in Lino zwei
-  Therapien.
 
 - Therapien mit zwei Therapeuten haben zur Zeit noch alle Termine
   doppelt nach dem Import, weil in TIM jeder Therapeut seine DLS
