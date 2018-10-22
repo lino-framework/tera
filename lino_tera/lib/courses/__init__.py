@@ -28,9 +28,11 @@ class Plugin(Plugin):
     """
     teacher_label = _("Therapist")
     
-    pupil_model = 'tera.Client'
-    """The name of the model to be used for "pupils" (i.e. the persons who
-    participate in a course).
+    # pupil_model = 'tera.Client'
+    pupil_model = 'contacts.Person'
+    """
+    The model to be used for "pupils" (i.e. the persons who participate
+    in a course).
     """
     # pupil_name_fields = "pupil__client__name"
     extends_models = ['Enrolment', 'Course', 'Line']

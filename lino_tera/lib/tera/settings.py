@@ -108,9 +108,15 @@ class Site(Site):
         self.plugins.ledger.configure(use_pcmn=True)
         # self.plugins.courses.configure(teacher_model='users.User')
         # self.plugins.courses.configure(pupil_model='contacts.Person')
-        self.plugins.courses.configure(pupil_model='tera.Client')
+        # self.plugins.courses.configure(pupil_model='tera.Client')
 
 
+    def setup_quicklinks(self, user, tb):
+        super(Site, self).setup_quicklinks(user, tb)
+        tb.add_action(
+            self.models.cal.MyEntries.insert_action,
+            label=_("New appointment"))
+        
     # def setup_actions(self):
     #     from lino.core.merge import MergeAction
     #     lib = self.models

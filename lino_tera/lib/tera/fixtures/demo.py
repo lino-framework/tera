@@ -67,7 +67,6 @@ def enrolments():
     EventType = rt.models.cal.EventType
     GuestRole = rt.models.cal.GuestRole
     Course = rt.models.courses.Course
-    Line = rt.models.courses.Line
     Enrolment = rt.models.courses.Enrolment
     DurationUnits = rt.models.cal.DurationUnits
     SalesRule = rt.models.invoicing.SalesRule
@@ -108,8 +107,11 @@ def enrolments():
     
     yield named(Product, _("Other"), sales_price=35)
 
-    gr = GuestRole(**dd.str2kw('name', _("Attendee")))
-    yield gr
+    attendee = GuestRole(**dd.str2kw('name', _("Attendee")))
+    yield attendee
+    colleague = GuestRole(**dd.str2kw('name', _("Colleague")))
+    yield colleague
+    
     ind_et = EventType(
         force_guest_states=True,
         **dd.str2kw('name', _("Individual appointment")))
@@ -121,8 +123,9 @@ def enrolments():
     
     for a in CourseAreas.get_list_items():
         kw = dict(
-            name=a.text, course_area=a, guest_role=gr)
+            name=a.text, course_area=a, guest_role=attendee)
         kw.update(fees_cat=cat)
+        kw.update(guest_role=attendee)
         if a.name in('therapies', 'life_groups'):
             kw.update(fee=ind_therapy, event_type=ind_et)
         else:

@@ -28,7 +28,7 @@ from lino_tera.lib.contacts.models import Person
 # from lino_xl.lib.cal.choicelists import TaskStates
 # from lino_xl.lib.cv.mixins import BiographyOwner
 # from lino.utils.mldbc.fields import BabelVirtualField
-from lino_xl.lib.courses.mixins import Enrollable
+# from lino_xl.lib.courses.mixins import Enrollable
 
 from lino.mixins.periods import ObservedDateRange
 
@@ -116,7 +116,6 @@ class Client(Person, #BeIdCardHolder,
              CreatedModified,
              ClientBase,
              # Notable,
-             Enrollable,
              Commentable):
     class Meta:
         app_label = 'tera'

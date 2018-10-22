@@ -36,6 +36,7 @@ from .choicelists import EndingReasons, TranslatorTypes
 from .choicelists import PartnerTariffs, TherapyDomains
 
 from lino_xl.lib.courses.models import *
+from .choicelists import *
 
 contacts = dd.resolve_app('contacts')
 
@@ -47,25 +48,6 @@ from lino.modlib.printing.utils import CustomBuildMethod
 
 
 
-
-CourseAreas.clear()
-add = CourseAreas.add_item
-add('IT', _("Individual therapies"), 'therapies', 'courses.Therapies')
-    # force_guest_states=True)
-add('LG', _("Life groups"), 'life_groups', 'courses.LifeGroups')
-    # force_guest_states=True)
-add('OG', _("Other groups"), 'default', 'courses.Courses')
-
-
-# class CourseType(Referrable, mixins.BabelNamed):
-
-#     class Meta:
-#         app_label = 'courses'
-#         abstract = dd.is_abstract_model(__name__, 'CourseType')
-#         verbose_name = _("Therapy type")
-#         verbose_name_plural = _('Therapy types')
-
-
 class Line(Line):
 
     class Meta(Line.Meta):
@@ -75,7 +57,7 @@ class Line(Line):
         verbose_name_plural = _('Therapy types')
 
     ref_max_length = 4
-    
+
     # course_type = dd.ForeignKey(
     #     'courses.CourseType', blank=True, null=True)
 
@@ -332,63 +314,12 @@ class Enrolment(Enrolment):
         verbose_name = _("Attendance")
         verbose_name_plural = _("Attendances")
 
+    guest_role = dd.ForeignKey(
+        'cal.GuestRole', verbose_name=_("Role"), blank=True, null=True)
     fee = dd.ForeignKey('products.Product',
                         blank=True, null=True,
                         # verbose_name=_("Attendance fee"),
                         related_name='enrolments_by_fee')
-
-    # free_events = models.IntegerField(
-    #     pgettext("in an enrolment", "Free events"),
-    #     null=True, blank=True,
-    #     help_text=_("Number of events to add for first invoicing "
-    #                 "for this enrolment."))
-
-    # create_invoice = CreateInvoiceForEnrolment()
-
-    # def get_invoiceable_partner(self):
-    #     p = self.course.partner or self.pupil
-    #     salesrule = getattr(p, 'salesrule', None)
-    #     if salesrule is None:
-    #         return p
-    #     return salesrule.invoice_recipient or p
-
-    # def get_invoiceable_payment_term(self):
-    #     return self.course.payment_term
-
-    # def get_invoiceable_paper_type(self):
-    #     return self.course.paper_type
-
-    # @classmethod
-    # def get_invoiceables_for_plan(cls, plan, partner=None):
-    #     """Yield all enrolments for which the given plan and partner should
-    #     generate an invoice.
-
-    #     """
-    #     qs = cls.objects.filter(**{
-    #         cls.invoiceable_date_field + '__lte': plan.max_date or plan.today})
-    #     if False:  # plan.course is not None:
-    #         qs = qs.filter(course__id=plan.course.id)
-    #     else:
-    #         qs = qs.filter(course__state=CourseStates.active)
-    #     if partner is None:
-    #         partner = plan.partner
-    #     if partner:
-    #         pupil = get_child(partner, rt.models.tera.Client)
-    #         # pupil = partner.get_mti_child('pupil')
-    #         if pupil:  # isinstance(partner, rt.models.courses.Pupil):
-    #             q1 = models.Q(
-    #                 pupil__salesrule__invoice_recipient__isnull=True, pupil=pupil)
-    #             q2 = models.Q(pupil__salesrule__invoice_recipient=partner)
-    #             qs = cls.objects.filter(models.Q(q1 | q2))
-    #         else:
-    #             # if the partner is not a pupil, then it might still
-    #             # be an invoice_recipient
-    #             qs = cls.objects.filter(pupil__salesrule__invoice_recipient=partner)
-                
-    #     # dd.logger.info("20160513 %s (%d rows)", qs.query, qs.count())
-    #     for obj in qs.order_by(cls.invoiceable_date_field, 'id'):
-    #         # dd.logger.info('20160223 %s', obj)
-    #         yield obj
 
     @dd.chooser()
     def fee_choices(cls, course):
@@ -401,6 +332,9 @@ class Enrolment(Enrolment):
         # if self.state == EnrolmentStates.requested:
         #     self.state = EnrolmentStates.get_by_value(
         #         self.pupil.client_state.value) or EnrolmentStates.requested
+        if self.guest_role_id is None:
+            if self.course.line_id:
+                self.guest_roles = self.course.line.guest_role
         if self.fee_id is None:
             self.compute_fee()
         super(Enrolment, self).full_clean(*args, **kwargs)
@@ -445,55 +379,7 @@ class Enrolment(Enrolment):
         return rt.models.ledger.Movement.balance_info(
             DEBIT, partner=self.pupil, cleared=False)
         
-
-# dd.inject_field(
-#     'products.Product', 'number_of_events',
-#     models.IntegerField(
-#         _("Number of events"), null=True, blank=True,
-#         help_text=_("Number of events paid per invoicing.")))
-
-# dd.inject_field(
-#     'products.Product', 'min_asset',
-#     models.IntegerField(
-#         _("Invoice threshold"), null=True, blank=True,
-#         help_text=_("Minimum number of events to pay in advance.")))
-
-# Stand der Beratung:
-# 01 dauert an                                
-# 03 abgeschlossen                            
-# 05 automatisch abgeschlossen                
-# 06 Abbruch der Beratung                     
-# 09 Weitervermittlung                        
-# 12 nur Erstkontakt
-CourseStates.clear()
-add = CourseStates.add_item
-add('01', _("Started"), 'active',
-    editable=False, invoiceable=True, active=True)
-add('03', _("Closed"), 'closed',
-    editable=False, invoiceable=False, active=False)
-add('05', _("Inactive"), 'inactive',
-    editable=False, invoiceable=False, active=False)
-add('06', _("Cancelled"), 'cancelled',
-    editable=False, invoiceable=False, active=False)
-add('09', _("Forwarded"), 'forwarded',
-    editable=False, invoiceable=False, active=False)
-add('12', _("First contact"), 'draft',
-    editable=True, invoiceable=False, active=True)
-
-# EnrolmentStates.default_value = 'confirmed'
-EnrolmentStates.clear()
-add = EnrolmentStates.add_item
-add('01', _("Confirmed"), 'confirmed', invoiceable=True, uses_a_place=True)
-add('03', _("Closed"), 'closed', invoiceable=False, uses_a_place=False)
-add('05', _("Inactive"), 'inactive', invoiceable=False, uses_a_place=False)
-add('06', _("Cancelled"), 'cancelled', invoiceable=False, uses_a_place=False)
-add('09', _("Forwarded"), 'forwarded', invoiceable=False, uses_a_place=False)
-add('12', _("First contact"), 'requested', invoiceable=False, uses_a_place=False)
-add('00', _("Trying"), 'trying', invoiceable=False, uses_a_place=False)
-add('02', _("Active"), 'active', invoiceable=True, uses_a_place=True)
-# add('04', _("04"), invoiceable=False, uses_a_place=False)
-# add('08', _("08"), invoiceable=False, uses_a_place=False)
-# add('11', _("11"), invoiceable=False, uses_a_place=False)
-# add('99', _("99"), invoiceable=False, uses_a_place=False)
-
+    def get_guest_role(self):
+        return self.guest_role or super(Enrolment, self).get_guest_role()
+        
 

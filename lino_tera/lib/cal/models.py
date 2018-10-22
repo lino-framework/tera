@@ -11,6 +11,7 @@ from lino_xl.lib.cal.choicelists import EntryStates, GuestStates
 from lino_xl.lib.courses.choicelists import CourseStates
 from lino_xl.lib.ledger.utils import ZERO
 
+from lino.mixins import Referrable
 
 class Event(Event, Invoiceable):
 
@@ -80,12 +81,31 @@ class Event(Event, Invoiceable):
 #             return self.project.line.course_area.force_guest_states
 #         return False
 
+dd.update_field(Event, 'start_date', verbose_name=_("Date"))
+dd.update_field(Event, 'start_time', verbose_name=_("Time"))
+
+EventType._meta.verbose_name = _("Service type")
+EventType._meta.verbose_name_plural = _("Service types")
+
 
 # The default value can remain "invited" as defined in xl because we have force_guest_states
 # dd.update_field(Guest, 'state', default=GuestStates.present) # fails because GuestStates is not yet populated
 # dd.update_field(Guest, 'state', default=GuestStates.as_callable('present'))
 
+class GuestRole(Referrable, GuestRole):
 
+    class Meta(GuestRole.Meta):
+        abstract = dd.is_abstract_model(__name__, 'GuestRole')
+
+class GuestRoles(GuestRoles):
+    order_by = ['ref', 'name']
+    column_names = "ref name id *"
+    detail_layout = """
+    ref name id
+    cal.GuestsByRole #courses.EnrolmentsByGuestRole
+    """
+        
+        
 class Guest(Guest, Invoiceable):
     invoiceable_date_field = 'event__start_date'
 
@@ -181,4 +201,13 @@ class GuestDetail(dd.DetailLayout):
     event partner role
     state workflow_buttons 
     remark amount
+    """
+    
+class EventInsert(EventInsert):
+    main = """
+    start_date start_time
+    project
+    event_type
+    summary
+    user
     """

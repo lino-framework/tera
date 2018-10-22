@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2017 Luc Saffre
+# Copyright 2013-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """
@@ -13,6 +13,7 @@ from __future__ import print_function
 from builtins import str
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import format_lazy
 
 from lino.api import dd, rt
 
@@ -27,24 +28,14 @@ contacts = dd.resolve_app('contacts')
 from lino_xl.lib.cal.ui import EntriesByController
 
 
-# class CourseTypes(dd.Table):
-#     model = 'courses.CourseType'
-#     required_roles = dd.login_required(CoursesUser)
-#     detail_layout = """
-#     id name
-#     courses.LinesByType
-#     """
-
-
 Lines.detail_layout = """
     id name ref
-    course_area #topic fees_cat fee options_cat body_template
+    course_area #topic fees_cat fee #options_cat body_template
     #course_type event_type guest_role every_unit every
     description
     excerpt_title
     courses.CoursesByLine
     """
-
 
 # Enrolments.detail_layout = """
 #     request_date user course
@@ -95,9 +86,50 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
 
     """
     # variable_row_height = True
-    column_names = 'request_date pupil start_date end_date '\
+    column_names = 'request_date pupil guest_role start_date end_date '\
+                   'fee ' \
+                   'workflow_buttons *'
+    insert_layout = """
+    pupil guest_role
+    remark
+    # request_date user
+    """
+
+class EnrolmentsAndPaymentsByCourse(Enrolments):
+    """Show enrolments of a course together with
+    :attr:`payment_info`.
+
+    This is used by `payment_list.body.html`.
+
+    
+
+    """
+    master_key = 'course'
+    column_names = "pupil_info start_date payment_info"
+
+
+class EnrolmentsByLifeGroup(EnrolmentsByCourse):
+    column_names = 'request_date pupil '\
                    'remark fee ' \
                    'workflow_buttons *'
+    insert_layout = """
+    pupil guest_role
+    # places option
+    remark
+    # request_date user
+    """
+
+
+class EnrolmentsByTherapy(EnrolmentsByLifeGroup):
+    column_names = 'pupil guest_role remark ' \
+                   'workflow_buttons *'
+    
+    insert_layout = """
+    pupil guest_role
+    # places option
+    remark
+    # request_date user
+    """
 
 
 class EnrolmentsByFee(EnrolmentsByCourse):
@@ -114,6 +146,25 @@ class EntriesByCourse(EntriesByController):
                    "start_time end_time room summary *"
 
     display_mode = "summary"
+
+class CoursesByLine(CoursesByLine):
+    """Like :class:`lino_xl.lib.courses.CoursesByLine`, but with other
+    default values in the filter parameters. In Voga we want to see
+    only courses for which new enrolments can happen.
+    
+    TODO: when Lino gets class-based user roles, move this back to the
+    library table and show all courses only for users with user_type
+    `courses.CourseStaff`.
+
+    """
+    # detail_layout = Courses.detail_layout
+
+    @classmethod
+    def param_defaults(self, ar, **kw):
+        kw = super(CoursesByLine, self).param_defaults(ar, **kw)
+        kw.update(state=CourseStates.active)
+        kw.update(can_enroll=dd.YesNo.yes)
+        return kw
 
 
 class CourseDetail(CourseDetail):
@@ -152,156 +203,9 @@ class CourseDetail(CourseDetail):
     """, label=_("More"))
 
 
-# Course.detail_layout_class = CourseDetail
-# Courses._course_area = CourseAreas.default
 Courses.order_by = ['ref', '-start_date', '-start_time']
 Courses.column_names = "ref name start_date enrolments_until line teacher " \
                        "workflow_buttons *"
-
-
-
-# class Courses(Courses):
-#     # detail_layout = CourseDetail()
-#     order_by = ['ref', '-start_date', '-start_time']
-#     column_names = "ref start_date enrolments_until line room teacher " \
-#                    "workflow_buttons *"
-
-
-# @dd.receiver(dd.pre_analyze)
-# def customize_courses(sender, **kw):
-#     sender.modules.courses.Courses.set_detail_layout(CourseDetail())
-
-if False:
-
-    # Exception: Cannot reuse detail_layout of <class
-    # 'lino_xl.lib.courses.models.CoursesByTeacher'> for <class
-    # 'lino_xl.lib.courses.models.CoursesBySlot'>
-
-    class Courses(Courses):
-
-        parameters = dict(Courses.parameters,
-            city=dd.ForeignKey('countries.Place', blank=True, null=True))
-
-        params_layout = """line city teacher user state active:10"""
-
-        @classmethod
-        def get_request_queryset(self, ar):
-            qs = super(Courses, self).get_request_queryset(ar)
-            if ar.param_values.city:
-                flt = Q(room__isnull=True)
-                flt |= Q(room__company__city=ar.param_values.city)
-                qs = qs.filter(flt)
-            return qs
-
-        @classmethod
-        def get_title_tags(self, ar):
-            for t in super(Courses, self).get_title_tags(ar):
-                yield t
-            if ar.param_values.city:
-                yield _("in %s") % ar.param_values.city
-
-        @dd.chooser()
-        def city_choices(cls):
-            Place = rt.models.countries.Place
-            Room = rt.models.cal.Room
-            places = set([
-                obj.company.city.id
-                for obj in Room.objects.filter(company__isnull=False)])
-            # logger.info("20140822 city_choices %s", places)
-            return Place.objects.filter(id__in=places)
-
-    class SuggestedCoursesByPupil(SuggestedCoursesByPupil):
-        button_text = _("Suggestions")
-        params_layout = 'line city teacher active'
-
-        @classmethod
-        def param_defaults(self, ar, **kw):
-            kw = super(SuggestedCoursesByPupil, self).param_defaults(ar, **kw)
-            # kw.update(active=dd.YesNo.yes)
-            pupil = ar.master_instance
-            if pupil and pupil.city:
-                kw.update(city=pupil.city)
-            return kw
-
-
-# class CoursesByTopic(CoursesByTopic):
-#     """Shows the courses of a given topic.
-
-#     This is used both in the detail window of a topic and in
-#     :class:`StatusReport`.
-
-#     """
-#     order_by = ["ref"]
-#     column_names = "overview weekdays_text:10 times_text:10 * "
-
-#     # detail_layout = Courses.detail_layout
-
-#     @classmethod
-#     def param_defaults(self, ar, **kw):
-#         kw = super(CoursesByTopic, self).param_defaults(ar, **kw)
-#         kw.update(state=CourseStates.active)
-#         kw.update(can_enroll=dd.YesNo.yes)
-#         return kw
-
-
-class CoursesByLine(CoursesByLine):
-    """Like :class:`lino_xl.lib.courses.CoursesByLine`, but with other
-    default values in the filter parameters. In Voga we want to see
-    only courses for which new enrolments can happen.
-    
-    TODO: when Lino gets class-based user roles, move this back to the
-    library table and show all courses only for users with user_type
-    `courses.CourseStaff`.
-
-    """
-    # detail_layout = Courses.detail_layout
-
-    @classmethod
-    def param_defaults(self, ar, **kw):
-        kw = super(CoursesByLine, self).param_defaults(ar, **kw)
-        kw.update(state=CourseStates.active)
-        kw.update(can_enroll=dd.YesNo.yes)
-        return kw
-
-
-# class LinesByType(Lines):
-#     master_key = 'course_type'
-
-
-# class ActiveCourses(ActiveCourses):
-#     column_names = 'info max_places enrolments teacher line room *'
-#     hide_sums = True
-
-
-
-
-class EnrolmentsAndPaymentsByCourse(Enrolments):
-    """Show enrolments of a course together with
-    :attr:`payment_info`.
-
-    This is used by `payment_list.body.html`.
-
-    
-
-    """
-    master_key = 'course'
-    column_names = "pupil_info start_date payment_info"
-
-
-class EnrolmentsByLifeGroup(EnrolmentsByCourse):
-    column_names = 'request_date pupil '\
-                   'remark fee ' \
-                   'workflow_buttons *'
-    insert_layout = """
-    pupil
-    places option
-    remark
-    request_date user
-    """
-
-
-class EnrolmentsByTherapy(EnrolmentsByLifeGroup):
-    pass
 
 
 class LifeGroupDetail(CourseDetail):
@@ -318,6 +222,8 @@ class TherapyDetail(CourseDetail):
     """, label=_("Participants"))
 
     enrolments_top = 'enrolments_until fee:15 print_actions:15'
+
+
 
 class LifeGroups(Courses):
     _course_area = CourseAreas.life_groups
@@ -356,7 +262,6 @@ class ActivitiesByPartner(Activities):
 #     column_names = "ref name line teacher workflow_buttons *"
 #     order_by = ['-ref']
 
-from django.utils.text import format_lazy
     
 class MyCoursesGiven(MyCoursesGiven):
     # label = _("Therapies held by me")

@@ -4,6 +4,56 @@
 
 from lino.api import dd, rt, _
 
+from lino_xl.lib.courses.choicelists import *
+
+CourseAreas.clear()
+add = CourseAreas.add_item
+add('IT', _("Individual therapies"), 'therapies', 'courses.Therapies')
+    # force_guest_states=True)
+add('LG', _("Life groups"), 'life_groups', 'courses.LifeGroups')
+    # force_guest_states=True)
+add('OG', _("Other groups"), 'default', 'courses.Courses')
+
+
+# Stand der Beratung:
+# 01 dauert an                                
+# 03 abgeschlossen                            
+# 05 automatisch abgeschlossen                
+# 06 Abbruch der Beratung                     
+# 09 Weitervermittlung                        
+# 12 nur Erstkontakt
+CourseStates.clear()
+add = CourseStates.add_item
+add('01', _("Started"), 'active',
+    editable=False, invoiceable=True, active=True)
+add('03', _("Closed"), 'closed',
+    editable=False, invoiceable=False, active=False)
+add('05', _("Inactive"), 'inactive',
+    editable=False, invoiceable=False, active=False)
+add('06', _("Cancelled"), 'cancelled',
+    editable=False, invoiceable=False, active=False)
+add('09', _("Forwarded"), 'forwarded',
+    editable=False, invoiceable=False, active=False)
+add('12', _("First contact"), 'draft',
+    editable=True, invoiceable=False, active=True)
+
+# EnrolmentStates.default_value = 'confirmed'
+EnrolmentStates.clear()
+add = EnrolmentStates.add_item
+add('01', _("Confirmed"), 'confirmed', invoiceable=True, uses_a_place=True)
+add('03', _("Closed"), 'closed', invoiceable=False, uses_a_place=False)
+add('05', _("Inactive"), 'inactive', invoiceable=False, uses_a_place=False)
+add('06', _("Cancelled"), 'cancelled', invoiceable=False, uses_a_place=False)
+add('09', _("Forwarded"), 'forwarded', invoiceable=False, uses_a_place=False)
+add('12', _("First contact"), 'requested', invoiceable=False, uses_a_place=False)
+add('00', _("Trying"), 'trying', invoiceable=False, uses_a_place=False)
+add('02', _("Active"), 'active', invoiceable=True, uses_a_place=True)
+# add('04', _("04"), invoiceable=False, uses_a_place=False)
+# add('08', _("08"), invoiceable=False, uses_a_place=False)
+# add('11', _("11"), invoiceable=False, uses_a_place=False)
+# add('99', _("99"), invoiceable=False, uses_a_place=False)
+
+
 class TranslatorTypes(dd.ChoiceList):
     verbose_name = _("Translator type")
     verbose_name_plural = _("Translator types")

@@ -12,7 +12,7 @@ from lino_xl.lib.contacts.models import *
 #from lino_xl.lib.working.mixins import Workable
 
 #from lino_xl.lib.coachings.mixins import Coachable
-# from lino_xl.lib.courses.mixins import Enrollable
+from lino_xl.lib.courses.mixins import Enrollable
 
 # class Partner(Partner, Coachable):
 
@@ -21,11 +21,11 @@ from lino_xl.lib.contacts.models import *
 #         abstract = dd.is_abstract_model(__name__, 'Partner')
 
 
-# class Person(Person, Enrollable):
+class Person(Person, Enrollable):
 
-#     class Meta(Person.Meta):
-#         app_label = 'contacts'
-#         abstract = dd.is_abstract_model(__name__, 'Person')
+    class Meta(Person.Meta):
+        app_label = 'contacts'
+        abstract = dd.is_abstract_model(__name__, 'Person')
 
 
 # class Company(Partner, Company):

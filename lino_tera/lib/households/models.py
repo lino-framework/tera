@@ -43,7 +43,7 @@ class HouseholdDetail(dd.DetailLayout):
     activities = dd.Panel("""
     language:10 type salesrule__invoice_recipient client_state
     courses.ActivitiesByPartner
-    """, label=_("Activities"))
+    """, label=_("Dossiers"))
 
     misc = dd.Panel("""
     ledger.MovementsByPartner
