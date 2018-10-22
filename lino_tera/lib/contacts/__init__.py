@@ -8,7 +8,6 @@ The `contacts` plugin specific to :ref:`psico`.
 .. autosummary::
    :toctree:
 
-    models
     fixtures
     choicelists
 

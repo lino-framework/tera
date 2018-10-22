@@ -7,7 +7,6 @@ The main plugin for Lino Tera.
 .. autosummary::
    :toctree:
 
-    models
     migrate
     user_types
     workflows
