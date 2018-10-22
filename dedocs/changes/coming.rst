@@ -27,10 +27,13 @@ Aktuelle Fragen:
   nicht auch noch eine Einzeltherapie... aber da gibt es bestimmt
   Ausnahmen. En attendant haben Fälle wie Kylie in Lino zwei
   Therapien.
-- Beispiel Patient 2070105.  Zustand der Akten wird importiert, aber
-  Lino zeigt in CoursesByClient den Teilnahmezustand, nicht den der
-  Akte.  Außerdem zeigt er sie immer alle an, auch die stornierten und
-  inaktiven.
+  
+  Ich könnte einen Nachlauf programmieren, der alle ET löscht, deren
+  Patient auch in anderen Akten Teilnehmer ist.
+  
+- Beispiel Patient 2070105.  Lino zeigt immer alle Akten an, auch die
+  stornierten und inaktiven.  Ist das okay?
+  
 
 
 Zeitplan:
