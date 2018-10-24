@@ -31,9 +31,11 @@ Lino Tera is a customizable management system for therapeutic centres.
   please see `www.saffre-rumma.net
   <http://www.saffre-rumma.net/noi/>`__.
 
-- There is also an official --and uncomplete-- `User's Manual in
-  German
-  <https://github.com/lino-framework/tera/raw/master/docs/dl/Handbuch_Lino_Tera.pdf>`__.
+- There is also a User's Manual in German: `online using Sphinx
+  <http://tera-handbuch.lino-framework.org/>`__ (work in progress) and
+  `PDF using LibreOffice
+  <https://github.com/lino-framework/tera/raw/master/docs/dl/Handbuch_Lino_Tera.pdf>`__
+  (not maintained).
 
 
 

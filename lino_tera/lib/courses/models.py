@@ -145,9 +145,11 @@ class Course(Referrable, Course):
         default=PartnerTariffs.as_callable('plain'))
     translator_type = TranslatorTypes.field(blank=True)
     therapy_domain = TherapyDomains.field(blank=True)
+    team = dd.ForeignKey('teams.Team', blank=True, null=True)
     
     partner = dd.ForeignKey(
         'contacts.Partner',
+        verbose_name=_("Invoice recipient"),
         # related_name="%(app_label)s_%(class)s_set_by_client",
         blank=True, null=True)    
 
@@ -277,7 +279,7 @@ class Course(Referrable, Course):
 
 # Course.set_widget_options('ref', preferred_with=6)
 # dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
-dd.update_field(Course, 'partner', verbose_name=_("Invoicing address"))
+# dd.update_field(Course, 'partner', verbose_name=_("Invoicing address"))
 #  dd.update_field(Course, 'teacher', verbose_name=_("Therapist"))
 dd.update_field(Course, 'user', verbose_name=_("Manager"))
 
@@ -308,11 +310,11 @@ class Enrolment(Enrolment):
 
     """
 
-    class Meta:
+    class Meta(Enrolment.Meta):
         app_label = 'courses'
-        abstract = False  # dd.is_abstract_model(__name__, 'Enrolment')
-        verbose_name = _("Attendance")
-        verbose_name_plural = _("Attendances")
+        abstract = dd.is_abstract_model(__name__, 'Enrolment')
+        # verbose_name = _("Attendance")
+        # verbose_name_plural = _("Attendances")
 
     guest_role = dd.ForeignKey(
         'cal.GuestRole', verbose_name=_("Role"), blank=True, null=True)
@@ -383,3 +385,6 @@ class Enrolment(Enrolment):
         return self.guest_role or super(Enrolment, self).get_guest_role()
         
 
+dd.update_field(
+    Enrolment, 'overview',
+    verbose_name=Course._meta.verbose_name)

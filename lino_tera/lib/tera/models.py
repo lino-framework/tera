@@ -270,7 +270,7 @@ class ClientDetail(PersonDetail):
     """, label=_("Address"))
 
     general2 = """
-    id:10 team 
+    id:10 
     user
     language #birth_date age:10 #gender:10
     nationality:15 

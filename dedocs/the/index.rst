@@ -54,3 +54,33 @@ Wähle im Hauptmenü :menuselection:`Akten --> Meine Akten`, um alle
 Akten zu sehen, deren verantworlicher Therapeut Du bist.  Hier kannst
 Du z.B. eine neue Akte einfügen (Button |insert| in der
 Werkzeugleiste) oder die Akte aussuchen, mit der Du arbeiten möchtest.
+
+Der **Rechnungsempfänger** einer Akte ist der Partner, der die
+Rechnungen kriegt und bezahlen muss.  Das kann eine Person, eine
+Organisation oder ein Haushalt sein.  Dieses Feld kann leer sein,
+z.B. in therapeutischen Gruppen. In diesem Fall sind die einzelnen
+Teilnehmer Rechnungsempfänger.
+
+
+
+Meine Akten
+===========
+
+Jede Akte hat einen einzigen verantwortlichen Therapeuten.  Wenn
+dieser wechselt, kann man entweder eine neue Akte starten oder die
+bestehende verändern.
+
+Die Tabelle "Meine Akten" gibt es in zwei Versionen: für Therapeuten
+und für das Sekretariat.
+
+Der Verwalter einer Therapie kann ein anderer sein als der
+Therapeut. Zum Beispiel für Therapien, deren Termine durch das
+Sekretariat verwalten werden.
+
+
+Akten mit mehr als einem Therapeuten
+====================================
+
+In Akten mit mehr als einem Therapeuten müssen die Therapeuten
+sich einigen, wer in Lino der Verantwortliche ist.  Die anderen
+Therapeuten stehen als Cotherapeuten in der Liste der Teilnehmer.

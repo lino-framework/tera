@@ -2,50 +2,32 @@
 Einführung
 ==========
 
-Patienten, Therapien und Akten
-==============================
+Patienten, Akten und Einschreibungen
+====================================
 
 Schon in TIM wurden Therapien "Akten" genannt. Die Akten eines
 gleichen Patienten wurden in TIM über ihre Erstanfrage verknüpft.
-Lino unterscheidet zwischen "Patienten" und "Akten".  Eine Akte wird
-fakturiert an einen Partner, die "Fakturierungsadresse", die auch eine
-Organisation oder ein Haushalt sein kann.  Anders als der Zahler in
-TIM ist in Lino Fakturierungsadresse immer ausgefüllt.
+Lino unterscheidet zwischen "Patienten" und "Akten".
 
-Jeder Patient wird nur einmal erfasst, aber ein Patient kann an
-mehreren Therapien teilnehmen, im Laufe der Jahre oder zeitgleich.
+Jeder Patient entspricht einer physischen Person und wird nur einmal
+erfasst.  Ein Patient kann an mehreren Akten teilnehmen, im Laufe der
+Jahre oder zeitgleich.  Das nennen wir in Lino dann eine
+"Einschreibung" (bzw.  "Teilnahme"). Eine Einschreibung ist die
+Tatsache, dass ein bestimmter Patient an dieser bestimmten Akte
+teilnimmt.
 
-Es gibt drei Arten von Therapien: Einzeltherapien (ET), Lebensgruppen
-(LG) und Therapeutische Gruppen (TG).
+Patienten werden eher im Sektretariat erstellt und verwaltet, Akten
+eher durch den Therapeuten.
 
-Jede Therapie hat einen einzigen verantwortlichen Therapeuten. Wenn
-dieser wechselt, kann man entweder eine neue Therapie starten oder die
-bestehende verändern.
+Es gibt drei Arten von Akten: Einzeltherapien (ET), Lebensgruppen (LG)
+und Therapeutische Gruppen (TG).  Eine Akte kann mehrere Teilnehmer
+haben. Bei ET ist das eher die Ausnahme (aber durchaus möglich), bei
+LG sind es eher wenige und konstante Teilnehmer, bei TG können es
+viele sein und die Teilnehmerliste kann sich ändern.
 
-Eine Therapie kann mehrere Teilnehmer haben. Bei ET ist das eher die
-Ausnahme (aber durchaus möglich), bei LG sind es eher wenige und
-konstante Teilnehmer, bei TG können es viele sein und die
-Teilnehmerliste kann sich ändern.
-
-Lino unterscheidet zwischen Therapien und "Teilnahmen". Eine Teilnahme
-ist die Tatsache, dass ein bestimmter Patient an dieser bestimmten
-Therapie teilnimmt. Diese Unterscheidung ist wichtig in für LG und TG.
-Eine ET wird in Lino behandelt wie eine Therapie mit nur einer
-Teilnahme.
-
-Meine Akten
-===========
-
-Die Tabelle "Meine Akten" gibt es in zwei Versionen: für Therapeuten
-und für das Sekretariat.
-
-Der Verwalter einer Therapie kann ein anderer sein als der
-Therapeut. Zum Beispiel für Therapien, deren Termine durch das
-Sekretariat verwalten werden.
-
-Der Patient wird im Sektretariat erfasst.
-
-Die Akte (Therapie) wird durch den Therapeuten erstellt und verwaltet.
+Der Unterschied zwischen Akte und Einschreibung ist wichtig in LG und
+TG.  Eine ET wird in Lino behandelt wie eine Therapie mit nur einer
+Einschreibung.
 
 
 Dienstleistungen sind Termine
@@ -55,18 +37,9 @@ Das, was in TIM "Dienstleistung" hieß, heißt in Lino eher "Termin".
 Ein Termin ist, wenn ein Therapeut (oder mehrere) sich mit einem (oder
 mehreren) Patienten trifft.
 
-   
-Therapien mit mehr als einem Therapeuten
-========================================
+Pro Termin muss man die wie in TIM die *Dienstleistungsart* eingeben.
 
-In Therapien mit mehr als einem Therapeuten müssen die Therapeuten
-sich einigen, wer in Lino der Verantwortliche ist.  Die anderen
-Therapeuten stehen als Cotherapeuten in der Liste der Teilnehmer.
-
-
-Dienstleistungsarten
-====================
-   
+ 
 Erstgespräche
 =============
 
@@ -75,4 +48,13 @@ Patient mit einem Therapeuten zu einem Erstgespräch treffen.  Dort
 wird entschieden, bei welchem Therapeuten der Patient eine Therapie
 startet.  Zu diesem Zeitpunkt existiert noch keine Akte.
 
+
+Notizen
+=======
+
+Pro Termin gibt es ein Feld *Beschreibung*. Das sollte man aber nicht
+als Bericht
+
+Berichte kann man momentan als  oder als Notiz
+erfassen.
 

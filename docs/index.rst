@@ -12,13 +12,3 @@ Welcome to the **Lino Tera** project homepage.
   print(SETUP_INFO['long_description'])
 
 
-Content
-========
-
-.. toctree::
-   :maxdepth: 1
-
-   guide/index
-   changes/index
-
-

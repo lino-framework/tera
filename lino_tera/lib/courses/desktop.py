@@ -171,9 +171,9 @@ class CourseDetail(CourseDetail):
     main = "general enrolments calendar notes more"
     general = dd.Panel("""
     ref name #household:20 partner client:20
-    therapy_domain procurer mandatory translator_type 
+    team therapy_domain procurer mandatory translator_type 
     line user teacher workflow_buttons
-    remark topics.InterestsByController
+    topics.InterestsByController notes.NotesByProject 
     """, label=_("General"))
 
     calendar = dd.Panel("""
@@ -191,7 +191,7 @@ class CourseDetail(CourseDetail):
     enrolments_top = 'enrolments_until print_actions:15'
 
     notes = dd.Panel("""
-    notes.NotesByProject
+    remark
     #comments.CommentsByRFC cal.TasksByProject
     """, label = _("Notes"))
 
