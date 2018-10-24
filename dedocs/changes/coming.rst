@@ -5,8 +5,15 @@ Kommende Version
 ================
 
 Änderungen seit der Besprechung vom 2018-10-09.
+Nächste Besichtigung geplant am 2018-11-06.
 
-Offene Entscheidungen:
+.. contents::
+  :local:
+
+
+
+Offene Entscheidungen
+=====================
 
 - Wird die Bargeldkasse der Therapeuten abgeschafft?  Abrechnungen
   würden sich erübrigen.
@@ -14,39 +21,11 @@ Offene Entscheidungen:
 - Kommt eine monatliche Tarifordnung? Zählen die Anwesenheiten auch
   für Fakturierung? Stattdessen könnten wir Abonnements einführen
   (eine Rechnung pro Monat für alle Termine einer Therapie).
-
-Aktuelle Fragen:
-
-- Werden die Notizen richtig importiert? Momentan kann man Notizen nur
-  pro Akte anzeigen/erfassen.
   
-- Wir hatten ein Fallbeispiel "Kylie B hat ET in Lino, was nicht
-  stimmt" gesehen. Das kommt, weil in TIM für Kylie ein PAR mit IdPrt
-  P steht, weil sie ja als Kind in einer Lebensgruppe mitmacht. Aber
-  woher soll Lino wissen, dass Kylie keine Einzeltherapie hat sondern
-  nur als Kind einer anderen Therapie benutzt wird? Okay,
-  normalerweise haben Personen, die in einer LG oder TG mitmachen,
-  nicht auch noch eine Einzeltherapie... aber da gibt es bestimmt
-  Ausnahmen. En attendant haben Fälle wie Kylie in Lino zwei
-  Therapien.
-  
-  Ich habe einen Nachlauf programmiert, der alle ET löscht, für die
-  keine Notiz existiert und deren Patient auch in anderen Akten
-  Teilnehmer ist.
-  
-- Beispiel Patient 2070105.  Lino zeigt immer alle Akten an, auch die
-  stornierten und inaktiven.  Ist das okay?
 
-- Beruf, Lebensweise und Zivilstand werden pro *Patient* (nicht pro
-  Akte) importiert.
-  Abteilung und Bereich pro Akte.
-  Tarif pro Einschreibung.
-  Stimmt das?
+Übersicht Zeitplan
+==================
 
-Zeitplan:
-
-- Nächste Besichtigung vorgesehen für 2018-11-06.
-  
 - **November 2018** : letzte Arbeiten.  Ziel ist, dass die Therapeuten
   ihre alltägliche Arbeit in Lino erledigen können wie bisher in TIM:
   Akten, Termine und Notizen erfassen und verwalten.
@@ -61,31 +40,50 @@ Zeitplan:
 - **Januar 2019** : Das Sekretariat kann Verkaufsrechnungen
   generieren.
 
-- Entwicklungsprojekt 2019 : Kalenderplanung.  Lino könnte dann
+- Entwicklungsprojekt **Kalenderplanung** : Lino könnte dann
   Terminvorschläge generieren und hilft bei der Erstellung des
   Wochenplans.  Wichtig insbesondere für die Termine im KITZ.  Es gäbe
-  einen Stundenplan und Ausnahmeregelungen.
+  einen Stundenplan und Ausnahmeregelungen.  Dazu gehört auch
+  eventuelle Integration mit Kopano und Hochladen von Dateien.  Die
+  Kalenderfunktionen soll entweder in Lino so gut werden, dass Kopano
+  nicht mehr nötig ist oder mit Kopano synchronisiert sein.
+  
 
-Tagesordnung:
+Tagesordnung 2018-11-06
+=======================
+
+**Lagebericht**
 
 - Das, was wir am 2018-10-09 besprochen haben ist theoretisch gemacht.
   Ich habe nicht jedes Detail hier dokumentiert, weil wir noch in der
-  iterativen Entwicklungsphase sind.
+  iterativen Entwicklungsphase sind.  Siehe auch :doc:`/intro`,
+  :doc:`/the/index` und :doc:`/sek/index`.
 
-  Dienstleistungen (Termine und Anwesenheiten) werden regelmäßig aus
+- Dienstleistungen (Termine und Anwesenheiten) werden regelmäßig aus
   TIM nach Lino importiert.  In Lino sind sie bisher nur zum Spielen.
   Alle Änderungen in Lino gehen beim jeweils nächsten Import verloren.
 
-  Buchhaltung: Einkaufsrechnungen und Kontoauszüge könnten schon jetzt
-  direkt in Lino erfasst werden, aber Vera ist noch nicht
-  bei. Buchhaltung 2018 wird parallel auch beim Steuerberater
-  erfasst. Die Daten in Lino sind da, um zu überprüfen.
+- Buchhaltung: Einkaufsrechnungen und Kontoauszüge könnten schon jetzt
+  direkt in Lino erfasst werden, aber Vera ist noch nicht bei.
+  Buchhaltung 2018 wird parallel auch beim Steuerberater erfasst. Die
+  Daten in Lino sind da, um zu überprüfen.
   
-- Verkaufsrechnungen werden noch mit TIM erstellt und ausgedruckt und
+  Verkaufsrechnungen werden noch mit TIM erstellt und ausgedruckt und
   dann aus TIM nach Lino importiert (tl3.py).
   
-- Statt "Therapie" sagt Lino jetzt "Akte", um beim etablierten
-  Wortschatz bleiben. "Akten" steht jetzt an erster Stelle im Menü.
+**Wichtige Fragen:**
+
+- Werden die Notizen richtig importiert? Momentan kann man Notizen nur
+  pro Akte anzeigen/erfassen.
+  
+- Beispiel Patient 2070105.  Lino zeigt immer alle Akten an, auch die
+  stornierten und inaktiven.  Ist das okay?
+
+- Beruf, Lebensweise und Zivilstand werden pro *Patient* (nicht pro
+  Akte) importiert.
+  Abteilung und Bereich pro Akte.
+  Tarif pro Einschreibung.
+  Stimmt das?
 
 - Wir haben gesagt, dass bei Akten mit zwei Therapeuten der
   Cotherapeut mit den Patienten in der Liste der Teilnehmer kommt.
@@ -99,9 +97,19 @@ Tagesordnung:
 
 - Sind die PAR->IdUsrN aus TIM jetzt korrekt importiert?  
 
-Falls Zeit bleibt:  
+**Falls Zeit bleibt**
 
 - Abrechnung an Krankenkassen
+  
+- Wir hatten ein Fallbeispiel "Kylie B hat ET in Lino, was nicht
+  stimmt" gesehen. Das kam, weil in TIM für Kylie ein PAR mit IdPrt P
+  steht, weil sie ja als Kind in einer Lebensgruppe mitmacht.  Woher
+  soll Lino wissen, dass Kylie keine Einzeltherapie hat sondern nur
+  als Kind einer anderen Therapie benutzt wird? Okay, normalerweise
+  haben Personen, die in einer LG oder TG mitmachen, nicht auch noch
+  eine Einzeltherapie... aber da gibt es bestimmt Ausnahmen.  Ich habe
+  einen Nachlauf programmiert, der alle ET löscht, für die keine Notiz
+  existiert und deren Patient auch in anderen Akten Teilnehmer ist.
   
 - Momentan habt ihr nur eine Telefonnummer, GSM-Nr und E-Mail-Adresse
   pro Partner. In Lino könnte man auch mehrere "Kontaktdaten" pro
@@ -122,10 +130,6 @@ Falls Zeit bleibt:
   
 - Klären, wie die Securex-Rechnungen verbucht werden sollen.
 
-- Die Kalenderfunktionen soll entweder (1) so gut werden, dass
-  OpenExchange nicht mehr nötig ist oder (2) mit Kopano synchronisiert
-  sein.
-  
 - "endet um" kann bis auf weiteres leer sein
   
 - Tagesplaner
@@ -141,10 +145,14 @@ Falls Zeit bleibt:
   conversions. e.g. Person -> Houshold, Person -> Partner should be
   hidden for normal users.
 
-TODO:
+TODO
+====
 
-- "Arbeiten als" zeigt auch den aktuellen User an.
+- Feld *Verwalter* aller Akten ist leer. Hier muss der Therapeut rein
+  importiert werden.
 
-- Professional situation : Liste übersetzen. "Homemaker" ersetzen
-  durch "Housewife"?
-  
+- Im Feld *Rolle* von Familienakten steht momentan die Nummer. Liegt
+  am Datenimport.
+
+- Im Feld *Therapieart* steht die Auswahl nach einem Import auf EN und
+  muss manuell nach DE übersetzt werden.

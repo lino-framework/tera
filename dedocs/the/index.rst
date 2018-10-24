@@ -3,9 +3,9 @@
 .. |search|  image:: /images/buttons/search.png
 .. |refresh|  image:: /images/buttons/refresh.png
 
-===========
-Therapeuten
-===========
+=============================
+Was Therapeuten wissen müssen
+=============================
 
 
 Termine erfassen
