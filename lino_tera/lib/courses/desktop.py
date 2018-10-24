@@ -159,8 +159,7 @@ class CoursesByLine(CoursesByLine):
     @classmethod
     def param_defaults(self, ar, **kw):
         kw = super(CoursesByLine, self).param_defaults(ar, **kw)
-        kw.update(state=CourseStates.active)
-        kw.update(can_enroll=dd.YesNo.yes)
+        kw.update(show_active=dd.YesNo.yes)
         return kw
 
 
@@ -200,12 +199,6 @@ class CourseDetail(CourseDetail):
     invoicing.InvoicingsByInvoiceable excerpts.ExcerptsByProject
     """, label=_("More"))
 
-
-Courses.order_by = ['ref', '-start_date', '-start_time']
-Courses.column_names = "ref name start_date enrolments_until line teacher " \
-                       "workflow_buttons *"
-
-
 class LifeGroupDetail(CourseDetail):
     enrolments = dd.Panel("""
     enrolments_top
@@ -222,10 +215,21 @@ class TherapyDetail(CourseDetail):
     enrolments_top = 'enrolments_until fee:15 print_actions:15'
 
 
+class Courses(Courses):
+    # other groups
+    order_by = ['ref', '-start_date', '-start_time']
+    column_names = "ref name teacher start_date end_date " \
+                   "workflow_buttons *"
+    @classmethod
+    def param_defaults(self, ar, **kw):
+        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw.update(show_active=dd.YesNo.yes)
+        return kw
+
 
 class LifeGroups(Courses):
     _course_area = CourseAreas.life_groups
-    column_names = "ref name start_date enrolments_until line " \
+    column_names = "ref name teacher partner start_date end_date " \
                    "workflow_buttons *"
     detail_layout = 'courses.LifeGroupDetail'
     insert_layout = """
@@ -235,8 +239,9 @@ class LifeGroups(Courses):
 
 
 class Therapies(Courses):
+    # individual therapies
     _course_area = CourseAreas.therapies
-    column_names = "ref name user partner start_date end_date " \
+    column_names = "ref name teacher partner start_date end_date " \
                    "workflow_buttons *"
     detail_layout = 'courses.TherapyDetail'
     insert_layout = """
@@ -244,7 +249,7 @@ class Therapies(Courses):
     start_date
     """
 
-class ActivitiesByPartner(Activities):
+class ActivitiesByPartner(Courses):
     master_key = 'partner'
     column_names = "start_date ref line workflow_buttons *"
     order_by = ['-start_date']

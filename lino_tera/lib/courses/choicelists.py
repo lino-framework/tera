@@ -24,8 +24,8 @@ add('OG', _("Other groups"), 'default', 'courses.Courses')
 # 12 nur Erstkontakt
 CourseStates.clear()
 add = CourseStates.add_item
-add('01', _("Started"), 'active',
-    editable=False, invoiceable=True, active=True,
+add('01', _("Active"), 'active',
+    editable=True, invoiceable=True, active=True,
     auto_update_calendar=False)
 add('03', _("Closed"), 'closed',
     editable=False, invoiceable=False, active=False,
