@@ -4,7 +4,7 @@
 Kommende Version
 ================
 
-Änderungen seit der Besprechung from 2018-10-09.
+Änderungen seit der Besprechung vom 2018-10-09.
 
 Offene Entscheidungen:
 

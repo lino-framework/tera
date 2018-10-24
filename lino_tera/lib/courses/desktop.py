@@ -2,10 +2,7 @@
 # Copyright 2013-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
-"""
-Desktop design for this plugin.
-
-"""
+# 
 
 from __future__ import unicode_literals
 from __future__ import print_function
@@ -170,8 +167,9 @@ class CoursesByLine(CoursesByLine):
 class CourseDetail(CourseDetail):
     main = "general enrolments calendar notes more"
     general = dd.Panel("""
-    ref name #household:20 partner client:20
-    team therapy_domain procurer mandatory translator_type 
+    ref name partner team
+    client:20 household:20 company:20
+    therapy_domain procurer mandatory translator_type 
     line user teacher workflow_buttons
     topics.InterestsByController notes.NotesByProject 
     """, label=_("General"))
@@ -238,7 +236,7 @@ class LifeGroups(Courses):
 
 class Therapies(Courses):
     _course_area = CourseAreas.therapies
-    column_names = "ref name start_date end_date enrolments_until line " \
+    column_names = "ref name user partner start_date end_date " \
                    "workflow_buttons *"
     detail_layout = 'courses.TherapyDetail'
     insert_layout = """
