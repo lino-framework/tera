@@ -156,3 +156,6 @@ TODO
 
 - Im Feld *Therapieart* steht die Auswahl nach einem Import auf EN und
   muss manuell nach DE übersetzt werden.
+  
+- Dienstleistungsarten brauchen ein Feld "ref", und im Tagesplaner
+  sollte diese angezeigt werden.
