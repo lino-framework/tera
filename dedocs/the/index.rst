@@ -84,3 +84,5 @@ Akten mit mehr als einem Therapeuten
 In Akten mit mehr als einem Therapeuten müssen die Therapeuten
 sich einigen, wer in Lino der Verantwortliche ist.  Die anderen
 Therapeuten stehen als Cotherapeuten in der Liste der Teilnehmer.
+
+

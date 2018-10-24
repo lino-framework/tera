@@ -52,9 +52,12 @@ startet.  Zu diesem Zeitpunkt existiert noch keine Akte.
 Notizen
 =======
 
-Pro Termin gibt es ein Feld *Beschreibung*. Das sollte man aber nicht
-als Bericht
+Therapeutische Berichte, die Du mit Kollegen teilen willst, solltest
+Du als **Notiz** erfassen.
 
-Berichte kann man momentan als  oder als Notiz
-erfassen.
+Pro Termin gibt es ein Feld *Beschreibung*. Das solltest Du aber nur
+für Informationen zur Terminplanung verwenden, die auch das
+Sekretariat sehen darf.
+
+Notizen beziehen sich immer auf eine und eine einzige Akte.
 
