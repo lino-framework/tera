@@ -28,8 +28,9 @@ Aktuelle Fragen:
   Ausnahmen. En attendant haben Fälle wie Kylie in Lino zwei
   Therapien.
   
-  Ich könnte einen Nachlauf programmieren, der alle ET löscht, deren
-  Patient auch in anderen Akten Teilnehmer ist.
+  Ich habe einen Nachlauf programmiert, der alle ET löscht, für die
+  keine Notiz existiert und deren Patient auch in anderen Akten
+  Teilnehmer ist.
   
 - Beispiel Patient 2070105.  Lino zeigt immer alle Akten an, auch die
   stornierten und inaktiven.  Ist das okay?
