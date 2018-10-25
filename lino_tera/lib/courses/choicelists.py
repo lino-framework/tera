@@ -25,22 +25,22 @@ add('OG', _("Other groups"), 'default', 'courses.Courses')
 CourseStates.clear()
 add = CourseStates.add_item
 add('01', _("Active"), 'active',
-    editable=True, invoiceable=True, active=True,
+    is_editable=True, is_invoiceable=True, is_exposed=True,
     auto_update_calendar=False)
 add('03', _("Closed"), 'closed',
-    editable=False, invoiceable=False, active=False,
+    is_editable=False, is_invoiceable=False, is_exposed=False,
     auto_update_calendar=False)
 add('05', _("Inactive"), 'inactive',
-    editable=False, invoiceable=False, active=False,
+    is_editable=False, is_invoiceable=False, is_exposed=False,
     auto_update_calendar=False)
 add('06', _("Cancelled"), 'cancelled',
-    editable=False, invoiceable=False, active=False,
+    is_editable=False, is_invoiceable=False, is_exposed=False,
     auto_update_calendar=False)
 add('09', _("Forwarded"), 'forwarded',
-    editable=False, invoiceable=False, active=False,
+    is_editable=False, is_invoiceable=False, is_exposed=False,
     auto_update_calendar=False)
 add('12', _("Draft"), 'draft',
-    editable=True, invoiceable=False, active=True,
+    is_editable=True, is_invoiceable=False, is_exposed=True,
     auto_update_calendar=False)
 
 # EnrolmentStates.default_value = 'confirmed'

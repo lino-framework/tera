@@ -159,7 +159,7 @@ class CoursesByLine(CoursesByLine):
     @classmethod
     def param_defaults(self, ar, **kw):
         kw = super(CoursesByLine, self).param_defaults(ar, **kw)
-        kw.update(show_active=dd.YesNo.yes)
+        kw.update(show_exposed=dd.YesNo.yes)
         return kw
 
 
@@ -223,7 +223,7 @@ class Courses(Courses):
     @classmethod
     def param_defaults(self, ar, **kw):
         kw = super(Courses, self).param_defaults(ar, **kw)
-        kw.update(show_active=dd.YesNo.yes)
+        kw.update(show_exposed=dd.YesNo.yes)
         return kw
 
 
