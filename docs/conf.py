@@ -25,7 +25,7 @@ extensions += ['lino.sphinxcontrib.logo']
 
 intersphinx_mapping = {}
 from importlib import import_module
-for n in 'atelier lino lino_xl lino_noi lino_book'.split():
+for n in 'atelier lino lino_xl lino_book'.split():
     m = import_module(n)
     n = n.replace('_', "")
     intersphinx_mapping[n] = (m.intersphinx_urls['docs'], None)
