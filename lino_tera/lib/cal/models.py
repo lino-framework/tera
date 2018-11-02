@@ -92,18 +92,18 @@ EventType._meta.verbose_name_plural = _("Service types")
 # dd.update_field(Guest, 'state', default=GuestStates.present) # fails because GuestStates is not yet populated
 # dd.update_field(Guest, 'state', default=GuestStates.as_callable('present'))
 
-class GuestRole(Referrable, GuestRole):
+# class GuestRole(Referrable, GuestRole):
 
-    class Meta(GuestRole.Meta):
-        abstract = dd.is_abstract_model(__name__, 'GuestRole')
+#     class Meta(GuestRole.Meta):
+#         abstract = dd.is_abstract_model(__name__, 'GuestRole')
 
-class GuestRoles(GuestRoles):
-    order_by = ['ref', 'name']
-    column_names = "ref name id *"
-    detail_layout = """
-    ref name id
-    cal.GuestsByRole #courses.EnrolmentsByGuestRole
-    """
+# class GuestRoles(GuestRoles):
+#     order_by = ['ref', 'name']
+#     column_names = "ref name id *"
+#     detail_layout = """
+#     ref name id
+#     cal.GuestsByRole #courses.EnrolmentsByGuestRole
+#     """
         
         
 class Guest(Guest, Invoiceable):

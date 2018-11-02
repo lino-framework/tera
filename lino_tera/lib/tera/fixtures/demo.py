@@ -73,6 +73,8 @@ def enrolments():
     UserTypes = rt.models.users.UserTypes
     Company = rt.models.contacts.Company
     Product = rt.models.products.Product
+    Topic = rt.models.topics.Topic
+    Interest = rt.models.topics.Interest
     ProductCat = rt.models.products.ProductCat
     Account = rt.models.ledger.Account
     CommonItems = rt.models.sheets.CommonItems
@@ -106,6 +108,10 @@ def enrolments():
     yield ind_therapy
     
     yield named(Product, _("Other"), sales_price=35)
+    
+    yield named(Topic, _("Alcoholism"), ref="A")
+    yield named(Topic, _("Phobia"), ref="P")
+    yield named(Topic, _("Insomnia"), ref="I")
 
     attendee = GuestRole(**dd.str2kw('name', _("Attendee")))
     yield attendee
@@ -148,6 +154,7 @@ def enrolments():
     PLACES = Cycler(rt.models.cal.Room.objects.all())
     TEACHERS = Cycler(Teacher.objects.all())
     SLOTS = Cycler(rt.models.courses.Slot.objects.all())
+    TOPICS = Cycler(rt.models.topics.Topic.objects.all())
 
     date = settings.SITE.demo_date(-200)
     qs = Client.objects.all()
@@ -171,6 +178,9 @@ def enrolments():
                 slot=SLOTS.pop())
             c = Course(**kw)
             yield c
+            yield Interest(partner=c, topic=TOPICS.pop())
+            if i % 3:  # some have a second topic
+                yield Interest(partner=c, topic=TOPICS.pop())
             yield Enrolment(pupil=obj, course=c, state='confirmed')
             c.save()  # fill presences
             ar = rt.login(c.user.username)

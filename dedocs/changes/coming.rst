@@ -145,17 +145,21 @@ Tagesordnung 2018-11-06
   conversions. e.g. Person -> Houshold, Person -> Partner should be
   hidden for normal users.
 
-TODO
-====
+testing
+=======
+
+- Dienstleistungsarten haben ein Feld "ref", und im Tagesplaner wird
+  diese angezeigt.
+  
+- Im Feld *Rolle* von Familienakten steht momentan die Nummer. Liegt
+  am Datenimport.
 
 - Feld *Verwalter* aller Akten ist leer. Hier muss der Therapeut rein
   importiert werden.
 
-- Im Feld *Rolle* von Familienakten steht momentan die Nummer. Liegt
-  am Datenimport.
-
 - Im Feld *Therapieart* steht die Auswahl nach einem Import auf EN und
   muss manuell nach DE übersetzt werden.
   
-- Dienstleistungsarten brauchen ein Feld "ref", und im Tagesplaner
-  sollte diese angezeigt werden.
+TODO
+====
+
