@@ -168,7 +168,7 @@ class Course(Referrable, Course):
         related_name="%(app_label)s_%(class)s_set_by_paper_type",
         blank=True, null=True)    
 
-    quick_search_fields = 'name line__name line__topic__name ref'
+    quick_search_fields = "ref name partner__name"
 
     @classmethod
     def get_registrable_fields(cls, site):
