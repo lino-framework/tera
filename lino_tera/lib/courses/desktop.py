@@ -141,8 +141,8 @@ class EnrolmentsByFee(EnrolmentsByCourse):
 class EntriesByCourse(EntriesByController):
     """Shows the events linked to this course.
     """
-    column_names = "start_date auto_type workflow_buttons "\
-                   "start_time end_time room summary *"
+    column_names = "start_date start_time auto_type "\
+                   "summary event_type user workflow_buttons *"
 
     display_mode = "summary"
 

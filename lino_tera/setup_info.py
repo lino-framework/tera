@@ -1,12 +1,12 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017 Luc Saffre
+# Copyright 2017-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 # $ python setup.py test -s tests.PackagesTests.test_packages
 
 SETUP_INFO = dict(
     name='lino-tera',
-    version='18.8.0',
+    version='18.11.0',
     install_requires=['lino-xl'],
     # tests_require=['pytest', 'mock'],
     test_suite='tests',
