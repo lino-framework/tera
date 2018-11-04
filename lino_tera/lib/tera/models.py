@@ -257,40 +257,31 @@ from lino_tera.lib.contacts.models import PersonDetail
 
 class ClientDetail(PersonDetail):
 
-    main = "general address activities sales more "
+    main = "general address client sales more "
 
-    general = dd.Panel("""
-    overview:30 general2:20 #courses.EnrolmentsByPupil:30
-    cal.GuestsByPartner
-    """, label=_("General"))
-
-    address = dd.Panel("""
-    address_box contact_box:30
-    clients.ContactsByClient contacts.RolesByPerson 
-    """, label=_("Address"))
-
-    general2 = """
-    id:10 
-    user
-    language #birth_date age:10 #gender:10
-    nationality:15 
-    """
-
-    activities = dd.Panel("""
-    professional_state civil_state life_mode
-    # lists.MembersByPartner
-    courses.EnrolmentsByPupil
-    # courses.ActivitiesByPartner
-    # tera.NotesByPartner 
+    # general = dd.Panel("""
+    # overview:30 general2:20 #courses.EnrolmentsByPupil:30
     # cal.GuestsByPartner
-    """, label=_("Therapies"))
+    # """, label=_("General"))
 
-    more = dd.Panel("""
-    obsoletes  #client_state
-    households.MembersByPerson:30 households.SiblingsByPerson
-    checkdata.ProblemsByOwner ledger.MovementsByPartner
-    #excerpts.ExcerptsByProject
-    """, label=_("More"))
+    client = dd.Panel("""
+    user nationality:15 professional_state civil_state life_mode
+    #courses.EnrolmentsByPupil:30
+    clients.ContactsByClient
+    courses.EnrolmentsByPupil
+    """, label=_("Client"))
+
+    # address = dd.Panel("""
+    # address_box contact_box:30
+    #  contacts.RolesByPerson 
+    # """, label=_("Address"))
+
+    # more = dd.Panel("""
+    # obsoletes  #client_state
+    # # households.MembersByPerson:30 households.SiblingsByPerson
+    # checkdata.ProblemsByOwner ledger.MovementsByPartner
+    # #excerpts.ExcerptsByProject
+    # """, label=_("More"))
 
     # career = dd.Panel("""
     # # unemployed_since seeking_since work_permit_suspended_until

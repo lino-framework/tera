@@ -48,6 +48,8 @@ remark workflow_buttons printed
 confirmation_details invoicing.InvoicingsByInvoiceable
 """
 
+Activities.params_layout = """topic line user teacher state 
+room #can_enroll:10 start_date end_date show_exposed"""
 
 from lino_xl.lib.invoicing.models import InvoicingsByInvoiceable
 
@@ -144,6 +146,15 @@ class EntriesByCourse(EntriesByController):
 
     display_mode = "summary"
 
+    @classmethod
+    def create_instance(cls, ar, **kw):
+        mi = ar.master_instance
+        if mi is not None:
+            kw['project'] = mi
+        return super(EntriesByCourse, cls).create_instance(ar, **kw)
+
+    
+
 class CoursesByLine(CoursesByLine):
     """Like :class:`lino_xl.lib.courses.CoursesByLine`, but with other
     default values in the filter parameters. In Voga we want to see
@@ -164,15 +175,22 @@ class CoursesByLine(CoursesByLine):
 
 
 class CourseDetail(CourseDetail):
-    main = "general enrolments calendar notes more"
+    main = "general therapy #enrolments calendar sales more"
     general = dd.Panel("""
     ref name partner team
-    client:20 household:20 company:20
-    therapy_domain procurer mandatory translator_type 
+    # client:20 household:20 company:20
     line user teacher workflow_buttons
-    topics.InterestsByController notes.NotesByProject 
+    enrolments_top
+    EnrolmentsByCourse
     """, label=_("General"))
 
+    enrolments_top = '#enrolments_until fee:15 print_actions:15'
+    
+    therapy = dd.Panel("""
+    therapy_domain procurer mandatory translator_type 
+    topics.InterestsByController notes.NotesByProject 
+    """, label=_("Therapy"))
+    
     calendar = dd.Panel("""
     every_unit every max_date max_events
     room start_date end_date start_time end_time
@@ -180,24 +198,23 @@ class CourseDetail(CourseDetail):
     courses.EntriesByCourse
     """, label=_("Appointments"))
 
-    enrolments = dd.Panel("""
-    enrolments_top
-    EnrolmentsByCourse
-    """, label=_("Participants"))
+    # enrolments = dd.Panel("""
+    # """, label=_("Participants"))
 
-    enrolments_top = 'enrolments_until print_actions:15'
+    # enrolments_top = 'enrolments_until print_actions:15'
 
-    notes = dd.Panel("""
-    remark
-    #comments.CommentsByRFC cal.TasksByProject
-    """, label = _("Notes"))
-
-    more = dd.Panel("""
+    sales = dd.Panel("""
     # company contact_person
     tariff payment_term paper_type id
     state ending_reason
     invoicing.InvoicingsByInvoiceable excerpts.ExcerptsByProject
-    """, label=_("More"))
+    """, label=_("Invoicing"))
+
+    more = dd.Panel("""
+    remark
+    #comments.CommentsByRFC cal.TasksByProject
+    """, label = _("More"))
+    
 
 class LifeGroupDetail(CourseDetail):
     enrolments = dd.Panel("""
@@ -212,7 +229,7 @@ class TherapyDetail(CourseDetail):
     EnrolmentsByTherapy
     """, label=_("Participants"))
 
-    enrolments_top = 'enrolments_until fee:15 print_actions:15'
+    # enrolments_top = 'enrolments_until fee:15 print_actions:15'
 
 
 class Courses(Courses):
@@ -250,6 +267,7 @@ class Therapies(Courses):
     """
 
 class ActivitiesByPartner(Courses):
+    _course_area = None
     master_key = 'partner'
     column_names = "start_date ref line workflow_buttons *"
     order_by = ['-start_date']

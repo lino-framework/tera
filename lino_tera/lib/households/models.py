@@ -10,7 +10,7 @@ from lino.api import _
 from lino_xl.lib.households.models import *
 
 # from lino_xl.lib.coachings.mixins import Coachable
-from lino_tera.lib.contacts.models import Partner
+from lino_tera.lib.contacts.models import Partner, PartnerDetail
 # from lino_tera.lib.courses.choicelists import PartnerTariffs
 from lino_xl.lib.clients.choicelists import ClientStates
 
@@ -31,28 +31,44 @@ class Household(Household, Partner):
         s = "{} ({})".format(s, self.pk)
         return s
 
-class HouseholdDetail(dd.DetailLayout):
 
-    main = "general activities misc"
+dd.update_field(Household, 'overview', verbose_name=None)
+   
 
-    general = dd.Panel("""
-    overview address
-    households.MembersByHousehold
-    """, label=_("General"))
+class HouseholdDetail(PartnerDetail):
 
-    activities = dd.Panel("""
-    language:10 type salesrule__invoice_recipient client_state
-    courses.ActivitiesByPartner
-    """, label=_("Dossiers"))
-
-    misc = dd.Panel("""
-    ledger.MovementsByPartner
-    """, label=_("Miscellaneous"))
-
-    address = """
-    id prefix name
-    country region city zip_code:10
-    addr1
-    #street_prefix street:25 street_no street_box
-    # addr2
+    general_middle = """
+    id 
+    language
+    type 
     """
+    
+
+    # main = "general #activities misc"
+
+    # general = dd.Panel("""
+    # main = """
+    # overview:30 address:30 ledger.MovementsByPartner:20
+    # """
+    # language:10 type salesrule__invoice_recipient #client_state
+
+    # #households.MembersByHousehold
+    # """, label=_("General"))
+
+    # activities = dd.Panel("""
+    # language:10 type salesrule__invoice_recipient client_state
+    # courses.ActivitiesByPartner
+    # """, label=_("Dossiers"))
+
+    # address = """
+    # prefix name
+    # country region city zip_code:10
+    # addr1
+    # #street_prefix street:25 street_no street_box
+    # # addr2
+    # """
+    
+    # misc = dd.Panel("""
+    # ledger.MovementsByPartner
+    # """, label=_("Miscellaneous"))
+
