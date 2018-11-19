@@ -69,8 +69,6 @@ Operating System :: OS Independent
 SETUP_INFO.update(packages=[str(n) for n in """
 lino_tera
 lino_tera.lib
-lino_tera.lib.working
-lino_tera.lib.working.fixtures
 lino_tera.lib.contacts
 lino_tera.lib.contacts.fixtures
 lino_tera.lib.cal

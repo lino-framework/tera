@@ -1,13 +1,12 @@
-# Copyright 2014-2016 Luc Saffre
+# Copyright 2014-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """
-Lino Presto extension of :mod:`lino.modlib.users`.
+Lino Tera extension of :mod:`lino.modlib.users`.
 
 .. autosummary::
    :toctree:
 
-    models
     desktop
     fixtures.demo
     fixtures.demo2
@@ -17,7 +16,7 @@ Lino Presto extension of :mod:`lino.modlib.users`.
 from lino.modlib.users import Plugin
 
 
-# class Plugin(Plugin):
+class Plugin(Plugin):
     
-#     extends_models = ['User']
+    extends_models = ['User']
 

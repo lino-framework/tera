@@ -109,3 +109,11 @@ add('14', _("Tariff 15"))
 add('15', _("Tariff 20"))
 add('16', _("Tariff 39,56"), 'plain')
 
+
+class InvoicingPolicies(dd.ChoiceList):
+    verbose_name = _("Invoicing policy")
+    verbose_name_plural = _("Invoicing policies")
+
+add = InvoicingPolicies.add_item
+add('00', _("By calendar event"), 'by_event')
+add('10', _("By presence"), 'by_guest')

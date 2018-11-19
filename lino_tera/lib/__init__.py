@@ -7,7 +7,6 @@
 .. autosummary::
    :toctree:
 
-    working
     contacts
     households
     lists

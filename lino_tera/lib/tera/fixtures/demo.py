@@ -16,8 +16,10 @@ from lino.utils.mti import mtichild
 from lino.utils.ssin import generate_ssin
 from lino.api import dd, rt, _
 from lino.utils import Cycler
-from lino.utils.mldbc import babel_named as named
+from lino.utils.mldbc import babel_named as named, babeld
 from lino.modlib.users.utils import create_user
+from lino_xl.lib.cal.choicelists import EntryStates, GuestStates
+from lino_tera.lib.courses.choicelists import InvoicingPolicies
 
 # from django.conf import settings
 
@@ -25,6 +27,7 @@ from lino.modlib.users.utils import create_user
 # cal = dd.resolve_app('cal')
 # users = dd.resolve_app('users')
 
+AMOUNTS = Cycler("5.00", None, None, "15.00", "20.00", None, None)
 
 
 def person2clients():
@@ -73,6 +76,8 @@ def enrolments():
     UserTypes = rt.models.users.UserTypes
     Company = rt.models.contacts.Company
     Product = rt.models.products.Product
+    Tariff = rt.models.invoicing.Tariff
+    ProductTypes = rt.models.products.ProductTypes
     Topic = rt.models.topics.Topic
     Interest = rt.models.topics.Interest
     ProductCat = rt.models.products.ProductCat
@@ -80,14 +85,13 @@ def enrolments():
     CommonItems = rt.models.sheets.CommonItems
     CourseAreas = rt.models.courses.CourseAreas
 
-    yield create_user("daniel", UserTypes.therapist)
-    yield create_user("elmar", UserTypes.therapist)
-    yield create_user("lydia", UserTypes.secretary)
-
     # yield skills_objects()
 
-    cat = ProductCat(**dd.str2kw('name', _("Payment by presence")))
-    yield cat
+    presence = ProductCat(**dd.str2kw('name', _("Payment by presence")))
+    yield presence
+    
+    cash = ProductCat(**dd.str2kw('name', _("Prepayments")))
+    yield cash
 
     obj = Company(
         name="Tough Thorough Thought Therapies",
@@ -95,20 +99,42 @@ def enrolments():
     yield obj
     settings.SITE.site_config.update(site_company=obj)
 
-    group_therapy = named(Product, _("Group therapy"), sales_price=30, cat=cat)
-    yield group_therapy
-    
     indacc = named(
-        Account, _("Sales on individual therapies"),
+        Account, _("Sales on therapies"),
         sheet_item=CommonItems.sales.get_object(), ref="7010")
     yield indacc
+
+    t1 = babeld(Tariff, _("By presence"), number_of_events = 1)
+    yield t1
+    
+    group_therapy = named(
+        Product, _("Group therapy"), sales_account=indacc,
+        tariff=t1,
+        sales_price=30, cat=presence, product_type=ProductTypes.default)
+    yield group_therapy
+    # group_therapy.tariff.number_of_events = 1
+    # yield group_therapy.tariff
+    
     ind_therapy = named(
         Product, _("Individual therapy"),
-        sales_price=60, sales_account=indacc, cat=cat)
+        tariff=t1,
+        sales_price=60, sales_account=indacc, cat=presence,
+        product_type=ProductTypes.default)
     yield ind_therapy
-    
+    # ind_therapy.tariff.number_of_events = 1
+    # yield ind_therapy.tariff
+   
     yield named(Product, _("Other"), sales_price=35)
-    
+    prepayment = named(
+        Product, _("Prepayment"), cat=cash,
+        product_type=ProductTypes.payment)
+    yield prepayment
+
+    yield create_user("daniel", UserTypes.therapist,
+                      prepayment_product=prepayment)
+    yield create_user("elmar", UserTypes.therapist)
+    yield create_user("lydia", UserTypes.secretary)
+
     yield named(Topic, _("Alcoholism"), ref="A")
     yield named(Topic, _("Phobia"), ref="P")
     yield named(Topic, _("Insomnia"), ref="I")
@@ -130,7 +156,7 @@ def enrolments():
     for a in CourseAreas.get_list_items():
         kw = dict(
             name=a.text, course_area=a, guest_role=attendee)
-        kw.update(fees_cat=cat)
+        kw.update(fees_cat=presence)
         kw.update(guest_role=attendee)
         if a.name in('therapies', 'life_groups'):
             kw.update(fee=ind_therapy, event_type=ind_et)
@@ -161,7 +187,7 @@ def enrolments():
     if qs.count() == 0:
         raise Exception("Oops, no clients!")
     PUPILS = Cycler(qs)
-    kw = dict(state='draft', line=CourseAreas.therapies.line_obj)
+    kw = dict(state='active', line=CourseAreas.therapies.line_obj)
     for i, obj in enumerate(qs):
         if i % 6:
             kw.update(
@@ -188,7 +214,7 @@ def enrolments():
             date += ONE_DAY
             
     date = settings.SITE.demo_date(-200)
-    kw = dict(state='draft', line=CourseAreas.default.line_obj)
+    kw = dict(state='active', line=CourseAreas.default.line_obj)
     grsizes = Cycler(5, 7, 12, 6)
     group_names = (_("Alcohol"), _("Burnout"), _("Women"), _("Children"))
     for name in group_names:
@@ -213,6 +239,33 @@ def enrolments():
         ar = rt.login(c.user.username)
         c.update_reminders(ar)
         date += ONE_DAY
+    qs = rt.models.cal.Event.objects.filter(
+        start_date__lt=dd.today(-10))
+    for e in qs:
+        if e.id % 5:
+            e.state = EntryStates.took_place
+        else:
+            e.state = EntryStates.missed
+        if e.user and e.user.prepayment_product_id:
+            if e.project.line.invoicing_policy == \
+               InvoicingPolicies.by_event:
+                e.amount = AMOUNTS.pop()
+        yield e
+    for g in rt.models.cal.Guest.objects.filter(
+            event__start_date__lt=dd.today(-10)):
+        if g.id % 5:
+            g.state = GuestStates.present
+            e = g.event
+            if e.user and e.user.prepayment_product_id:
+                if e.project.line.invoicing_policy == \
+                   InvoicingPolicies.by_event:
+                    g.amount = AMOUNTS.pop()
+        else:
+            g.state = GuestStates.missing
+        yield g
+
+    # for course in Course.objects.all():
+    #     pp = course.
 
     # for obj in Course.objects.all():
 

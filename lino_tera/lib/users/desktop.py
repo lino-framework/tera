@@ -16,7 +16,7 @@ class UserDetail(UserDetail):
     """, label=_("General"))
 
     calendar = dd.Panel("""
-    event_type access_class
+    event_type access_class prepayment_product
     cal.SubscriptionsByUser
     # cal.MembershipsByUser
     """, label=dd.plugins.cal.verbose_name,

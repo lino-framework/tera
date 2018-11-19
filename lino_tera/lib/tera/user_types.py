@@ -59,16 +59,3 @@ add('100', _("Secretary"), Secretary, name="secretary")
 add('200', _("Therapist"), Therapist, name="therapist")
 add('900', _("Administrator"), SiteAdmin, name='admin')
 
-# we want to change the button_text of the Cancelled state. We must do
-# this in user_types_module (i.e. before workflows_module is loaded)
-# because otherwise transition actions will get the old button_text.
-
-from lino_xl.lib.cal.choicelists import EntryStates
-
-add = EntryStates.add_item
-add('60', _("Missed"), 'missed', fixed=True,
-    help_text=_("Guest missed the appointment."),
-    button_text="☉", noauto=True)  # \u2609 SUN
-
-EntryStates.cancelled.button_text = "⚕"
-

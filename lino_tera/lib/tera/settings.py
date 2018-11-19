@@ -36,7 +36,7 @@ class Site(Site):
     # experimental use of rest_framework:
     # root_urlconf = 'lino_book.projects.team.urls'
     
-    # migration_class = 'lino_tera.lib.tera.migrate.Migrator'
+    migration_class = 'lino_tera.lib.tera.migrate.Migrator'
 
     auto_configure_logger_names = "atelier django lino lino_xl lino_tera"
 
@@ -51,6 +51,7 @@ class Site(Site):
         yield 'lino_tera.lib.contacts'
         yield 'lino_tera.lib.households'
         yield 'lino_xl.lib.clients'
+        yield 'lino_xl.lib.healthcare'
         # yield 'lino_xl.lib.phones'
         # yield 'lino_tera.lib.lists'
         # yield 'lino_xl.lib.beid'
@@ -111,11 +112,11 @@ class Site(Site):
         # self.plugins.courses.configure(pupil_model='tera.Client')
 
 
-    def setup_quicklinks(self, user, tb):
-        super(Site, self).setup_quicklinks(user, tb)
-        tb.add_action(
-            self.models.cal.MyEntries.insert_action,
-            label=_("New appointment"))
+    # def setup_quicklinks(self, user, tb):
+    #     super(Site, self).setup_quicklinks(user, tb)
+    #     tb.add_action(
+    #         self.models.cal.MyEntries.insert_action,
+    #         label=_("New appointment"))
         
     # def setup_actions(self):
     #     from lino.core.merge import MergeAction

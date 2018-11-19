@@ -28,7 +28,7 @@ from lino_xl.lib.cal.ui import EntriesByController
 Lines.detail_layout = """
     id name ref
     course_area #topic fees_cat fee #options_cat body_template
-    #course_type event_type guest_role every_unit every
+    #course_type event_type guest_role every_unit every invoicing_policy
     description
     excerpt_title
     courses.CoursesByLine
@@ -38,24 +38,24 @@ Lines.detail_layout = """
 #     request_date user course
 #     pupil places fee option
 #     remark amount workflow_buttons
-#     confirmation_details invoicing.InvoicingsByInvoiceable
+#     confirmation_details invoicing.InvoicingsByGenerator
 #     """
 
 Enrolments.detail_layout = """
 id course pupil request_date user
 start_date end_date #places:8 fee
 remark workflow_buttons printed 
-confirmation_details invoicing.InvoicingsByInvoiceable
+confirmation_details invoicing.InvoicingsByGenerator
 """
 
 Activities.params_layout = """topic line user teacher state 
 room #can_enroll:10 start_date end_date show_exposed"""
 
-from lino_xl.lib.invoicing.models import InvoicingsByInvoiceable
+from lino_xl.lib.invoicing.models import InvoicingsByGenerator
 
-InvoicingsByInvoiceable.column_names = (
+InvoicingsByGenerator.column_names = (
     "voucher title qty voucher__voucher_date "
-    "voucher__state product__number_of_events *")
+    "voucher__state product__tariff__number_of_events *")
 
 
 class PendingRequestedEnrolments(PendingRequestedEnrolments):
@@ -207,7 +207,7 @@ class CourseDetail(CourseDetail):
     # company contact_person
     tariff payment_term paper_type id
     state ending_reason
-    invoicing.InvoicingsByInvoiceable excerpts.ExcerptsByProject
+    invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
     more = dd.Panel("""

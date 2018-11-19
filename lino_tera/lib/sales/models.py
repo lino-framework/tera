@@ -20,6 +20,8 @@ class InvoiceDetail(InvoiceDetail):
     workflow_buttons
     """, label=_("Totals"))
 
+ItemsByInvoice.column_names = "invoiceable product title discount unit_price qty total_incl *"    
+
 
 class InvoiceItem(InvoiceItem):
 

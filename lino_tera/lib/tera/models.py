@@ -24,6 +24,7 @@ from lino.modlib.users.mixins import UserAuthored, My
 # from lino.modlib.notify.mixins import ChangeNotifier
 # from lino_xl.lib.notes.choicelists import SpecialTypes
 from lino_xl.lib.clients.mixins import ClientBase
+from lino_xl.lib.healthcare.mixins import HealthcareClient
 # from lino_xl.lib.notes.mixins import Notable
 from lino_tera.lib.contacts.models import Person
 # from lino_xl.lib.cal.choicelists import TaskStates
@@ -113,6 +114,7 @@ class LifeModes(dd.Table):
 @dd.python_2_unicode_compatible
 class Client(Person, #BeIdCardHolder,
              UserAuthored,
+             HealthcareClient,
              # Referrable,
              CreatedModified,
              ClientBase,

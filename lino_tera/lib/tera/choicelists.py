@@ -85,3 +85,4 @@ CT = ClientStates.active.add_transition(required_states="cancelled abandoned new
 CT = ClientStates.closed.add_transition(required_states="cancelled active abandoned forwarded newcomer")
 CT = ClientStates.forwarded.add_transition(required_states="active newcomer")
 
+
