@@ -12,17 +12,18 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as pgettext
 from django.db import models
 
-from lino.utils.mti import get_child
-from lino.api import dd, rt, gettext
 from etgen.html import E, tostring
 
+from lino.api import dd, rt, gettext
+from lino.utils import join_elems
+from lino.utils.mti import get_child
 from lino.mixins import Referrable
-from lino.modlib.printing.mixins import Printable
+
 from lino_xl.lib.invoicing.mixins import InvoiceGenerator
-from lino_xl.lib.courses.mixins import Enrollable
 from lino_xl.lib.ledger.utils import DEBIT
 from lino_xl.lib.cal.workflows import TaskStates
-from lino.utils import join_elems
+from lino_xl.lib.healthcare.mixins import HealthcareClient
+from lino_xl.lib.topics.models import AddInterestField
 
 from .choicelists import EndingReasons, TranslatorTypes
 from .choicelists import PartnerTariffs, TherapyDomains
@@ -176,7 +177,7 @@ class TeraInvoiceable(InvoiceGenerator):
 
 
 @dd.python_2_unicode_compatible
-class Course(Referrable, Course, TeraInvoiceable):
+class Course(Referrable, Course, TeraInvoiceable, HealthcareClient):
     """
     Extends the standard model by adding a field :attr:`fee`.
 
@@ -268,6 +269,7 @@ class Course(Referrable, Course, TeraInvoiceable):
     translator_type = TranslatorTypes.field(blank=True)
     therapy_domain = TherapyDomains.field(blank=True)
     team = dd.ForeignKey('teams.Team', blank=True, null=True)
+    add_interest = AddInterestField()
     
     partner = dd.ForeignKey(
         'contacts.Partner',
@@ -291,7 +293,7 @@ class Course(Referrable, Course, TeraInvoiceable):
         blank=True, null=True)    
 
     quick_search_fields = "ref name partner__name"
-
+    
     @classmethod
     def get_registrable_fields(cls, site):
         for f in super(Course, cls).get_registrable_fields(site):

@@ -15,7 +15,7 @@ from django.conf import settings
 from lino.utils import join_elems
 from etgen.html import E
 # from lino.utils import ssin
-from lino.mixins import Referrable, CreatedModified, BabelDesignated
+from lino.mixins import CreatedModified, BabelDesignated
 # from lino_xl.lib.beid.mixins import BeIdCardHolder
 from lino.modlib.comments.mixins import Commentable
 from lino.modlib.users.mixins import UserAuthored, My
@@ -24,7 +24,6 @@ from lino.modlib.users.mixins import UserAuthored, My
 # from lino.modlib.notify.mixins import ChangeNotifier
 # from lino_xl.lib.notes.choicelists import SpecialTypes
 from lino_xl.lib.clients.mixins import ClientBase
-from lino_xl.lib.healthcare.mixins import HealthcareClient
 # from lino_xl.lib.notes.mixins import Notable
 from lino_tera.lib.contacts.models import Person
 # from lino_xl.lib.cal.choicelists import TaskStates
@@ -114,7 +113,7 @@ class LifeModes(dd.Table):
 @dd.python_2_unicode_compatible
 class Client(Person, #BeIdCardHolder,
              UserAuthored,
-             HealthcareClient,
+             # HealthcareClient,
              # Referrable,
              CreatedModified,
              ClientBase,
