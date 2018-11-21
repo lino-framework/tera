@@ -46,8 +46,8 @@ class Line(Line):
     class Meta(Line.Meta):
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Line')
-        verbose_name = _("Therapy type")
-        verbose_name_plural = _('Therapy types')
+        verbose_name = _("Dossier type")
+        verbose_name_plural = _('Dossier types')
 
     ref_max_length = 4
 
@@ -242,8 +242,8 @@ class Course(Referrable, Course, TeraInvoiceable):
     class Meta(Course.Meta):
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Course')
-        verbose_name = _("Therapy")
-        verbose_name_plural = _('Therapies')
+        verbose_name = _("Dossier")
+        verbose_name_plural = _('Dossiers')
 
     ref_max_length = 8
     

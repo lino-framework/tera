@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-tera 18.11.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-20 22:47+0200\n"
+"POT-Creation-Date: 2018-11-21 07:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgid "Reduced"
 msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:19 lino_tera/lib/contacts/models.py:50
-#: lino_tera/lib/courses/desktop.py:185 lino_tera/lib/products/models.py:55
+#: lino_tera/lib/courses/desktop.py:189 lino_tera/lib/products/models.py:47
 #: lino_tera/lib/users/desktop.py:16
 msgid "General"
 msgstr ""
@@ -76,7 +76,7 @@ msgid "Address"
 msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:32 lino_tera/lib/contacts/models.py:88
-#: lino_tera/lib/courses/desktop.py:216
+#: lino_tera/lib/courses/desktop.py:220
 msgid "More"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Abandoned by client"
 msgstr ""
 
-#: lino_tera/lib/contacts/models.py:93 lino_tera/lib/courses/desktop.py:211
+#: lino_tera/lib/contacts/models.py:93 lino_tera/lib/courses/desktop.py:215
 msgid "Invoicing"
 msgstr ""
 
@@ -100,8 +100,7 @@ msgstr ""
 msgid "Purchases"
 msgstr ""
 
-#: lino_tera/lib/courses/__init__.py:20 lino_tera/lib/courses/desktop.py:289
-#: lino_tera/lib/courses/models.py:246
+#: lino_tera/lib/courses/__init__.py:20 lino_tera/lib/courses/desktop.py:293
 msgid "Therapies"
 msgstr ""
 
@@ -275,32 +274,32 @@ msgstr ""
 msgid "By presence"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:135
+#: lino_tera/lib/courses/desktop.py:139
 msgid "Enrolments using this fee"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:192 lino_tera/lib/courses/models.py:245
+#: lino_tera/lib/courses/desktop.py:196
 msgid "Therapy"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:199
+#: lino_tera/lib/courses/desktop.py:203
 msgid "Appointments"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:223 lino_tera/lib/courses/desktop.py:230
+#: lino_tera/lib/courses/desktop.py:227 lino_tera/lib/courses/desktop.py:234
 msgid "Participants"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:289
+#: lino_tera/lib/courses/desktop.py:293
 msgid "My {}"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:49
-msgid "Therapy type"
+msgid "Dossier type"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:50
-msgid "Therapy types"
+msgid "Dossier types"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:88
@@ -311,8 +310,16 @@ msgstr ""
 msgid "No prepayment product defined"
 msgstr ""
 
+#: lino_tera/lib/courses/models.py:245
+msgid "Dossier"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:246
+msgid "Dossiers"
+msgstr ""
+
 #: lino_tera/lib/courses/models.py:255
-msgid "Default attendance fee"
+msgid "Attendance fee"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:264
@@ -389,11 +396,11 @@ msgstr ""
 msgid "Children's group {0}"
 msgstr ""
 
-#: lino_tera/lib/products/__init__.py:24 lino_tera/lib/products/models.py:34
-msgid "Tariffs"
+#: lino_tera/lib/products/__init__.py:19 lino_tera/lib/products/models.py:34
+msgid "Fees"
 msgstr ""
 
-#: lino_tera/lib/products/models.py:14
+#: lino_tera/lib/products/models.py:14 lino_tera/lib/products/models.py:33
 msgid "Fee"
 msgstr ""
 
@@ -402,22 +409,18 @@ msgid "Payment"
 msgstr ""
 
 #: lino_tera/lib/products/models.py:24
-msgid "Tariff Category"
+msgid "Fee category"
 msgstr ""
 
 #: lino_tera/lib/products/models.py:25
-msgid "Tariff Categories"
+msgid "Fee categories"
 msgstr ""
 
-#: lino_tera/lib/products/models.py:33
-msgid "Tariff"
-msgstr ""
-
-#: lino_tera/lib/products/models.py:60
+#: lino_tera/lib/products/models.py:52
 msgid "Enrolments"
 msgstr ""
 
-#: lino_tera/lib/products/models.py:64
+#: lino_tera/lib/products/models.py:56
 msgid "Sales"
 msgstr ""
 
