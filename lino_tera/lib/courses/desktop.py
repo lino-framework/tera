@@ -34,6 +34,10 @@ Lines.detail_layout = """
     courses.CoursesByLine
     """
 
+Lines.column_names = ("ref name course_area "
+                      "event_type guest_role fees_cat fee invoicing_policy *")
+
+
 # Enrolments.detail_layout = """
 #     request_date user course
 #     pupil places fee option

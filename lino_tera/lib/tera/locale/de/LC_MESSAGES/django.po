@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-11-20 22:47+0200\n"
-"PO-Revision-Date: 2018-11-20 22:48+0200\n"
+"PO-Revision-Date: 2018-11-21 06:47+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -269,20 +269,20 @@ msgstr ""
 
 #: lino_tera/lib/courses/choicelists.py:114
 msgid "Invoicing policy"
-msgstr ""
+msgstr "Fakturierungsmethode"
 
 #: lino_tera/lib/courses/choicelists.py:115
 msgid "Invoicing policies"
-msgstr ""
+msgstr "Fakturierungsmethoden"
 
 #: lino_tera/lib/courses/choicelists.py:118
 msgid "By calendar event"
-msgstr ""
+msgstr "Pro Termin"
 
 #: lino_tera/lib/courses/choicelists.py:119
 #: lino_tera/lib/tera/fixtures/demo.py:107
 msgid "By presence"
-msgstr ""
+msgstr "Pro Anwesenheit"
 
 #: lino_tera/lib/courses/desktop.py:135
 msgid "Enrolments using this fee"

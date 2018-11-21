@@ -252,7 +252,7 @@ class Course(Referrable, Course, TeraInvoiceable):
 
     fee = dd.ForeignKey('products.Product',
                         blank=True, null=True,
-                        verbose_name=_("Default attendance fee"),
+                        verbose_name=_("Attendance fee"),
                         related_name='courses_by_fee')
 
     payment_term = dd.ForeignKey(
