@@ -223,8 +223,8 @@ add = EventEvents.add_item
 add('30', _("Perceived"), 'perceived')
 
 # class Events(Events):
-if True:  # oops what a hack!
-
+if False:  # oops what a hack!
+    # this was the cause for #2680
     supermethod = Events.get_request_queryset
 
     @classmethod
