@@ -322,20 +322,22 @@ class Course(Referrable, Course, TeraInvoiceable):
         return super(Course, self).full_clean()
     
     def __str__(self):
-        if self.line and self.line.ref:
-            s = self.line.ref + ' '
-        else:
-            s = ''
-        if self.ref:
-            s += " " + self.ref
         if self.name:
-            s += ' ' + self.name
+            s = self.name
         else:
             # Note that we cannot use super() with
             # python_2_unicode_compatible
-            s += "{0} #{1}".format(self._meta.verbose_name, self.pk)
+            s = "{0} #{1}".format(self._meta.verbose_name, self.pk)
+        if self.line and self.line.ref:
+            more = self.line.ref
+        else:
+            more = ''
+        if self.ref:
+            more += " " + self.ref
         if self.teacher and self.teacher.initials:
-            s = "{} ({})".format(s, self.teacher.initials)
+            more += " " + self.teacher.initials
+        if more:    
+            s = "{} ({})".format(s, more.strip())
         return s
 
     def update_cal_summary(self, et, i):
