@@ -21,8 +21,8 @@ class ProductCat(ProductCat):
     class Meta(ProductCat.Meta):
         app_label = 'products'
         abstract = dd.is_abstract_model(__name__, 'ProductCat')
-        verbose_name = _("Tariff Category")
-        verbose_name_plural = _("Tariff Categories")
+        verbose_name = _("Fee category")
+        verbose_name_plural = _("Fee categories")
 
 
 class Product(Product):
@@ -30,16 +30,8 @@ class Product(Product):
     class Meta(Product.Meta):
         app_label = 'products'
         abstract = dd.is_abstract_model(__name__, 'Product')
-        verbose_name = _("Tariff")
-        verbose_name_plural = _("Tariffs")
-
-#     number_of_events = models.IntegerField(
-#         _("Number of events"), null=True, blank=True,
-#         help_text=_("Number of calendar events paid per invoicing."))
-
-#     min_asset = models.IntegerField(
-#         _("Invoice threshold"), blank=True, default=1,
-#         help_text=_("Minimum quantity to pay in advance."))
+        verbose_name = _("Fee")
+        verbose_name_plural = _("Fees")
 
 
 class ProductDetail(dd.DetailLayout):
@@ -64,5 +56,4 @@ class ProductDetail(dd.DetailLayout):
     """, _("Sales"))
 
 
-Products.detail_layout = ProductDetail()
 Products.column_names = "id name sales_price sales_account cat *"

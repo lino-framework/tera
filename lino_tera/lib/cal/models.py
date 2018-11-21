@@ -5,12 +5,12 @@
 from __future__ import unicode_literals
 
 from lino.api import _
-from lino_xl.lib.invoicing.mixins import InvoiceGenerator
+#from lino_xl.lib.invoicing.mixins import InvoiceGenerator
 from lino_xl.lib.cal.models import *
-from lino_xl.lib.cal.choicelists import EntryStates, GuestStates
-from lino_xl.lib.courses.choicelists import CourseStates
+#from lino_xl.lib.cal.choicelists import EntryStates, GuestStates
+#from lino_xl.lib.courses.choicelists import CourseStates
+from lino_tera.lib.courses.choicelists import InvoicingPolicies
 from lino_xl.lib.ledger.utils import ZERO
-
 from lino.mixins import Referrable
 
 
@@ -91,6 +91,34 @@ class Event(Event):
     # def amount(self, ar=None):
     #     return self.get_invoiceable_amount()
 
+    def compute_amount(self):
+        # for a group therapy the amount of the event is disabled and
+        # automatically computed each time a guest's amount is
+        # modified.
+        course = self.project
+        if course and course.line and \
+           course.line.invoicing_policy != InvoicingPolicies.by_event:
+            amount = ZERO
+            for g in self.guest_set.all():
+                amount += g.amount
+            self.amount = amount
+            self.full_clean()
+            self.save()
+
+    def disabled_fields(self, ar):
+        fields = super(Event, self).disabled_fields(ar)
+        course = self.project
+        if course is None or course.line is None or \
+           course.line.invoicing_policy != InvoicingPolicies.by_event:
+            fields.add('amount')
+        if course is not None:
+            li = course.get_last_invoicing()
+            if li and li.voucher.voucher_date >= self.start_date:
+                fields.add('amount')
+        return fields
+
+    
+
     def force_guest_states(self):
         if self.project and self.project.line:
             return self.project.line.course_area.force_guest_states
@@ -129,6 +157,22 @@ class Guest(Guest):
     amount = dd.PriceField(_("Amount perceived"), blank=True, null=True)
     # payment_mode = PaymentModes.field(blank=True)
     
+    def disabled_fields(self, ar):
+        fields = super(Guest, self).disabled_fields(ar)
+        course = self.event.project
+        if course is None or course.line is None \
+           or course.line.invoicing_policy == InvoicingPolicies.by_event:
+            fields.add('amount')
+        if course is not None:
+            li = course.get_last_invoicing()
+            if li and li.voucher.voucher_date >= self.event.start_date:
+                fields.add('amount')
+        return fields
+
+    def after_ui_save(self, ar, cw):
+        super(Guest, self).after_ui_save(ar, cw)
+        self.event.compute_amount()
+
 
 class GuestDetail(dd.DetailLayout):
     window_size = (60, 'auto')
@@ -173,4 +217,43 @@ GuestsByEvent.column_names = 'partner role workflow_buttons amount #payment_mode
 #         kw.update(user=ar.get_user())
 #         kw.update(show_invoiced=dd.YesNo.yes)
 #         return kw
+
+from lino_xl.lib.cal.models import EventEvents
+add = EventEvents.add_item
+add('30', _("Perceived"), 'perceived')
+
+# class Events(Events):
+if True:  # oops what a hack!
+
+    supermethod = Events.get_request_queryset
+
+    @classmethod
+    def get_request_queryset(cls, ar, **kwargs):
+        # logger.info("20121010 Clients.get_request_queryset %s",ar.param_values)
+        # qs = super(Events, cls).get_request_queryset(ar, **kwargs)
+        qs = supermethod(ar, **kwargs)
+        pv = ar.param_values
+
+        if pv.observed_event == EventEvents.perceived:
+            qs = qs.filter(amount__isnull=False)
+        return qs
+
+    Events.get_request_queryset = get_request_queryset
     
+class MyCashRoll(Events):
+    column_names = 'overview project amount workflow_buttons *'
+    label = _("My cash roll")
+        
+    @classmethod
+    def param_defaults(self, ar, **kw):
+        sd = dd.today(-30).replace(day=1)
+        kw = super(MyCashRoll, self).param_defaults(ar, **kw)
+        kw.update(user=ar.get_user())
+        # kw.update(show_appointments=dd.YesNo.yes)
+        # kw.update(assigned_to=ar.get_user())
+        # logger.info("20130807 %s %s",self,kw)
+        kw.update(start_date=sd)
+        kw.update(observed_event=EventEvents.perceived)
+        # kw.update(end_date=settings.SITE.today(14))
+        return kw
+

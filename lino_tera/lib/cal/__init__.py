@@ -19,3 +19,9 @@ from lino_xl.lib.cal import Plugin
 class Plugin(Plugin):
 
     extends_models = ['Event', 'Guest']
+    
+    def setup_main_menu(self, site, user_type, m):
+        super(Plugin, self).setup_main_menu(site, user_type, m)
+        m = m.add_menu(self.app_label, self.verbose_name)
+        m.add_action('cal.MyCashRoll')
+        
