@@ -22,9 +22,10 @@ if dd.is_installed('tera'):
     PlacesByPlace contacts.PartnersByCity
     """
     rt.models.ledger.Accounts.detail_layout = """
-    ref:10 name
-    sheet_item id default_amount:10 common_account vat_column
-    needs_partner clearable purchases_allowed  needs_ana ana_account
+    name
+    ref:10 sheet_item id common_account vat_column 
+    needs_partner clearable purchases_allowed 
+    needs_ana  ana_account default_amount:10 
     ledger.MovementsByAccount
     """
 
