@@ -35,7 +35,7 @@ for n in 'atelier lino lino_xl lino_book'.split():
 
 # General information about the project.
 project = "Lino Tera"
-copyright = '2014-2018 Luc Saffre'
+copyright = '2014-2018 Rumma & Ko Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
