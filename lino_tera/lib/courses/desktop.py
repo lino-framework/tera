@@ -69,6 +69,7 @@ class PendingRequestedEnrolments(PendingRequestedEnrolments):
 
 
 class EnrolmentsByPupil(EnrolmentsByPupil):
+    display_mode = "html"
     column_names = 'overview course__state guest_role start_date '\
                    'workflow_buttons *'
 
