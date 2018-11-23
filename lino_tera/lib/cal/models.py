@@ -159,7 +159,10 @@ class Guest(Guest):
     
     def disabled_fields(self, ar):
         fields = super(Guest, self).disabled_fields(ar)
-        course = self.event.project
+        if self.event_id:
+            course = self.event.project
+        else:
+            course = None
         if course is None or course.line is None \
            or course.line.invoicing_policy == InvoicingPolicies.by_event:
             fields.add('amount')
