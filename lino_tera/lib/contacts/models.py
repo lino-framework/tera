@@ -40,7 +40,7 @@ dd.update_field(Person, 'first_name', blank=True)
 
 class PartnerDetail(PartnerDetail):
 
-    main = 'general address sales purchases more'
+    main = 'general address invoicing purchases more'
 
     # general = dd.Panel(PartnerDetail.main,label=_("General"))
 
@@ -87,7 +87,7 @@ class PartnerDetail(PartnerDetail):
     remarks:50 checkdata.ProblemsByOwner:30
     """, label=_("More"))
 
-    sales = dd.Panel("""
+    invoicing = dd.Panel("""
     salesrule__invoice_recipient payment_term salesrule__paper_type
     sales.InvoicesByPartner
     """, label=_("Invoicing"))
@@ -150,7 +150,7 @@ dd.update_field(Person, 'overview', verbose_name=None)
     
 class PersonDetail(PersonDetail, PartnerDetail):
 
-    # main = 'general address sales purchases more'
+    # main = 'general address invoicing purchases more'
 
     # general = dd.Panel("""
     # overview:30  ledger.MovementsByPartner #lists.MembersByPartner:20
@@ -165,7 +165,7 @@ class PersonDetail(PersonDetail, PartnerDetail):
     """
 
     general_bottom = """
-    cal.GuestsByPartner courses.ActivitiesByPartner
+    cal.GuestsByPartner courses.EnrolmentsByPupil 
     """
 
     # address = dd.Panel("""
@@ -179,6 +179,17 @@ class PersonDetail(PersonDetail, PartnerDetail):
     street:25 street_no street_box
     addr2
     country zip_code:10 city
+    """
+
+    invoicing = dd.Panel("""
+    invoicing_left:30 courses.ActivitiesByPartner:50
+    sales.InvoicesByPartner
+    """, label=_("Invoicing"))
+
+    invoicing_left = """
+    salesrule__invoice_recipient 
+    payment_term 
+    salesrule__paper_type
     """
 
     # contact_box = """

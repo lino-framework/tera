@@ -26,10 +26,11 @@ from lino_xl.lib.cal.ui import EntriesByController
 
 
 Lines.detail_layout = """
-    id name ref
-    course_area #topic fees_cat fee #options_cat body_template
+    id ref course_area
+    name 
+    #topic fees_cat fee #options_cat body_template
     #course_type event_type guest_role every_unit every invoicing_policy
-    description
+    # description
     excerpt_title
     courses.CoursesByLine
     """
@@ -266,8 +267,9 @@ class Therapies(Courses):
 
 class ActivitiesByPartner(Courses):
     _course_area = None
+    label = _("Invoice recipient in dossiers")
     master_key = 'partner'
-    column_names = "start_date ref line workflow_buttons *"
+    column_names = "start_date overview workflow_buttons *"
     order_by = ['-start_date']
 
 # class ActivitiesByClient(Activities):

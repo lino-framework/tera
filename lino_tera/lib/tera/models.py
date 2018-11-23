@@ -258,19 +258,26 @@ from lino_tera.lib.contacts.models import PersonDetail
 
 class ClientDetail(PersonDetail):
 
-    main = "general address client sales more "
+    main = "general address client invoicing more "
 
     # general = dd.Panel("""
     # overview:30 general2:20 #courses.EnrolmentsByPupil:30
     # cal.GuestsByPartner
     # """, label=_("General"))
 
+    # general = dd.Panel("""
+    # overview:40 general_middle:20
+    # general_bottom
+    # """, label=_("General"))
+
+
     client = dd.Panel("""
     user nationality:15 professional_state civil_state life_mode
     #courses.EnrolmentsByPupil:30
-    clients.ContactsByClient
-    courses.EnrolmentsByPupil
+    clients.ContactsByClient    
     """, label=_("Client"))
+
+
 
     # address = dd.Panel("""
     # address_box contact_box:30
