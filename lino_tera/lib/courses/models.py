@@ -517,12 +517,19 @@ class Enrolment(Enrolment, TeraInvoiceable):
         return Product.objects.filter(cat=course.line.fees_cat)
 
     def full_clean(self, *args, **kwargs):
-        # if self.state == EnrolmentStates.requested:
-        #     self.state = EnrolmentStates.get_by_value(
-        #         self.pupil.client_state.value) or EnrolmentStates.requested
-        if self.guest_role_id is None:
-            if self.course.line_id:
-                self.guest_roles = self.course.line.guest_role
+        if self.course_id is None:
+            if self.pupil_id:
+                line = rt.models.courses.Line.objects.order_by('id').first()
+                kw = dict(name=str(self.pupil), line=line, partner=self.pupil)
+                course = rt.models.courses.Course(**kw)
+                course.full_clean()
+                course.save()
+                self.course = course
+        if self.course_id:
+            if self.course.line:
+                self.course_area = self.course.line.course_area
+                if self.guest_role_id is None:
+                    self.guest_roles = self.course.line.guest_role
         if self.fee_id is None:
             self.compute_fee()
         super(Enrolment, self).full_clean(*args, **kwargs)
