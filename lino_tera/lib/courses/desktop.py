@@ -83,6 +83,16 @@ class EnrolmentsByPupil(EnrolmentsByPupil):
     remark
     request_date user
     """
+from lino.core.actions import ShowInsert
+
+class ShowInsertColleague(ShowInsert):
+    help_text = _("Add a colleague")
+
+    def create_instance(self, ar):
+        obj = super(ShowInsertColleague, self).create_instance(ar)
+        # temporary solution with hard-coded pk:
+        obj.guest_role = rt.models.cal.GuestRole.objects.filter(is_teacher=True).first()
+        return obj
 
 
 class EnrolmentsByCourse(EnrolmentsByCourse):
@@ -99,6 +109,8 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
     remark
     # request_date user
     """
+
+    show_insert2 = ShowInsertColleague()
 
 class EnrolmentsAndPaymentsByCourse(Enrolments):
     """Show enrolments of a course together with
@@ -118,7 +130,7 @@ class EnrolmentsByLifeGroup(EnrolmentsByCourse):
                    'remark ' \
                    'workflow_buttons *'
     insert_layout = """
-    pupil guest_role
+    pupil guest_role  
     # places option
     remark
     # request_date user
@@ -130,7 +142,7 @@ class EnrolmentsByTherapy(EnrolmentsByLifeGroup):
                    'workflow_buttons *'
     
     insert_layout = """
-    pupil guest_role
+    pupil guest_role 
     # places option
     remark
     # request_date user
@@ -271,6 +283,7 @@ class ActivitiesByPartner(Courses):
     master_key = 'partner'
     column_names = "start_date overview workflow_buttons *"
     order_by = ['-start_date']
+    display_mode = "html"
 
 # class ActivitiesByClient(Activities):
 #     master_key = 'client'

@@ -137,7 +137,7 @@ def enrolments():
 
     attendee = GuestRole(**dd.str2kw('name', _("Attendee")))
     yield attendee
-    colleague = GuestRole(**dd.str2kw('name', _("Colleague")))
+    colleague = GuestRole(**dd.str2kw('name', _("Colleague"), is_teacher=True))
     yield colleague
 
     ind_et = EventType(

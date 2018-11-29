@@ -18,7 +18,7 @@ from lino_xl.lib.cal import Plugin
 
 class Plugin(Plugin):
 
-    extends_models = ['Event', 'Guest']
+    extends_models = ['Event', 'Guest', 'GuestRole']
     
     def setup_main_menu(self, site, user_type, m):
         super(Plugin, self).setup_main_menu(site, user_type, m)

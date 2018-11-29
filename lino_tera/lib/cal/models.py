@@ -168,8 +168,15 @@ EventType._meta.verbose_name_plural = _("Service types")
 #     ref name id
 #     cal.GuestsByRole #courses.EnrolmentsByGuestRole
 #     """
-        
-        
+
+class GuestRole(GuestRole):
+
+    class Meta(GuestRole.Meta):
+        abstract = dd.is_abstract_model(__name__, 'GuestRole')
+
+    is_teacher = dd.BooleanField(dd.plugins.courses.teacher_label, default=False)
+
+
 class Guest(Guest):
 
     class Meta(Guest.Meta):
@@ -230,6 +237,7 @@ MyUnconfirmedAppointments.column_names = 'when_html project summary amount workf
 
 GuestsByEvent.column_names = 'partner role workflow_buttons amount #payment_mode *'
 
+GuestRoles.column_names = "ref name is_teacher *"
 
 # class MyGuestsPayments(MyGuests):
     
