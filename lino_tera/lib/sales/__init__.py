@@ -10,5 +10,5 @@ from lino_xl.lib.sales import Plugin, _
 
 
 class Plugin(Plugin):
-
+    verbose_name = _("Invoicing")
     extends_models = ['InvoiceItem']

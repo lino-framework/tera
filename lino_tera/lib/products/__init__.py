@@ -18,12 +18,14 @@ class Plugin(Plugin):
 
     verbose_name = _("Fees")
     extends_models = ['Product', 'ProductCat']
+    menu_group = 'sales'
 
-    def setup_main_menu(self, site, user_type, m):
-        pass
-
-    def setup_config_menu(self, site, user_type, m):
-        m = m.add_menu(self.app_label, self.verbose_name)
-        m.add_action('products.Products')
-        m.add_action('products.ProductCats')
+    # def setup_main_menu(self, site, user_type, m):
+    #     pass
+    #
+    # def setup_config_menu(self, site, user_type, m):
+    #     m = m.add_menu(self.app_label, self.verbose_name)
+    #     for pt in site.models.products.ProductTypes.get_list_items():
+    #         m.add_action('products.ProductsByType', pt)
+    #     m.add_action('products.ProductCats')
 

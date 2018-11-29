@@ -18,6 +18,13 @@ class Note(Note):
         verbose_name = _("Note")
         verbose_name_plural = _("Notes")
 
+    def after_ui_save(self, ar, cw):
+        super(Note, self).after_ui_save(ar, cw)
+        if self.project_id:
+            self.project.touch()
+            self.project.save()
+
+
 dd.update_field(Note, 'body', textfield_format='plain', verbose_name=_("Detailed description"))
 dd.update_field(Note, 'subject', verbose_name=_("Short description"))
 dd.update_field(Note, 'type', verbose_name=_("Note type"))

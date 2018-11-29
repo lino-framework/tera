@@ -251,7 +251,7 @@ class Client(Person, #BeIdCardHolder,
 
 dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 #dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
-dd.update_field(Client, 'client_state', default='active')
+dd.update_field(Client, 'client_state', default=ClientStates.active)
 dd.update_field(Client, 'overview', verbose_name=None)
     
 from lino_tera.lib.contacts.models import PersonDetail

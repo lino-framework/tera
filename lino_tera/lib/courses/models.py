@@ -18,7 +18,7 @@ from etgen.html import E, tostring
 from lino.api import dd, rt, gettext
 from lino.utils import join_elems
 from lino.utils.mti import get_child
-from lino.mixins import Referrable, Sequenced
+from lino.mixins import Referrable, Sequenced, Modified
 
 from lino_xl.lib.invoicing.mixins import InvoiceGenerator
 from lino_xl.lib.ledger.utils import DEBIT
@@ -62,6 +62,8 @@ class TeraInvoiceable(InvoiceGenerator):
     class Meta(object):
         abstract = True
         
+    tariff = dd.ForeignKey('invoicing.Tariff', blank=True, null=True)
+
     # def get_invoiceable_event_date(self, ie):
     #     course = self.get_invoiceable_course()
     #     if course.line.invoicing_policy == InvoicingPolicies.by_event:
@@ -81,6 +83,11 @@ class TeraInvoiceable(InvoiceGenerator):
     #     return rt.models.cal.Guest
         
             
+    def get_invoiceable_tariff(self, product=None):
+        # course = self.get_invoiceable_course()
+        # return rt.models.invoicing.Tariff.objects.first()
+        return self.tariff
+
     def get_invoiceable_event_formatter(self):
         course = self.get_invoiceable_course()
         if course.line.invoicing_policy == InvoicingPolicies.by_event:
@@ -97,17 +104,13 @@ class TeraInvoiceable(InvoiceGenerator):
             return ar.obj2html(event, txt)
         return fmt
     
-    def get_invoiceable_tariff(self, product=None):
-        # course = self.get_invoiceable_course()
-        return rt.models.invoicing.Tariff.objects.first()
-
-    def get_prepayment_product(self, ie):
+    def get_cash_daybook(self, ie):
         course = self.get_invoiceable_course()
         if course.line.invoicing_policy == InvoicingPolicies.by_event:
             u = ie.user
         else:
             u = ie.event.user
-        return u.prepayment_product
+        return u.cash_daybook
     
     def get_invoiceable_events(self, start_date, max_date):
         course = self.get_invoiceable_course()
@@ -186,9 +189,9 @@ class TeraInvoiceable(InvoiceGenerator):
 
         for ev in info.used_events:
             if ev.amount:
-                pp = self.get_prepayment_product(ev)
+                pp = self.get_cash_daybook(ev)
                 if not pp:
-                    raise Exception(_("No prepayment product defined"))
+                    raise Exception(_("No cash daybook defined"))
                 kwargs = dict(
                     invoiceable=self, product=pp)
                     # total_incl=-ev.amount)
@@ -206,7 +209,7 @@ class TeraInvoiceable(InvoiceGenerator):
 
 
 @dd.python_2_unicode_compatible
-class Course(Referrable, Course, TeraInvoiceable, HealthcareClient):
+class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
     """
     Extends the standard model by adding a field :attr:`fee`.
 
@@ -293,7 +296,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient):
     procurer = dd.ForeignKey('tera.Procurer', blank=True, null=True)
     mandatory = models.BooleanField(_("Mandatory"), default=False)
     ending_reason = EndingReasons.field(blank=True)
-    tariff = PartnerTariffs.field(
+    partner_tariff = PartnerTariffs.field(
         default=PartnerTariffs.as_callable('plain'))
     translator_type = TranslatorTypes.field(blank=True)
     therapy_domain = TherapyDomains.field(blank=True)
@@ -560,15 +563,24 @@ class Enrolment(Enrolment, TeraInvoiceable):
             return Product.objects.none()
         return Product.objects.filter(cat=course.line.fees_cat)
 
-    def full_clean(self, *args, **kwargs):
+    # def before_ui_save(self, ar):
+    def on_create(self, ar):
         if self.course_id is None:
             if self.pupil_id:
                 line = rt.models.courses.Line.objects.order_by('id').first()
-                kw = dict(name=str(self.pupil), line=line, partner=self.pupil)
+                kw = dict(line=line, partner=self.pupil)
+                kw.update(name=u"{} {}".format(self.pupil.last_name.upper(),
+                                               self.pupil.first_name))
+                # kw.update(user=ar.get_user())
+                # kw.update(teacher=ar.get_user())
                 course = rt.models.courses.Course(**kw)
+                course.on_create(ar)
                 course.full_clean()
                 course.save()
                 self.course = course
+        super(Enrolment, self).before_ui_save(ar)
+
+    def full_clean(self, *args, **kwargs):
         if self.course_id:
             if self.course.line:
                 self.course_area = self.course.line.course_area
@@ -577,6 +589,13 @@ class Enrolment(Enrolment, TeraInvoiceable):
         if self.fee_id is None:
             self.compute_fee()
         super(Enrolment, self).full_clean(*args, **kwargs)
+
+    def get_invoiceable_tariff(self, product=None):
+        # course = self.get_invoiceable_course()
+        # return rt.models.invoicing.Tariff.objects.first()
+        if self.course_id:
+            return self.tariff or self.course.tariff
+        return self.tariff
 
     def pupil_changed(self, ar):
         self.compute_fee()
@@ -627,10 +646,17 @@ class Enrolment(Enrolment, TeraInvoiceable):
         return self.pupil
 
     def get_invoiceable_product(self, max_date=None):
-        return self.fee or self.course.fee or self.course.line.fee
+        if self.fee:
+            return self.fee
+        if self.course_id:
+            if self.course.fee:
+                return self.course.fee
+            if self.course.line_id:
+                return self.course.line.fee
     
     def get_invoiceable_course(self):
-        return self.course
+        if self.course_id:
+            return self.course
     
     @classmethod
     def get_generators_for_plan(cls, plan, partner=None):

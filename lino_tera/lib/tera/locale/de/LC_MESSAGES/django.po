@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-28 15:55+0200\n"
-"PO-Revision-Date: 2018-11-28 15:59+0200\n"
+"POT-Creation-Date: 2018-11-29 16:41+0200\n"
+"PO-Revision-Date: 2018-11-29 16:42+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -19,39 +19,39 @@ msgstr ""
 "Generated-By: Babel 2.6.0\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: lino_tera/lib/cal/models.py:35
+#: lino_tera/lib/cal/models.py:36
 #, fuzzy
 msgid "Amount"
 msgstr "Gesamtbetrag"
 
-#: lino_tera/lib/cal/models.py:136
+#: lino_tera/lib/cal/models.py:143
 #: lino_tera/lib/courses/config/courses/Course/item_description.html:10
 msgid "Date"
 msgstr ""
 
-#: lino_tera/lib/cal/models.py:137
+#: lino_tera/lib/cal/models.py:144
 #: lino_tera/lib/courses/config/courses/Course/item_description.html:8
 #, fuzzy
 msgid "Time"
 msgstr "Aktiv"
 
-#: lino_tera/lib/cal/models.py:141
+#: lino_tera/lib/cal/models.py:148
 msgid "Service type"
 msgstr "Dienstleistungsart"
 
-#: lino_tera/lib/cal/models.py:142
+#: lino_tera/lib/cal/models.py:149
 msgid "Service types"
 msgstr "Dienstleistungsarten"
 
-#: lino_tera/lib/cal/models.py:168
+#: lino_tera/lib/cal/models.py:175
 msgid "Amount perceived"
 msgstr "Kassierter Betrag"
 
-#: lino_tera/lib/cal/models.py:234
+#: lino_tera/lib/cal/models.py:242
 msgid "Perceived"
 msgstr "Kassiert"
 
-#: lino_tera/lib/cal/models.py:240
+#: lino_tera/lib/cal/models.py:248
 msgid "My cash roll"
 msgstr "Meine Kassenrolle"
 
@@ -403,8 +403,8 @@ msgid "{} events"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:191
-msgid "No prepayment product defined"
-msgstr ""
+msgid "No cash daybook defined"
+msgstr "Kein Kassenbuch definiert"
 
 #: lino_tera/lib/courses/models.py:275
 msgid "Dossier"
@@ -513,15 +513,15 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: lino_tera/lib/notes/models.py:21
+#: lino_tera/lib/notes/models.py:28
 msgid "Detailed description"
 msgstr ""
 
-#: lino_tera/lib/notes/models.py:22
+#: lino_tera/lib/notes/models.py:29
 msgid "Short description"
 msgstr ""
 
-#: lino_tera/lib/notes/models.py:23
+#: lino_tera/lib/notes/models.py:30
 msgid "Note type"
 msgstr "Notizart"
 
@@ -642,6 +642,10 @@ msgstr ""
 msgid "min_asset and number_of_events now in Tarif instead Product"
 msgstr ""
 
+#: lino_tera/lib/tera/help_texts.py:9
+msgid "The amount perceived during this appointment."
+msgstr ""
+
 #: lino_tera/lib/tera/layouts.py:72
 msgid "Sales invoices"
 msgstr ""
@@ -723,8 +727,8 @@ msgid "Scheduled"
 msgstr "Geplant"
 
 #: lino_tera/lib/tera/fixtures/demo.py:94
-msgid "Prepayments"
-msgstr "Anzahlungen"
+msgid "Cash daybooks"
+msgstr "Kassenbücher"
 
 #: lino_tera/lib/tera/fixtures/demo.py:104
 #, fuzzy
@@ -740,8 +744,8 @@ msgid "Individual therapy"
 msgstr "Einzeltherapie"
 
 #: lino_tera/lib/tera/fixtures/demo.py:131
-msgid "Prepayment"
-msgstr "Anzahlung"
+msgid "Cash daybook Daniel"
+msgstr "Kassenbuch Daniel"
 
 #: lino_tera/lib/tera/fixtures/demo.py:135
 msgid "Attendee"
@@ -788,8 +792,8 @@ msgid "Children"
 msgstr ""
 
 #: lino_tera/lib/users/models.py:20
-msgid "Cash prepayments"
-msgstr "Anzahlungen in bar"
+msgid "Cash daybook"
+msgstr "Kassenbuch"
 
 #~ msgid "Attendance"
 #~ msgstr "Teilnahme"
@@ -808,3 +812,12 @@ msgstr "Anzahlungen in bar"
 
 #~ msgid "Tariff"
 #~ msgstr "Tarif"
+
+#~ msgid "Prepayments"
+#~ msgstr "Anzahlungen"
+
+#~ msgid "Prepayment"
+#~ msgstr "Anzahlung"
+
+#~ msgid "Cash prepayments"
+#~ msgstr "Anzahlungen in bar"

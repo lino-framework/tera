@@ -60,7 +60,7 @@ from lino_xl.lib.invoicing.models import InvoicingsByGenerator
 
 InvoicingsByGenerator.column_names = (
     "voucher title qty voucher__voucher_date "
-    "voucher__state product__tariff__number_of_events *")
+    "voucher__state #product__tariff__number_of_events *")
 
 
 class PendingRequestedEnrolments(PendingRequestedEnrolments):
@@ -206,7 +206,7 @@ class CourseDetail(CourseDetail):
 
     invoicing = dd.Panel("""
     # company contact_person
-    healthcare_plan #tariff #payment_term #paper_type ending_reason state 
+    healthcare_plan tariff #payment_term #paper_type ending_reason state 
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
@@ -288,7 +288,8 @@ class MyCoursesGiven(MyCoursesGiven):
     # label = _("Therapies held by me")
     label = format_lazy(_("My {}"), _("Therapies"))
     column_names = "ref name line workflow_buttons *"
-    order_by = ['-ref']
+    # order_by = ['-ref']
+    order_by = ['-modified']
 
 
 class PriceRules(dd.Table):

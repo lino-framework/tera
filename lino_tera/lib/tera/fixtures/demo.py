@@ -91,7 +91,7 @@ def enrolments():
     presence = ProductCat(**dd.str2kw('name', _("Fees")))
     yield presence
 
-    cash = ProductCat(**dd.str2kw('name', _("Prepayments")))
+    cash = ProductCat(**dd.str2kw('name', _("Cash daybooks")))
     yield cash
 
     obj = Company(
@@ -105,12 +105,15 @@ def enrolments():
         sheet_item=CommonItems.sales.get_object(), ref="7010")
     yield indacc
 
-    t1 = babeld(Tariff, _("By presence"), number_of_events = 1)
+    t1 = babeld(Tariff, _("By presence"), number_of_events=1)
     yield t1
-    
+
+    t10 = babeld(Tariff, _("Maximum 10"), number_of_events=1, max_asset=10)
+    yield t10
+
     group_therapy = named(
         Product, _("Group therapy"), sales_account=indacc,
-        tariff=t1,
+        # tariff=t1,
         sales_price=30, cat=presence,
         product_type=ProductTypes.default)
     yield group_therapy
@@ -119,7 +122,7 @@ def enrolments():
     
     ind_therapy = named(
         Product, _("Individual therapy"),
-        tariff=t1,
+        # tariff=t1,
         sales_price=60, sales_account=indacc, cat=presence,
         product_type=ProductTypes.default)
     yield ind_therapy
@@ -128,8 +131,8 @@ def enrolments():
    
     yield named(Product, _("Other"), sales_price=35)
     prepayment = named(
-        Product, _("Prepayment"), cat=cash,
-        product_type=ProductTypes.payment)
+        Product, _("Cash daybook Daniel"), cat=cash,
+        product_type=ProductTypes.daybooks)
     yield prepayment
 
     attendee = GuestRole(**dd.str2kw('name', _("Attendee")))
@@ -147,7 +150,7 @@ def enrolments():
     yield group_et
 
     yield create_user("daniel", UserTypes.therapist,
-                      prepayment_product=prepayment, event_type=ind_et)
+                      cash_daybook=prepayment, event_type=ind_et)
     yield create_user("elmar", UserTypes.therapist, event_type=group_et)
     yield create_user("lydia", UserTypes.secretary)
 
@@ -186,6 +189,7 @@ def enrolments():
     TEACHERS = Cycler(Teacher.objects.all())
     SLOTS = Cycler(rt.models.courses.Slot.objects.all())
     TOPICS = Cycler(rt.models.topics.Topic.objects.all())
+    TARIFFS = Cycler(rt.models.invoicing.Tariff.objects.all())
 
     date = settings.SITE.demo_date(-200)
     qs = Client.objects.all()
@@ -207,6 +211,7 @@ def enrolments():
                 max_events=10,
                 every_unit=DurationUnits.weeks,
                 slot=SLOTS.pop())
+            kw.update(tariff=TARIFFS.pop())
             c = Course(**kw)
             yield c
             yield Interest(partner=c, topic=TOPICS.pop())
@@ -235,6 +240,7 @@ def enrolments():
             every=1,
             every_unit=DurationUnits.weeks,
             slot=SLOTS.pop())
+        kw.update(tariff=TARIFFS.pop())
         c = Course(**kw)
         yield c
         for i in range(grsizes.pop()):
@@ -251,7 +257,7 @@ def enrolments():
             e.state = EntryStates.took_place
         else:
             e.state = EntryStates.missed
-        if e.user and e.user.prepayment_product_id:
+        if e.user and e.user.cash_daybook_id:
             if e.project.line.invoicing_policy == \
                InvoicingPolicies.by_event:
                 e.amount = AMOUNTS.pop()
@@ -261,7 +267,7 @@ def enrolments():
         if g.id % 5:
             g.state = GuestStates.present
             e = g.event
-            if e.user and e.user.prepayment_product_id:
+            if e.user and e.user.cash_daybook_id:
                 if e.project.line.invoicing_policy == \
                    InvoicingPolicies.by_event:
                     g.amount = AMOUNTS.pop()

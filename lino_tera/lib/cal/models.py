@@ -4,6 +4,7 @@
 
 from __future__ import unicode_literals
 
+from atelier.utils import last_day_of_month
 from lino.api import _
 #from lino_xl.lib.invoicing.mixins import InvoiceGenerator
 from lino_xl.lib.cal.models import *
@@ -105,17 +106,28 @@ class Event(Event):
             self.full_clean()
             self.save()
 
+    def after_ui_save(self, ar, cw):
+        super(Event, self).after_ui_save(ar, cw)
+        if self.project_id:
+            self.project.touch()
+            self.project.save()
+
     def disabled_fields(self, ar):
         fields = super(Event, self).disabled_fields(ar)
-        # print("20181128", ar.bound_action, ar.bound_action.action.window_type)
-        if ar.bound_action.action.window_type == 'i':
-            # don't disable amount in insert window
-            return fields
-        if not self.can_have_amount():
-            fields.add('amount')
+        if ar.get_user().cash_daybook_id is not None:
+            # if ar.bound_action.action.window_type == 'i':
+            #     # don't disable amount in insert window
+            #     return fields
+            if self.can_have_amount():
+                return fields
+        fields.add('amount')
         return fields
 
     def can_have_amount(self):
+        if self.id is None:
+            # when inserting, the following conditions cannot yet verified, so
+            # we allow entering an amount
+            return True
         course = self.project
         if course is None or course.line is None or \
            course.line.invoicing_policy != InvoicingPolicies.by_event:
@@ -125,8 +137,6 @@ class Event(Event):
             if li and li.voucher.voucher_date >= self.start_date:
                 return False
         return True
-
-    
 
     def force_guest_states(self):
         if self.project and self.project.line:
@@ -174,8 +184,9 @@ class Guest(Guest):
         #     course = self.event.project
         # else:
         #     course = None
-        if self.event_id and self.event.can_have_amount():
-            return fields
+        if ar.get_user().cash_daybook_id is not None:
+            if self.event_id and self.event.can_have_amount():
+                return fields
         fields.add('amount')
         return fields
 
@@ -234,15 +245,16 @@ add = EventEvents.add_item
 add('30', _("Perceived"), 'perceived')
 
 
-class MyCashRoll(Events):
+class MyCashRoll(MyEntries):
 
     column_names = 'overview project amount workflow_buttons *'
     label = _("My cash roll")
+    # display_mode = "html"
 
     @classmethod
     def get_request_queryset(cls, ar, **kwargs):
         # logger.info("20121010 Clients.get_request_queryset %s",ar.param_values)
-        qs = super(Events, cls).get_request_queryset(ar, **kwargs)
+        qs = super(MyCashRoll, cls).get_request_queryset(ar, **kwargs)
         pv = ar.param_values
 
         if pv.observed_event == EventEvents.perceived:
@@ -252,13 +264,14 @@ class MyCashRoll(Events):
 
     @classmethod
     def param_defaults(self, ar, **kw):
-        sd = dd.today(-30).replace(day=1)
+        offset = -10
         kw = super(MyCashRoll, self).param_defaults(ar, **kw)
         kw.update(user=ar.get_user())
         # kw.update(show_appointments=dd.YesNo.yes)
         # kw.update(assigned_to=ar.get_user())
         # logger.info("20130807 %s %s",self,kw)
-        kw.update(start_date=sd)
+        kw.update(start_date=dd.today(offset).replace(day=1))
+        kw.update(end_date=last_day_of_month(dd.today(offset)))
         kw.update(observed_event=EventEvents.perceived)
         # kw.update(end_date=settings.SITE.today(14))
         return kw

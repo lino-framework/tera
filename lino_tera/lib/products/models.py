@@ -11,9 +11,9 @@ from lino.api import _
 
 ProductTypes.clear()
 add = ProductTypes.add_item
-add('100', _("Fee"), 'default')
-add('200', _("Payment"), 'payment')
-add('300', _("Other"), 'other')
+add('100', _("Fees"), 'default', table_name="products.Products")
+add('200', _("Cash daybooks"), 'daybooks', table_name="products.Daybooks")
+# add('300', _("Other"), 'default')
 
 
 
@@ -55,5 +55,19 @@ class ProductDetail(dd.DetailLayout):
     sales.InvoiceItemsByProduct
     """, _("Sales"))
 
+# class Fees(Products):
+#     _product_type = ProductTypes.fees
+#     column_names = "name sales_price sales_account cat *"
 
-Products.column_names = "id name sales_price sales_account cat *"
+Products.column_names = "name tariff sales_price sales_account *"
+
+class Daybooks(Products):
+    _product_type = ProductTypes.daybooks
+    column_names = "name sales_account *"
+
+from lino.core.roles import UserRole
+
+class Nobody(UserRole):
+    pass
+
+ProductCats.required_roles = dd.login_required(Nobody)
