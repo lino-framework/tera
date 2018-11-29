@@ -36,7 +36,7 @@ Lines.detail_layout = """
     """
 
 Lines.column_names = ("ref name course_area "
-                      "event_type guest_role fees_cat fee invoicing_policy *")
+                      "event_type guest_role #fees_cat #fee invoicing_policy *")
 
 
 # Enrolments.detail_layout = """
@@ -184,7 +184,7 @@ class CourseDetail(CourseDetail):
     main = "general therapy #enrolments calendar invoicing more"
     general = dd.Panel("""
     ref name partner team
-    user teacher line fee:15 
+    user teacher line #fee:15 
     enrolments_top
     EnrolmentsByCourse
     """, label=_("General"))
@@ -206,8 +206,7 @@ class CourseDetail(CourseDetail):
 
     invoicing = dd.Panel("""
     # company contact_person
-    healthcare_plan tariff payment_term paper_type
-    state ending_reason
+    healthcare_plan #tariff #payment_term #paper_type ending_reason state 
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
@@ -290,3 +289,8 @@ class MyCoursesGiven(MyCoursesGiven):
     label = format_lazy(_("My {}"), _("Therapies"))
     column_names = "ref name line workflow_buttons *"
     order_by = ['-ref']
+
+
+class PriceRules(dd.Table):
+    model = "courses.PriceRule"
+

@@ -117,3 +117,51 @@ class InvoicingPolicies(dd.ChoiceList):
 add = InvoicingPolicies.add_item
 add('00', _("By calendar event"), 'by_event')
 add('10', _("By presence"), 'by_guest')
+
+
+class Residences(dd.ChoiceList):
+    verbose_name = _("Residence")
+    verbose_name_plural = _("Residences")
+
+class HouseholdCompositions(dd.ChoiceList):
+    verbose_name = _("Household composition")
+    verbose_name_plural = _("Household compositions")
+
+class IncomeCategories(dd.ChoiceList):
+    verbose_name = _("Income category")
+    verbose_name_plural = _("Income categories")
+
+class PriceFactor(dd.Choice):
+    field_cls = None
+    def __init__(self, value, cls, name):
+        self.field_cls = cls
+        super(PriceFactor, self).__init__(value, cls.verbose_name, name)
+
+class PriceFactors(dd.ChoiceList):
+    item_class = PriceFactor
+    verbose_name = _("Price factor")
+    verbose_name_plural = _("Price factors")
+
+
+
+add = PriceFactors.add_item
+add("10", Residences, "residence")
+add("20", HouseholdCompositions, "composition")
+add("30", IncomeCategories, "income")
+
+
+add = Residences.add_item
+add("10", _("Inside"), "inside")
+add("20", _("Outside"), "ouside")
+
+add = HouseholdCompositions.add_item
+add("10", _("Alone"))
+add("20", _("2 members"))
+add("30", _("3 members"))
+
+add = IncomeCategories.add_item
+add("10", _("Below 900"))
+add("20", _("900-1100"))
+add("30", _("1100-1300"))
+add("40", _("1300-1800"))
+add("90", _("Above 1800"))

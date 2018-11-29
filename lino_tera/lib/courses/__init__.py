@@ -68,6 +68,8 @@ class Plugin(Plugin):
         # m.add_separator()
         m.add_action('courses.Lines')
         m.add_action('courses.Topics')
+        m.add_action('courses.PriceRules')
+
         # m.add_action('courses.TeacherTypes')
         # m.add_action('courses.PupilTypes')
         # m.add_action('courses.Slots')

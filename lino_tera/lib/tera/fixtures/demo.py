@@ -84,12 +84,13 @@ def enrolments():
     Account = rt.models.ledger.Account
     CommonItems = rt.models.sheets.CommonItems
     CourseAreas = rt.models.courses.CourseAreas
+    PriceRule = rt.models.courses.PriceRule
 
     # yield skills_objects()
 
-    presence = ProductCat(**dd.str2kw('name', _("Payment by presence")))
+    presence = ProductCat(**dd.str2kw('name', _("Fees")))
     yield presence
-    
+
     cash = ProductCat(**dd.str2kw('name', _("Prepayments")))
     yield cash
 
@@ -110,7 +111,8 @@ def enrolments():
     group_therapy = named(
         Product, _("Group therapy"), sales_account=indacc,
         tariff=t1,
-        sales_price=30, cat=presence, product_type=ProductTypes.default)
+        sales_price=30, cat=presence,
+        product_type=ProductTypes.default)
     yield group_therapy
     # group_therapy.tariff.number_of_events = 1
     # yield group_therapy.tariff
@@ -130,20 +132,11 @@ def enrolments():
         product_type=ProductTypes.payment)
     yield prepayment
 
-    yield create_user("daniel", UserTypes.therapist,
-                      prepayment_product=prepayment)
-    yield create_user("elmar", UserTypes.therapist)
-    yield create_user("lydia", UserTypes.secretary)
-
-    yield named(Topic, _("Alcoholism"), ref="A")
-    yield named(Topic, _("Phobia"), ref="P")
-    yield named(Topic, _("Insomnia"), ref="I")
-
     attendee = GuestRole(**dd.str2kw('name', _("Attendee")))
     yield attendee
     colleague = GuestRole(**dd.str2kw('name', _("Colleague")))
     yield colleague
-    
+
     ind_et = EventType(
         force_guest_states=True,
         **dd.str2kw('name', _("Individual appointment")))
@@ -152,16 +145,28 @@ def enrolments():
         force_guest_states=False,
         **dd.str2kw('name', _("Group meeting")))
     yield group_et
-    
+
+    yield create_user("daniel", UserTypes.therapist,
+                      prepayment_product=prepayment, event_type=ind_et)
+    yield create_user("elmar", UserTypes.therapist, event_type=group_et)
+    yield create_user("lydia", UserTypes.secretary)
+
+    yield named(Topic, _("Alcoholism"), ref="A")
+    yield named(Topic, _("Phobia"), ref="P")
+    yield named(Topic, _("Insomnia"), ref="I")
+
+    yield PriceRule(seqno=1, event_type=group_et, fee=group_therapy)
+    yield PriceRule(seqno=2, event_type=ind_et, fee=ind_therapy)
+
     for a in CourseAreas.get_list_items():
         kw = dict(
             name=a.text, course_area=a, guest_role=attendee)
-        kw.update(fees_cat=presence)
+        # kw.update(fees_cat=presence)
         kw.update(guest_role=attendee)
-        if a.name in('therapies', 'life_groups'):
-            kw.update(fee=ind_therapy, event_type=ind_et)
-        else:
-            kw.update(fee=group_therapy, event_type=group_et)
+        # if a.name in('therapies', 'life_groups'):
+        #     kw.update(fee=ind_therapy, event_type=ind_et)
+        # else:
+        #     kw.update(fee=group_therapy, event_type=group_et)
         a.line_obj = Line(**kw)
         yield a.line_obj  # temporary cache used below
         

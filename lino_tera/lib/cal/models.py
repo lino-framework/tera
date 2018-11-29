@@ -32,7 +32,7 @@ class Event(Event):
     class Meta(Event.Meta):
         abstract = dd.is_abstract_model(__name__, 'Event')
         
-    amount = dd.PriceField(_("Amount perceived"), blank=True, null=True)
+    amount = dd.PriceField(_("Amount"), blank=True, null=True)
     # payment_mode = PaymentModes.field(blank=True)
     
     # def get_invoiceable_partner(self):
@@ -107,15 +107,24 @@ class Event(Event):
 
     def disabled_fields(self, ar):
         fields = super(Event, self).disabled_fields(ar)
+        # print("20181128", ar.bound_action, ar.bound_action.action.window_type)
+        if ar.bound_action.action.window_type == 'i':
+            # don't disable amount in insert window
+            return fields
+        if not self.can_have_amount():
+            fields.add('amount')
+        return fields
+
+    def can_have_amount(self):
         course = self.project
         if course is None or course.line is None or \
            course.line.invoicing_policy != InvoicingPolicies.by_event:
-            fields.add('amount')
+            return False
         if course is not None:
             li = course.get_last_invoicing()
             if li and li.voucher.voucher_date >= self.start_date:
-                fields.add('amount')
-        return fields
+                return False
+        return True
 
     
 
@@ -126,6 +135,8 @@ class Event(Event):
 
 dd.update_field(Event, 'start_date', verbose_name=_("Date"))
 dd.update_field(Event, 'start_time', verbose_name=_("Time"))
+# dd.update_field(Event, 'project', blank=False)
+dd.update_field(Event, 'event_type', blank=False)
 
 EventType._meta.verbose_name = _("Service type")
 EventType._meta.verbose_name_plural = _("Service types")
@@ -159,17 +170,13 @@ class Guest(Guest):
     
     def disabled_fields(self, ar):
         fields = super(Guest, self).disabled_fields(ar)
-        if self.event_id:
-            course = self.event.project
-        else:
-            course = None
-        if course is None or course.line is None \
-           or course.line.invoicing_policy == InvoicingPolicies.by_event:
-            fields.add('amount')
-        if course is not None:
-            li = course.get_last_invoicing()
-            if li and li.voucher.voucher_date >= self.event.start_date:
-                fields.add('amount')
+        # if self.event_id:
+        #     course = self.event.project
+        # else:
+        #     course = None
+        if self.event_id and self.event.can_have_amount():
+            return fields
+        fields.add('amount')
         return fields
 
     def after_ui_save(self, ar, cw):
@@ -208,6 +215,7 @@ class EventInsert(EventInsert):
     user
     """
 MyEntries.column_names = 'when_html project event_type summary  *'
+MyUnconfirmedAppointments.column_names = 'when_html project summary amount workflow_buttons *'
 
 GuestsByEvent.column_names = 'partner role workflow_buttons amount #payment_mode *'
 
@@ -225,28 +233,23 @@ from lino_xl.lib.cal.models import EventEvents
 add = EventEvents.add_item
 add('30', _("Perceived"), 'perceived')
 
-# class Events(Events):
-if False:  # oops what a hack!
-    # this was the cause for #2680
-    supermethod = Events.get_request_queryset
+
+class MyCashRoll(Events):
+
+    column_names = 'overview project amount workflow_buttons *'
+    label = _("My cash roll")
 
     @classmethod
     def get_request_queryset(cls, ar, **kwargs):
         # logger.info("20121010 Clients.get_request_queryset %s",ar.param_values)
-        # qs = super(Events, cls).get_request_queryset(ar, **kwargs)
-        qs = supermethod(ar, **kwargs)
+        qs = super(Events, cls).get_request_queryset(ar, **kwargs)
         pv = ar.param_values
 
         if pv.observed_event == EventEvents.perceived:
             qs = qs.filter(amount__isnull=False)
         return qs
 
-    Events.get_request_queryset = get_request_queryset
-    
-class MyCashRoll(Events):
-    column_names = 'overview project amount workflow_buttons *'
-    label = _("My cash roll")
-        
+
     @classmethod
     def param_defaults(self, ar, **kw):
         sd = dd.today(-30).replace(day=1)

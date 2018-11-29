@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-21 07:49+0200\n"
-"PO-Revision-Date: 2018-11-21 07:56+0200\n"
+"POT-Creation-Date: 2018-11-28 15:55+0200\n"
+"PO-Revision-Date: 2018-11-28 15:59+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -19,34 +19,39 @@ msgstr ""
 "Generated-By: Babel 2.6.0\n"
 "X-Generator: Poedit 2.0.6\n"
 
-#: lino_tera/lib/cal/models.py:35 lino_tera/lib/cal/models.py:157
-msgid "Amount perceived"
-msgstr "Kassierter Betrag"
+#: lino_tera/lib/cal/models.py:35
+#, fuzzy
+msgid "Amount"
+msgstr "Gesamtbetrag"
 
-#: lino_tera/lib/cal/models.py:127
+#: lino_tera/lib/cal/models.py:136
 #: lino_tera/lib/courses/config/courses/Course/item_description.html:10
 msgid "Date"
 msgstr ""
 
-#: lino_tera/lib/cal/models.py:128
+#: lino_tera/lib/cal/models.py:137
 #: lino_tera/lib/courses/config/courses/Course/item_description.html:8
 #, fuzzy
 msgid "Time"
 msgstr "Aktiv"
 
-#: lino_tera/lib/cal/models.py:130
+#: lino_tera/lib/cal/models.py:141
 msgid "Service type"
 msgstr "Dienstleistungsart"
 
-#: lino_tera/lib/cal/models.py:131
+#: lino_tera/lib/cal/models.py:142
 msgid "Service types"
 msgstr "Dienstleistungsarten"
 
-#: lino_tera/lib/cal/models.py:223
+#: lino_tera/lib/cal/models.py:168
+msgid "Amount perceived"
+msgstr "Kassierter Betrag"
+
+#: lino_tera/lib/cal/models.py:234
 msgid "Perceived"
 msgstr "Kassiert"
 
-#: lino_tera/lib/cal/models.py:245
+#: lino_tera/lib/cal/models.py:240
 msgid "My cash roll"
 msgstr "Meine Kassenrolle"
 
@@ -69,7 +74,7 @@ msgid "Reduced"
 msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:19 lino_tera/lib/contacts/models.py:50
-#: lino_tera/lib/courses/desktop.py:189 lino_tera/lib/products/models.py:47
+#: lino_tera/lib/courses/desktop.py:190 lino_tera/lib/products/models.py:47
 #: lino_tera/lib/users/desktop.py:16
 msgid "General"
 msgstr ""
@@ -79,7 +84,7 @@ msgid "Address"
 msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:32 lino_tera/lib/contacts/models.py:88
-#: lino_tera/lib/courses/desktop.py:220
+#: lino_tera/lib/courses/desktop.py:216
 msgid "More"
 msgstr ""
 
@@ -95,19 +100,20 @@ msgstr ""
 msgid "Abandoned by client"
 msgstr ""
 
-#: lino_tera/lib/contacts/models.py:93 lino_tera/lib/courses/desktop.py:215
+#: lino_tera/lib/contacts/models.py:93 lino_tera/lib/courses/desktop.py:211
+#: lino_tera/lib/tera/models.py:283
 msgid "Invoicing"
 msgstr ""
 
-#: lino_tera/lib/contacts/models.py:99
+#: lino_tera/lib/contacts/models.py:111
 msgid "Purchases"
 msgstr ""
 
-#: lino_tera/lib/courses/__init__.py:20 lino_tera/lib/courses/desktop.py:293
+#: lino_tera/lib/courses/__init__.py:20 lino_tera/lib/courses/desktop.py:289
 msgid "Therapies"
 msgstr "Akten"
 
-#: lino_tera/lib/courses/__init__.py:27 lino_tera/lib/tera/user_types.py:59
+#: lino_tera/lib/courses/__init__.py:27 lino_tera/lib/tera/user_types.py:60
 msgid "Therapist"
 msgstr "Therapeut"
 
@@ -182,7 +188,7 @@ msgstr ""
 
 #: lino_tera/lib/courses/choicelists.py:70
 #: lino_tera/lib/courses/choicelists.py:94 lino_tera/lib/products/models.py:16
-#: lino_tera/lib/tera/choicelists.py:39 lino_tera/lib/tera/fixtures/demo.py:127
+#: lino_tera/lib/tera/choicelists.py:39 lino_tera/lib/tera/fixtures/demo.py:129
 msgid "Other"
 msgstr "Andere"
 
@@ -278,101 +284,195 @@ msgid "By calendar event"
 msgstr "Pro Termin"
 
 #: lino_tera/lib/courses/choicelists.py:119
-#: lino_tera/lib/tera/fixtures/demo.py:107
+#: lino_tera/lib/tera/fixtures/demo.py:108
 msgid "By presence"
 msgstr "Pro Anwesenheit"
 
-#: lino_tera/lib/courses/desktop.py:139
+#: lino_tera/lib/courses/choicelists.py:123
+msgid "Residence"
+msgstr "Wohnort"
+
+#: lino_tera/lib/courses/choicelists.py:124
+#, fuzzy
+msgid "Residences"
+msgstr "Pro Anwesenheit"
+
+#: lino_tera/lib/courses/choicelists.py:127
+msgid "Household composition"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:128
+msgid "Household compositions"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:131
+msgid "Income category"
+msgstr "Einkommenskategorie"
+
+#: lino_tera/lib/courses/choicelists.py:132
+#, fuzzy
+msgid "Income categories"
+msgstr "Gebührenkategorien"
+
+#: lino_tera/lib/courses/choicelists.py:142
+msgid "Price factor"
+msgstr "Preisfaktor"
+
+#: lino_tera/lib/courses/choicelists.py:143
+msgid "Price factors"
+msgstr "Preisfaktoren"
+
+#: lino_tera/lib/courses/choicelists.py:154
+msgid "Inside"
+msgstr "Innerhalb der DG"
+
+#: lino_tera/lib/courses/choicelists.py:155
+msgid "Outside"
+msgstr "Außerhalb der DG"
+
+#: lino_tera/lib/courses/choicelists.py:158
+msgid "Alone"
+msgstr "Allein lebend"
+
+#: lino_tera/lib/courses/choicelists.py:159
+msgid "2 members"
+msgstr "2 Mitglieder im Haushalt"
+
+#: lino_tera/lib/courses/choicelists.py:160
+msgid "3 members"
+msgstr "3 Mitglieder im Haushalt"
+
+#: lino_tera/lib/courses/choicelists.py:163
+msgid "Below 900"
+msgstr "Unter 900"
+
+#: lino_tera/lib/courses/choicelists.py:164
+msgid "900-1100"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:165
+msgid "1100-1300"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:166
+msgid "1300-1800"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:167
+msgid "Above 1800"
+msgstr "Über 1800"
+
+#: lino_tera/lib/courses/desktop.py:141
 msgid "Enrolments using this fee"
 msgstr "Teilnahmen mit diesem Tarif"
 
-#: lino_tera/lib/courses/desktop.py:196
+#: lino_tera/lib/courses/desktop.py:198
 msgid "Therapy"
 msgstr "Akte"
 
-#: lino_tera/lib/courses/desktop.py:203
+#: lino_tera/lib/courses/desktop.py:205
 msgid "Appointments"
 msgstr "Termine"
 
-#: lino_tera/lib/courses/desktop.py:227 lino_tera/lib/courses/desktop.py:234
+#: lino_tera/lib/courses/desktop.py:223 lino_tera/lib/courses/desktop.py:230
 msgid "Participants"
 msgstr "Teilnehmer"
 
-#: lino_tera/lib/courses/desktop.py:293
+#: lino_tera/lib/courses/desktop.py:270
+msgid "Invoice recipient in dossiers"
+msgstr "Rechnungsempfänger in Akten"
+
+#: lino_tera/lib/courses/desktop.py:289
 msgid "My {}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:49
+#: lino_tera/lib/courses/models.py:51
 msgid "Dossier type"
 msgstr "Aktenart"
 
-#: lino_tera/lib/courses/models.py:50
+#: lino_tera/lib/courses/models.py:52
 msgid "Dossier types"
 msgstr "Aktenarten"
 
-#: lino_tera/lib/courses/models.py:88
+#: lino_tera/lib/courses/models.py:93
 msgid "{} with {} on {}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:161
+#: lino_tera/lib/courses/models.py:175
+msgid "{} events"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:191
 msgid "No prepayment product defined"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:245
+#: lino_tera/lib/courses/models.py:275
 msgid "Dossier"
 msgstr "Akte"
 
-#: lino_tera/lib/courses/models.py:246
+#: lino_tera/lib/courses/models.py:276
 msgid "Dossiers"
 msgstr "Akten"
 
-#: lino_tera/lib/courses/models.py:255
+#: lino_tera/lib/courses/models.py:285
 msgid "Attendance fee"
 msgstr "Teilnahmegebühr"
 
-#: lino_tera/lib/courses/models.py:264
+#: lino_tera/lib/courses/models.py:294
 msgid "Mandatory"
 msgstr "Verpflichtend"
 
-#: lino_tera/lib/courses/models.py:274
+#: lino_tera/lib/courses/models.py:305
 msgid "Invoice recipient"
 msgstr "Rechnungsempfänger"
 
-#: lino_tera/lib/courses/models.py:378 lino_tera/lib/tera/models.py:126
+#: lino_tera/lib/courses/models.py:311 lino_tera/lib/tera/models.py:278
+msgid "Client"
+msgstr "Klient"
+
+#: lino_tera/lib/courses/models.py:426 lino_tera/lib/tera/models.py:125
 msgid "Patient"
 msgstr "Patient"
 
-#: lino_tera/lib/courses/models.py:386
+#: lino_tera/lib/courses/models.py:434
 msgid "Household"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:394
+#: lino_tera/lib/courses/models.py:442
 msgid "Organization"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:465
+#: lino_tera/lib/courses/models.py:513
 msgid "Manager"
 msgstr "Verwalter"
 
-#: lino_tera/lib/courses/models.py:502
+#: lino_tera/lib/courses/models.py:550
 msgid "Role"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:536
+#: lino_tera/lib/courses/models.py:591
 msgid "Participant"
 msgstr "Teilnehmer"
 
-#: lino_tera/lib/courses/models.py:554
+#: lino_tera/lib/courses/models.py:609
 msgid "Phone: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:556
+#: lino_tera/lib/courses/models.py:611
 msgid "GSM: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:559
+#: lino_tera/lib/courses/models.py:614
 msgid "Payment info"
 msgstr ""
+
+#: lino_tera/lib/courses/models.py:685
+msgid "Fee rule"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:686
+msgid "Fee rules"
+msgstr "Gebührenordnung"
 
 #: lino_tera/lib/courses/config/courses/Course/item_description.html:16
 #: lino_tera/lib/courses/config/courses/Enrolment/item_description.html:8
@@ -405,7 +505,28 @@ msgstr ""
 msgid "Children's group {0}"
 msgstr ""
 
+#: lino_tera/lib/notes/models.py:18
+msgid "Note"
+msgstr ""
+
+#: lino_tera/lib/notes/models.py:19
+msgid "Notes"
+msgstr ""
+
+#: lino_tera/lib/notes/models.py:21
+msgid "Detailed description"
+msgstr ""
+
+#: lino_tera/lib/notes/models.py:22
+msgid "Short description"
+msgstr ""
+
+#: lino_tera/lib/notes/models.py:23
+msgid "Note type"
+msgstr "Notizart"
+
 #: lino_tera/lib/products/__init__.py:19 lino_tera/lib/products/models.py:34
+#: lino_tera/lib/tera/fixtures/demo.py:91
 msgid "Fees"
 msgstr "Gebühren"
 
@@ -415,7 +536,7 @@ msgstr ""
 
 #: lino_tera/lib/products/models.py:15
 msgid "Payment"
-msgstr ""
+msgstr "Zahlung"
 
 #: lino_tera/lib/products/models.py:24
 msgid "Fee category"
@@ -491,7 +612,7 @@ msgstr "Arbeitslos"
 
 #: lino_tera/lib/tera/choicelists.py:36
 msgid "Invalid"
-msgstr "\tBerufsunfähig"
+msgstr "Berufsunfähig"
 
 #: lino_tera/lib/tera/choicelists.py:37
 msgid "Social aid recipient"
@@ -521,67 +642,67 @@ msgstr ""
 msgid "min_asset and number_of_events now in Tarif instead Product"
 msgstr ""
 
-#: lino_tera/lib/tera/layouts.py:71
+#: lino_tera/lib/tera/layouts.py:72
 msgid "Sales invoices"
 msgstr ""
 
-#: lino_tera/lib/tera/layouts.py:73
+#: lino_tera/lib/tera/layouts.py:74
 msgid "Purchase invoices"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:78
+#: lino_tera/lib/tera/models.py:77
 msgid "Procurer"
 msgstr "Vermittler"
 
-#: lino_tera/lib/tera/models.py:79
+#: lino_tera/lib/tera/models.py:78
 msgid "Procurers"
 msgstr "Vermittler"
 
-#: lino_tera/lib/tera/models.py:106
+#: lino_tera/lib/tera/models.py:105
 msgid "Life mode"
 msgstr "Lebensweise"
 
-#: lino_tera/lib/tera/models.py:107
+#: lino_tera/lib/tera/models.py:106
 msgid "Life modes"
 msgstr "Lebensweise"
 
-#: lino_tera/lib/tera/models.py:127
+#: lino_tera/lib/tera/models.py:126
 msgid "Patients"
 msgstr "Patienten"
 
-#: lino_tera/lib/tera/models.py:140
+#: lino_tera/lib/tera/models.py:139
 msgid "Obsoletes"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:146 lino_tera/lib/tera/models.py:323
+#: lino_tera/lib/tera/models.py:145 lino_tera/lib/tera/models.py:340
 msgid "Nationality"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:223
+#: lino_tera/lib/tera/models.py:222
 msgid "{} ({}) from {}"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:227
+#: lino_tera/lib/tera/models.py:226
 msgid "Name"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:253
+#: lino_tera/lib/tera/models.py:252
 msgid "Primary coach"
 msgstr ""
 
-#: lino_tera/lib/tera/models.py:274
-msgid "Client"
-msgstr "Klient"
+#: lino_tera/lib/tera/settings.py:122
+msgid "New note"
+msgstr "Notiz erstellen"
 
-#: lino_tera/lib/tera/user_types.py:57
+#: lino_tera/lib/tera/user_types.py:58
 msgid "Anonymous"
 msgstr ""
 
-#: lino_tera/lib/tera/user_types.py:58
+#: lino_tera/lib/tera/user_types.py:59
 msgid "Secretary"
 msgstr ""
 
-#: lino_tera/lib/tera/user_types.py:60
+#: lino_tera/lib/tera/user_types.py:61
 msgid "Administrator"
 msgstr ""
 
@@ -601,78 +722,74 @@ msgstr "Abgesagt"
 msgid "Scheduled"
 msgstr "Geplant"
 
-#: lino_tera/lib/tera/fixtures/demo.py:90
-msgid "Payment by presence"
-msgstr ""
-
-#: lino_tera/lib/tera/fixtures/demo.py:93
+#: lino_tera/lib/tera/fixtures/demo.py:94
 msgid "Prepayments"
 msgstr "Anzahlungen"
 
-#: lino_tera/lib/tera/fixtures/demo.py:103
+#: lino_tera/lib/tera/fixtures/demo.py:104
 #, fuzzy
 msgid "Sales on therapies"
 msgstr "Umsatz Einzeltherapien"
 
-#: lino_tera/lib/tera/fixtures/demo.py:111
+#: lino_tera/lib/tera/fixtures/demo.py:112
 msgid "Group therapy"
 msgstr "Gruppentherapie"
 
-#: lino_tera/lib/tera/fixtures/demo.py:119
+#: lino_tera/lib/tera/fixtures/demo.py:121
 msgid "Individual therapy"
 msgstr "Einzeltherapie"
 
-#: lino_tera/lib/tera/fixtures/demo.py:129
+#: lino_tera/lib/tera/fixtures/demo.py:131
 msgid "Prepayment"
-msgstr ""
+msgstr "Anzahlung"
 
-#: lino_tera/lib/tera/fixtures/demo.py:138
-msgid "Alcoholism"
-msgstr ""
-
-#: lino_tera/lib/tera/fixtures/demo.py:139
-msgid "Phobia"
-msgstr ""
-
-#: lino_tera/lib/tera/fixtures/demo.py:140
-msgid "Insomnia"
-msgstr ""
-
-#: lino_tera/lib/tera/fixtures/demo.py:142
+#: lino_tera/lib/tera/fixtures/demo.py:135
 msgid "Attendee"
 msgstr "Teilnehmer"
 
-#: lino_tera/lib/tera/fixtures/demo.py:144
+#: lino_tera/lib/tera/fixtures/demo.py:137
 msgid "Colleague"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:149
+#: lino_tera/lib/tera/fixtures/demo.py:142
 msgid "Individual appointment"
 msgstr "Einzelgespräch"
 
-#: lino_tera/lib/tera/fixtures/demo.py:153
+#: lino_tera/lib/tera/fixtures/demo.py:146
 msgid "Group meeting"
 msgstr "Gruppengespräch"
 
-#: lino_tera/lib/tera/fixtures/demo.py:219
+#: lino_tera/lib/tera/fixtures/demo.py:154
+msgid "Alcoholism"
+msgstr ""
+
+#: lino_tera/lib/tera/fixtures/demo.py:155
+msgid "Phobia"
+msgstr ""
+
+#: lino_tera/lib/tera/fixtures/demo.py:156
+msgid "Insomnia"
+msgstr ""
+
+#: lino_tera/lib/tera/fixtures/demo.py:224
 msgid "Alcohol"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:219
+#: lino_tera/lib/tera/fixtures/demo.py:224
 msgid "Burnout"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:219
+#: lino_tera/lib/tera/fixtures/demo.py:224
 msgid "Women"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:219
+#: lino_tera/lib/tera/fixtures/demo.py:224
 msgid "Children"
 msgstr ""
 
 #: lino_tera/lib/users/models.py:20
 msgid "Cash prepayments"
-msgstr ""
+msgstr "Anzahlungen in bar"
 
 #~ msgid "Attendance"
 #~ msgstr "Teilnahme"

@@ -277,6 +277,17 @@ class ClientDetail(PersonDetail):
     clients.ContactsByClient    
     """, label=_("Client"))
 
+    invoicing = dd.Panel("""
+    invoicing_left:30 courses.ActivitiesByPartner:50
+    sales.InvoicesByPartner
+    """, label=_("Invoicing"))
+
+    invoicing_left = """
+    pf_residence 
+    pf_composition pf_income
+    # salesrule__invoice_recipient 
+    payment_term salesrule__paper_type
+    """
 
 
     # address = dd.Panel("""

@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2018 Rumma & Ko Ltd
+# Copyright 2017-2018 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 
@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 from __future__ import print_function
 
 from builtins import str
+from collections import OrderedDict
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as pgettext
@@ -17,7 +18,7 @@ from etgen.html import E, tostring
 from lino.api import dd, rt, gettext
 from lino.utils import join_elems
 from lino.utils.mti import get_child
-from lino.mixins import Referrable
+from lino.mixins import Referrable, Sequenced
 
 from lino_xl.lib.invoicing.mixins import InvoiceGenerator
 from lino_xl.lib.ledger.utils import DEBIT
@@ -27,12 +28,11 @@ from lino_xl.lib.topics.models import AddInterestField
 
 from .choicelists import EndingReasons, TranslatorTypes
 from .choicelists import PartnerTariffs, TherapyDomains
-from .choicelists import InvoicingPolicies
+from .choicelists import InvoicingPolicies, PriceFactors
+# from .choicelists import HouseholdCompositions, Residences, IncomeCategories
 
 from lino_xl.lib.courses.models import *
 # from .choicelists import *
-
-contacts = dd.resolve_app('contacts')
 
 from lino_xl.lib.cal.utils import day_and_month
 
@@ -40,6 +40,7 @@ from lino_xl.lib.cal.utils import day_and_month
 
 from lino.modlib.printing.utils import CustomBuildMethod
 
+contacts = dd.resolve_app('contacts')
 
 
 class Line(Line):
@@ -61,12 +62,12 @@ class TeraInvoiceable(InvoiceGenerator):
     class Meta(object):
         abstract = True
         
-    def get_invoiceable_event_date(self, ie):
-        course = self.get_invoiceable_course()
-        if course.line.invoicing_policy == InvoicingPolicies.by_event:
-            return ie.start_date
-        else:
-            return ie.event.start_date
+    # def get_invoiceable_event_date(self, ie):
+    #     course = self.get_invoiceable_course()
+    #     if course.line.invoicing_policy == InvoicingPolicies.by_event:
+    #         return ie.start_date
+    #     else:
+    #         return ie.event.start_date
 
     def get_invoiceable_start_date(self, max_date):
         # invoicing period is always one month
@@ -80,18 +81,26 @@ class TeraInvoiceable(InvoiceGenerator):
     #     return rt.models.cal.Guest
         
             
-    def format_invoiceable_event(self, ie, ar=None):
+    def get_invoiceable_event_formatter(self):
         course = self.get_invoiceable_course()
         if course.line.invoicing_policy == InvoicingPolicies.by_event:
-            event = ie
+            ev2entry = lambda ie: ie
         else:
-            event = ie.event
-        txt = _("{} with {} on {}").format(
-            event.event_type, event.user, dd.fds(event.start_date))
-        if ar is None:
-            return txt
-        return ar.obj2html(event, txt)
+            ev2entry = lambda ie: ie.event
+
+        def fmt(ie, ar=None):
+            event = ev2entry(ie)
+            txt = _("{} with {} on {}").format(
+                event.event_type, event.user, dd.fds(event.start_date))
+            if ar is None:
+                return txt
+            return ar.obj2html(event, txt)
+        return fmt
     
+    def get_invoiceable_tariff(self, product=None):
+        # course = self.get_invoiceable_course()
+        return rt.models.invoicing.Tariff.objects.first()
+
     def get_prepayment_product(self, ie):
         course = self.get_invoiceable_course()
         if course.line.invoicing_policy == InvoicingPolicies.by_event:
@@ -103,8 +112,12 @@ class TeraInvoiceable(InvoiceGenerator):
     def get_invoiceable_events(self, start_date, max_date):
         course = self.get_invoiceable_course()
         if course.line.invoicing_policy == InvoicingPolicies.by_event:
-            flt = dict(
-                state=rt.models.cal.EntryStates.took_place)
+            # flt = dict(
+            #     state=rt.models.cal.EntryStates.took_place)
+            invoiceable_states = (rt.models.cal.EntryStates.took_place,
+                                  rt.models.cal.EntryStates.missed)
+            flt = dict(state__in=invoiceable_states)
+
             if start_date:
                 flt.update(start_date__gte=start_date)
             if max_date:
@@ -133,41 +146,57 @@ class TeraInvoiceable(InvoiceGenerator):
         #     "returns %d rows", course, qs.query, qs.count())
         return qs
 
+
     def get_invoice_items(self, info, invoice, ar):
         # dd.logger.info("20181116a %s", self)
         if info.used_events is None:
+            dd.logger.debug("20181126 no used_events for %s", self)
             return
+        course = self.get_invoiceable_course()
+        collector = OrderedDict()
         for ev in info.used_events:
             # dd.logger.info("20181116b %s", ev)
-            if info.invoiceable_product:
-                # if model is None:
-                #     yield 1
-                # else:
-                    title = self.format_invoiceable_event(ev, None)
-                    kwargs = dict(
-                        invoiceable=self,
-                        product=info.invoiceable_product,
-                        title=title,
-                        qty=self.get_invoiceable_qty())
-                    # print(20181117, kwargs)
-                    yield invoice.add_voucher_item(**kwargs)
-                    # yield model(**kwargs)
-            
+            if course.line.invoicing_policy == InvoicingPolicies.by_event:
+                entry = ev
+            else:
+                entry = ev.event
+            product = get_rule_fee(
+                self.get_invoiceable_partner(), self.get_invoiceable_tariff(),
+                entry.event_type)
+            if product is None:
+                raise Exception("20181128 no price rule for {}".format(self))
+            else:
+                events = collector.setdefault(product, [])
+                events.append(ev)
+
+        fmt = self.get_invoiceable_event_formatter()
+        for product, events in collector.items():
+            description = ', '.join([fmt(ev, None) for ev in events])
+            title = _("{} events").format(len(events))
+            kwargs = dict(
+                invoiceable=self,
+                product=product,
+                description=description,
+                title=title,
+                # qty=self.get_invoiceable_qty())
+                qty=len(events))
+            # print(20181117, kwargs)
+            yield invoice.add_voucher_item(**kwargs)
+            # yield model(**kwargs)
+
+        for ev in info.used_events:
             if ev.amount:
-                if False:  # model is None:
-                    yield 1
-                else:
-                    pp = self.get_prepayment_product(ev)
-                    if not pp:
-                        raise Exception(_("No prepayment product defined"))
-                    kwargs = dict(
-                        invoiceable=self, product=pp)
-                        # total_incl=-ev.amount)
-                    # kwargs.update(title=gettext("Prepayment"))
-                    i = invoice.add_voucher_item(**kwargs)
-                    # i = model(**kwargs)
-                    i.set_amount(ar, -ev.amount)
-                    yield i
+                pp = self.get_prepayment_product(ev)
+                if not pp:
+                    raise Exception(_("No prepayment product defined"))
+                kwargs = dict(
+                    invoiceable=self, product=pp)
+                    # total_incl=-ev.amount)
+                # kwargs.update(title=gettext("Prepayment"))
+                i = invoice.add_voucher_item(**kwargs)
+                # i = model(**kwargs)
+                i.set_amount(ar, -ev.amount)
+                yield i
                 
     def get_invoiceable_amount(self, ie):
         prod = self.get_invoiceable_product()
@@ -275,7 +304,15 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient):
         'contacts.Partner',
         verbose_name=_("Invoice recipient"),
         # related_name="%(app_label)s_%(class)s_set_by_client",
-        blank=True, null=True)    
+        blank=True, null=True)
+
+    client = dd.ForeignKey(
+        'tera.Client',
+        verbose_name=_("Client"),
+        blank=True, null=True)
+
+    def get_client(self):
+        return self.client
 
     # client = dd.ForeignKey(
     #     'tera.Client',
@@ -307,6 +344,10 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient):
             return Product.objects.none()
         return Product.objects.filter(cat=line.fees_cat)
 
+    def on_create(self, ar):
+        self.teacher = ar.get_user()
+        super(Course, self).on_create(ar)
+
     def full_clean(self):
         if not self.name:
             # self.name = str(self.household or self.client)
@@ -330,17 +371,20 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient):
             # Note that we cannot use super() with
             # python_2_unicode_compatible
             s = "{0} #{1}".format(self._meta.verbose_name, self.pk)
-        if self.line and self.line.ref:
+        if self.line_id and self.line.ref:
             more = self.line.ref
         else:
             more = ''
         if self.ref:
             more += " " + self.ref
-        if self.teacher and self.teacher.initials:
+        if self.teacher_id and self.teacher.initials:
             more += " " + self.teacher.initials
         if more:    
             s = "{} ({})".format(s, more.strip())
         return s
+
+    def update_cal_event_type(self):
+        return self.teacher.event_type
 
     def update_cal_summary(self, et, i):
         label = dd.babelattr(et, 'event_label')
@@ -633,7 +677,54 @@ class Enrolment(Enrolment, TeraInvoiceable):
     #         obj=self, item=item)
 
     
-            
+
+class PriceRule(Sequenced):
+    class Meta(object):
+        app_label = 'courses'
+        abstract = dd.is_abstract_model(__name__, 'PriceRule')
+        verbose_name = _("Fee rule")
+        verbose_name_plural = _("Fee rules")
+
+    fee = dd.ForeignKey('products.Product', blank=True, null=True)
+    tariff = PartnerTariffs.field(blank=True)
+    event_type = dd.ForeignKey('cal.EventType', blank=True, null=True)
+
+
+
+@dd.receiver(dd.pre_analyze)
+def inject_pricefactor_fields(sender, **kw):
+    for pf in PriceFactors.get_list_items():
+        if pf.name is not None:
+            name = "pf_" + pf.name
+            dd.inject_field(
+                'courses.PriceRule', name,
+                pf.field_cls.field(blank=True))
+            dd.inject_field(
+                'contacts.Partner', name,
+                pf.field_cls.field(blank=True))
+
+
+def get_rule_fee(partner, tariff, event_type):
+    for rule in PriceRule.objects.order_by('seqno'):
+        ok = True
+        for pf in PriceFactors.get_list_items():
+            name = "pf_" + pf.name
+            rv = getattr(rule, name)
+            if rv:
+                pv = getattr(partner, name)
+                if pv != rv:
+                    # print("20181128a {} != {}".format(rv, pv))
+                    ok = False
+        if rule.tariff and rule.tariff != tariff:
+            # print("20181128b {} != {}".format(rule.tariff, tariff))
+            ok = False
+        if rule.event_type and rule.event_type != event_type:
+            # print("20181128c {} != {}".format(rule.event_type, event_type))
+            ok = False
+
+        if ok:
+            return rule.fee
+    raise Exception("20181128d no price rule for {} {} {}".format(partner, tariff, event_type))
 
 dd.update_field(
     Enrolment, 'overview',

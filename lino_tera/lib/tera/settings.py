@@ -31,7 +31,7 @@ class Site(Site):
     custom_layouts_module = 'lino_tera.lib.tera.layouts'
     obj2text_template = "**{0}**"
 
-    default_build_method = 'appyodt'
+    default_build_method = 'appypdf'
     
     # experimental use of rest_framework:
     # root_urlconf = 'lino_book.projects.team.urls'
@@ -70,7 +70,7 @@ class Site(Site):
         # 'lino_xl.lib.projects',
         # yield 'lino_xl.lib.blogs'
         yield 'lino_xl.lib.topics'
-        yield 'lino_xl.lib.notes'
+        yield 'lino_tera.lib.notes'
         # yield 'lino_tera.lib.tickets'
         # yield 'lino_xl.lib.skills'
         # yield 'lino_xl.lib.votes'
@@ -112,12 +112,16 @@ class Site(Site):
         # self.plugins.courses.configure(pupil_model='tera.Client')
 
 
-    # def setup_quicklinks(self, user, tb):
-    #     super(Site, self).setup_quicklinks(user, tb)
-    #     tb.add_action(
-    #         self.models.cal.MyEntries.insert_action,
-    #         label=_("New appointment"))
-        
+    def setup_quicklinks(self, user, tb):
+        super(Site, self).setup_quicklinks(user, tb)
+        # tb.add_action(
+        #     self.models.cal.MyEntries.insert_action,
+        #     label=_("New appointment"))
+        tb.add_action(
+            self.models.notes.MyNotes.insert_action,
+            label=_("New note"))
+        tb.add_action(self.models.notes.MyNotes)
+
     # def setup_actions(self):
     #     from lino.core.merge import MergeAction
     #     lib = self.models

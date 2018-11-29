@@ -88,9 +88,21 @@ class PartnerDetail(PartnerDetail):
     """, label=_("More"))
 
     invoicing = dd.Panel("""
-    salesrule__invoice_recipient payment_term salesrule__paper_type
+    invoicing_left:30 courses.ActivitiesByPartner:50
     sales.InvoicesByPartner
     """, label=_("Invoicing"))
+
+    invoicing_left = """
+    pf_residence 
+    pf_composition pf_income
+    # salesrule__invoice_recipient 
+    payment_term salesrule__paper_type
+    """
+
+    # invoicing = dd.Panel("""
+    # salesrule__invoice_recipient payment_term salesrule__paper_type
+    # sales.InvoicesByPartner
+    # """, label=_("Invoicing"))
 
 
     purchases = dd.Panel("""
@@ -179,17 +191,6 @@ class PersonDetail(PersonDetail, PartnerDetail):
     street:25 street_no street_box
     addr2
     country zip_code:10 city
-    """
-
-    invoicing = dd.Panel("""
-    invoicing_left:30 courses.ActivitiesByPartner:50
-    sales.InvoicesByPartner
-    """, label=_("Invoicing"))
-
-    invoicing_left = """
-    salesrule__invoice_recipient 
-    payment_term 
-    salesrule__paper_type
     """
 
     # contact_box = """
