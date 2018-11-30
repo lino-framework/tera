@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2018-11-30 08:10+0200\n"
-"PO-Revision-Date: 2018-11-30 08:12+0200\n"
+"PO-Revision-Date: 2018-11-30 08:17+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -199,15 +199,15 @@ msgstr "Bereich"
 
 #: lino_tera/lib/courses/choicelists.py:78
 msgid "Adults"
-msgstr ""
+msgstr "Erwachsene"
 
 #: lino_tera/lib/courses/choicelists.py:79
 msgid "Children M"
-msgstr ""
+msgstr "Kinder M"
 
 #: lino_tera/lib/courses/choicelists.py:80
 msgid "Children P"
-msgstr ""
+msgstr "Kinder P"
 
 #: lino_tera/lib/courses/choicelists.py:86
 msgid "Ending reason"
@@ -215,28 +215,28 @@ msgstr "Beendigungsgrund"
 
 #: lino_tera/lib/courses/choicelists.py:89
 msgid "Successfully ended"
-msgstr ""
+msgstr "Erfolgreich beendet"
 
 #: lino_tera/lib/courses/choicelists.py:90
 msgid "Health problems"
-msgstr ""
+msgstr "Gesundheitsprobleme"
 
 #: lino_tera/lib/courses/choicelists.py:91
 msgid "Familiar reasons"
-msgstr ""
+msgstr "Familiäre Gründe"
 
 #: lino_tera/lib/courses/choicelists.py:92
 msgid "Missing motivation"
-msgstr ""
+msgstr "Fehlende Motivation"
 
 #: lino_tera/lib/courses/choicelists.py:93
 msgid "Return to home country"
-msgstr ""
+msgstr "Rückkehr ins Heimatland"
 
 #: lino_tera/lib/courses/choicelists.py:103
 #: lino_tera/lib/tera/choicelists.py:40
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: lino_tera/lib/courses/choicelists.py:104
 msgid "Free"
