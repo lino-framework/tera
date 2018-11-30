@@ -186,7 +186,7 @@ class TeraInvoiceable(InvoiceGenerator):
                 title=title)
             if tariff and tariff.max_asset:
                 # qty=self.get_invoiceable_qty())
-                kwargs.update(qty=max(len(events), tariff.max_asset))
+                kwargs.update(qty=min(len(events), tariff.max_asset))
             else:
                 kwargs.update(qty=len(events))
             # print(20181117, kwargs)
