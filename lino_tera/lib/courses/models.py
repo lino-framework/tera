@@ -564,7 +564,7 @@ class Enrolment(Enrolment, TeraInvoiceable):
         return Product.objects.filter(cat=course.line.fees_cat)
 
     # def before_ui_save(self, ar):
-    def on_create(self, ar):
+    def before_ui_save(self, ar):
         if self.course_id is None:
             if self.pupil_id:
                 line = rt.models.courses.Line.objects.order_by('id').first()
