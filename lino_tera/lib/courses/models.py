@@ -178,7 +178,7 @@ class TeraInvoiceable(InvoiceGenerator):
         for product, events in collector.items():
             tariff = self.get_invoiceable_tariff(product)
             description = ', '.join([fmt(ev, None) for ev in events])
-            title = _("{} events").format(len(events))
+            title = _("{} appointments").format(len(events))
             kwargs = dict(
                 invoiceable=self,
                 product=product,
