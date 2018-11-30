@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 """
 The default :attr:`workflows_module
-<lino.core.site.Site.workflows_module>` for :ref:`tera` applications.
+<lino.core.site.Site.workflows_module>` for :ref:`presto` applications.
 
 This workflow requires that both :mod:`lino_xl.lib.cal` and
 :mod:`lino_xl.lib.courses` are installed.
