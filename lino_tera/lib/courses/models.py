@@ -176,15 +176,19 @@ class TeraInvoiceable(InvoiceGenerator):
 
         fmt = self.get_invoiceable_event_formatter()
         for product, events in collector.items():
+            tariff = self.get_invoiceable_tariff(product)
             description = ', '.join([fmt(ev, None) for ev in events])
             title = _("{} events").format(len(events))
             kwargs = dict(
                 invoiceable=self,
                 product=product,
                 description=description,
-                title=title,
+                title=title)
+            if tariff and tariff.max_asset:
                 # qty=self.get_invoiceable_qty())
-                qty=len(events))
+                kwargs.update(qty=max(len(events), tariff.max_asset))
+            else:
+                kwargs.update(qty=len(events))
             # print(20181117, kwargs)
             yield invoice.add_voucher_item(**kwargs)
             # yield model(**kwargs)
