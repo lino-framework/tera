@@ -114,7 +114,9 @@ class TeraInvoiceable(InvoiceGenerator):
     
     def get_invoiceable_events(self, start_date, max_date):
         course = self.get_invoiceable_course()
-        if course.line.invoicing_policy == InvoicingPolicies.by_event:
+        if course is None:
+            return []
+        elif course.line.invoicing_policy == InvoicingPolicies.by_event:
             # flt = dict(
             #     state=rt.models.cal.EntryStates.took_place)
             invoiceable_states = (rt.models.cal.EntryStates.took_place,
