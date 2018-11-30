@@ -87,6 +87,8 @@ from lino.core.actions import ShowInsert
 
 class ShowInsertColleague(ShowInsert):
     help_text = _("Add a colleague")
+    icon_name = None
+    button_text = u"👤"  # U+1F464 BUST IN SILHOUETTE
 
     def create_instance(self, ar):
         obj = super(ShowInsertColleague, self).create_instance(ar)
