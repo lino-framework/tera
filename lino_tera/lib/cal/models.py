@@ -255,7 +255,7 @@ add('30', _("Perceived"), 'perceived')
 
 class MyCashRoll(MyEntries):
 
-    column_names = 'clickable_description project amount workflow_buttons *'
+    column_names = 'detail_link project amount workflow_buttons *'
     label = _("My cash roll")
     # display_mode = "html"
 

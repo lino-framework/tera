@@ -70,7 +70,7 @@ class PendingRequestedEnrolments(PendingRequestedEnrolments):
 
 class EnrolmentsByPupil(EnrolmentsByPupil):
     display_mode = "html"
-    column_names = 'clickable_description guest_role start_date '\
+    column_names = 'detail_link guest_role start_date '\
                    'workflow_buttons *'
 
     # column_names = 'request_date course user:10 remark ' \
@@ -284,7 +284,7 @@ class ActivitiesByPartner(Courses):
     _course_area = None
     label = _("Invoice recipient in dossiers")
     master_key = 'partner'
-    column_names = "start_date clickable_description workflow_buttons *"
+    column_names = "start_date detail_link workflow_buttons *"
     order_by = ['-start_date']
     display_mode = "html"
 
