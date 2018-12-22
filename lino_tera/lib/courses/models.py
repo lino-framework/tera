@@ -384,8 +384,8 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
             more = self.line.ref
         else:
             more = ''
-        if self.ref:
-            more += " " + self.ref
+        # if self.ref:
+        #     more += " " + self.ref
         if self.teacher_id and self.teacher.initials:
             more += " " + self.teacher.initials
         if more:    

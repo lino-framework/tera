@@ -148,6 +148,9 @@ dd.update_field(Event, 'start_time', verbose_name=_("Time"))
 # dd.update_field(Event, 'project', blank=False)
 dd.update_field(Event, 'event_type', blank=False)
 
+
+Event.submit_insert.label = _("Insert [Ctrl+S]")
+
 EventType._meta.verbose_name = _("Service type")
 EventType._meta.verbose_name_plural = _("Service types")
 
@@ -225,17 +228,20 @@ class EventDetail(EventDetail):
     
 class EventInsert(EventInsert):
     main = """
-    start_date start_time
-    project
+    start_date start_time end_time
+    user
     event_type
+    project
     summary
     amount #payment_mode
-    user
     """
+
 MyEntries.column_names = 'when_html project event_type summary  *'
 MyUnconfirmedAppointments.column_names = 'when_html project summary amount workflow_buttons *'
 
 GuestsByEvent.column_names = 'partner role workflow_buttons amount #payment_mode *'
+GuestsByPartner.column_names = 'event__when_html #event__overview #event_summary ' \
+                               'event__user event__event_type #event__owner #role workflow_buttons *'
 
 GuestRoles.column_names = "ref name is_teacher *"
 
