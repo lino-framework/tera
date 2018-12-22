@@ -28,7 +28,7 @@ from lino_xl.lib.cal.ui import EntriesByController
 Lines.detail_layout = """
     id ref course_area
     name 
-    #topic fees_cat fee #options_cat body_template
+    #topic #fees_cat #fee #options_cat body_template
     #course_type event_type guest_role every_unit every invoicing_policy
     # description
     excerpt_title
@@ -48,7 +48,7 @@ Lines.column_names = ("ref name course_area "
 
 Enrolments.detail_layout = """
 id course pupil request_date user
-start_date end_date #places:8 fee
+start_date end_date #places:8 #fee
 remark workflow_buttons printed 
 confirmation_details invoicing.InvoicingsByGenerator
 """
@@ -104,7 +104,6 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
     """
     # variable_row_height = True
     column_names = 'request_date pupil guest_role start_date end_date '\
-                   'fee ' \
                    'workflow_buttons *'
     insert_layout = """
     pupil guest_role
@@ -151,12 +150,12 @@ class EnrolmentsByTherapy(EnrolmentsByLifeGroup):
     """
 
 
-class EnrolmentsByFee(EnrolmentsByCourse):
-    label = _("Enrolments using this fee")
-    master_key = "fee"
-    column_names = 'course request_date pupil_info start_date end_date '\
-                   'remark *'
-
+# class EnrolmentsByFee(EnrolmentsByCourse):
+#     label = _("Enrolments using this fee")
+#     master_key = "fee"
+#     column_names = 'course request_date pupil_info start_date end_date '\
+#                    'remark *'
+#
 
 class EntriesByCourse(EntriesByController):
     """Shows the events linked to this course.

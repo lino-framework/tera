@@ -36,7 +36,7 @@ class Product(Product):
 
 class ProductDetail(dd.DetailLayout):
 
-    main = "general courses sales"
+    main = "general #courses sales"
     
     general = dd.Panel("""
     name id 
@@ -46,10 +46,10 @@ class ProductDetail(dd.DetailLayout):
     description
     """, _("General"))
 
-    courses = dd.Panel("""
-    courses.EnrolmentsByFee
-    courses.EnrolmentsByOption
-    """, _("Enrolments"))
+    # courses = dd.Panel("""
+    # courses.EnrolmentsByFee
+    # courses.EnrolmentsByOption
+    # """, _("Enrolments"))
 
     sales = dd.Panel("""
     sales.InvoiceItemsByProduct

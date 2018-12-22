@@ -289,10 +289,10 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
     # allow_cascaded_delete = "client household"
     allow_cascaded_delete = "partner"
 
-    fee = dd.ForeignKey('products.Product',
-                        blank=True, null=True,
-                        verbose_name=_("Attendance fee"),
-                        related_name='courses_by_fee')
+    # fee = dd.ForeignKey('products.Product',
+    #                     blank=True, null=True,
+    #                     verbose_name=_("Attendance fee"),
+    #                     related_name='courses_by_fee')
 
     payment_term = dd.ForeignKey(
         'ledger.PaymentTerm',
@@ -340,18 +340,18 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
 
     quick_search_fields = "ref name partner__name"
     
-    @classmethod
-    def get_registrable_fields(cls, site):
-        for f in super(Course, cls).get_registrable_fields(site):
-            yield f
-        yield 'fee'
+    # @classmethod
+    # def get_registrable_fields(cls, site):
+    #     for f in super(Course, cls).get_registrable_fields(site):
+    #         yield f
+    #     yield 'fee'
 
-    @dd.chooser()
-    def fee_choices(cls, line):
-        Product = rt.models.products.Product
-        if not line or not line.fees_cat:
-            return Product.objects.none()
-        return Product.objects.filter(cat=line.fees_cat)
+    # @dd.chooser()
+    # def fee_choices(cls, line):
+    #     Product = rt.models.products.Product
+    #     if not line or not line.fees_cat:
+    #         return Product.objects.none()
+    #     return Product.objects.filter(cat=line.fees_cat)
 
     def on_create(self, ar):
         self.teacher = ar.get_user()
@@ -456,15 +456,14 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
         if obj is not None:
             return obj.obj2href(ar)
 
-
     def get_invoiceable_partner(self):
         return self.partner
         # if hasattr(p, 'salesrule'):
         #     return p.salesrule.invoice_recipient or p
         # return p
 
-    def get_invoiceable_product(self, max_date=None):
-        return self.fee or self.line.fee
+    # def get_invoiceable_product(self, max_date=None):
+    #     return self.fee or self.line.fee
     
     def get_invoiceable_course(self):
         return self
@@ -530,10 +529,6 @@ dd.update_field(Course, 'user', verbose_name=_("Manager"))
 class Enrolment(Enrolment, TeraInvoiceable):
     """Adds
 
-    .. attribute:: fee
-
-        The fee per appointment to apply for this enrolment.
-
     .. attribute:: pupil_info
 
         Show the name and address of the participant.  Overrides
@@ -557,17 +552,17 @@ class Enrolment(Enrolment, TeraInvoiceable):
 
     guest_role = dd.ForeignKey(
         'cal.GuestRole', verbose_name=_("Role"), blank=True, null=True)
-    fee = dd.ForeignKey('products.Product',
-                        blank=True, null=True,
-                        # verbose_name=_("Attendance fee"),
-                        related_name='enrolments_by_fee')
+    # fee = dd.ForeignKey('products.Product',
+    #                     blank=True, null=True,
+    #                     # verbose_name=_("Attendance fee"),
+    #                     related_name='enrolments_by_fee')
 
-    @dd.chooser()
-    def fee_choices(cls, course):
-        Product = rt.models.products.Product
-        if not course or not course.line or not course.line.fees_cat:
-            return Product.objects.none()
-        return Product.objects.filter(cat=course.line.fees_cat)
+    # @dd.chooser()
+    # def fee_choices(cls, course):
+    #     Product = rt.models.products.Product
+    #     if not course or not course.line or not course.line.fees_cat:
+    #         return Product.objects.none()
+    #     return Product.objects.filter(cat=course.line.fees_cat)
 
     # def before_ui_save(self, ar):
     def before_ui_save(self, ar):
@@ -592,8 +587,8 @@ class Enrolment(Enrolment, TeraInvoiceable):
                 self.course_area = self.course.line.course_area
                 if self.guest_role_id is None:
                     self.guest_roles = self.course.line.guest_role
-        if self.fee_id is None:
-            self.compute_fee()
+        # if self.fee_id is None:
+        #     self.compute_fee()
         super(Enrolment, self).full_clean(*args, **kwargs)
 
     def get_invoiceable_tariff(self, product=None):
@@ -603,15 +598,15 @@ class Enrolment(Enrolment, TeraInvoiceable):
             return self.tariff or self.course.tariff
         return self.tariff
 
-    def pupil_changed(self, ar):
-        self.compute_fee()
-
-    def compute_fee(self):
-        #todo: set fee according to tariff rules
-        if self.course_id is not None:
-            self.fee = self.course.fee
-            if self.fee_id is None and self.course.line_id is not None:
-                self.fee = self.course.line.fee
+    # def pupil_changed(self, ar):
+    #     self.compute_fee()
+    #
+    # def compute_fee(self):
+    #     #todo: set fee according to tariff rules
+    #     if self.course_id is not None:
+    #         self.fee = self.course.fee
+    #         if self.fee_id is None and self.course.line_id is not None:
+    #             self.fee = self.course.line.fee
 
     @dd.virtualfield(dd.HtmlBox(_("Participant")))
     def pupil_info(self, ar):
@@ -651,14 +646,14 @@ class Enrolment(Enrolment, TeraInvoiceable):
         #     return self.pupil.salesrule.invoice_recipient or self.pupil
         return self.pupil
 
-    def get_invoiceable_product(self, max_date=None):
-        if self.fee:
-            return self.fee
-        if self.course_id:
-            if self.course.fee:
-                return self.course.fee
-            if self.course.line_id:
-                return self.course.line.fee
+    # def get_invoiceable_product(self, max_date=None):
+    #     if self.fee:
+    #         return self.fee
+    #     if self.course_id:
+    #         if self.course.fee:
+    #             return self.course.fee
+    #         if self.course.line_id:
+    #             return self.course.line.fee
     
     def get_invoiceable_course(self):
         if self.course_id:
