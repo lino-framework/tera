@@ -103,7 +103,7 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
 
     """
     # variable_row_height = True
-    column_names = 'request_date pupil guest_role start_date end_date '\
+    column_names = 'pupil guest_role start_date end_date tariff '\
                    'workflow_buttons *'
     insert_layout = """
     pupil guest_role
@@ -119,17 +119,13 @@ class EnrolmentsAndPaymentsByCourse(Enrolments):
 
     This is used by `payment_list.body.html`.
 
-    
-
     """
     master_key = 'course'
-    column_names = "pupil_info start_date payment_info"
+    column_names = "pupil_info start_date tariff"
 
 
 class EnrolmentsByLifeGroup(EnrolmentsByCourse):
-    column_names = 'request_date pupil guest_role '\
-                   'remark ' \
-                   'workflow_buttons *'
+    column_names = 'pupil guest_role remark workflow_buttons *'
     insert_layout = """
     pupil guest_role  
     # places option
@@ -139,15 +135,8 @@ class EnrolmentsByLifeGroup(EnrolmentsByCourse):
 
 
 class EnrolmentsByTherapy(EnrolmentsByLifeGroup):
-    column_names = 'pupil guest_role remark ' \
-                   'workflow_buttons *'
-    
-    insert_layout = """
-    pupil guest_role 
-    # places option
-    remark
-    # request_date user
-    """
+    pass
+
 
 
 # class EnrolmentsByFee(EnrolmentsByCourse):
@@ -197,16 +186,18 @@ class CourseDetail(CourseDetail):
     main = "general therapy #enrolments calendar invoicing more"
     general = dd.Panel("""
     ref name partner  team
-    user teacher line #fee:15 
-    enrolments_top
-    EnrolmentsByCourse
+    user teacher line #fee:15
+    id print_actions workflow_buttons 
+    enrolments
     """, label=_("General"))
 
-    enrolments_top = 'id print_actions workflow_buttons'
+    enrolments = """
+    EnrolmentsByCourse
+    """
     
     therapy = dd.Panel("""
     therapy_domain procurer mandatory translator_type
-    ending_reason #state 
+    healthcare_plan ending_reason #state 
     topics.InterestsByPartner notes.NotesByProject 
     # add_interest
     """, label=_("Therapy"))
@@ -220,7 +211,7 @@ class CourseDetail(CourseDetail):
 
     invoicing = dd.Panel("""
     # company contact_person
-    healthcare_plan tariff #payment_term #paper_type  
+    #tariff #payment_term #paper_type  
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
@@ -231,17 +222,21 @@ class CourseDetail(CourseDetail):
     
 
 class LifeGroupDetail(CourseDetail):
-    enrolments = dd.Panel("""
-    enrolments_top
+    invoicing = dd.Panel("""
+    # company contact_person
+    tariff #payment_term #paper_type  
+    invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
+    """, label=_("Invoicing"))
+
+    enrolments = """
     EnrolmentsByLifeGroup
-    """, label=_("Participants"))
+    """
 
 
-class TherapyDetail(CourseDetail):
-    enrolments = dd.Panel("""
-    enrolments_top
+class TherapyDetail(LifeGroupDetail):
+    enrolments = """
     EnrolmentsByTherapy
-    """, label=_("Participants"))
+    """
 
 
 
@@ -268,16 +263,11 @@ class LifeGroups(Courses):
     """
 
 
-class Therapies(Courses):
+class Therapies(LifeGroups):
     # individual therapies
     _course_area = CourseAreas.therapies
-    column_names = "ref name teacher partner start_date end_date " \
-                   "workflow_buttons *"
     detail_layout = 'courses.TherapyDetail'
-    insert_layout = """
-    line partner #client #teacher
-    start_date
-    """
+
 
 class ActivitiesByPartner(Courses):
     _course_area = None
