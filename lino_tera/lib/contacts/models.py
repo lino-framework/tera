@@ -94,7 +94,7 @@ class PartnerDetail(PartnerDetail):
 
     invoicing_left = """
     pf_residence 
-    pf_composition pf_income
+    pf_income pf_composition 
     # salesrule__invoice_recipient 
     payment_term salesrule__paper_type
     """
