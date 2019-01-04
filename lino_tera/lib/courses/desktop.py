@@ -19,6 +19,7 @@ from lino.utils import join_elems
 from lino_xl.lib.courses.desktop import *
 from lino_xl.lib.courses.roles import CoursesUser
 from lino_xl.lib.contacts.models import PersonDetail
+from .choicelists import PriceFactors
 
 contacts = dd.resolve_app('contacts')
 
@@ -103,7 +104,7 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
 
     """
     # variable_row_height = True
-    column_names = 'pupil guest_role start_date end_date tariff '\
+    column_names = 'pupil guest_role start_date end_date product '\
                    'workflow_buttons *'
     insert_layout = """
     pupil guest_role
@@ -121,7 +122,7 @@ class EnrolmentsAndPaymentsByCourse(Enrolments):
 
     """
     master_key = 'course'
-    column_names = "pupil_info start_date tariff"
+    column_names = "pupil_info start_date product"
 
 
 class EnrolmentsByLifeGroup(EnrolmentsByCourse):
@@ -224,7 +225,7 @@ class CourseDetail(CourseDetail):
 class LifeGroupDetail(CourseDetail):
     invoicing = dd.Panel("""
     # company contact_person
-    tariff #payment_term #paper_type  
+    product #payment_term #paper_type  
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
@@ -299,4 +300,10 @@ class MyCoursesGiven(MyCoursesGiven):
 
 class PriceRules(dd.Table):
     model = "courses.PriceRule"
+    column_names_tpl = "seqno {factors} #tariff event_type fee *"
+
+    @classmethod
+    def get_column_names(cls, ar):
+        factors = ' '.join([pf.field_name for pf in PriceFactors.get_list_items()])
+        return cls.column_names_tpl.format(factors=factors)
 

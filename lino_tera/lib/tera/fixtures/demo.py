@@ -189,7 +189,8 @@ def enrolments():
     TEACHERS = Cycler(Teacher.objects.all())
     SLOTS = Cycler(rt.models.courses.Slot.objects.all())
     TOPICS = Cycler(rt.models.topics.Topic.objects.all())
-    TARIFFS = Cycler(rt.models.invoicing.Tariff.objects.all())
+    # TARIFFS = Cycler(rt.models.invoicing.Tariff.objects.all())
+    FEES = Cycler(rt.models.products.Product.objects.filter(product_type=ProductTypes.default))
 
     date = settings.SITE.demo_date(-200)
     qs = Client.objects.all()
@@ -211,7 +212,7 @@ def enrolments():
                 max_events=10,
                 every_unit=DurationUnits.weeks,
                 slot=SLOTS.pop())
-            kw.update(tariff=TARIFFS.pop())
+            kw.update(product=FEES.pop())
             c = Course(**kw)
             yield c
             yield Interest(partner=c, topic=TOPICS.pop())
@@ -240,7 +241,8 @@ def enrolments():
             every=1,
             every_unit=DurationUnits.weeks,
             slot=SLOTS.pop())
-        kw.update(tariff=TARIFFS.pop())
+        kw.update(product=FEES.pop())
+        # kw.update(tariff=TARIFFS.pop())
         c = Course(**kw)
         yield c
         for i in range(grsizes.pop()):

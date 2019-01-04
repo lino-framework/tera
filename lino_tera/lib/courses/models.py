@@ -25,6 +25,7 @@ from lino_xl.lib.ledger.utils import DEBIT
 from lino_xl.lib.cal.workflows import TaskStates
 from lino_xl.lib.healthcare.mixins import HealthcareClient
 from lino_xl.lib.topics.models import AddInterestField
+from lino_xl.lib.products.choicelists import ProductTypes
 
 from .choicelists import EndingReasons, TranslatorTypes
 from .choicelists import PartnerTariffs, TherapyDomains
@@ -62,7 +63,9 @@ class TeraInvoiceable(InvoiceGenerator):
     class Meta(object):
         abstract = True
         
-    tariff = dd.ForeignKey('invoicing.Tariff', blank=True, null=True)
+    # tariff = dd.ForeignKey('invoicing.Tariff', blank=True, null=True)
+    product = dd.ForeignKey('products.Product',
+                            blank=True, null=True, verbose_name=_("Participation fee"))
 
     # def get_invoiceable_event_date(self, ie):
     #     course = self.get_invoiceable_course()
@@ -75,6 +78,8 @@ class TeraInvoiceable(InvoiceGenerator):
         # invoicing period is always one month
         return max_date.replace(day=1)
         
+    def get_invoiceable_product(self, max_date=None):
+        return self.product
 
     # def get_invoiceable_event_class(self):
     #     course = self.get_invoiceable_course()
@@ -83,10 +88,10 @@ class TeraInvoiceable(InvoiceGenerator):
     #     return rt.models.cal.Guest
         
             
-    def get_invoiceable_tariff(self, product=None):
-        # course = self.get_invoiceable_course()
-        # return rt.models.invoicing.Tariff.objects.first()
-        return self.tariff
+    # def get_invoiceable_tariff(self, product=None):
+    #     # course = self.get_invoiceable_course()
+    #     # return rt.models.invoicing.Tariff.objects.first()
+    #     return self.tariff
 
     def get_invoiceable_event_formatter(self):
         course = self.get_invoiceable_course()
@@ -165,9 +170,7 @@ class TeraInvoiceable(InvoiceGenerator):
                 entry = ev
             else:
                 entry = ev.event
-            product = get_rule_fee(
-                self.get_invoiceable_partner(), self.get_invoiceable_tariff(),
-                entry.event_type)
+            product = get_rule_fee(self.get_invoiceable_partner(), entry.event_type)
             if product is None:
                 raise Exception("20181128 no price rule for {}".format(self))
             else:
@@ -462,6 +465,10 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
         #     return p.salesrule.invoice_recipient or p
         # return p
 
+    @dd.chooser()
+    def product_choices(cls, partner):
+        return get_product_choices(partner)
+
     # def get_invoiceable_product(self, max_date=None):
     #     return self.fee or self.line.fee
     
@@ -591,12 +598,17 @@ class Enrolment(Enrolment, TeraInvoiceable):
         #     self.compute_fee()
         super(Enrolment, self).full_clean(*args, **kwargs)
 
-    def get_invoiceable_tariff(self, product=None):
-        # course = self.get_invoiceable_course()
-        # return rt.models.invoicing.Tariff.objects.first()
+    def get_invoiceable_product(self, max_date=None):
         if self.course_id:
-            return self.tariff or self.course.tariff
-        return self.tariff
+            return self.product or self.course.product
+        return self.product
+
+    # def get_invoiceable_tariff(self, product=None):
+    #     # course = self.get_invoiceable_course()
+    #     # return rt.models.invoicing.Tariff.objects.first()
+    #     if self.course_id:
+    #         return self.tariff or self.course.tariff
+    #     return self.tariff
 
     # def pupil_changed(self, ar):
     #     self.compute_fee()
@@ -645,6 +657,10 @@ class Enrolment(Enrolment, TeraInvoiceable):
         # if hasattr(self.pupil, 'salesrule'):
         #     return self.pupil.salesrule.invoice_recipient or self.pupil
         return self.pupil
+
+    @dd.chooser()
+    def product_choices(cls, pupil):
+        return get_product_choices(pupil)
 
     # def get_invoiceable_product(self, max_date=None):
     #     if self.fee:
@@ -712,46 +728,60 @@ class PriceRule(Sequenced):
         verbose_name = _("Fee rule")
         verbose_name_plural = _("Fee rules")
 
-    fee = dd.ForeignKey('products.Product', blank=True, null=True)
-    tariff = PartnerTariffs.field(blank=True)
+    # tariff = PartnerTariffs.field(blank=True)
     event_type = dd.ForeignKey('cal.EventType', blank=True, null=True)
+    fee = dd.ForeignKey('products.Product', blank=True, null=True)
 
 
 
 @dd.receiver(dd.pre_analyze)
 def inject_pricefactor_fields(sender, **kw):
     for pf in PriceFactors.get_list_items():
-        if pf.name is not None:
-            name = "pf_" + pf.name
-            dd.inject_field(
-                'courses.PriceRule', name,
-                pf.field_cls.field(blank=True))
-            dd.inject_field(
-                'contacts.Partner', name,
-                pf.field_cls.field(blank=True))
+        dd.inject_field(
+            'courses.PriceRule', pf.field_name,
+            pf.field_cls.field(blank=True))
+        dd.inject_field(
+            'contacts.Partner', pf.field_name,
+            pf.field_cls.field(blank=True))
 
 
-def get_rule_fee(partner, tariff, event_type):
+def get_product_choices(partner):
+    """Return a list of products (fees) that are allowed for the specified partner.
+    """
+    Product = rt.models.products.Product
+    qs = Product.objects.filter(product_type=ProductTypes.default)
+    qs = qs.order_by('name')
+    rules = PriceRule.objects.all()
+    for pf in PriceFactors.get_list_items():
+        rules = rules.filter(
+            Q(**{pf.field_name: getattr(partner, pf.field_name)}) |
+            Q(**{pf.field_name + '__isnull': True}))
+    return [p for p in qs if rules.filter(product=p).count() > 0]
+    # TODO: add rules condition as subquery to qs and return the query, not
+    # the list
+
+
+def get_rule_fee(partner, event_type):
     for rule in PriceRule.objects.order_by('seqno'):
         ok = True
         for pf in PriceFactors.get_list_items():
-            name = "pf_" + pf.name
-            rv = getattr(rule, name)
+            rv = getattr(rule, pf.field_name)
             if rv:
-                pv = getattr(partner, name)
+                pv = getattr(partner, pf.field_name)
                 if pv != rv:
                     # print("20181128a {} != {}".format(rv, pv))
                     ok = False
-        if rule.tariff and rule.tariff != tariff:
-            # print("20181128b {} != {}".format(rule.tariff, tariff))
-            ok = False
+        # if rule.tariff and rule.tariff != tariff:
+        #     # print("20181128b {} != {}".format(rule.tariff, tariff))
+        #     ok = False
         if rule.event_type and rule.event_type != event_type:
             # print("20181128c {} != {}".format(rule.event_type, event_type))
             ok = False
 
         if ok:
             return rule.fee
-    raise Exception("20181128d no price rule for {} {} {}".format(partner, tariff, event_type))
+    raise Exception("20181128d no price rule for {} {} {}".format(
+        partner, tariff, event_type))
 
 dd.update_field(
     Enrolment, 'overview',

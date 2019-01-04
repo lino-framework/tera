@@ -135,6 +135,7 @@ class PriceFactor(dd.Choice):
     field_cls = None
     def __init__(self, value, cls, name):
         self.field_cls = cls
+        self.field_name = 'pf_' + name
         super(PriceFactor, self).__init__(value, cls.verbose_name, name)
 
 class PriceFactors(dd.ChoiceList):
@@ -146,25 +147,30 @@ class PriceFactors(dd.ChoiceList):
 
 add = PriceFactors.add_item
 add("10", Residences, "residence")
-add("20", HouseholdCompositions, "composition")
-add("30", IncomeCategories, "income")
+add("20", IncomeCategories, "income")
+add("30", HouseholdCompositions, "composition")
 
 
 add = Residences.add_item
 add("10", _("Inside"), "inside")
 add("20", _("Outside"), "ouside")
 
+# add = HouseholdCompositions.add_item
+# add("10", _("Alone"))
+# add("20", _("2 members"))
+# add("30", _("3 members"))
+
 add = HouseholdCompositions.add_item
-add("10", _("Alone"))
-add("20", _("2 members"))
-add("30", _("3 members"))
+add("10", _("No participant below 18"))
+add("20", _("One participant below 18"))
+add("30", _("More than one participant below 18"))
 
 add = IncomeCategories.add_item
-add("10", _("< 900 / < 1300 / < 550"))
-add("20", _("900-1100 / 1300-1700 / 550-650"))
-add("30", _("1100-1300 / 1700-2000 / 650-800"))
-add("40", _("1300-1800 / 2000-2500 / 800-900"))
-add("50", _("> 1800 / > 2500 / > 900"))
+add("10", _("A (< 900 / < 1300 / < 550)"))
+add("20", _("B (900-1100 / 1300-1700 / 550-650)"))
+add("30", _("C (1100-1300 / 1700-2000 / 650-800)"))
+add("40", _("D (1300-1800 / 2000-2500 / 800-900)"))
+add("50", _("E (> 1800 / > 2500 / > 900)"))
 
 # add("110", _("Below 900"))
 # add("120", _("900-1100"))
