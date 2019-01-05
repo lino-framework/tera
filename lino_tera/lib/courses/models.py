@@ -111,8 +111,9 @@ class TeraInvoiceable(InvoiceGenerator):
 
         def fmt(ie, ar=None):
             event = ev2entry(ie)
-            txt = _("{} with {} on {}").format(
-                event.event_type, event.user, dd.fds(event.start_date))
+            txt = dd.fds(event.start_date)
+            # txt = _("{} with {} on {}").format(
+            #     event.event_type, event.user, dd.fds(event.start_date))
             if ar is None:
                 return txt
             return ar.obj2html(event, txt)
@@ -187,9 +188,11 @@ class TeraInvoiceable(InvoiceGenerator):
                 events.append(ev)
 
         fmt = self.get_invoiceable_event_formatter()
+
         for product, events in collector.items():
             tariff = self.get_invoiceable_tariff(product)
-            description = ', '.join([fmt(ev, None) for ev in events])
+            desc = str(product) + _(" on ") + ', '.join([fmt(ev, None) for ev in events])
+            description = desc
             title = _("{} appointments").format(len(events))
             kwargs = dict(
                 invoiceable=self,
