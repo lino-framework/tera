@@ -191,13 +191,14 @@ class TeraInvoiceable(InvoiceGenerator):
 
         for product, events in collector.items():
             tariff = self.get_invoiceable_tariff(product)
-            desc = str(product) + _(" on ") + ', '.join([fmt(ev, None) for ev in events])
-            description = desc
+            desc = _("{product} on {dates}").format(
+                product=product,
+                dates=', '.join([fmt(ev, None) for ev in events]))
             title = _("{} appointments").format(len(events))
             kwargs = dict(
                 invoiceable=self,
                 product=product,
-                description=description,
+                description=desc,
                 title=title)
             if tariff and tariff.max_asset:
                 # qty=self.get_invoiceable_qty())
