@@ -313,6 +313,8 @@ class MyCoursesGiven(MyCoursesGiven):
 class PriceRules(dd.Table):
     model = "courses.PriceRule"
     column_names_tpl = "seqno {factors} #tariff event_type fee *"
+    order_by = ['seqno']
+
 
     @classmethod
     def get_column_names(cls, ar):
