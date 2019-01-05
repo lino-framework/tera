@@ -9,13 +9,12 @@ from __future__ import print_function
 from builtins import str
 from collections import OrderedDict
 
-from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy as pgettext
 from django.db import models
 
 from etgen.html import E, tostring
 
-from lino.api import dd, rt, gettext
+from lino.api import dd, rt, gettext, _
 from lino.utils import join_elems
 from lino.utils.mti import get_child
 from lino.mixins import Referrable, Sequenced, Modified
@@ -74,14 +73,31 @@ class TeraInvoiceable(InvoiceGenerator):
     #     else:
     #         return ie.event.start_date
 
-    @dd.virtualfield(dd.ForeignKey('products.Product', verbose_name=_("Invoiceable fee")))
+    # @dd.virtualfield(dd.ForeignKey('products.Product', verbose_name=_("Invoiceable fee")))
+    @dd.displayfield(_("Invoiceable fee"))
     def invoiceable_fee(self, ar):
         partner = self.get_invoiceable_partner()
+        if partner is None:
+            return None
         event_type = self.update_cal_event_type()
-        return get_rule_fee(partner, event_type)
+        fee = get_rule_fee(partner, event_type)
+        elems = []
+        if fee is None:
+            elems.append(gettext("No fee"))
+        else:
+            elems.append(fee.obj2href(ar))
+        elems.append(" ")
+        elems.append(gettext("for"))
+        elems.append(" ")
+        elems.append(partner.obj2href(ar))
+        return E.span(*elems)
 
     def get_invoiceable_product(self, max_date=None):
-        return self.invoiceable_fee
+        partner = self.get_invoiceable_partner()
+        if partner is None:
+            return None
+        event_type = self.update_cal_event_type()
+        return get_rule_fee(partner, event_type)
 
     def get_invoiceable_start_date(self, max_date):
         # invoicing period is always one month
