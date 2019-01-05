@@ -405,7 +405,8 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
         return s
 
     def update_cal_event_type(self):
-        return self.teacher.event_type
+        if self.teacher_id:
+            return self.teacher.event_type
 
     def update_cal_summary(self, et, i):
         label = dd.babelattr(et, 'event_label')
