@@ -74,7 +74,7 @@ class TeraInvoiceable(InvoiceGenerator):
     #     else:
     #         return ie.event.start_date
 
-    @dd.displayfield(_("Fee"))
+    @dd.virtualfield(dd.ForeignKey('products.Product', verbose_name=_("Invoiceable fee")))
     def invoiceable_fee(self, ar):
         partner = self.get_invoiceable_partner()
         event_type = self.update_cal_event_type()

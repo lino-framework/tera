@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-tera 18.12.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-01-05 10:59+0200\n"
+"POT-Creation-Date: 2019-01-05 11:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -384,8 +384,8 @@ msgstr ""
 msgid "Dossier types"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:77 lino_tera/lib/products/models.py:33
-msgid "Fee"
+#: lino_tera/lib/courses/models.py:77
+msgid "Invoiceable fee"
 msgstr ""
 
 #: lino_tera/lib/courses/models.py:114
@@ -420,47 +420,47 @@ msgstr ""
 msgid "Client"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:447 lino_tera/lib/tera/models.py:125
+#: lino_tera/lib/courses/models.py:448 lino_tera/lib/tera/models.py:125
 msgid "Patient"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:455
+#: lino_tera/lib/courses/models.py:456
 msgid "Household"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:463
+#: lino_tera/lib/courses/models.py:464
 msgid "Organization"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:537
+#: lino_tera/lib/courses/models.py:538
 msgid "Manager"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:570
+#: lino_tera/lib/courses/models.py:571
 msgid "Role"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:637
+#: lino_tera/lib/courses/models.py:638
 msgid "Participant"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:655
+#: lino_tera/lib/courses/models.py:656
 msgid "Phone: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:657
+#: lino_tera/lib/courses/models.py:658
 msgid "GSM: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:660
+#: lino_tera/lib/courses/models.py:661
 msgid "Payment info"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:746
+#: lino_tera/lib/courses/models.py:747
 msgid "Fee rule"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:747
+#: lino_tera/lib/courses/models.py:748
 msgid "Fee rules"
 msgstr ""
 
@@ -529,6 +529,10 @@ msgstr ""
 
 #: lino_tera/lib/products/models.py:25
 msgid "Fee categories"
+msgstr ""
+
+#: lino_tera/lib/products/models.py:33
+msgid "Fee"
 msgstr ""
 
 #: lino_tera/lib/products/models.py:56
