@@ -380,8 +380,8 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
                 s = self.partner.name
             else:
                 s = 'ZZZ'
-            if self.line_id and self.line.ref:
-                s = "{} ({})".format(s, self.line.ref)
+            # if self.line_id and self.line.ref:
+            #     s = "{} ({})".format(s, self.line.ref)
             self.name = s
         return super(Course, self).full_clean()
     
