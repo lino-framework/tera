@@ -27,9 +27,10 @@ class Household(Household, Partner):
     #     default=PartnerTariffs.as_callable('plain'))
     
     def __str__(self):
-        s = "{} {}".format(self.get_full_name(), self.type or '').strip()
-        s = "{} ({})".format(s, self.pk)
-        return s
+        # s = "{} {}".format(self.get_full_name(), self.type or '').strip()
+        # s = "{} ({})".format(self.get_full_name(), self.pk)
+        # return s
+        return self.get_full_name()
 
 
 dd.update_field(Household, 'overview', verbose_name=None)
