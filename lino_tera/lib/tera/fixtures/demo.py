@@ -19,7 +19,7 @@ from lino.utils import Cycler
 from lino.utils.mldbc import babel_named as named, babeld
 from lino.modlib.users.utils import create_user
 from lino_xl.lib.cal.choicelists import EntryStates, GuestStates
-from lino_tera.lib.courses.choicelists import InvoicingPolicies
+from lino_tera.lib.courses.choicelists import InvoicingPolicies, HouseholdCompositions
 
 # from django.conf import settings
 
@@ -113,19 +113,28 @@ def enrolments():
 
     group_therapy = named(
         Product, _("Group therapy"), sales_account=indacc,
-        # tariff=t1,
+        tariff=t1,
         sales_price=30, cat=presence,
         product_type=ProductTypes.default)
     yield group_therapy
+
     # group_therapy.tariff.number_of_events = 1
     # yield group_therapy.tariff
     
     ind_therapy = named(
         Product, _("Individual therapy"),
-        # tariff=t1,
-        sales_price=60, sales_account=indacc, cat=presence,
+        tariff=t1,
+        sales_price=20, sales_account=indacc, cat=presence,
         product_type=ProductTypes.default)
     yield ind_therapy
+
+    ind_therapy10 = named(
+        Product, _("Individual therapy"),
+        tariff=t10,
+        sales_price=20, sales_account=indacc, cat=presence,
+        product_type=ProductTypes.default)
+    yield ind_therapy10
+
     # ind_therapy.tariff.number_of_events = 1
     # yield ind_therapy.tariff
    
@@ -158,8 +167,11 @@ def enrolments():
     yield named(Topic, _("Phobia"), ref="P")
     yield named(Topic, _("Insomnia"), ref="I")
 
-    yield PriceRule(seqno=1, event_type=group_et, fee=group_therapy)
-    yield PriceRule(seqno=2, event_type=ind_et, fee=ind_therapy)
+    yield PriceRule(seqno=1, event_type=ind_et,
+                    pf_composition=HouseholdCompositions.more_children,
+                    fee=ind_therapy10)
+    yield PriceRule(seqno=2, event_type=group_et, fee=group_therapy)
+    yield PriceRule(seqno=3, event_type=ind_et, fee=ind_therapy)
 
     for a in CourseAreas.get_list_items():
         kw = dict(
@@ -190,7 +202,7 @@ def enrolments():
     SLOTS = Cycler(rt.models.courses.Slot.objects.all())
     TOPICS = Cycler(rt.models.topics.Topic.objects.all())
     # TARIFFS = Cycler(rt.models.invoicing.Tariff.objects.all())
-    FEES = Cycler(rt.models.products.Product.objects.filter(product_type=ProductTypes.default))
+    # FEES = Cycler(rt.models.products.Product.objects.filter(product_type=ProductTypes.default))
 
     date = settings.SITE.demo_date(-200)
     qs = Client.objects.all()
@@ -212,7 +224,7 @@ def enrolments():
                 max_events=10,
                 every_unit=DurationUnits.weeks,
                 slot=SLOTS.pop())
-            kw.update(product=FEES.pop())
+            # kw.update(product=FEES.pop())
             c = Course(**kw)
             yield c
             yield Interest(partner=c, topic=TOPICS.pop())
@@ -241,7 +253,7 @@ def enrolments():
             every=1,
             every_unit=DurationUnits.weeks,
             slot=SLOTS.pop())
-        kw.update(product=FEES.pop())
+        # kw.update(product=FEES.pop())
         # kw.update(tariff=TARIFFS.pop())
         c = Course(**kw)
         yield c

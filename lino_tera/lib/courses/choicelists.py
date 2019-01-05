@@ -161,9 +161,9 @@ add("20", _("Outside"), "ouside")
 # add("30", _("3 members"))
 
 add = HouseholdCompositions.add_item
-add("10", _("No participant below 18"))
-add("20", _("One participant below 18"))
-add("30", _("More than one participant below 18"))
+add("10", _("No participant below 18"), 'no_child')
+add("20", _("One participant below 18"), 'one_child')
+add("30", _("More than one participant below 18"), 'more_children')
 
 add = IncomeCategories.add_item
 add("10", _("A (< 900 / < 1300 / < 550)"))

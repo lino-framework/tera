@@ -64,8 +64,8 @@ class TeraInvoiceable(InvoiceGenerator):
         abstract = True
         
     # tariff = dd.ForeignKey('invoicing.Tariff', blank=True, null=True)
-    product = dd.ForeignKey('products.Product',
-                            blank=True, null=True, verbose_name=_("Participation fee"))
+    # product = dd.ForeignKey('products.Product',
+    #                         blank=True, null=True, verbose_name=_("Participation fee"))
 
     # def get_invoiceable_event_date(self, ie):
     #     course = self.get_invoiceable_course()
@@ -74,12 +74,21 @@ class TeraInvoiceable(InvoiceGenerator):
     #     else:
     #         return ie.event.start_date
 
+    @dd.displayfield(_("Fee"))
+    def invoiceable_fee(self, ar):
+        partner = self.get_invoiceable_partner()
+        event_type = self.update_cal_event_type()
+        return get_rule_fee(partner, event_type)
+
+    def get_invoiceable_product(self, max_date=None):
+        return self.invoiceable_fee
+
     def get_invoiceable_start_date(self, max_date):
         # invoicing period is always one month
         return max_date.replace(day=1)
         
-    def get_invoiceable_product(self, max_date=None):
-        return self.product
+    # def get_invoiceable_product(self, max_date=None):
+    #     return self.product
 
     # def get_invoiceable_event_class(self):
     #     course = self.get_invoiceable_course()
@@ -532,7 +541,7 @@ dd.update_field(Course, 'user', verbose_name=_("Manager"))
 #     def get_partners(self, ar):
 #         return [o.pupil for o in ar.selected_rows]
 
-
+@dd.python_2_unicode_compatible
 class Enrolment(Enrolment, TeraInvoiceable):
     """Adds
 
@@ -571,6 +580,11 @@ class Enrolment(Enrolment, TeraInvoiceable):
     #         return Product.objects.none()
     #     return Product.objects.filter(cat=course.line.fees_cat)
 
+    def __str__(self):
+        if self.course_id:
+            return "{}/{}".format(self.pupil_id, self.course.ref or self.course_id)
+        return "{}/{}".format(self.pupil_id, self.course_id)
+
     # def before_ui_save(self, ar):
     def before_ui_save(self, ar):
         if self.course_id is None:
@@ -598,10 +612,10 @@ class Enrolment(Enrolment, TeraInvoiceable):
         #     self.compute_fee()
         super(Enrolment, self).full_clean(*args, **kwargs)
 
-    def get_invoiceable_product(self, max_date=None):
-        if self.course_id:
-            return self.product or self.course.product
-        return self.product
+    # def get_invoiceable_product(self, max_date=None):
+    #     if self.course_id:
+    #         return self.product or self.course.product
+    #     return self.product
 
     # def get_invoiceable_tariff(self, product=None):
     #     # course = self.get_invoiceable_course()
@@ -675,6 +689,10 @@ class Enrolment(Enrolment, TeraInvoiceable):
         if self.course_id:
             return self.course
     
+    def update_cal_event_type(self):
+        if self.course_id:
+            return self.course.teacher.event_type
+
     @classmethod
     def get_generators_for_plan(cls, plan, partner=None):
         
@@ -762,6 +780,8 @@ def get_product_choices(partner):
 
 
 def get_rule_fee(partner, event_type):
+    if partner is None:
+        return
     for rule in PriceRule.objects.order_by('seqno'):
         ok = True
         for pf in PriceFactors.get_list_items():
@@ -778,10 +798,8 @@ def get_rule_fee(partner, event_type):
             # print("20181128c {} != {}".format(rule.event_type, event_type))
             ok = False
 
-        if ok:
+        if ok and rule.fee is not None:
             return rule.fee
-    raise Exception("20181128d no price rule for {} {} {}".format(
-        partner, tariff, event_type))
 
 dd.update_field(
     Enrolment, 'overview',

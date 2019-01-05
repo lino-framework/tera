@@ -47,12 +47,12 @@ Lines.column_names = ("ref name course_area "
 #     confirmation_details invoicing.InvoicingsByGenerator
 #     """
 
-Enrolments.detail_layout = """
-id course pupil request_date user
-start_date end_date #places:8 #fee
-remark workflow_buttons printed 
-confirmation_details invoicing.InvoicingsByGenerator
-"""
+# Enrolments.detail_layout = """
+# id course pupil request_date user
+# start_date end_date #places:8 #fee
+# remark workflow_buttons printed
+# confirmation_details invoicing.InvoicingsByGenerator
+# """
 
 Activities.params_layout = """topic line user teacher state 
 room #can_enroll:10 start_date end_date show_exposed"""
@@ -64,6 +64,17 @@ InvoicingsByGenerator.column_names = (
     "voucher__state #product__tariff__number_of_events *")
 
 
+class EnrolmentDetail(EnrolmentDetail):
+    main = """
+    id course pupil request_date user
+    start_date end_date #places:8 #fee invoiceable_fee
+    remark workflow_buttons printed 
+    confirmation_details invoicing.InvoicingsByGenerator
+    """
+
+
+
+
 class PendingRequestedEnrolments(PendingRequestedEnrolments):
     column_names = 'request_date course pupil remark user ' \
                    'workflow_buttons'
@@ -71,8 +82,8 @@ class PendingRequestedEnrolments(PendingRequestedEnrolments):
 
 class EnrolmentsByPupil(EnrolmentsByPupil):
     display_mode = "html"
-    column_names = 'detail_link guest_role start_date '\
-                   'workflow_buttons *'
+    column_names = 'course guest_role start_date '\
+                   'workflow_buttons detail_link *'
 
     # column_names = 'request_date course user:10 remark ' \
     #                'workflow_buttons *'
@@ -104,8 +115,8 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
 
     """
     # variable_row_height = True
-    column_names = 'pupil guest_role start_date end_date product '\
-                   'workflow_buttons *'
+    column_names = 'pupil guest_role start_date end_date  '\
+                   'workflow_buttons detail_link *'
     insert_layout = """
     pupil guest_role
     remark
@@ -114,19 +125,19 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
 
     show_insert2 = ShowInsertColleague()
 
-class EnrolmentsAndPaymentsByCourse(Enrolments):
-    """Show enrolments of a course together with
-    :attr:`payment_info`.
-
-    This is used by `payment_list.body.html`.
-
-    """
-    master_key = 'course'
-    column_names = "pupil_info start_date product"
+# class EnrolmentsAndPaymentsByCourse(Enrolments):
+#     """Show enrolments of a course together with
+#     :attr:`payment_info`.
+#
+#     This is used by `payment_list.body.html`.
+#
+#     """
+#     master_key = 'course'
+#     column_names = "pupil_info start_date invoiceable_fee *"
 
 
 class EnrolmentsByLifeGroup(EnrolmentsByCourse):
-    column_names = 'pupil guest_role remark workflow_buttons *'
+    column_names = 'pupil guest_role remark workflow_buttons detail_link *'
     insert_layout = """
     pupil guest_role  
     # places option
@@ -225,7 +236,7 @@ class CourseDetail(CourseDetail):
 class LifeGroupDetail(CourseDetail):
     invoicing = dd.Panel("""
     # company contact_person
-    product #payment_term #paper_type  
+    invoiceable_fee #payment_term #paper_type  
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 

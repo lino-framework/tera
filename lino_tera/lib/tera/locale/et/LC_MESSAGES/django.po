@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lino-noi 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-12-22 07:41+0200\n"
+"POT-Creation-Date: 2019-01-05 10:59+0200\n"
 "PO-Revision-Date: 2017-03-21 15:58+0200\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmail.com>\n"
 "Language: et\n"
@@ -75,7 +75,7 @@ msgid "Reduced"
 msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:19 lino_tera/lib/contacts/models.py:50
-#: lino_tera/lib/courses/desktop.py:203 lino_tera/lib/products/models.py:47
+#: lino_tera/lib/courses/desktop.py:204 lino_tera/lib/products/models.py:47
 #: lino_tera/lib/users/desktop.py:16
 msgid "General"
 msgstr ""
@@ -85,7 +85,7 @@ msgid "Address"
 msgstr ""
 
 #: lino_tera/lib/coachings/desktop.py:32 lino_tera/lib/contacts/models.py:88
-#: lino_tera/lib/courses/desktop.py:230
+#: lino_tera/lib/courses/desktop.py:233
 msgid "More"
 msgstr ""
 
@@ -101,8 +101,9 @@ msgstr ""
 msgid "Abandoned by client"
 msgstr ""
 
-#: lino_tera/lib/contacts/models.py:93 lino_tera/lib/courses/desktop.py:225
-#: lino_tera/lib/sales/__init__.py:13 lino_tera/lib/tera/models.py:283
+#: lino_tera/lib/contacts/models.py:93 lino_tera/lib/courses/desktop.py:228
+#: lino_tera/lib/courses/desktop.py:241 lino_tera/lib/sales/__init__.py:13
+#: lino_tera/lib/tera/models.py:283
 msgid "Invoicing"
 msgstr ""
 
@@ -110,7 +111,7 @@ msgstr ""
 msgid "Purchases"
 msgstr ""
 
-#: lino_tera/lib/courses/__init__.py:20 lino_tera/lib/courses/desktop.py:304
+#: lino_tera/lib/courses/__init__.py:20 lino_tera/lib/courses/desktop.py:306
 msgid "Therapies"
 msgstr ""
 
@@ -189,7 +190,7 @@ msgstr ""
 
 #: lino_tera/lib/courses/choicelists.py:70
 #: lino_tera/lib/courses/choicelists.py:94 lino_tera/lib/tera/choicelists.py:39
-#: lino_tera/lib/tera/fixtures/demo.py:132
+#: lino_tera/lib/tera/fixtures/demo.py:141
 msgid "Other"
 msgstr ""
 
@@ -308,159 +309,159 @@ msgstr ""
 msgid "Income categories"
 msgstr ""
 
-#: lino_tera/lib/courses/choicelists.py:142
+#: lino_tera/lib/courses/choicelists.py:143
 msgid "Price factor"
 msgstr ""
 
-#: lino_tera/lib/courses/choicelists.py:143
+#: lino_tera/lib/courses/choicelists.py:144
 msgid "Price factors"
 msgstr ""
 
-#: lino_tera/lib/courses/choicelists.py:154
+#: lino_tera/lib/courses/choicelists.py:155
 msgid "Inside"
 msgstr ""
 
-#: lino_tera/lib/courses/choicelists.py:155
+#: lino_tera/lib/courses/choicelists.py:156
 msgid "Outside"
 msgstr ""
 
-#: lino_tera/lib/courses/choicelists.py:158
-msgid "Alone"
-msgstr ""
-
-#: lino_tera/lib/courses/choicelists.py:159
-msgid "2 members"
-msgstr ""
-
-#: lino_tera/lib/courses/choicelists.py:160
-msgid "3 members"
-msgstr ""
-
-#: lino_tera/lib/courses/choicelists.py:163
-msgid "< 900 / < 1300 / < 550"
-msgstr ""
-
 #: lino_tera/lib/courses/choicelists.py:164
-msgid "900-1100 / 1300-1700 / 550-650"
+msgid "No participant below 18"
 msgstr ""
 
 #: lino_tera/lib/courses/choicelists.py:165
-msgid "1100-1300 / 1700-2000 / 650-800"
+msgid "One participant below 18"
 msgstr ""
 
 #: lino_tera/lib/courses/choicelists.py:166
-msgid "1300-1800 / 2000-2500 / 800-900"
+msgid "More than one participant below 18"
 msgstr ""
 
-#: lino_tera/lib/courses/choicelists.py:167
-msgid "> 1800 / > 2500 / > 900"
+#: lino_tera/lib/courses/choicelists.py:169
+msgid "A (< 900 / < 1300 / < 550)"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:89
+#: lino_tera/lib/courses/choicelists.py:170
+msgid "B (900-1100 / 1300-1700 / 550-650)"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:171
+msgid "C (1100-1300 / 1700-2000 / 650-800)"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:172
+msgid "D (1300-1800 / 2000-2500 / 800-900)"
+msgstr ""
+
+#: lino_tera/lib/courses/choicelists.py:173
+msgid "E (> 1800 / > 2500 / > 900)"
+msgstr ""
+
+#: lino_tera/lib/courses/desktop.py:101
 msgid "Add a colleague"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:212
+#: lino_tera/lib/courses/desktop.py:215
 msgid "Therapy"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:219
+#: lino_tera/lib/courses/desktop.py:222
 msgid "Appointments"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:237 lino_tera/lib/courses/desktop.py:244
-msgid "Participants"
-msgstr ""
-
-#: lino_tera/lib/courses/desktop.py:284
+#: lino_tera/lib/courses/desktop.py:286
 msgid "Invoice recipient in dossiers"
 msgstr ""
 
-#: lino_tera/lib/courses/desktop.py:304
+#: lino_tera/lib/courses/desktop.py:306
 msgid "My {}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:51
+#: lino_tera/lib/courses/models.py:52
 msgid "Dossier type"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:52
+#: lino_tera/lib/courses/models.py:53
 msgid "Dossier types"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:100
+#: lino_tera/lib/courses/models.py:77 lino_tera/lib/products/models.py:33
+msgid "Fee"
+msgstr ""
+
+#: lino_tera/lib/courses/models.py:114
 msgid "{} with {} on {}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:181
+#: lino_tera/lib/courses/models.py:193
 msgid "{} appointments"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:200
+#: lino_tera/lib/courses/models.py:212
 msgid "No cash daybook defined"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:284
+#: lino_tera/lib/courses/models.py:296
 msgid "Dossier"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:285
+#: lino_tera/lib/courses/models.py:297
 msgid "Dossiers"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:303
+#: lino_tera/lib/courses/models.py:315
 msgid "Mandatory"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:314
+#: lino_tera/lib/courses/models.py:326
 msgid "Invoice recipient"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:320 lino_tera/lib/tera/models.py:278
+#: lino_tera/lib/courses/models.py:332 lino_tera/lib/tera/models.py:278
 msgid "Client"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:435 lino_tera/lib/tera/models.py:125
+#: lino_tera/lib/courses/models.py:447 lino_tera/lib/tera/models.py:125
 msgid "Patient"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:443
+#: lino_tera/lib/courses/models.py:455
 msgid "Household"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:451
+#: lino_tera/lib/courses/models.py:463
 msgid "Organization"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:521
+#: lino_tera/lib/courses/models.py:537
 msgid "Manager"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:554
+#: lino_tera/lib/courses/models.py:570
 msgid "Role"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:611
+#: lino_tera/lib/courses/models.py:637
 msgid "Participant"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:629
+#: lino_tera/lib/courses/models.py:655
 msgid "Phone: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:631
+#: lino_tera/lib/courses/models.py:657
 msgid "GSM: {0}"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:634
+#: lino_tera/lib/courses/models.py:660
 msgid "Payment info"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:712
+#: lino_tera/lib/courses/models.py:746
 msgid "Fee rule"
 msgstr ""
 
-#: lino_tera/lib/courses/models.py:713
+#: lino_tera/lib/courses/models.py:747
 msgid "Fee rules"
 msgstr ""
 
@@ -529,10 +530,6 @@ msgstr ""
 
 #: lino_tera/lib/products/models.py:25
 msgid "Fee categories"
-msgstr ""
-
-#: lino_tera/lib/products/models.py:33
-msgid "Fee"
 msgstr ""
 
 #: lino_tera/lib/products/models.py:56
@@ -723,55 +720,56 @@ msgstr ""
 msgid "Group therapy"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:124
+#: lino_tera/lib/tera/fixtures/demo.py:125
+#: lino_tera/lib/tera/fixtures/demo.py:132
 msgid "Individual therapy"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:134
+#: lino_tera/lib/tera/fixtures/demo.py:143
 msgid "Cash daybook Daniel"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:138
+#: lino_tera/lib/tera/fixtures/demo.py:147
 msgid "Attendee"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:140
+#: lino_tera/lib/tera/fixtures/demo.py:149
 msgid "Colleague"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:145
+#: lino_tera/lib/tera/fixtures/demo.py:154
 msgid "Individual appointment"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:149
+#: lino_tera/lib/tera/fixtures/demo.py:158
 msgid "Group meeting"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:157
+#: lino_tera/lib/tera/fixtures/demo.py:166
 msgid "Alcoholism"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:158
+#: lino_tera/lib/tera/fixtures/demo.py:167
 msgid "Phobia"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:159
+#: lino_tera/lib/tera/fixtures/demo.py:168
 msgid "Insomnia"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:229
+#: lino_tera/lib/tera/fixtures/demo.py:242
 msgid "Alcohol"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:229
+#: lino_tera/lib/tera/fixtures/demo.py:242
 msgid "Burnout"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:229
+#: lino_tera/lib/tera/fixtures/demo.py:242
 msgid "Women"
 msgstr ""
 
-#: lino_tera/lib/tera/fixtures/demo.py:229
+#: lino_tera/lib/tera/fixtures/demo.py:242
 msgid "Children"
 msgstr ""
 
@@ -1685,5 +1683,32 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Enrolments"
+#~ msgstr ""
+
+#~ msgid "Alone"
+#~ msgstr ""
+
+#~ msgid "2 members"
+#~ msgstr ""
+
+#~ msgid "3 members"
+#~ msgstr ""
+
+#~ msgid "< 900 / < 1300 / < 550"
+#~ msgstr ""
+
+#~ msgid "900-1100 / 1300-1700 / 550-650"
+#~ msgstr ""
+
+#~ msgid "1100-1300 / 1700-2000 / 650-800"
+#~ msgstr ""
+
+#~ msgid "1300-1800 / 2000-2500 / 800-900"
+#~ msgstr ""
+
+#~ msgid "> 1800 / > 2500 / > 900"
+#~ msgstr ""
+
+#~ msgid "Participants"
 #~ msgstr ""
 
