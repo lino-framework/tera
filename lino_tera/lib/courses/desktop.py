@@ -197,8 +197,8 @@ class CoursesByLine(CoursesByLine):
 class CourseDetail(CourseDetail):
     main = "general therapy #enrolments calendar invoicing more"
     general = dd.Panel("""
-    ref name partner  team
-    user teacher line #fee:15
+    ref name partner invoiceable_fee 
+    user teacher line 
     id print_actions workflow_buttons 
     enrolments
     """, label=_("General"))
@@ -209,7 +209,7 @@ class CourseDetail(CourseDetail):
     
     therapy = dd.Panel("""
     therapy_domain procurer mandatory translator_type
-    healthcare_plan ending_reason #state 
+    healthcare_plan ending_reason #state  
     topics.InterestsByPartner notes.NotesByProject 
     # add_interest
     """, label=_("Therapy"))
@@ -228,6 +228,7 @@ class CourseDetail(CourseDetail):
     """, label=_("Invoicing"))
 
     more = dd.Panel("""
+    team
     remark
     #comments.CommentsByRFC cal.TasksByProject
     """, label = _("More"))
@@ -236,7 +237,7 @@ class CourseDetail(CourseDetail):
 class LifeGroupDetail(CourseDetail):
     invoicing = dd.Panel("""
     # company contact_person
-    invoiceable_fee #payment_term #paper_type  
+    #invoiceable_fee #payment_term #paper_type  
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
