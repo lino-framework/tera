@@ -38,6 +38,8 @@ dd.update_field(Household, 'overview', verbose_name=None)
 
 class HouseholdDetail(PartnerDetail):
 
+    main = 'general address invoicing #purchases more'
+
     general_middle = """
     id 
     language

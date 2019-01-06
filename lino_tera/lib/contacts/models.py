@@ -67,7 +67,7 @@ class PartnerDetail(PartnerDetail):
     address_box = """
     #prefix name 
     addr1
-    street:25 street_no street_box
+    street:25 street_no #street_box
     # addr2
     country zip_code:10 city
     """
@@ -188,7 +188,7 @@ class PersonDetail(PersonDetail, PartnerDetail):
     address_box = """
     last_name first_name:15 title:10 
     addr1 
-    street:25 street_no street_box
+    street:25 street_no #street_box
     # addr2
     country zip_code:10 city
     """
