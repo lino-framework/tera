@@ -711,7 +711,7 @@ class Enrolment(Enrolment, TeraInvoiceable):
             return self.course
     
     def update_cal_event_type(self):
-        if self.course_id:
+        if self.course_id and self.course.teacher_id:
             return self.course.teacher.event_type
 
     @classmethod

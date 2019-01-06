@@ -65,10 +65,10 @@ class PartnerDetail(PartnerDetail):
 
     # A layout for use in Belgium
     address_box = """
-    prefix name 
+    #prefix name 
     addr1
     street:25 street_no street_box
-    addr2
+    # addr2
     country zip_code:10 city
     """
 
@@ -189,7 +189,7 @@ class PersonDetail(PersonDetail, PartnerDetail):
     last_name first_name:15 title:10 
     addr1 
     street:25 street_no street_box
-    addr2
+    # addr2
     country zip_code:10 city
     """
 
