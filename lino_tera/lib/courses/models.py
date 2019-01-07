@@ -29,7 +29,7 @@ from lino_xl.lib.products.choicelists import ProductTypes
 from .choicelists import EndingReasons, TranslatorTypes
 from .choicelists import PartnerTariffs, TherapyDomains
 from .choicelists import InvoicingPolicies, PriceFactors
-# from .choicelists import HouseholdCompositions, Residences, IncomeCategories
+from .choicelists import HouseholdCompositions, Residences, IncomeCategories
 
 from lino_xl.lib.courses.models import *
 # from .choicelists import *

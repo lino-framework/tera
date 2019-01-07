@@ -40,7 +40,7 @@ class ProductDetail(dd.DetailLayout):
     
     general = dd.Panel("""
     name id 
-    product_type cat sales_price #tariff
+    product_type cat sales_price tariff
     # tariff__number_of_events:10 tariff__min_asset:10 tariff__max_asset:10
     vat_class sales_account delivery_unit
     description
@@ -59,7 +59,7 @@ class ProductDetail(dd.DetailLayout):
 #     _product_type = ProductTypes.fees
 #     column_names = "name sales_price sales_account cat *"
 
-Products.column_names = "name #tariff sales_price sales_account *"
+Products.column_names = "name tariff sales_price sales_account *"
 
 class Daybooks(Products):
     _product_type = ProductTypes.daybooks
