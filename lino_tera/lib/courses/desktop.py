@@ -98,9 +98,14 @@ class EnrolmentsByPupil(EnrolmentsByPupil):
 from lino.core.actions import ShowInsert
 
 class ShowInsertColleague(ShowInsert):
+
+    # TODO: works only when rendered in summary panel because default values
+    # are not filled when dlg action called from toolbar
+
     help_text = _("Add a colleague")
     icon_name = None
     button_text = u"👤"  # U+1F464 BUST IN SILHOUETTE
+    action_name = "ins_coll"
 
     def create_instance(self, ar):
         obj = super(ShowInsertColleague, self).create_instance(ar)
@@ -123,7 +128,7 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
     # request_date user
     """
 
-    show_insert2 = ShowInsertColleague()
+    insert_colleague = ShowInsertColleague()
 
 # class EnrolmentsAndPaymentsByCourse(Enrolments):
 #     """Show enrolments of a course together with
