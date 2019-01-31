@@ -173,5 +173,6 @@ class Migrator(Migrator):
         return '19.1.0'
 
     def migrate_from_19_1_0(self, globals_dict):
-
+        globals_dict['courses_PriceFactors'] = rt.models.products.PriceFactors
+        globals_dict['courses_PriceRule'] = rt.models.products.PriceRule
         return '19.2.0'
