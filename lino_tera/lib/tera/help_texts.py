@@ -10,4 +10,6 @@ help_texts = {
     'lino_tera.lib.contacts.Partner.pf_residence' : _("""The residence used to determine the fee for invoicing."""),
     'lino_tera.lib.contacts.Partner.pf_income' : _("""The income category used to determine the fee for invoicing."""),
     'lino_tera.lib.contacts.Partner.pf_composition' : _("""The family composition used to determine the fee for invoicing."""),
+    'lino_tera.lib.products.PriceFactors' : _("""A choicelist of "price factors"."""),
+    'lino_tera.lib.products.PriceRules' : _("""The list of price rules."""),
 }
