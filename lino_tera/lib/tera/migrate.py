@@ -57,7 +57,7 @@ class Migrator(Migrator):
     def migrate_from_18_12_0(self, globals_dict):
 
         bv2kw = globals_dict['bv2kw']
-        courses_PriceRule = rt.models.courses.PriceRule
+        courses_PriceRule = rt.models.products.PriceRule
         courses_Course = rt.models.courses.Course
         courses_Enrolment = rt.models.courses.Enrolment
 
