@@ -4,6 +4,7 @@
 
 from lino.api import dd, rt, _
 
+from lino_xl.lib.products.choicelists import PriceFactors
 from lino_xl.lib.courses.choicelists import *
 
 CourseAreas.clear()
@@ -123,37 +124,13 @@ class Residences(dd.ChoiceList):
     verbose_name = _("Residence")
     verbose_name_plural = _("Residences")
 
-class HouseholdCompositions(dd.ChoiceList):
-    verbose_name = _("Household composition")
-    verbose_name_plural = _("Household compositions")
-
-class IncomeCategories(dd.ChoiceList):
-    verbose_name = _("Income category")
-    verbose_name_plural = _("Income categories")
-
-class PriceFactor(dd.Choice):
-    field_cls = None
-    def __init__(self, value, cls, name):
-        self.field_cls = cls
-        self.field_name = 'pf_' + name
-        super(PriceFactor, self).__init__(value, cls.verbose_name, name)
-
-class PriceFactors(dd.ChoiceList):
-    item_class = PriceFactor
-    verbose_name = _("Price factor")
-    verbose_name_plural = _("Price factors")
-
-
-
-add = PriceFactors.add_item
-add("10", Residences, "residence")
-add("20", IncomeCategories, "income")
-add("30", HouseholdCompositions, "composition")
-
-
 add = Residences.add_item
 add("10", _("Inside"), "inside")
 add("20", _("Outside"), "ouside")
+
+class HouseholdCompositions(dd.ChoiceList):
+    verbose_name = _("Household composition")
+    verbose_name_plural = _("Household compositions")
 
 # add = HouseholdCompositions.add_item
 # add("10", _("Alone"))
@@ -164,6 +141,10 @@ add = HouseholdCompositions.add_item
 add("10", _("No participant below 18"), 'no_child')
 add("20", _("One participant below 18"), 'one_child')
 add("30", _("More than one participant below 18"), 'more_children')
+
+class IncomeCategories(dd.ChoiceList):
+    verbose_name = _("Income category")
+    verbose_name_plural = _("Income categories")
 
 add = IncomeCategories.add_item
 add("10", "A")
@@ -194,3 +175,9 @@ add("50", "E")
 # add("330", _("650-800 per member"))
 # add("340", _("800-900 per member"))
 # add("350", _("Above 900 per member"))
+
+add = PriceFactors.add_item
+add("10", Residences, "residence")
+add("20", IncomeCategories, "income")
+add("30", HouseholdCompositions, "composition")
+

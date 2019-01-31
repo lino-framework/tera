@@ -19,7 +19,6 @@ from lino.utils import join_elems
 from lino_xl.lib.courses.desktop import *
 from lino_xl.lib.courses.roles import CoursesUser
 from lino_xl.lib.contacts.models import PersonDetail
-from .choicelists import PriceFactors
 
 contacts = dd.resolve_app('contacts')
 
@@ -314,15 +313,4 @@ class MyCoursesGiven(MyCoursesGiven):
     # order_by = ['-ref']
     order_by = ['-modified']
 
-
-class PriceRules(dd.Table):
-    model = "courses.PriceRule"
-    column_names_tpl = "seqno {factors} #tariff event_type fee *"
-    order_by = ['seqno']
-
-
-    @classmethod
-    def get_column_names(cls, ar):
-        factors = ' '.join([pf.field_name for pf in PriceFactors.get_list_items()])
-        return cls.column_names_tpl.format(factors=factors)
 

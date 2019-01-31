@@ -171,3 +171,7 @@ class Migrator(Migrator):
             return courses_PriceRule(**kw)
 
         return '19.1.0'
+
+    def migrate_from_19_1_0(self, globals_dict):
+
+        return '19.2.0'

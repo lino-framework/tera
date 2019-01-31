@@ -69,10 +69,6 @@ class Plugin(Plugin):
         m1.add_action('courses.Lines')
         m1.add_action('courses.Topics')
 
-        mg = site.plugins.sales
-        m2 = m.add_menu(mg.app_label, mg.verbose_name)
-        m2.add_action('courses.PriceRules')
-
         # m.add_action('courses.TeacherTypes')
         # m.add_action('courses.PupilTypes')
         # m.add_action('courses.Slots')

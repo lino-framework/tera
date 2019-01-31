@@ -84,7 +84,7 @@ def enrolments():
     Account = rt.models.ledger.Account
     CommonItems = rt.models.sheets.CommonItems
     CourseAreas = rt.models.courses.CourseAreas
-    PriceRule = rt.models.courses.PriceRule
+    PriceRule = rt.models.products.PriceRule
 
     # yield skills_objects()
 
