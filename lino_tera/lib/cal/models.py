@@ -138,7 +138,7 @@ class Event(Event):
                 return False
         return True
 
-    def force_guest_states(self):
+    def force_guest_states(self):  #TODO: is this stil used?
         if self.project and self.project.line:
             return self.project.line.course_area.force_guest_states
         return False
