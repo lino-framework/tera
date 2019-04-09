@@ -95,22 +95,15 @@ class Site(Site):
         yield 'lino_tera.lib.teams'
         yield 'lino_xl.lib.lists'
 
-    def setup_plugins(self):
-        super(Site, self).setup_plugins()
-        self.plugins.countries.configure(country_code='BE')
-        # self.plugins.working.configure(ticket_model='contacts.Person')
-        # self.plugins.skills.configure(demander_model='contacts.Person')
-        self.plugins.topics.configure(partner_model='courses.Course')
-        # self.plugins.coachings.configure(client_model='tera.Client')
-        self.plugins.clients.configure(client_model='contacts.Partner')
-        self.plugins.countries.configure(hide_region=True)
-        self.plugins.countries.configure(country_code='BE')
-        self.plugins.ledger.configure(start_year=2015)
-        self.plugins.ledger.configure(use_pcmn=True)
-        # self.plugins.courses.configure(teacher_model='users.User')
-        # self.plugins.courses.configure(pupil_model='contacts.Person')
-        # self.plugins.courses.configure(pupil_model='tera.Client')
-
+    def get_plugin_configs(self):
+        yield super(Site, self).get_plugin_configs()
+        yield ('countries', 'country_code', 'BE')
+        yield ('countries', 'hide_region', True)
+        yield ('vat', 'declaration_plugin', 'lino_xl.lib.bevats')
+        yield ('ledger', 'use_pcmn', True)
+        yield ('ledger', 'start_year', 2015)
+        yield ('topics', 'partner_model', 'courses.Course')
+        yield ('clients', 'client_model', 'contacts.Partner')
 
     def setup_quicklinks(self, user, tb):
         super(Site, self).setup_quicklinks(user, tb)
