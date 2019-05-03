@@ -22,7 +22,7 @@ from lino.mixins import Referrable, Modified
 from lino_xl.lib.invoicing.mixins import InvoiceGenerator
 from lino_xl.lib.ledger.utils import DEBIT
 from lino_xl.lib.cal.workflows import TaskStates
-from lino_xl.lib.healthcare.mixins import HealthcareClient
+from lino_xl.lib.healthcare.mixins import HealthcareSubject
 from lino_xl.lib.topics.models import AddInterestField
 from lino_xl.lib.products.choicelists import ProductTypes
 
@@ -248,7 +248,7 @@ class TeraInvoiceable(InvoiceGenerator):
 
 
 @dd.python_2_unicode_compatible
-class Course(Referrable, Course, TeraInvoiceable, HealthcareClient, Modified):
+class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     """
     Extends the standard model by adding a field :attr:`fee`.
 
