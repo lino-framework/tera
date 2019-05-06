@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2016-2018 Rumma & Ko Ltd
+# Copyright 2016-2019 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 """The :xfile:`models.py` module for :mod:`lino_voga.lib.invoicing`.
@@ -29,7 +29,7 @@ class Plan(Plan):
     course = dd.ForeignKey('courses.Course', blank=True, null=True)
 
 
-Plans.detail_layout = """user journal today max_date
+Plans.detail_layout = """user area today min_date max_date
     partner course
     invoicing.ItemsByPlan
     """
