@@ -245,20 +245,20 @@ one.
     $ a
     $ python manage.py dump2py -o snapshot2testing
 
-- Create and adapt the :xfile:`restore2testing.py` file::
+- Create and adapt the :xfile:`restore2preview.py` file::
   
     $ cd snapshot2testing
-    $ cp restore.py restore2testing.py
-    $ nano snapshot2testing/restore2testing.py
+    $ cp restore.py restore2preview.py
+    $ nano snapshot2testing/restore2preview.py
 
-  In :xfile:`restore2testing.py` I deactivate all models whose data
+  In :xfile:`restore2preview.py` I deactivate all models whose data
   will be deleted by :mod:`spzloader2
   <lino_xl.lib.tim2lino.spzloader2>`.
          
 - Update the source code and restore from snapshot::
   
     $ ./pull.sh
-    $ nohup python manage.py run snapshot2testing/restore2testing.py --noinput &
+    $ nohup python manage.py run snapshot2testing/restore2preview.py --noinput &
 
   This takes some time...
   
