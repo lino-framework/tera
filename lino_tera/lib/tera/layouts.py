@@ -23,9 +23,9 @@ if dd.is_installed('tera'):
     """
     rt.models.ledger.Accounts.detail_layout = """
     name
-    ref:10 sheet_item id common_account vat_column 
-    needs_partner clearable purchases_allowed 
-    needs_ana  ana_account default_amount:10 
+    ref:10 sheet_item id common_account vat_column
+    needs_partner clearable purchases_allowed
+    needs_ana ana_account default_amount:10 vat_class
     ledger.MovementsByAccount
     """
 
@@ -68,7 +68,7 @@ if dd.is_installed('tera'):
     #     ClientsUser)
     rt.models.topics.InterestsByPartner.required_roles = dd.login_required(
         ClientsUser)
-    
+
     rt.models.sales.VatProductInvoice._meta.verbose_name_plural = _("Sales invoices")
 
-    rt.models.ana.AnaAccountInvoice._meta.verbose_name_plural = _("Purchase invoices")    
+    rt.models.ana.AnaAccountInvoice._meta.verbose_name_plural = _("Purchase invoices")
