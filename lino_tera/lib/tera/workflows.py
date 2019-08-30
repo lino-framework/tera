@@ -3,7 +3,7 @@
 # License: BSD (see file COPYING for details)
 """
 The default :attr:`workflows_module
-<lino.core.site.Site.workflows_module>` for :ref:`presto` applications.
+<lino.core.site.Site.workflows_module>` for :ref:`tera` applications.
 
 This workflow requires that both :mod:`lino_xl.lib.cal` and
 :mod:`lino_xl.lib.courses` are installed.
@@ -46,4 +46,3 @@ EntryStates.cancelled.guest_state = GuestStates.excused
 EntryStates.missed.guest_state = GuestStates.missing
 
 # print("20181107b", EntryStates.draft.button_text)
-
