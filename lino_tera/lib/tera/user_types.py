@@ -1,13 +1,12 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017-2018 Rumma & Ko Ltd
+# Copyright 2017-2019 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
-"""Defines the user types for Lino Tera.
+"""
+This is the :attr:`user_types_module
+<lino.core.site.Site.user_types_module>` for :ref:`tera`.
 
-This is used as the :attr:`user_types_module
-<lino.core.site.Site.user_types_module>` for Tera sites.
-
-Redefines the choices in :class:`lino.modlib.users.UserTypes`.
+Redefines the list of available :class:`lino.modlib.users.UserTypes`.
 
 """
 
@@ -60,3 +59,5 @@ add('100', _("Secretary"), Secretary, name="secretary")
 add('200', _("Therapist"), Therapist, name="therapist")
 add('900', _("Administrator"), SiteAdmin, name='admin')
 
+# from lino_xl.lib.cal.choicelists import EntryTypes
+# EntryTypes.took_place.update(fill_guests=True)
