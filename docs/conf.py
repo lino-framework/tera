@@ -25,7 +25,7 @@ extensions += ['lino.sphinxcontrib.logo']
 
 intersphinx_mapping = {}
 from importlib import import_module
-for n in 'atelier lino lino_xl lino_book'.split():
+for n in 'atelier lino_book'.split():
     m = import_module(n)
     n = n.replace('_', "")
     intersphinx_mapping[n] = (m.intersphinx_urls['docs'], None)
@@ -35,7 +35,7 @@ for n in 'atelier lino lino_xl lino_book'.split():
 
 # General information about the project.
 project = "Lino Tera"
-copyright = '2014-2018 Rumma & Ko Ltd'
+copyright = '2014-2019 Rumma & Ko Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
