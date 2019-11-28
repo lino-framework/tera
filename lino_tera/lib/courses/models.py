@@ -247,7 +247,7 @@ class TeraInvoiceable(InvoiceGenerator):
     
 
 
-@dd.python_2_unicode_compatible
+
 class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     """
     Extends the standard model by adding a field :attr:`fee`.
@@ -563,7 +563,7 @@ dd.update_field(Course, 'user', verbose_name=_("Manager"))
 #     def get_partners(self, ar):
 #         return [o.pupil for o in ar.selected_rows]
 
-@dd.python_2_unicode_compatible
+
 class Enrolment(Enrolment, TeraInvoiceable):
     """Adds
 

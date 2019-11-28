@@ -14,7 +14,7 @@ from lino_tera.lib.contacts.models import Partner, PartnerDetail
 # from lino_tera.lib.courses.choicelists import PartnerTariffs
 from lino_xl.lib.clients.choicelists import ClientStates
 
-@dd.python_2_unicode_compatible
+
 class Household(Household, Partner):
 
     class Meta(Household.Meta):

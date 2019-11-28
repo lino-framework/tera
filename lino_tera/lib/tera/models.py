@@ -110,7 +110,7 @@ class LifeModes(dd.Table):
 
 
 
-@dd.python_2_unicode_compatible
+
 class Client(Person, #BeIdCardHolder,
              UserAuthored,
              # HealthcareClient,
