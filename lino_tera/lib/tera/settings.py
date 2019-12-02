@@ -32,10 +32,10 @@ class Site(Site):
     obj2text_template = "**{0}**"
 
     default_build_method = 'appypdf'
-    
+
     # experimental use of rest_framework:
     # root_urlconf = 'lino_book.projects.team.urls'
-    
+
     migration_class = 'lino_tera.lib.tera.migrate.Migrator'
 
     auto_configure_logger_names = "atelier django lino lino_xl lino_tera"
@@ -43,6 +43,8 @@ class Site(Site):
     def get_installed_apps(self):
         yield super(Site, self).get_installed_apps()
         yield 'lino.modlib.gfks'
+        yield 'lino_xl.lib.excerpts'  # must come before any plugin that updates
+                                      # the ExcerptType for Certifiable
         yield 'lino_tera.lib.courses'
         yield 'lino_tera.lib.users'
         yield 'lino.modlib.dashboard'
@@ -80,7 +82,6 @@ class Site(Site):
         # yield 'lino.modlib.uploads'
         # yield 'lino_xl.lib.extensible'
         # yield 'lino_xl.lib.outbox'
-        yield 'lino_xl.lib.excerpts'
         yield 'lino_xl.lib.appypod'
         # yield 'lino_xl.lib.postings'
         # yield 'lino_xl.lib.pages'
@@ -132,4 +133,3 @@ USE_TZ = True
 # TIME_ZONE = 'Europe/Brussels'
 # TIME_ZONE = 'Europe/Tallinn'
 TIME_ZONE = 'UTC'
-
