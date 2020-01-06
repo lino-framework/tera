@@ -54,7 +54,7 @@ Lino Tera is a customizable management system for therapeutic centres.
     license='BSD-2-Clause',
     classifiers="""\
 Programming Language :: Python
-Programming Language :: Python :: 2
+Programming Language :: Python :: 3
 Development Status :: 4 - Beta
 Environment :: Web Environment
 Framework :: Django
