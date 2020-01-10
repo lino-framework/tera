@@ -1,13 +1,10 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2014-2018 Rumma & Ko Ltd
+# Copyright 2014-2020 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 """
 Base Django settings for Lino Tera applications.
 
 """
-
-from __future__ import print_function
-from __future__ import unicode_literals
 
 from lino.projects.std.settings import *
 from lino.api.ad import _
@@ -62,6 +59,7 @@ class Site(Site):
         yield 'lino_tera.lib.products'
         yield 'lino_tera.lib.sales'
         yield 'lino_tera.lib.cal'
+        yield 'lino_xl.lib.calview'
         yield 'lino_tera.lib.invoicing'
         # yield 'lino_xl.lib.vat'
         yield 'lino_xl.lib.sepa'
