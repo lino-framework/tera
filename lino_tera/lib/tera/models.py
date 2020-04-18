@@ -54,22 +54,22 @@ contacts = dd.resolve_app('contacts')
 
 class Procurer(BabelDesignated):
 
-    # 10 persönlich                    
-    # 11 privates Umfeld               
-    # 12 SPZ                           
-    # 21 Opferbetreuung                
-    # 22 Arzt oder Klinik              
-    # 31 Jugendgericht                 
-    # 32 Gericht                       
-    # 33 Bewährungskommission          
-    # 34 Polizei                       
-    # 35 Staatsanwaltschaft            
-    # 36 Jugendhilfe                   
-    # 37 Commission Défense Sociale    
-    # 38 Schulbereich + Kaleido/PMS    
-    # 39 Ö.S.H.Z.                      
-    # 40 Asyl-Empfangszentrum          
-    # 41 Mobiles Team Ki-Ju            
+    # 10 persönlich
+    # 11 privates Umfeld
+    # 12 SPZ
+    # 21 Opferbetreuung
+    # 22 Arzt oder Klinik
+    # 31 Jugendgericht
+    # 32 Gericht
+    # 33 Bewährungskommission
+    # 34 Polizei
+    # 35 Staatsanwaltschaft
+    # 36 Jugendhilfe
+    # 37 Commission Défense Sociale
+    # 38 Schulbereich + Kaleido/PMS
+    # 39 Ö.S.H.Z.
+    # 40 Asyl-Empfangszentrum
+    # 41 Mobiles Team Ki-Ju
 
     class Meta:
         app_label = 'tera'
@@ -91,14 +91,14 @@ class LifeMode(BabelDesignated):
     # 35 bei einem Elternteil
     # 37 bei Pflegeeltern
     # 60 Adoptivfamilie
-    # 81 in Einrichtung oder WG 
+    # 81 in Einrichtung oder WG
     # 90 sonstige Möglichkeit
     # 01 lebt allein (nur alte Akten!)
     # 20 in Partnerschaft (nur alte Akten!)
     # 30 in Familie (nur alte Akten!)
     # 70 in Institution   (nur alte Akten!)
     # 80 Wohngemeinschaft  (nur alte Akten!)
-    
+
     class Meta:
         app_label = 'tera'
         abstract = dd.is_abstract_model(__name__, 'LifeMode')
@@ -134,7 +134,7 @@ class Client(Person, #BeIdCardHolder,
     # person = dd.ForeignKey("contacts.Person")
 
     professional_state = ProfessionalStates.field(blank=True)
-    
+
     obsoletes = dd.ForeignKey(
         'self', verbose_name=_("Obsoletes"),
         blank=True, null=True, related_name='obsoleted_by')
@@ -143,18 +143,18 @@ class Client(Person, #BeIdCardHolder,
                                 blank=True, null=True,
                                 related_name='by_nationality',
                                 verbose_name=_("Nationality"))
-    
+
     life_mode = dd.ForeignKey('tera.LifeMode', blank=True, null=True)
     civil_state = CivilStates.field(blank=True)
 
-    
+
     # translator_notes = dd.RichTextField(
     #     _("Translator"), blank=True, format='plain')
     # translator = dd.ForeignKey(
     #     "avanti.Translator",
     #     blank=True, null=True)
 
-    
+
 
     # unemployed_since = models.DateField(
     #     _("Unemployed since"), blank=True, null=True,
@@ -179,26 +179,26 @@ class Client(Person, #BeIdCardHolder,
 
     # family_notes = models.TextField(
     #     _("Family situation"), blank=True, null=True)
-    
+
     # residence_notes = models.TextField(
     #     _("Residential situation"), blank=True, null=True)
-    
+
     # health_notes = models.TextField(
     #     _("Health situation"), blank=True, null=True)
-    
+
     # financial_notes = models.TextField(
     #     _("Financial situation"), blank=True, null=True)
-    
+
     # integration_notes = models.TextField(
     #     _("Integration notes"), blank=True, null=True)
-    
+
     # availability = models.TextField(
     #     _("Availability"), blank=True, null=True)
 
     # needed_course = dd.ForeignKey(
     #     'courses.Line', verbose_name=_("Needed activity"),
     #     blank=True, null=True)
-    
+
     # obstacles = models.TextField(
     #     _("Other obstacles"), blank=True, null=True)
     # skills = models.TextField(
@@ -209,8 +209,8 @@ class Client(Person, #BeIdCardHolder,
 
     # language_notes = dd.RichTextField(
     #     _("Language notes"), blank=True, format='plain')
-    
-    
+
+
     def __str__(self):
         return "%s %s (%s)" % (
             self.last_name.upper(), self.first_name, self.pk)
@@ -223,9 +223,10 @@ class Client(Person, #BeIdCardHolder,
             self.first_name, self.pk, self.city)
         # return "{} {}".format(self._meta.verbose_name, self.pk)
 
-    @dd.displayfield(_("Name"))
-    def name_column(self, ar):
-        return str(self)
+    # name_column is now defined in core.model.Model
+    # @dd.displayfield(_("Name"))
+    # def name_column(self, ar):
+    #     return str(self)
 
     # def get_overview_elems(self, ar):
     #     elems = super(Client, self).get_overview_elems(ar)
@@ -253,7 +254,7 @@ dd.update_field(Client, 'user', verbose_name=_("Primary coach"))
 #dd.update_field(Client, 'ref', verbose_name=_("Legacy file number"))
 dd.update_field(Client, 'client_state', default=ClientStates.active)
 dd.update_field(Client, 'overview', verbose_name=None)
-    
+
 from lino_tera.lib.contacts.models import PersonDetail
 
 class ClientDetail(PersonDetail):
@@ -274,7 +275,7 @@ class ClientDetail(PersonDetail):
     client = dd.Panel("""
     user nationality:15 professional_state civil_state life_mode
     #courses.EnrolmentsByPupil:30
-    clients.ContactsByClient    
+    clients.ContactsByClient
     """, label=_("Client"))
 
     invoicing = dd.Panel("""
@@ -283,16 +284,16 @@ class ClientDetail(PersonDetail):
     """, label=_("Invoicing"))
 
     invoicing_left = """
-    pf_residence 
+    pf_residence
     pf_composition pf_income
-    # salesrule__invoice_recipient 
+    # salesrule__invoice_recipient
     payment_term salesrule__paper_type
     """
 
 
     # address = dd.Panel("""
     # address_box contact_box:30
-    #  contacts.RolesByPerson 
+    #  contacts.RolesByPerson
     # """, label=_("Address"))
 
     # more = dd.Panel("""
@@ -343,7 +344,7 @@ class Clients(contacts.Persons):
     )
     params_layout = """
     #aged_from #aged_to #gender nationality client_state enrolment_state course
-    user start_date end_date observed_event 
+    user start_date end_date observed_event
     """
 
     @classmethod
@@ -464,7 +465,7 @@ class MyClients(My, Clients):
 from lino_xl.lib.countries.mixins import CountryCity
 #from lino_xl.lib.cv.mixins import PersonHistoryEntry, HistoryByPerson
 
-    
+
 # class Residence(PersonHistoryEntry, CountryCity):
 
 #     allow_cascaded_delete = ['person']
@@ -480,7 +481,7 @@ from lino_xl.lib.countries.mixins import CountryCity
 
 # class Residences(dd.Table):
 #     model = 'avanti.Residence'
-    
+
 # class ResidencesByPerson(HistoryByPerson, Residences):
 #     label = _("Former residences")
 #     column_names = 'country city duration_text reason *'
@@ -498,14 +499,14 @@ from lino_xl.lib.countries.mixins import CountryCity
 
 #     def fc(**kwargs):
 #         return (**kwargs)
-    
+
 
 # @dd.receiver(dd.post_analyze)
 # def my_details(sender, **kw):
 #     sender.modules.system.SiteConfigs.set_detail_layout("""
 #     site_company next_partner_id:10 default_build_method
 #     # site_calendar simulate_today hide_events_before
-#     # default_event_type max_auto_events 
+#     # default_event_type max_auto_events
 #     """)
 
 class NotesByPartner(dd.Table):
