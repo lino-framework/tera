@@ -6,8 +6,6 @@
 - Create a client MTI child for most persons.
 
 """
-from __future__ import unicode_literals
-
 import datetime
 from django.conf import settings
 
@@ -42,12 +40,12 @@ def person2clients():
             # most persons, but not those from humanlinks and those
             # with empty gender field, become clients. Youngest client
             # is 16; 170 days between each client
-            
+
             birth_date = settings.SITE.demo_date(-170 * count - 16 * 365)
             national_id = generate_ssin(birth_date, person.gender)
 
             client = mtichild(
-                person, Client, 
+                person, Client,
                 national_id=national_id,
                 birth_date=birth_date)
 
@@ -59,7 +57,7 @@ def person2clients():
                 client.client_state = ClientStates.closed
             yield client
 
-        
+
 
 def enrolments():
     # Person = rt.models.contacts.Person
@@ -120,7 +118,7 @@ def enrolments():
 
     # group_therapy.tariff.number_of_events = 1
     # yield group_therapy.tariff
-    
+
     ind_therapy = named(
         Product, _("Individual therapy"),
         tariff=t1,
@@ -137,7 +135,7 @@ def enrolments():
 
     # ind_therapy.tariff.number_of_events = 1
     # yield ind_therapy.tariff
-   
+
     yield named(Product, _("Other"), sales_price=35)
     prepayment = named(
         Product, _("Cash daybook Daniel"), cat=cash,
@@ -167,11 +165,11 @@ def enrolments():
     yield named(Topic, _("Phobia"), ref="P")
     yield named(Topic, _("Insomnia"), ref="I")
 
-    yield PriceRule(seqno=1, event_type=ind_et,
+    yield PriceRule(seqno=1, selector=ind_et,
                     pf_composition=HouseholdCompositions.more_children,
                     fee=ind_therapy10)
-    yield PriceRule(seqno=2, event_type=group_et, fee=group_therapy)
-    yield PriceRule(seqno=3, event_type=ind_et, fee=ind_therapy)
+    yield PriceRule(seqno=2, selector=group_et, fee=group_therapy)
+    yield PriceRule(seqno=3, selector=ind_et, fee=ind_therapy)
 
     for a in CourseAreas.get_list_items():
         kw = dict(
@@ -184,7 +182,7 @@ def enrolments():
         #     kw.update(fee=group_therapy, event_type=group_et)
         a.line_obj = Line(**kw)
         yield a.line_obj  # temporary cache used below
-        
+
     invoice_recipient = None
     for n, p in enumerate(Client.objects.all()):
         if n % 10 == 0:
@@ -235,7 +233,7 @@ def enrolments():
             ar = rt.login(c.user.username)
             c.update_reminders(ar)
             date += ONE_DAY
-            
+
     date = settings.SITE.demo_date(-200)
     kw = dict(state='active', line=CourseAreas.default.line_obj)
     grsizes = Cycler(5, 7, 12, 6)
@@ -294,7 +292,7 @@ def enrolments():
 
     # for obj in Course.objects.all():
 
-            
+
 def objects():
     yield person2clients()
     yield enrolments()
