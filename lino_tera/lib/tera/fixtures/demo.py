@@ -167,9 +167,9 @@ def enrolments():
 
     yield PriceRule(seqno=1, selector=ind_et,
                     pf_composition=HouseholdCompositions.more_children,
-                    fee=ind_therapy10)
-    yield PriceRule(seqno=2, selector=group_et, fee=group_therapy)
-    yield PriceRule(seqno=3, selector=ind_et, fee=ind_therapy)
+                    product=ind_therapy10)
+    yield PriceRule(seqno=2, selector=group_et, product=group_therapy)
+    yield PriceRule(seqno=3, selector=ind_et, product=ind_therapy)
 
     for a in CourseAreas.get_list_items():
         kw = dict(
@@ -177,9 +177,9 @@ def enrolments():
         # kw.update(fees_cat=presence)
         kw.update(guest_role=attendee)
         # if a.name in('therapies', 'life_groups'):
-        #     kw.update(fee=ind_therapy, event_type=ind_et)
+        #     kw.update(product=ind_therapy, event_type=ind_et)
         # else:
-        #     kw.update(fee=group_therapy, event_type=group_et)
+        #     kw.update(product=group_therapy, event_type=group_et)
         a.line_obj = Line(**kw)
         yield a.line_obj  # temporary cache used below
 

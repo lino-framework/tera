@@ -80,7 +80,7 @@ class TeraInvoiceable(InvoiceGenerator):
         if partner is None:
             return None
         event_type = self.update_cal_event_type()
-        fee = rt.models.products.Product.get_rule_fee(partner, event_type)
+        fee = rt.models.products.Product.get_ruled_price(partner, event_type)
         elems = []
         if fee is None:
             elems.append(gettext("No fee"))
@@ -97,7 +97,7 @@ class TeraInvoiceable(InvoiceGenerator):
         if partner is None:
             return None
         event_type = self.update_cal_event_type()
-        return rt.models.products.Product.get_rule_fee(partner, event_type)
+        return rt.models.products.Product.get_ruled_price(partner, event_type)
 
     def get_invoiceable_start_date(self, max_date):
         # invoicing period is always one month
@@ -197,7 +197,7 @@ class TeraInvoiceable(InvoiceGenerator):
                 entry = ev
             else:
                 entry = ev.event
-            product = Product.get_rule_fee(self.get_invoiceable_partner(), entry.event_type)
+            product = Product.get_ruled_price(self.get_invoiceable_partner(), entry.event_type)
             if product is None:
                 raise Exception("20181128 no price rule for {}".format(self))
             else:
