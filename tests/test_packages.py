@@ -14,7 +14,8 @@ SETUP_INFO = {}
 
 # load SETUP_INFO:
 fn = ROOTDIR.child('lino_tera', 'setup_info.py')
-exec(compile(open(fn, "rb").read(), fn, 'exec'))
+with open(fn, "rb") as fd:
+    exec(compile(fd.read(), fn, 'exec'))
 
 from lino.utils.pythontest import TestCase
 

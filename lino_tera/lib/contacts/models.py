@@ -57,7 +57,7 @@ class PartnerDetail(PartnerDetail):
     general_bottom = """
     courses.ActivitiesByPartner
     """
-    
+
     address = dd.Panel("""
     address_box contact_box
     sepa.AccountsByPartner:30
@@ -65,7 +65,7 @@ class PartnerDetail(PartnerDetail):
 
     # A layout for use in Belgium
     address_box = """
-    #prefix name 
+    #prefix name
     addr1
     street:25 street_no #street_box
     # addr2
@@ -93,9 +93,9 @@ class PartnerDetail(PartnerDetail):
     """, label=_("Invoicing"))
 
     invoicing_left = """
-    pf_residence pf_income  
-    pf_composition 
-    # salesrule__invoice_recipient 
+    pf_residence pf_income
+    pf_composition
+    # salesrule__invoice_recipient
     payment_term salesrule__paper_type
     """
 
@@ -110,25 +110,26 @@ class PartnerDetail(PartnerDetail):
     ana.InvoicesByPartner
     """, label=_("Purchases"))
 
+Partners.detail_layout = 'contacts.PartnerDetail'
 
 class CompanyDetail(PartnerDetail):  # , CompanyDetail):
 
     # general = dd.Panel("""
-    # overview:30 ledger.MovementsByPartner 
+    # overview:30 ledger.MovementsByPartner
     # general_bottom
-    # excerpts.ExcerptsByOwner 
+    # excerpts.ExcerptsByOwner
     # """, label=_("General"))
 
     general_middle = """
-    id 
+    id
     language
-    type 
+    type
     """
-    
+
     general_bottom = """
     contacts.RolesByCompany courses.ActivitiesByPartner
     """
-    
+
 
     # address = dd.Panel("""
     # address_box contact_box
@@ -146,7 +147,7 @@ class CompanyDetail(PartnerDetail):  # , CompanyDetail):
     # street:25 street_no street_box
     # addr2
     # country zip_code:10 city
-    # """    
+    # """
 
     # contact_box = dd.Panel("""
     # email:40
@@ -159,7 +160,7 @@ class CompanyDetail(PartnerDetail):  # , CompanyDetail):
 
 dd.update_field(Company, 'overview', verbose_name=None)
 dd.update_field(Person, 'overview', verbose_name=None)
-    
+
 class PersonDetail(PersonDetail, PartnerDetail):
 
     # main = 'general address invoicing purchases more'
@@ -167,7 +168,7 @@ class PersonDetail(PersonDetail, PartnerDetail):
     # general = dd.Panel("""
     # overview:30  ledger.MovementsByPartner #lists.MembersByPartner:20
     # general_bottom
-    
+
     # """, label=_("General"))
 
     general_middle = """
@@ -177,17 +178,17 @@ class PersonDetail(PersonDetail, PartnerDetail):
     """
 
     general_bottom = """
-    cal.GuestsByPartner courses.EnrolmentsByPupil 
+    cal.GuestsByPartner courses.EnrolmentsByPupil
     """
 
     # address = dd.Panel("""
     # address_box contact_box:30
-    # contacts.RolesByPerson 
+    # contacts.RolesByPerson
     # """, label=_("Address"))
 
     address_box = """
-    last_name first_name:15 title:10 
-    addr1 
+    last_name first_name:15 title:10
+    addr1
     street:25 street_no #street_box
     # addr2
     country zip_code:10 city
@@ -201,7 +202,7 @@ class PersonDetail(PersonDetail, PartnerDetail):
     # """
 
     # personal = 'national_id card_number'
-   
+
     # more = dd.Panel("""
     # id language
     # sales.InvoicesByPartner
@@ -220,4 +221,3 @@ from lino_xl.lib.clients.desktop import ClientContactsByCompany, ClientContactsB
 
 Company.used_as_client_contact = dd.ShowSlaveTable(ClientContactsByCompany)
 Person.used_as_client_contact = dd.ShowSlaveTable(ClientContactsByPerson)
-
