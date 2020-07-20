@@ -4,7 +4,7 @@
 
 from __future__ import unicode_literals
 
-from atelier.utils import last_day_of_month
+from lino.utils import last_day_of_month
 from lino.api import _
 #from lino_xl.lib.invoicing.mixins import InvoiceGenerator
 from lino_xl.lib.cal.models import *
