@@ -1,9 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2016-2017 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
-"""Database models for this plugin."""
-
-from __future__ import unicode_literals
 
 from lino.api import _
 
@@ -13,7 +10,7 @@ from lino_tera.lib.contacts.models import Partner
 
 
 class List(List, Partner):
-    
+
     class Meta(List.Meta):
         app_label = 'lists'
         abstract = dd.is_abstract_model(__name__, 'List')
@@ -35,5 +32,3 @@ class List(List, Partner):
         else:
             self.designation = self.name
         super(List, self).full_clean(*args, **kw)
-
-        
