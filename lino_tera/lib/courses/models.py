@@ -1,12 +1,8 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017-2018 Rumma & Ko Ltd
+# Copyright 2017-2020 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 
-from __future__ import unicode_literals
-from __future__ import print_function
-
-from builtins import str
 from collections import OrderedDict
 
 from django.utils.translation import pgettext_lazy as pgettext
@@ -20,7 +16,7 @@ from lino.utils.mti import get_child
 from lino.mixins import Referrable, Modified
 
 from lino_xl.lib.invoicing.mixins import InvoiceGenerator
-from lino_xl.lib.ledger.utils import DEBIT
+from lino_xl.lib.ledger.utils import DC
 from lino_xl.lib.cal.workflows import TaskStates
 from lino_xl.lib.healthcare.mixins import HealthcareSubject
 from lino_xl.lib.topics.models import AddInterestField
@@ -57,11 +53,11 @@ class Line(Line):
     #     'courses.CourseType', blank=True, null=True)
     invoicing_policy = InvoicingPolicies.field(default='by_event')
 
-class TeraInvoiceable(InvoiceGenerator): 
-    
+class TeraInvoiceable(InvoiceGenerator):
+
     class Meta(object):
         abstract = True
-        
+
     # tariff = dd.ForeignKey('invoicing.Tariff', blank=True, null=True)
     # product = dd.ForeignKey('products.Product',
     #                         blank=True, null=True, verbose_name=_("Participation fee"))
@@ -102,7 +98,7 @@ class TeraInvoiceable(InvoiceGenerator):
     def get_invoiceable_start_date(self, max_date):
         # invoicing period is always one month
         return max_date.replace(day=1)
-        
+
     # def get_invoiceable_product(self, max_date=None):
     #     return self.product
 
@@ -111,8 +107,8 @@ class TeraInvoiceable(InvoiceGenerator):
     #     if course.line.invoicing_policy == InvoicingPolicies.by_event:
     #         return rt.models.cal.Event
     #     return rt.models.cal.Guest
-        
-            
+
+
     # def get_invoiceable_tariff(self, product=None):
     #     # course = self.get_invoiceable_course()
     #     # return rt.models.invoicing.Tariff.objects.first()
@@ -134,7 +130,7 @@ class TeraInvoiceable(InvoiceGenerator):
                 return txt
             return ar.obj2html(event, txt)
         return fmt
-    
+
     def get_cash_daybook(self, ie):
         course = self.get_invoiceable_course()
         if course.line.invoicing_policy == InvoicingPolicies.by_event:
@@ -142,7 +138,7 @@ class TeraInvoiceable(InvoiceGenerator):
         else:
             u = ie.event.user
         return u.cash_daybook
-    
+
     def get_invoiceable_events(self, start_date, max_date):
         course = self.get_invoiceable_course()
         if course is None:
@@ -174,7 +170,7 @@ class TeraInvoiceable(InvoiceGenerator):
                 flt.update(event__start_date__gte=start_date)
             if max_date:
                 flt.update(event__start_date__lte=max_date)
-            
+
             qs = rt.models.cal.Guest(*flt).order_by(
                 "event__start_date")
         # dd.logger.info(
@@ -239,12 +235,12 @@ class TeraInvoiceable(InvoiceGenerator):
                 # i = model(**kwargs)
                 i.set_amount(ar, -ev.amount)
                 yield i
-                
+
     def get_invoiceable_amount(self, ie):
         prod = self.get_invoiceable_product()
         return prod.sales_price or 5
         # return ie.amount
-    
+
 
 
 
@@ -273,7 +269,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
 
 
     .. attribute:: partner
-    
+
         When this is empty, the course is considered a group therapy
         and invoicing is done per enrolment.  Invoice recipient is
         the pupil of every enrolment.
@@ -282,7 +278,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
         and invoicing is done per course.
 
     .. attribute:: ref
-    
+
         An identifying public course number to be used by both
         external and internal partners for easily referring to a given
         course.
@@ -318,7 +314,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
         verbose_name_plural = _('Dossiers')
 
     ref_max_length = 8
-    
+
     # allow_cascaded_delete = "client household"
     allow_cascaded_delete = "partner"
 
@@ -330,7 +326,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     payment_term = dd.ForeignKey(
         'ledger.PaymentTerm',
         related_name="%(app_label)s_%(class)s_set_by_payment_term",
-        blank=True, null=True)    
+        blank=True, null=True)
 
     procurer = dd.ForeignKey('tera.Procurer', blank=True, null=True)
     mandatory = models.BooleanField(_("Mandatory"), default=False)
@@ -341,7 +337,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     therapy_domain = TherapyDomains.field(blank=True)
     team = dd.ForeignKey('teams.Team', blank=True, null=True)
     add_interest = AddInterestField()
-    
+
     partner = dd.ForeignKey(
         'contacts.Partner',
         verbose_name=_("Invoice recipient"),
@@ -359,20 +355,20 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     # client = dd.ForeignKey(
     #     'tera.Client',
     #     related_name="%(app_label)s_%(class)s_set_by_client",
-    #     blank=True, null=True)    
+    #     blank=True, null=True)
 
     # household = dd.ForeignKey(
     #     'households.Household',
     #     related_name="%(app_label)s_%(class)s_set_by_household",
-    #     blank=True, null=True)    
+    #     blank=True, null=True)
 
     paper_type = dd.ForeignKey(
         'sales.PaperType',
         related_name="%(app_label)s_%(class)s_set_by_paper_type",
-        blank=True, null=True)    
+        blank=True, null=True)
 
     quick_search_fields = "ref name partner__name"
-    
+
     # @classmethod
     # def get_registrable_fields(cls, site):
     #     for f in super(Course, cls).get_registrable_fields(site):
@@ -405,7 +401,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
             #     s = "{} ({})".format(s, self.line.ref)
             self.name = s
         return super(Course, self).full_clean()
-    
+
     def __str__(self):
         if self.name:
             s = self.name
@@ -421,7 +417,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
         #     more += " " + self.ref
         if self.teacher_id and self.teacher.initials:
             more += " " + self.teacher.initials
-        if more:    
+        if more:
             s = "{} ({})".format(s, more.strip())
         return s
 
@@ -443,7 +439,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
         # else either.  when a table of therapies is shown in
         # dashboard, then we want a way to open its detail with a
         # single click.
-        
+
         # elems = super(Course, self).get_overview_elems(ar)
         elems = []
         elems.append(self.obj2href(ar))
@@ -502,7 +498,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
 
     # def get_invoiceable_product(self, max_date=None):
     #     return self.fee or self.line.fee
-    
+
     def get_invoiceable_course(self):
         return self
 
@@ -510,22 +506,22 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     def get_generators_for_plan(cls, plan, partner=None):
         # pre-select all Course objects that potentially will generate
         # an invoice.
-        
+
         qs = cls.objects.all()
         # qs = cls.objects.filter(**{
         #     cls.invoiceable_date_field + '__lte':
         #       plan.max_date or plan.today})
-        
+
         if plan.course is None:
             qs = qs.filter(state=CourseStates.active)
         else:
             qs = qs.filter(id=plan.course.id)
-            
+
         # dd.logger.info("20181113 c %s", qs)
-        
+
         if partner is None:
             partner = plan.partner
-            
+
         if partner is None:
             # only courses with a partner (because only these get invoiced
             # per course).
@@ -540,7 +536,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
 
         # dd.logger.info("20181113 %s (%d rows)", qs.query, qs.count())
         return qs.order_by('id')
-    
+
         # for obj in qs.order_by(cls.invoiceable_date_field, 'id'):
         #     # dd.logger.info('20160223 %s', obj)
         #     yield obj
@@ -550,7 +546,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     #         None, 'courses/Course/item_description.html',
     #         obj=self, item=item)
 
-        
+
 
 # Course.set_widget_options('ref', preferred_with=6)
 # dd.update_field(Course, 'ref', verbose_name=_("Legacy file number"))
@@ -581,7 +577,7 @@ class Enrolment(Enrolment, TeraInvoiceable):
 
     """
 
-    
+
     class Meta(Enrolment.Meta):
         app_label = 'courses'
         abstract = dd.is_abstract_model(__name__, 'Enrolment')
@@ -684,11 +680,11 @@ class Enrolment(Enrolment, TeraInvoiceable):
         if not self.pupil_id:
             return ''
         return rt.models.ledger.Movement.balance_info(
-            DEBIT, partner=self.pupil, cleared=False)
-        
+            DC.debit, partner=self.pupil, cleared=False)
+
     def get_guest_role(self):
         return self.guest_role or super(Enrolment, self).get_guest_role()
-        
+
     def get_invoiceable_partner(self):
         # if hasattr(self.pupil, 'salesrule'):
         #     return self.pupil.salesrule.invoice_recipient or self.pupil
@@ -706,31 +702,31 @@ class Enrolment(Enrolment, TeraInvoiceable):
     #             return self.course.fee
     #         if self.course.line_id:
     #             return self.course.line.fee
-    
+
     def get_invoiceable_course(self):
         if self.course_id:
             return self.course
-    
+
     def update_cal_event_type(self):
         if self.course_id and self.course.teacher_id:
             return self.course.teacher.event_type
 
     @classmethod
     def get_generators_for_plan(cls, plan, partner=None):
-        
+
         qs = cls.objects.all()
-        
+
         if plan.course is None:
             qs = qs.filter(course__state=CourseStates.active)
         else:
             qs = qs.filter(course__id=plan.course.id)
 
         # dd.logger.info("20181113 c %s", qs)
-        
+
         # only enrolments whose course.partner is empty (because only
         # these get invoiced per enrolment).
         qs = qs.filter(course__partner__isnull=True)
-        
+
         if partner is None:
             partner = plan.partner
         if partner:
@@ -749,7 +745,7 @@ class Enrolment(Enrolment, TeraInvoiceable):
 
         # dd.logger.info("20181113 %s (%d rows)", qs.query, qs.count())
         return qs.order_by('id')
-    
+
         # for obj in qs.order_by(cls.invoiceable_date_field, 'id'):
         #     # dd.logger.info('20160223 %s', obj)
         #     yield obj
