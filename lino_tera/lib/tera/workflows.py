@@ -21,7 +21,7 @@ EntryStates.cancelled.text = _("Called off")
 EntryStates.draft.text = _("Scheduled")
 
 from lino_xl.lib.cal.workflows.voga import *
-from lino_xl.lib.courses.workflows import *
+from lino_xl.lib.courses.workflows.std import *
 
 add = EntryStates.add_item
 add('60', _("Missed"), 'missed', fixed=True,
