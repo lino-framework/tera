@@ -603,8 +603,7 @@ class Enrolment(Enrolment, TeraInvoiceable):
             return "{}/{}".format(self.pupil_id, self.course.ref or self.course_id)
         return "{}/{}".format(self.pupil_id, self.course_id)
 
-    # def before_ui_save(self, ar):
-    def before_ui_save(self, ar):
+    def before_ui_save(self, ar, cw):
         if self.course_id is None:
             if self.pupil_id:
                 line = rt.models.courses.Line.objects.order_by('id').first()
@@ -618,7 +617,7 @@ class Enrolment(Enrolment, TeraInvoiceable):
                 course.full_clean()
                 course.save()
                 self.course = course
-        super(Enrolment, self).before_ui_save(ar)
+        super(Enrolment, self).before_ui_save(ar, cw)
 
     def full_clean(self, *args, **kwargs):
         if self.course_id:
