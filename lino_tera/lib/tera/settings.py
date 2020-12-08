@@ -30,9 +30,6 @@ class Site(Site):
 
     default_build_method = 'appypdf'
 
-    # experimental use of rest_framework:
-    # root_urlconf = 'lino_book.projects.team.urls'
-
     migration_class = 'lino_tera.lib.tera.migrate.Migrator'
 
     auto_configure_logger_names = "atelier django lino lino_xl lino_tera"
