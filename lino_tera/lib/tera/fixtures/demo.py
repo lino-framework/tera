@@ -81,7 +81,7 @@ def enrolments():
     ProductCat = rt.models.products.ProductCat
     Account = rt.models.ledger.Account
     CommonItems = rt.models.sheets.CommonItems
-    CourseAreas = rt.models.courses.CourseAreas
+    ActivityLayouts = rt.models.courses.ActivityLayouts
     PriceRule = rt.models.products.PriceRule
 
     # yield skills_objects()
@@ -171,7 +171,7 @@ def enrolments():
     yield PriceRule(seqno=2, selector=group_et, product=group_therapy)
     yield PriceRule(seqno=3, selector=ind_et, product=ind_therapy)
 
-    for a in CourseAreas.get_list_items():
+    for a in ActivityLayouts.get_list_items():
         kw = dict(
             name=a.text, course_area=a, guest_role=attendee)
         # kw.update(fees_cat=presence)
@@ -207,7 +207,7 @@ def enrolments():
     if qs.count() == 0:
         raise Exception("Oops, no clients!")
     PUPILS = Cycler(qs)
-    kw = dict(state='active', line=CourseAreas.therapies.line_obj)
+    kw = dict(state='active', line=ActivityLayouts.therapies.line_obj)
     for i, obj in enumerate(qs):
         if i % 6:
             kw.update(
@@ -235,7 +235,7 @@ def enrolments():
             date += ONE_DAY
 
     date = settings.SITE.demo_date(-200)
-    kw = dict(state='active', line=CourseAreas.default.line_obj)
+    kw = dict(state='active', line=ActivityLayouts.default.line_obj)
     grsizes = Cycler(5, 7, 12, 6)
     group_names = (_("Alcohol"), _("Burnout"), _("Women"), _("Children"))
     for name in group_names:

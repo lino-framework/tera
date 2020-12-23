@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2017-2018 Rumma & Ko Ltd
+# Copyright 2017-2020 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
 
 from lino.api import dd, rt, _
@@ -7,21 +7,21 @@ from lino.api import dd, rt, _
 from lino_xl.lib.products.choicelists import PriceFactors
 from lino_xl.lib.courses.choicelists import *
 
-CourseAreas.clear()
-add = CourseAreas.add_item
+ActivityLayouts.clear()
+add = ActivityLayouts.add_item
 add('IT', _("Individual therapies"), 'therapies', 'courses.Therapies')
     # force_guest_states=True)
 add('LG', _("Life groups"), 'life_groups', 'courses.LifeGroups')
     # force_guest_states=True)
-add('OG', _("Other groups"), 'default', 'courses.Courses')
+add('OG', _("Other groups"), 'default', 'courses.OtherGroups')
 
 
 # Stand der Beratung:
-# 01 dauert an                                
-# 03 abgeschlossen                            
-# 05 automatisch abgeschlossen                
-# 06 Abbruch der Beratung                     
-# 09 Weitervermittlung                        
+# 01 dauert an
+# 03 abgeschlossen
+# 05 automatisch abgeschlossen
+# 06 Abbruch der Beratung
+# 09 Weitervermittlung
 # 12 nur Erstkontakt
 CourseStates.clear()
 add = CourseStates.add_item
@@ -180,4 +180,3 @@ add = PriceFactors.add_item
 add("10", Residences, "residence")
 add("20", IncomeCategories, "income")
 add("30", HouseholdCompositions, "composition")
-

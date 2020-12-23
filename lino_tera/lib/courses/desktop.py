@@ -1,13 +1,6 @@
 # -*- coding: UTF-8 -*-
-# Copyright 2013-2018 Rumma & Ko Ltd
+# Copyright 2013-2020 Rumma & Ko Ltd
 # License: BSD (see file COPYING for details)
-
-# 
-
-from __future__ import unicode_literals
-from __future__ import print_function
-
-from builtins import str
 
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import format_lazy
@@ -27,12 +20,12 @@ from lino_xl.lib.cal.ui import EntriesByController
 
 Lines.detail_layout = """
     id ref course_area
-    name 
+    name
     #topic #fees_cat #fee #options_cat body_template
     #course_type event_type guest_role every_unit every invoicing_policy
     # description
     excerpt_title
-    courses.CoursesByLine
+    courses.ActivitiesByLine
     """
 
 Lines.column_names = ("ref name course_area "
@@ -53,7 +46,7 @@ Lines.column_names = ("ref name course_area "
 # confirmation_details invoicing.InvoicingsByGenerator
 # """
 
-Activities.params_layout = """topic line user teacher state 
+Activities.params_layout = """topic line user teacher state
 room #can_enroll:10 start_date end_date show_exposed"""
 
 from lino_xl.lib.invoicing.models import InvoicingsByGenerator
@@ -67,7 +60,7 @@ class EnrolmentDetail(EnrolmentDetail):
     main = """
     id course pupil request_date user
     start_date end_date #places:8 #fee invoiceable_fee
-    remark workflow_buttons printed 
+    remark workflow_buttons printed
     confirmation_details invoicing.InvoicingsByGenerator
     """
 
@@ -143,7 +136,7 @@ class EnrolmentsByCourse(EnrolmentsByCourse):
 class EnrolmentsByLifeGroup(EnrolmentsByCourse):
     column_names = 'pupil guest_role remark workflow_buttons detail_link *'
     insert_layout = """
-    pupil guest_role  
+    pupil guest_role
     # places option
     remark
     # request_date user
@@ -177,13 +170,13 @@ class EntriesByCourse(EntriesByController):
             kw['project'] = mi
         return super(EntriesByCourse, cls).create_instance(ar, **kw)
 
-    
 
-class CoursesByLine(CoursesByLine):
-    """Like :class:`lino_xl.lib.courses.CoursesByLine`, but with other
+
+class ActivitiesByLine(ActivitiesByLine):
+    """Like :class:`lino_xl.lib.courses.ActivitiesByLine`, but with other
     default values in the filter parameters. In Voga we want to see
     only courses for which new enrolments can happen.
-    
+
     TODO: when Lino gets class-based user roles, move this back to the
     library table and show all courses only for users with user_type
     `courses.CourseStaff`.
@@ -193,7 +186,7 @@ class CoursesByLine(CoursesByLine):
 
     @classmethod
     def param_defaults(self, ar, **kw):
-        kw = super(CoursesByLine, self).param_defaults(ar, **kw)
+        kw = super(ActivitiesByLine, self).param_defaults(ar, **kw)
         kw.update(show_exposed=dd.YesNo.yes)
         return kw
 
@@ -201,23 +194,23 @@ class CoursesByLine(CoursesByLine):
 class CourseDetail(CourseDetail):
     main = "general therapy #enrolments calendar invoicing more"
     general = dd.Panel("""
-    ref name partner invoiceable_fee 
-    user teacher line 
-    id print_actions workflow_buttons 
+    ref name partner invoiceable_fee
+    user teacher line
+    id print_actions workflow_buttons
     enrolments
     """, label=_("General"))
 
     enrolments = """
     EnrolmentsByCourse
     """
-    
+
     therapy = dd.Panel("""
     therapy_domain procurer mandatory translator_type
-    healthcare_plan ending_reason #state  
-    topics.InterestsByPartner notes.NotesByProject 
+    healthcare_plan ending_reason #state
+    topics.InterestsByPartner notes.NotesByProject
     # add_interest
     """, label=_("Therapy"))
-    
+
     calendar = dd.Panel("""
     every_unit every max_date max_events
     room start_date end_date start_time end_time
@@ -227,7 +220,7 @@ class CourseDetail(CourseDetail):
 
     invoicing = dd.Panel("""
     # company contact_person
-    #tariff #payment_term #paper_type  
+    #tariff #payment_term #paper_type
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
@@ -236,12 +229,12 @@ class CourseDetail(CourseDetail):
     remark
     #comments.CommentsByRFC cal.TasksByProject
     """, label = _("More"))
-    
+
 
 class LifeGroupDetail(CourseDetail):
     invoicing = dd.Panel("""
     # company contact_person
-    #invoiceable_fee #payment_term #paper_type  
+    #invoiceable_fee #payment_term #paper_type
     invoicing.InvoicingsByGenerator excerpts.ExcerptsByProject
     """, label=_("Invoicing"))
 
@@ -257,20 +250,20 @@ class TherapyDetail(LifeGroupDetail):
 
 
 
-class Courses(Courses):
-    # other groups
+class OtherGroups(ActivitiesByLayout):
+    # Therapeutical groups
     order_by = ['ref', '-start_date', '-start_time']
     column_names = "ref name teacher start_date end_date " \
                    "workflow_buttons *"
     @classmethod
     def param_defaults(self, ar, **kw):
-        kw = super(Courses, self).param_defaults(ar, **kw)
+        kw = super(OtherGroups, self).param_defaults(ar, **kw)
         kw.update(show_exposed=dd.YesNo.yes)
         return kw
 
 
-class LifeGroups(Courses):
-    _course_area = CourseAreas.life_groups
+class LifeGroups(ActivitiesByLayout):
+    activity_layout = 'life_groups'
     column_names = "ref name teacher partner start_date end_date " \
                    "workflow_buttons *"
     detail_layout = 'courses.LifeGroupDetail'
@@ -282,12 +275,12 @@ class LifeGroups(Courses):
 
 class Therapies(LifeGroups):
     # individual therapies
-    _course_area = CourseAreas.therapies
+    activity_layout = 'therapies'
     detail_layout = 'courses.TherapyDetail'
 
 
-class ActivitiesByPartner(Courses):
-    _course_area = None
+class ActivitiesByPartner(Activities):
+    # activity_layout = None
     label = _("Invoice recipient in dossiers")
     master_key = 'partner'
     column_names = "start_date detail_link workflow_buttons *"
@@ -298,19 +291,17 @@ class ActivitiesByPartner(Courses):
 #     master_key = 'client'
 
 # class ActivitiesByHousehold(Activities):
-#     master_key = 'household'    
+#     master_key = 'household'
 
-# class MyCourses(MyCourses):
+# class MyActivities(MyActivities):
 #     label = _("Therapies managed by me")
 #     column_names = "ref name line teacher workflow_buttons *"
 #     order_by = ['-ref']
 
-    
+
 class MyCoursesGiven(MyCoursesGiven):
     # label = _("Therapies held by me")
     label = format_lazy(_("My {}"), _("Therapies"))
     column_names = "ref name line workflow_buttons *"
     # order_by = ['-ref']
     order_by = ['-modified']
-
-

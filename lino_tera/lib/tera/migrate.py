@@ -67,7 +67,7 @@ class Migrator(Migrator):
                                      request_date, state, places, option_id,
                                      remark, confirmation_details, tariff_id,
                                      guest_role_id):
-            #    if course_area: course_area = settings.SITE.models.courses.CourseAreas.get_by_value(course_area)
+            #    if course_area: course_area = settings.SITE.models.courses.ActivityLayouts.get_by_value(course_area)
             #    if state: state = settings.SITE.models.courses.EnrolmentStates.get_by_value(state)
             kw = dict()
             kw.update(id=id)

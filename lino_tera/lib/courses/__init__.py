@@ -45,14 +45,14 @@ class Plugin(Plugin):
         # sm.add_action('courses.Pupils')
         # sm.add_action('courses.Teachers')
         sm.add_separator()
-        for ca in site.models.courses.CourseAreas.objects():
+        for ca in site.models.courses.ActivityLayouts.objects():
             sm.add_action(ca.courses_table)
         # sm.add_action('courses.Courses')
         # sm.add_separator()
-        # sm.add_action('courses.DraftCourses')
-        # sm.add_action('courses.InactiveCourses')
-        # sm.add_action('courses.ActiveCourses')
-        # sm.add_action('courses.ClosedCourses')
+        # sm.add_action('courses.DraftActivities')
+        # sm.add_action('courses.InactiveActivities')
+        # sm.add_action('courses.ActiveActivities')
+        # sm.add_action('courses.ClosedActivities')
         sm.add_separator()
         # sm.add_action('courses.PendingRequestedEnrolments')
         # sm.add_action('courses.PendingConfirmedEnrolments')
@@ -60,7 +60,7 @@ class Plugin(Plugin):
 
         # o = site.plugins.office
         # sm = m.add_menu(o.app_label, o.verbose_name)
-        # sm.add_action('courses.MyCourses')
+        # sm.add_action('courses.MyActivities')
 
     def setup_config_menu(self, site, user_type, m):
         m1 = m.add_menu(self.app_label, self.verbose_name)
