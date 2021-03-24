@@ -380,7 +380,7 @@ class Course(Referrable, Course, TeraInvoiceable, HealthcareSubject, Modified):
     #     Product = rt.models.products.Product
     #     if not line or not line.fees_cat:
     #         return Product.objects.none()
-    #     return Product.objects.filter(cat=line.fees_cat)
+    #     return Product.objects.filter(category=line.fees_cat)
 
     def on_create(self, ar):
         self.teacher = ar.get_user()
@@ -596,7 +596,7 @@ class Enrolment(Enrolment, TeraInvoiceable):
     #     Product = rt.models.products.Product
     #     if not course or not course.line or not course.line.fees_cat:
     #         return Product.objects.none()
-    #     return Product.objects.filter(cat=course.line.fees_cat)
+    #     return Product.objects.filter(category=course.line.fees_cat)
 
     def __str__(self):
         if self.course_id:

@@ -35,7 +35,7 @@ class Migrator(Migrator):
         products_Product = rt.models.products.Product
         
         @override(globals_dict)
-        def create_products_product(id, name, description, cat_id, delivery_unit, vat_class, number_of_events, min_asset, sales_account_id, sales_price):
+        def create_products_product(id, name, description, category_id, delivery_unit, vat_class, number_of_events, min_asset, sales_account_id, sales_price):
         #    if delivery_unit: delivery_unit = settings.SITE.models.products.DeliveryUnits.get_by_value(delivery_unit)
         #    if vat_class: vat_class = settings.SITE.models.vat.VatClasses.get_by_value(vat_class)
             if sales_price is not None: sales_price = Decimal(sales_price)
@@ -43,7 +43,7 @@ class Migrator(Migrator):
             kw.update(id=id)
             if name is not None: kw.update(bv2kw('name',name))
             if description is not None: kw.update(bv2kw('description',description))
-            kw.update(cat_id=cat_id)
+            kw.update(category_id=category_id)
             kw.update(delivery_unit=delivery_unit)
             kw.update(vat_class=vat_class)
             #kw.update(number_of_events=number_of_events)

@@ -17,10 +17,10 @@ add('200', _("Cash daybooks"), 'daybooks', table_name="products.Daybooks")
 
 
 
-class ProductCat(ProductCat):
-    class Meta(ProductCat.Meta):
+class Category(Category):
+    class Meta(Category.Meta):
         app_label = 'products'
-        abstract = dd.is_abstract_model(__name__, 'ProductCat')
+        abstract = dd.is_abstract_model(__name__, 'Category')
         verbose_name = _("Fee category")
         verbose_name_plural = _("Fee categories")
 
@@ -40,7 +40,7 @@ class ProductDetail(dd.DetailLayout):
     
     general = dd.Panel("""
     name id 
-    product_type cat sales_price tariff
+    product_type category sales_price tariff
     # tariff__number_of_events:10 tariff__min_asset:10 tariff__max_asset:10
     vat_class sales_account delivery_unit
     description
@@ -57,7 +57,7 @@ class ProductDetail(dd.DetailLayout):
 
 # class Fees(Products):
 #     _product_type = ProductTypes.fees
-#     column_names = "name sales_price sales_account cat *"
+#     column_names = "name sales_price sales_account category *"
 
 Products.column_names = "name tariff sales_price sales_account *"
 
@@ -70,4 +70,4 @@ from lino.core.roles import UserRole
 class Nobody(UserRole):
     pass
 
-ProductCats.required_roles = dd.login_required(Nobody)
+Categories.required_roles = dd.login_required(Nobody)

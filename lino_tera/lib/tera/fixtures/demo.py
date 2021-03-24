@@ -78,7 +78,7 @@ def enrolments():
     ProductTypes = rt.models.products.ProductTypes
     Topic = rt.models.topics.Topic
     Interest = rt.models.topics.Interest
-    ProductCat = rt.models.products.ProductCat
+    Category = rt.models.products.Category
     Account = rt.models.ledger.Account
     CommonItems = rt.models.sheets.CommonItems
     ActivityLayouts = rt.models.courses.ActivityLayouts
@@ -86,10 +86,10 @@ def enrolments():
 
     # yield skills_objects()
 
-    presence = ProductCat(**dd.str2kw('name', _("Fees")))
+    presence = Category(**dd.str2kw('name', _("Fees")))
     yield presence
 
-    cash = ProductCat(**dd.str2kw('name', _("Cash daybooks")))
+    cash = Category(**dd.str2kw('name', _("Cash daybooks")))
     yield cash
 
     obj = Company(
@@ -112,7 +112,7 @@ def enrolments():
     group_therapy = named(
         Product, _("Group therapy"), sales_account=indacc,
         tariff=t1,
-        sales_price=30, cat=presence,
+        sales_price=30, category=presence,
         product_type=ProductTypes.default)
     yield group_therapy
 
@@ -122,14 +122,14 @@ def enrolments():
     ind_therapy = named(
         Product, _("Individual therapy"),
         tariff=t1,
-        sales_price=20, sales_account=indacc, cat=presence,
+        sales_price=20, sales_account=indacc, category=presence,
         product_type=ProductTypes.default)
     yield ind_therapy
 
     ind_therapy10 = named(
         Product, _("Individual therapy"),
         tariff=t10,
-        sales_price=20, sales_account=indacc, cat=presence,
+        sales_price=20, sales_account=indacc, category=presence,
         product_type=ProductTypes.default)
     yield ind_therapy10
 
@@ -138,7 +138,7 @@ def enrolments():
 
     yield named(Product, _("Other"), sales_price=35)
     prepayment = named(
-        Product, _("Cash daybook Daniel"), cat=cash,
+        Product, _("Cash daybook Daniel"), category=cash,
         product_type=ProductTypes.daybooks)
     yield prepayment
 
@@ -174,7 +174,7 @@ def enrolments():
     for a in ActivityLayouts.get_list_items():
         kw = dict(
             name=a.text, course_area=a, guest_role=attendee)
-        # kw.update(fees_cat=presence)
+        # kw.update(fees_category=presence)
         kw.update(guest_role=attendee)
         # if a.name in('therapies', 'life_groups'):
         #     kw.update(product=ind_therapy, event_type=ind_et)
