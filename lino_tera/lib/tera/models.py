@@ -466,48 +466,6 @@ from lino_xl.lib.countries.mixins import CountryCity
 #from lino_xl.lib.cv.mixins import PersonHistoryEntry, HistoryByPerson
 
 
-# class Residence(PersonHistoryEntry, CountryCity):
-
-#     allow_cascaded_delete = ['person']
-
-#     class Meta:
-#         app_label = 'avanti'
-#         verbose_name = _("Residence")
-#         verbose_name_plural = _("Residences")
-
-#     reason = models.CharField(_("Reason"), max_length=200, blank=True)
-
-
-
-# class Residences(dd.Table):
-#     model = 'avanti.Residence'
-
-# class ResidencesByPerson(HistoryByPerson, Residences):
-#     label = _("Former residences")
-#     column_names = 'country city duration_text reason *'
-#     auto_fit_column_widths = True
-
-
-# @dd.receiver(dd.pre_analyze)
-# def inject_cef_level_fields(sender, **kw):
-#     for lng in settings.SITE.languages:
-#         fld = dd.VirtualField(
-#             CefLevel.field(
-#                 verbose_name=lng.name, blank=True), cef_level_getter(lng))
-#         dd.inject_field(
-#             'avanti.Client', 'cef_level_'+lng.prefix, fld)
-
-#     def fc(**kwargs):
-#         return (**kwargs)
-
-
-# @dd.receiver(dd.post_analyze)
-# def my_details(sender, **kw):
-#     sender.modules.system.SiteConfigs.set_detail_layout("""
-#     site_company next_partner_id:10 default_build_method
-#     # site_calendar simulate_today hide_events_before
-#     # default_event_type max_auto_events
-#     """)
 
 class NotesByPartner(dd.Table):
     # the project of a note is a course, and the partner of that
