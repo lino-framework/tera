@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 # Copyright 2017-2020 Rumma & Ko Ltd
-# License: BSD (see file COPYING for details)
+# License: GNU Affero General Public License v3 (see file COPYING for details)
 
 # $ python setup.py test -s tests.PackagesTests.test_packages
 
@@ -50,8 +50,8 @@ Lino Tera is a customizable management system for therapeutic centres.
 """,
     author='Luc Saffre',
     author_email='luc@lino-framework.org',
-    url="http://tera.lino-framework.org",
-    license='BSD-2-Clause',
+    url="https://github.com/lino-framework/tera",
+    license_files=['COPYING'],
     classifiers="""\
 Programming Language :: Python
 Programming Language :: Python :: 3
@@ -62,7 +62,7 @@ Intended Audience :: Developers
 Intended Audience :: System Administrators
 Intended Audience :: Information Technology
 Intended Audience :: Customer Service
-License :: OSI Approved :: BSD License
+License :: OSI Approved :: GNU Affero General Public License v3
 Operating System :: OS Independent
 """.splitlines())
 

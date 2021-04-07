@@ -1,5 +1,5 @@
 # Copyright 2016-2018 Rumma & Ko Ltd
-# License: BSD (see file COPYING for details)
+# License: GNU Affero General Public License v3 (see file COPYING for details)
 
 from lino.modlib.users.desktop import *
 from lino.modlib.office.roles import OfficeUser
