@@ -15,7 +15,7 @@ from lino.sphinxcontrib import configure
 configure(globals())
 # configure(globals(), 'lino_book.projects.lydia.settings.demo')
 
-extlinks.update(ticket=('http://bugs.saffre-rumma.net/tickets/Ticket/%s', '#'))
+# extlinks.update(ticket=('https://jane.mylino.net/#/api/tickets/AllTickets/%s', '#'))
 
 extensions += ['lino.sphinxcontrib.logo']
 # extensions += ['lino.sphinxcontrib.actordoc']
@@ -23,12 +23,15 @@ extensions += ['lino.sphinxcontrib.logo']
 # from django.conf import settings
 # settings.SITE.title = "Lino Tera"
 
-intersphinx_mapping = {}
-from importlib import import_module
-for n in 'atelier lino_book'.split():
-    m = import_module(n)
-    n = n.replace('_', "")
-    intersphinx_mapping[n] = (m.intersphinx_urls['docs'], None)
+from atelier.sphinxconf import interproject
+interproject.configure(globals(), 'atelier')
+
+# intersphinx_mapping = {}
+# from importlib import import_module
+# for n in 'atelier lino_book'.split():
+#     m = import_module(n)
+#     n = n.replace('_', "")
+#     intersphinx_mapping[n] = (m.intersphinx_urls['docs'], None)
 
 # General configuration
 # ---------------------
