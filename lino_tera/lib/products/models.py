@@ -37,13 +37,13 @@ class Product(Product):
 class ProductDetail(dd.DetailLayout):
 
     main = "general #courses sales"
-    
+
     general = dd.Panel("""
-    name id 
+    name id
     product_type category sales_price tariff
     # tariff__number_of_events:10 tariff__min_asset:10 tariff__max_asset:10
     vat_class sales_account delivery_unit
-    description
+    body
     """, _("General"))
 
     # courses = dd.Panel("""
