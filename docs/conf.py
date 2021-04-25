@@ -5,7 +5,7 @@ extensions += ['lino.sphinxcontrib.logo']
 # from atelier.sphinxconf import interproject
 # interproject.configure(globals(), 'atelier')
 
-project = "Lino Tera"
+project = "Lino Tera User Guide"
 copyright = '2014-2021 Rumma & Ko Ltd'
 html_title = "Lino Tera"
 html_context.update(public_url='https://tera.lino-framework.org')
