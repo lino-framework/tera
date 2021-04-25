@@ -2,23 +2,7 @@
 The ``lino-tera`` package
 =========================
 
-
-
-.. image:: https://readthedocs.org/projects/lino/badge/?version=latest
-    :alt: Documentation Status
-    :target: http://lino.readthedocs.io/en/latest/?badge=latest
-
-.. image:: https://coveralls.io/repos/github/lino-framework/tera/badge.svg?branch=master
-    :target: https://coveralls.io/github/lino-framework/tera?branch=master
-
-.. image:: https://travis-ci.org/lino-framework/tera.svg?branch=stable
-    :target: https://travis-ci.org/lino-framework/tera?branch=stable
-
-.. image:: https://img.shields.io/pypi/v/lino-tera.svg
-    :target: https://pypi.python.org/pypi/lino-tera/
-
-.. image:: https://img.shields.io/pypi/l/lino-tera.svg
-    :target: https://pypi.python.org/pypi/lino-tera/
+Warning: This repository has moved to https://gitlab.com/lino-framework/tera
 
 Lino Tera is a customizable management system for therapeutic centres.
 
